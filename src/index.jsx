@@ -6,7 +6,7 @@ import { store } from "./store/store";
 
 import App from "./App";
 
-const root = document.getElementById("root");
+const root = document.querySelector("#root");
 
 ReactDOM.render(
   <BrowserRouter>

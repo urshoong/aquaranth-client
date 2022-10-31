@@ -20,6 +20,7 @@ module.exports = {
     extensions: [".js", ".jsx"],
     alias: {
       "@hooks": path.resolve(src, "hooks"),
+      "@styles": path.resolve(src, "styles"),
       "@reducer": path.resolve(src, "store/reducer"),
       "@api": path.resolve(src, "api"),
       "@components": path.resolve(src, "components"),
@@ -62,10 +63,8 @@ module.exports = {
     ],
   },
   plugins: [
-
     new ReactRefreshWebpackPlugin(),
     new LoaderOptionsPlugin({ minimize: true }),
-
     new DefinePlugin({
       "process.env": JSON.stringify(process.env),
     }),
@@ -83,15 +82,15 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
   ],
-
   output: {
     path: path.join(__dirname, "dist"),
     filename: "[name]-[hash].js",
+    publicPath: "/",
   },
   devServer: {
     historyApiFallback: true,
+    open: true,
     hot: true,
     port: 3000,
-    open: true,
   },
 };

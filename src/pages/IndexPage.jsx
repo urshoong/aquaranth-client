@@ -1,22 +1,13 @@
-import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import request from "@utils/axiosUtil";
-import { SET_TIME } from "@reducer/indexSlice";
+import React from "react";
+import {Input, OkBtn, TomatoButton} from "@styles/buttons";
 
 const IndexPage = () => {
-  const dispatch = useDispatch();
-  const time = useSelector((state) => state.index);
-
-  const getTime = useCallback(async () => {
-    await request.get("/time").then((res) => {
-      dispatch(SET_TIME(res.data));
-    });
-  }, [dispatch]);
-
+  console.log("IndexPage Test");
   return (
     <div>
-      <button type="button" onClick={getTime}>Get Time</button>
-      {time.time}
+      <Input small placeholder="Small" />
+      <Input placeholder="Normal" />
+      <Input padding="2em" placeholder="Padded" />
     </div>
   );
 };

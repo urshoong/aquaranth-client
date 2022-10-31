@@ -28,7 +28,9 @@
     "react-redux": "^8.0.4",
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
-    "redux": "^4.2.0"
+    "redux": "^4.2.0",
+    "styled-components": "^5.3.6",
+    "sweetalert2": "^11.6.5"
   },
   "devDependencies": {
     "@babel/core": "^7.19.0",
