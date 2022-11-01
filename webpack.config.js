@@ -60,6 +60,25 @@ module.exports = {
         test: /\.css?$/,
         use: ["style-loader", "css-loader"],
       },
+      {
+        test: /\.svg$/,
+        loader: "file-loader",
+        options: {
+          publicPath: "./dist/",
+          name: "[name].[ext]?[hash]",
+        },
+      },
+      {
+        test: /\.svg$/,
+        use: {
+          loader: "url-loader",
+          options: {
+            name: "[name].[ext]?[hash]",
+            publicPath: "./dist/",
+            limit: 10000,
+          },
+        },
+      },
     ],
   },
   plugins: [
