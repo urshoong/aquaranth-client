@@ -1,8 +1,9 @@
 import React from "react";
+import View from "@pages/dept/view";
 
 const IndexPage = () => (
   <div>
-    Hello World!
+      <View/>
   </div>
 );
 
