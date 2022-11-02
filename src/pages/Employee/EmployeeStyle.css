@@ -1,0 +1,37 @@
+.pageLine{
+    /*테스트용 삭제 예쩡*/
+    border: black 1px solid;
+    height: 100vh;
+}
+.empList{
+    border: black 1px solid;
+    width: 20%;
+    height: 100vh;
+    display: inline-block;
+}
+
+.empItem{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    border: darkred 1px solid;
+    padding: 1vh;
+    margin: 1vh;
+}
+
+.empItemImg{
+    border: blueviolet 1px solid;
+    /*display: inline-block;*/
+    height: 50px;
+    width: 50px;
+}
+.empIdName{
+    /*align-items: center;*/
+    /*display: inline-block;*/
+    padding-top: 1vh;
+    color: darkgreen;
+}
+
+.infoPage{
+    display: inline-block;
+}
