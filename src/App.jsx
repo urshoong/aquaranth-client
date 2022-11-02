@@ -6,9 +6,9 @@ import MenuPage from "@pages/MenuPage";
 import RoleGroupPage from "@pages/role/RoleGroupPage";
 import EmpInformationPage from "@pages/emp/EmpInformationPage";
 import IndexPage from "@pages/IndexPage";
-import ComBasicInfo from "@pages/Company/ComBasicInfo";
-import ComLayout from "@pages/Company/ComLayout";
-import UserRole from "@pages/UserRole/UserRole";
+import ComBasicInfoPage from "@pages/company/ComBasicInfoPage";
+import ComLayout from "@pages/company/ComLayout";
+import UserRolePage from "@pages/userrole/UserRolePage";
 
 
 const App = () => (
@@ -16,7 +16,7 @@ const App = () => (
   <Switch>
     <Route path="/" component={IndexPage} exact />
     <Route path="/menu" component={MenuPage} />
-    <Route path="/userrole" component={UserRole} />
+    <Route path="/userrole" component={UserRolePage} />
     <Route path="/role">
       <Route path="/role/group" component={RoleGroupPage} />
     </Route>
@@ -24,7 +24,7 @@ const App = () => (
       <Route path="/employee/info" component={EmpInformationPage} />
     </Route>
     <Route path="/orga">
-      <Route path="/orga/company" component={ComBasicInfo} />
+      <Route path="/orga/company" component={ComBasicInfoPage} />
       <Route path="/orga/layout" component={ComLayout} />
     </Route>
     <Route component={NotFoundPage} />

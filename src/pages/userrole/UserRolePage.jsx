@@ -1,7 +1,7 @@
 import React from "react";
-import "./UserRole.css";
+import "./userrole.css";
 
-function UserRole(props) {
+function UserRolePage(props) {
   return (
     <div className="wrap">
       <div className="titleWrap">
@@ -119,4 +119,4 @@ function UserRole(props) {
   );
 }
 
-export default UserRole;
+export default UserRolePage;

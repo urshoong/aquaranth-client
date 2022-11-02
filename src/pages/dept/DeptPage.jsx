@@ -1,7 +1,7 @@
 import React from "react";
 import "./view.css";
 
-function View(props) {
+function DeptPage(props) {
   return (
     <div className="all">
 
@@ -51,4 +51,4 @@ function View(props) {
   );
 }
 
-export default View;
+export default DeptPage;

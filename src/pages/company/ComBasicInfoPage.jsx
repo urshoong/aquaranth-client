@@ -7,7 +7,7 @@ const companyList = async () => {
   return data;
 };
 
-function ComBasicInfo() {
+function ComBasicInfoPage() {
   const [comList, setComList] = useState([]);
 
   useEffect(() => {
@@ -24,4 +24,4 @@ function ComBasicInfo() {
   );
 }
 
-export default ComBasicInfo;
+export default ComBasicInfoPage;

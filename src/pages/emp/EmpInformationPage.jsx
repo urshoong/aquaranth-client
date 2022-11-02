@@ -1,5 +1,5 @@
 import React from "react";
-import "./EmployeeStyle.css";
+import "./employeestyle.css";
 
 // TODO 정렬, 페이징
 
