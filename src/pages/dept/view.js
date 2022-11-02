@@ -35,10 +35,19 @@ function View(props) {
 
                 <div className="middle">
                     <div className="stage">
-                        {/*stage*/}
+                        <input placeholder="stage"/>
+                        <input placeholder="코드/사업장/부서명을 입력하세요." type={"text"} />
                     </div>
                     <div className="detail">
-                        {/*조직도*/}
+                        <span className="detail1">
+                            <span>
+                                상세정보
+                            </span>
+                            <span>
+                                <button>저장</button>
+                                <button>삭제</button>
+                            </span>
+                        </span>
                     </div>
                 </div>
 
