@@ -1,9 +1,9 @@
 import React from "react";
-import View from "@pages/dept/view";
+import View from "@pages/Dept/view";
 
 const IndexPage = () => (
   <div>
-      <View/>
+    <View />
   </div>
 );
 

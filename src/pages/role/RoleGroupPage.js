@@ -1,9 +1,9 @@
-import React from 'react';
-import '../../styles/groupRoleStyle.css';
+import React from "react";
+import "@styles/groupRoleStyle.css";
 import SearchBox from "@components/roleGroup/SearchBox";
 import RoleGroupList from "@components/roleGroup/RoleGroupList";
 
-function RoleGroupPage(props) {
+function RoleGroupPage() {
   return (
     <div className="wrapper">
       <div className="role-header">권한그룹설정</div>
@@ -14,7 +14,7 @@ function RoleGroupPage(props) {
             <SearchBox />
             <RoleGroupList />
           </div>
-          <div className="content-right b"></div>
+          <div className="content-right b" />
         </div>
       </div>
     </div>

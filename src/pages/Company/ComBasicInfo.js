@@ -19,9 +19,7 @@ function ComBasicInfo() {
   console.log(comList);
   return (
     <div>
-      {comList?.map(({ companyNo, companyName, ownerName, companyUse }) => {
-        return <li key={companyNo}>{companyNo} / {companyName} / {ownerName} / {companyUse ? "사용" : "미사용"} </li>;
-      })}
+      {comList?.map(({ companyNo, companyName, ownerName, companyUse }) => <li key={companyNo}>{companyNo} / {companyName} / {ownerName} / {companyUse ? "사용" : "미사용"} </li>)}
     </div>
   );
 }

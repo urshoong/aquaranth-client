@@ -3,7 +3,7 @@ import "./EmployeeStyle.css";
 
 // TODO 정렬, 페이징
 
-function EmployeeInfo(props) {
+function EmpInformationPage() {
   return (
     <div className="pageLine">
 
@@ -33,4 +33,4 @@ function EmployeeInfo(props) {
   );
 }
 
-export default EmployeeInfo;
+export default EmpInformationPage;

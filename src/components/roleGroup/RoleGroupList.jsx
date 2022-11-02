@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
 function RoleGroupList(props) {
   const [filter, setFilter] = useState([]);
@@ -19,7 +19,7 @@ function RoleGroupList(props) {
       </div>
       {/* list */}
       <div className="group-list">
-        {roles.map((item)=><div>dd</div>)}
+        {roles.map((item) => <div>dd</div>)}
       </div>
       {/* list footer */}
       <div className="footer">

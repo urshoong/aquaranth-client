@@ -19,12 +19,8 @@ function ComLayout() {
           <button className="searchBt">🔍</button>
         </div>
         <div className="listInfoDiv">
-          <div className="comList">
-
-          </div>
-          <div className="comInfo">
-
-          </div>
+          <div className="comList" />
+          <div className="comInfo" />
         </div>
       </div>
     </div>
