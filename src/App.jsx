@@ -1,6 +1,9 @@
 import React from "react";
 import { Route, Switch } from "react-router";
 import NotFoundPage from "@pages/NotFoundPage";
+
+import MenuPage from "@pages/MenuPage";
+
 import RoleGroupPage from "@pages/role/RoleGroupPage";
 
 import EmployeeInfo from "@pages/Employee/EmployeeInfo";
@@ -10,10 +13,14 @@ import ComBasicInfo from "@pages/Company/ComBasicInfo";
 import ComLayout from "@pages/Company/ComLayout";
 
 
+
 const App = () => (
 
   <Switch>
     <Route path="/" component={IndexPage} exact />
+
+    <Route path="/menu" component={MenuPage}/>
+
           <Route path="/role">
         <Route path="/role/group" component={RoleGroupPage} />
     <Route path="/employee">
@@ -22,6 +29,7 @@ const App = () => (
       <Route path="/orga/company" component={ComBasicInfo} />
       <Route path="/orga/layout" component={ComLayout} />
     </Route>
+
     <Route component={NotFoundPage} />
   </Switch>
 );
