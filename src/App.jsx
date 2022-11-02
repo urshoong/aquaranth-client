@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router";
 import NotFoundPage from "@pages/NotFoundPage";
+import RoleGroupPage from "@pages/role/RoleGroupPage";
 
 import EmployeeInfo from "@pages/Employee/EmployeeInfo";
 import IndexPage from "@pages/IndexPage";
@@ -10,8 +11,11 @@ import ComLayout from "@pages/Company/ComLayout";
 
 
 const App = () => (
+
   <Switch>
     <Route path="/" component={IndexPage} exact />
+          <Route path="/role">
+        <Route path="/role/group" component={RoleGroupPage} />
     <Route path="/employee">
       <Route path="/employee/info" component={EmployeeInfo} />
     <Route path="/orga">
