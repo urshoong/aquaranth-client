@@ -20,8 +20,8 @@ const App = () => (
     <Route path="/role">
       <Route path="/role/group" component={RoleGroupPage} />
     </Route>
-    <Route path="/employee">
-      <Route path="/employee/info" component={EmpInformationPage} />
+    <Route path="/emp">
+      <Route path="/emp/information" component={EmpInformationPage} />
     </Route>
     <Route path="/orga">
       <Route path="/orga/company" component={ComBasicInfoPage} />

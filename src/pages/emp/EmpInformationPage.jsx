@@ -1,35 +1,25 @@
-import React from "react";
-import "./employeestyle.css";
-
+import React, { useEffect, useState } from "react";
+import request from "../../utils/axiosUtil";
+import EmpInformation from "../../components/emp/EmpInformation";
 // TODO 정렬, 페이징
 
+const empList = async () => {
+  const { data } = await request.get("/emp/information");
+  return data;
+};
+
 function EmpInformationPage() {
+  const [emps, setEmps] = useState([]);
+
+  useEffect(() => {
+    empList().then((data) => {
+      console.log(data);
+      setEmps(data);
+    });
+  }, []);
+
   return (
-    <div className="pageLine">
-
-      <div className="empList"> div2-1
-        <span>사용자 : n 명</span> <span>정렬▼</span>
-        <div className="empItem">
-          <div className="empItemImg">사진 </div>
-          <div className="empIdName">
-            <div>
-              ID
-            </div>
-            <div>
-              NAME
-            </div>
-          </div>
-          <div>
-            dd
-          </div>
-        </div>
-      </div>
-
-      <div className="infoPage">2-2
-        <span>selectOne</span>
-      </div>
-
-    </div>
+    <EmpInformation emps={emps} />
   );
 }
 
