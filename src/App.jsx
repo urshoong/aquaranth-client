@@ -7,8 +7,8 @@ import RoleGroupPage from "@pages/role/RoleGroupPage";
 import EmpInformationPage from "@pages/emp/EmpInformationPage";
 import IndexPage from "@pages/IndexPage";
 import ComBasicInfoPage from "@pages/company/ComBasicInfoPage";
-import ComLayout from "@pages/company/ComLayout";
 import UserRolePage from "@pages/userrole/UserRolePage";
+import ComLayout from "./components/company/ComLayout";
 
 
 const App = () => (
@@ -25,7 +25,6 @@ const App = () => (
     </Route>
     <Route path="/orga">
       <Route path="/orga/company" component={ComBasicInfoPage} />
-      <Route path="/orga/layout" component={ComLayout} />
     </Route>
     <Route component={NotFoundPage} />
   </Switch>

@@ -1,7 +1,7 @@
 import React from "react";
 import "./comLayout.css";
 
-function ComLayout() {
+function ComLayout({ comList }) {
   return (
     <div className="firstOutDiv">
       <div className="headLine">
@@ -19,7 +19,16 @@ function ComLayout() {
           <button className="searchBt">🔍</button>
         </div>
         <div className="listInfoDiv">
-          <div className="comList" />
+          <div className="comList">
+            {comList?.map(({ companyNo, companyName, ownerName, companyUse }) => (
+              <div className="comListDiv">
+                <div>{companyNo}</div>
+                <div>{ownerName}</div>
+                <div>{companyName}</div>
+                <div>{companyUse ? "사용" : "미사용"} </div>
+              </div>
+            ))}
+          </div>
           <div className="comInfo" />
         </div>
       </div>

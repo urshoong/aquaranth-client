@@ -60,18 +60,35 @@
 .listInfoDiv {
     box-sizing: border-box;
     padding-top: 8px;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-gap: 1rem;
 }
 
 .comList {
     height: 600px;
-    width: 300px;
     border: 1px solid darkgray;
-    float: left;
 }
 
 .comInfo {
-    height: 6vh;
-    width: 12vw;
+    height: 600px;
     border: 1px solid darkgray;
-    float: right;
 }
+
+.comListDiv {
+    width: 95%;
+    height: 60px;
+    border: 1px solid darkgray;
+    border-radius: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    padding-top: 10px;
+    margin-left: 6px;
+    margin-top: 6px;
+    grid-gap: 0rem 5rem;
+}
+
+/*.comListDiv:nth-child(){*/
+/*    justify-self: end;*/
+/*}*/
