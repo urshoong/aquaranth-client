@@ -1,30 +1,33 @@
 import React from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch } from "react-router-dom";
 
-import NotFoundPage from "@pages/NotFoundPage";
-import MenuPage from "@pages/MenuPage";
-import EmpInformationPage from "@pages/emp/EmpInformationPage";
+import loadable from "@loadable/component";
 import IndexPage from "@pages/IndexPage";
-import ComBasicInfoPage from "@pages/company/ComBasicInfoPage";
-import ComLayout from "@pages/company/ComLayout";
-import UserRolePage from "@pages/userrole/UserRolePage";
+import routes from "@pages/routes";
+import DefaultLayout from "@components/layout/DefaultLayout";
+
+
+const Page = loadable(
+  (props) => import(`@pages/${props.page}`),
+  {
+    fallback: <div>Loading...</div>,
+  },
+);
 
 
 const App = () => (
-
   <Switch>
     <Route path="/" component={IndexPage} exact />
-    <Route path="/menu" component={MenuPage} />
-    <Route path="/userrole" component={UserRolePage} />
-    <Route path="/employee">
-      <Route path="/employee/info" component={EmpInformationPage} />
-    </Route>
-    <Route path="/orga">
-      <Route path="/orga/company" component={ComBasicInfoPage} />
-      <Route path="/orga/layout" component={ComLayout} />
-    </Route>
-    <Route component={NotFoundPage} />
+    <DefaultLayout>
+      {routes.map((props, index) => (
+        <Route
+          exact
+          path={props.path}
+          render={() => <Page page={props.component} />}
+          key={index}
+        />
+      ))}
+    </DefaultLayout>
   </Switch>
 );
-
 export default App;

@@ -1,7 +1,7 @@
 import React from "react";
 import "./comLayout.css";
 
-function ComLayout() {
+function Index() {
   return (
     <div className="firstOutDiv">
       <div className="headLine">
@@ -27,4 +27,4 @@ function ComLayout() {
   );
 }
 
-export default ComLayout;
+export default Index;

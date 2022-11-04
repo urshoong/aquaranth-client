@@ -1,10 +1,8 @@
 import React from "react";
-import DeptPage from "@pages/dept/DeptPage";
+import DefaultLayout from "@components/layout/DefaultLayout";
 
 const IndexPage = () => (
-  <div>
-    <DeptPage />
-  </div>
+  <DefaultLayout />
 );
 
 export default IndexPage;
