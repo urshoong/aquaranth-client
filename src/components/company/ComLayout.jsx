@@ -28,6 +28,7 @@ function ComLayout({ comList }) {
                 <div>{companyUse ? "사용" : "미사용"} </div>
               </div>
             ))}
+            <div className="listRegisterDiv">+ ㅁ추가</div>
           </div>
           <div className="comInfo" />
         </div>
