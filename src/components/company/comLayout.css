@@ -52,6 +52,7 @@
     height: 2em;
     width: 2em;
     border: 1px solid darkgray;
+    border-radius: 0.3em;
     position: absolute;
     margin-top: 8px;
     right: 2.5em;
@@ -90,6 +91,69 @@
     grid-gap: 0rem 5rem;
 }
 
-.listRegisterDiv {
-    height: 10px;
+.companyCount {
+    font-size: 20px;
+}
+
+.informationDiv {
+    font-size: 1.5rem;
+    padding-top: 30px;
+    display: grid;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+}
+
+.contentDiv {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    margin-top: 0.5em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid darkgray;
+    box-sizing: border-box;
+}
+
+.companyCount {
+    padding-left: 1em;
+}
+
+.registerBt, .modifyBt, .removeBt {
+    width: 3em;
+    height: 1.6em;
+    border: 1px solid darkgray;
+    border-radius: 0.3em;
+    margin-right: 2em;
+}
+
+.buttonsDiv {
+    flex-direction: row-reverse;
+}
+
+.basicFont {
+    line-height: 2em;
+    font-size: 1.3em;
+    border-bottom: double black;
+}
+
+.companyNoInput, .companyNameInput, .companyAddressInput,
+.companyTelInput, .ownerNameInput, .businessNumberInput,
+.foundingDateInput {
+    border: 1px solid darkgray;
+    margin-bottom: 3em;
+    width: 20em;
+    height: 2em;
+    padding-left: 0.5em;
+}
+
+.companyUseInput {
+    margin-left: 1em;
+}
+
+.basicInformation {
+    margin-top: 2em;
+    margin-left: 1.5em;
+}
+
+span {
+    font-size: 1.5em;
+    margin-right: 1em;
 }

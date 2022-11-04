@@ -24,7 +24,7 @@ const App = () => (
       <Route path="/employee/info" component={EmpInformationPage} />
     </Route>
     <Route path="/orga">
-      <Route path="/orga/company" component={ComBasicInfoPage} />
+      <Route path="/orga/company" component={ComLayout} />
     </Route>
     <Route component={NotFoundPage} />
   </Switch>
