@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import request from "../../utils/axiosUtil";
-import EmpInformation from "../../components/emp/EmpInformation";
+import EmpFrame from "../../components/emp/EmpFrame";
 // TODO 정렬, 페이징
 
 const empList = async () => {
@@ -8,18 +8,38 @@ const empList = async () => {
   return data;
 };
 
+const empRead = async (empNo) => {
+  const { data } = await request.get(`/emp/read/${empNo}`);
+  return data;
+};
+
+const initState = {
+  empNo: 0,
+  empName: "",
+};
+
 function EmpInformationPage() {
   const [emps, setEmps] = useState([]);
 
+  const [empInfo, setEmpInfo] = useState(initState);
+
+  const empListClick = (empNo) => {
+    empRead(empNo).then((data) => {
+      console.log(data);
+      setEmpInfo(data);
+    });
+    console.log(empNo);
+  };
+
+
   useEffect(() => {
     empList().then((data) => {
-      console.log(data);
       setEmps(data);
     });
   }, []);
 
   return (
-    <EmpInformation emps={emps} />
+    <EmpFrame emps={emps} empListClick={empListClick} empInfo={empInfo} />
   );
 }
 

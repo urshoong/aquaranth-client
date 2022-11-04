@@ -9,6 +9,7 @@ import IndexPage from "@pages/IndexPage";
 import ComBasicInfoPage from "@pages/company/ComBasicInfoPage";
 import ComLayout from "@pages/company/ComLayout";
 import UserRolePage from "@pages/userrole/UserRolePage";
+import EmpInformation from "./components/emp/EmpInformation";
 
 
 const App = () => (
@@ -22,6 +23,7 @@ const App = () => (
     </Route>
     <Route path="/emp">
       <Route path="/emp/information" component={EmpInformationPage} />
+      <Route path="/emp/empInsert" component={EmpInformation} />
     </Route>
     <Route path="/orga">
       <Route path="/orga/company" component={ComBasicInfoPage} />

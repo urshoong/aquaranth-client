@@ -2,10 +2,11 @@
     /*테스트용 삭제 예쩡*/
     border: black 1px solid;
     height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
 }
 .empList{
     border: black 1px solid;
-    width: 20%;
     height: 100vh;
     display: inline-block;
 }
@@ -30,8 +31,4 @@
     /*display: inline-block;*/
     padding-top: 1vh;
     color: darkgreen;
-}
-
-.infoPage{
-    display: inline-block;
 }
