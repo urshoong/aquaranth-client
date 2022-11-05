@@ -1,6 +1,6 @@
 import React from "react";
 
-function EmpInsert({ chengeEmpInput, clickEmpAdd }) {
+function EmpInsert({ chengeEmpInput, clickEmpAdd, clickMoveEmpListPage }) {
   return (
     <div>
       <span>사원 정보 추가하기</span>
@@ -13,7 +13,7 @@ function EmpInsert({ chengeEmpInput, clickEmpAdd }) {
 
         <div>
           <span> 이름 </span>
-          <input type="text" name="empName" required onChange={(e) => { chengeEmpInput(e); }} />
+          <input type="text" name="empName" onChange={(e) => { chengeEmpInput(e); }} />
         </div>
 
         <div>
@@ -51,6 +51,7 @@ function EmpInsert({ chengeEmpInput, clickEmpAdd }) {
       </div>
 
       <button type="submit" onClick={() => { clickEmpAdd(); }}>추가하기</button>
+      <button type="button" onClick={() => { clickMoveEmpListPage(); }}>목록으로</button>
     </div>
   );
 }

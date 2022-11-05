@@ -14,6 +14,11 @@ const empRead = async (empNo) => {
   return data;
 };
 
+const empModify = async (empInfo) => {
+  const { data } = await request.put(`/emp/modify/${empInfo.empNo}`, empInfo);
+  return data;
+};
+
 const initState = {
   empNo: 0,
   empName: "",
@@ -22,20 +27,33 @@ const initState = {
 function EmpInformationPage() {
   const [emps, setEmps] = useState([]);
 
-  const [empInfo, setEmpInfo] = useState(initState);
+  const [empInformation, setEmpInformation] = useState(initState);
 
   const history = useHistory();
 
   const clickEmpList = (empNo) => {
     empRead(empNo).then((data) => {
       console.log(data);
-      setEmpInfo(data);
+      setEmpInformation(data);
     });
     console.log(empNo);
   };
 
-  const clickEmpAdd = () => {
+  const clickEmpRegister = () => {
     history.push("/emp/insert");
+  };
+
+  const changeEmpInput = (e) => {
+    const { name } = e.target;
+    const { value } = e.target;
+
+    empInformation[name] = value;
+    setEmpInformation({ ...empInformation });
+    console.log(empInformation);
+  };
+
+  const clickEmpModify = () => {
+    empModify(empInformation);
   };
 
 
@@ -49,8 +67,10 @@ function EmpInformationPage() {
     <EmpInformation
       emps={emps}
       clickEmpList={clickEmpList}
-      empInfo={empInfo}
-      clickEmpAdd={clickEmpAdd}
+      empInformation={empInformation}
+      clickEmpRegister={clickEmpRegister}
+      changeEmpInput={changeEmpInput}
+      clickEmpModify={clickEmpModify}
     />
   );
 }

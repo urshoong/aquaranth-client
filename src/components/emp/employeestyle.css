@@ -52,7 +52,6 @@
 
 button[type=button] {
     border: darkgreen 1px solid;
-    margin-left: 3vw;
 }
 
 input[type=text] {
@@ -61,4 +60,11 @@ input[type=text] {
 
 .displayNone{
     display: none;
+}
+
+.essential{
+    background-color: lightcoral;
+}
+.unchangeable{
+    background-color: gray;
 }

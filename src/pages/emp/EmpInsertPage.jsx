@@ -40,8 +40,16 @@ function EmpInsertPage(props) {
     });
   };
 
+  const clickMoveEmpListPage = () => {
+    history.replace("/emp/information");
+  };
+
   return (
-    <EmpInsert chengeEmpInput={chengeEmpInput} clickEmpAdd={clickEmpAdd} />
+    <EmpInsert
+      chengeEmpInput={chengeEmpInput}
+      clickEmpAdd={clickEmpAdd}
+      clickMoveEmpListPage={clickMoveEmpListPage}
+    />
   );
 }
 
