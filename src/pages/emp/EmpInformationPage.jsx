@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import request from "../../utils/axiosUtil";
-import EmpFrame from "../../components/emp/EmpFrame";
+import EmpInformation from "../../components/emp/EmpInformation";
 // TODO 정렬, 페이징
 
 const empList = async () => {
@@ -23,12 +24,18 @@ function EmpInformationPage() {
 
   const [empInfo, setEmpInfo] = useState(initState);
 
-  const empListClick = (empNo) => {
+  const history = useHistory();
+
+  const clickEmpList = (empNo) => {
     empRead(empNo).then((data) => {
       console.log(data);
       setEmpInfo(data);
     });
     console.log(empNo);
+  };
+
+  const clickEmpAdd = () => {
+    history.push("/emp/insert");
   };
 
 
@@ -39,7 +46,12 @@ function EmpInformationPage() {
   }, []);
 
   return (
-    <EmpFrame emps={emps} empListClick={empListClick} empInfo={empInfo} />
+    <EmpInformation
+      emps={emps}
+      clickEmpList={clickEmpList}
+      empInfo={empInfo}
+      clickEmpAdd={clickEmpAdd}
+    />
   );
 }
 

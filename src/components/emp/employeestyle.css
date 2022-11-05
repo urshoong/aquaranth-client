@@ -22,13 +22,43 @@
 
 .empItemImg{
     border: blueviolet 1px solid;
-    /*display: inline-block;*/
     height: 50px;
     width: 50px;
 }
 .empIdName{
-    /*align-items: center;*/
-    /*display: inline-block;*/
     padding-top: 1vh;
     color: darkgreen;
+}
+
+/*사원기본정보 최상위 div(grid)*/
+.empBasicInformation{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: #aaa 2px solid;
+}
+
+.empBasicInformation:nth-child(18){
+    datatype : "local"
+}
+
+.empBasicInformation > div {
+    border-right: 2px solid #aaa;
+    border-bottom: 2px solid #aaa;
+}
+
+.category .info {
+    padding: 33px;
+}
+
+button[type=button] {
+    border: darkgreen 1px solid;
+    margin-left: 3vw;
+}
+
+input[type=text] {
+    border: brown 1px solid;
+}
+
+.displayNone{
+    display: none;
 }
