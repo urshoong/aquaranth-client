@@ -19,14 +19,16 @@ const companyInformation = async (companyNo) => {
   return data;
 };
 
-const companyRegister = async (dto) => {
-  const { data } = await request.post("/company/add", dto);
-
-  return data;
-};
-
 const companyRemove = async (companyNo) => {
   await request.delete(`/company/remove/${companyNo}`);
+};
+
+const companyRegister = async (info) => {
+  await request.post("/company/register", info);
+};
+
+const companyModify = async (companyNo, modify) => {
+  await request.put(`/company/modify/${companyNo}`, modify);
 };
 
 const initState = {
@@ -40,12 +42,22 @@ const initState = {
   companyUse: true,
 };
 
+const initStateModify = {
+  companyNo: 0,
+  companyName: "",
+  companyAddress: "",
+  companyTel: "",
+  ownerName: "",
+  companyUse: true,
+};
+
 function ComLayout() {
   const [search, setSearch] = useState([]);
-  const [information, setInformation] = useState("");
+  const [information, setInformation] = useState(initState);
   const [code, setCode] = useState("");
-  const [use, setUse] = useState(true);
+  const [use, setUse] = useState("true");
   const [register, setRegister] = useState(initState);
+  const { companyNo, companyName, companyAddress, companyTel, ownerName, businessNumber, foundingDate, companyUse } = information;
 
   useEffect(() => {
     companyList().then((data) => {
@@ -67,8 +79,8 @@ function ComLayout() {
     });
   };
 
-  const clickInformation = (companyNo) => {
-    companyInformation(companyNo).then((data) => {
+  const clickInformation = (num) => {
+    companyInformation(num).then((data) => {
       console.log(data);
       setInformation(data);
     });
@@ -78,14 +90,16 @@ function ComLayout() {
     const { name } = e.target;
     const { value } = e.target;
 
-    register[name] = value;
-    setRegister({ ...register });
-
-    console.log(register);
+    if (name === "companyUse") {
+      information[name] = changeBoolean(value);
+    } else {
+      information[name] = value;
+    }
+    setRegister({ ...information });
   };
 
-  const clickRemove = (companyNo) => {
-    companyRemove(companyNo).then(() => {
+  const clickRemove = (num) => {
+    companyRemove(num).then(() => {
       setInformation(initState);
       companyList().then((data) => {
         setSearch(data);
@@ -93,9 +107,28 @@ function ComLayout() {
     });
   };
 
-  const clickRegister = (dto) => {
-    companyRegister(dto).then(() => {
+  const changeBoolean = (value) => {
+    if (value && typeof value === "string") {
+      if (value.toLowerCase() === "true") return true;
+      if (value.toLowerCase() === "false") return false;
+    }
+  };
+
+  const clickRegister = (info) => {
+    companyRegister(info).then(() => {
       setInformation(initState);
+      companyList().then((data) => {
+        setSearch(data);
+      });
+    });
+  };
+
+  const clickRegisterBefore = () => {
+    setInformation({ ...initState });
+  };
+
+  const clickModify = (num, info) => {
+    companyModify(num, info).then(() => {
       companyList().then((list) => {
         setSearch(list);
       });
@@ -133,45 +166,48 @@ function ComLayout() {
             <div className="contentDiv">
               <span className="companyCount">회사 {search.length}건</span>
               <div className="buttonsDiv">
-                <button className="registerBt" onClick={() => { clickRegister(register); }}>추가</button>
-                <button className="modifyBt">저장</button>
-                <button className="removeBt" onClick={() => { clickRemove(information.companyNo); }}>삭제</button>
+                <button className="registerBeforeBt" onClick={() => { clickRegisterBefore(); }}>추가</button>
+                <button className="registerBt" onClick={() => { clickRegister(information); }}>저장</button>
+                <button className="modifyBt" onClick={() => { clickModify(companyNo, information); }}>수정</button>
+                <button className="removeBt" onClick={() => { clickRemove(companyNo); }}>삭제</button>
               </div>
             </div>
             <p className="basicFont">ㆍ기본정보</p>
             <div className="basicInformation">
               <div>
                 <span>회사코드</span>
-                <input className="companyNoInput" type="text" name="companyNo" value={information.companyNo} onChange={(e) => { changeRegister(e); }} />
+                <input className="companyNoInput" type="text" name="companyNo" value={companyNo} onChange={(e) => { changeRegister(e); }} />
               </div>
               <div>
                 <span>회사명</span>
-                <input className="companyNameInput" type="text" name="companyName" value={information.companyName} onChange={(e) => { changeRegister(e); }} />
+                <input className="companyNameInput" type="text" name="companyName" value={companyName} onChange={(e) => { changeRegister(e); }} />
               </div>
               <div>
                 <span>회사주소</span>
-                <input className="companyAddressInput" type="text" name="companyAddress" value={information.companyAddress} onChange={(e) => { changeRegister(e); }} />
+                <input className="companyAddressInput" type="text" name="companyAddress" value={companyAddress} onChange={(e) => { changeRegister(e); }} />
               </div>
               <div>
                 <span>회사전화번호</span>
-                <input className="companyTelInput" type="text" name="companyTel" value={information.companyTel} onChange={(e) => { changeRegister(e); }} />
+                <input className="companyTelInput" type="text" name="companyTel" value={companyTel} onChange={(e) => { changeRegister(e); }} />
               </div>
               <div>
                 <span>대표자명</span>
-                <input className="ownerNameInput" type="text" name="ownerName" value={information.ownerName} onChange={(e) => { changeRegister(e); }} />
+                <input className="ownerNameInput" type="text" name="ownerName" value={ownerName} onChange={(e) => { changeRegister(e); }} />
               </div>
               <div>
                 <span>사업자번호</span>
-                <input className="businessNumberInput" type="text" name="businessNumber" value={information.businessNumber} onChange={(e) => { changeRegister(e); }} />
+                <input className="businessNumberInput" type="text" name="businessNumber" value={businessNumber} onChange={(e) => { changeRegister(e); }} />
               </div>
               <div>
                 <span>설립일</span>
-                <input className="foundingDateInput" type="date" name="foundingDate" value={information.foundingDate} onChange={(e) => { changeRegister(e); }} />
+                <input className="foundingDateInput" type="date" name="foundingDate" value={foundingDate} onChange={(e) => { changeRegister(e); }} />
               </div>
-              <div>
+              <div className="useCheckDiv">
                 <span>사용여부</span>
-                <input className="companyUseInput" name="use" type="radio" />사용
-                <input className="companyUseInput" name="use" type="radio" />미사용
+                <div>
+                  <input className="companyUseInput" name="companyUse" type="radio" value="true" checked={companyUse === true} onChange={(e) => { changeRegister(e); }} />사용
+                  <input className="companyUseInput" name="companyUse" type="radio" value="false" checked={companyUse === false} onChange={(e) => { changeRegister(e); }} />미사용
+                </div>
               </div>
             </div>
           </div>
