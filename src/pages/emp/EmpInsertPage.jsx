@@ -4,7 +4,7 @@ import request from "../../utils/axiosUtil";
 import EmpInsert from "../../components/emp/EmpInsert";
 
 const empRegister = async (emp) => {
-  const { data } = await request.post("/emp/insert", emp);
+  const { data } = await request.post("/emp/register", emp);
   return data;
 };
 

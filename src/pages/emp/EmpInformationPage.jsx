@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import request from "../../utils/axiosUtil";
 import EmpInformation from "../../components/emp/EmpInformation";
+import empInsertPage from "./EmpInsertPage";
 // TODO 정렬, 페이징
 
 const empList = async () => {
@@ -16,6 +17,11 @@ const empRead = async (empNo) => {
 
 const empModify = async (empInfo) => {
   const { data } = await request.put(`/emp/modify/${empInfo.empNo}`, empInfo);
+  return data;
+};
+
+const empRemove = async (empNo) => {
+  const { data } = await request.delete(`emp/remove/${empNo}`);
   return data;
 };
 
@@ -40,7 +46,7 @@ function EmpInformationPage() {
   };
 
   const clickEmpRegister = () => {
-    history.push("/emp/insert");
+    history.push("/emp/register");
   };
 
   const changeEmpInput = (e) => {
@@ -53,9 +59,20 @@ function EmpInformationPage() {
   };
 
   const clickEmpModify = () => {
-    empModify(empInformation);
+    empModify(empInformation).then(() => {
+      empList().then((data) => {
+        setEmps(data);
+      });
+    });
   };
 
+  const clickEmpRemove = () => {
+    empRemove(empInformation.empNo).then(() => {
+      empList().then((data) => {
+        setEmps(data);
+      });
+    });
+  };
 
   useEffect(() => {
     empList().then((data) => {
@@ -71,6 +88,7 @@ function EmpInformationPage() {
       clickEmpRegister={clickEmpRegister}
       changeEmpInput={changeEmpInput}
       clickEmpModify={clickEmpModify}
+      clickEmpRemove={clickEmpRemove}
     />
   );
 }

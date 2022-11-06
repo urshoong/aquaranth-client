@@ -9,7 +9,6 @@ import IndexPage from "@pages/IndexPage";
 import ComBasicInfoPage from "@pages/company/ComBasicInfoPage";
 import ComLayout from "@pages/company/ComLayout";
 import UserRolePage from "@pages/userrole/UserRolePage";
-import EmpInsert from "./components/emp/EmpInsert";
 import EmpInsertPage from "./pages/emp/EmpInsertPage";
 
 
@@ -24,7 +23,7 @@ const App = () => (
     </Route>
     <Route path="/emp">
       <Route path="/emp/information" component={EmpInformationPage} />
-      <Route path="/emp/insert" component={EmpInsertPage} />
+      <Route path="/emp/register" component={EmpInsertPage} />
     </Route>
     <Route path="/orga">
       <Route path="/orga/company" component={ComBasicInfoPage} />

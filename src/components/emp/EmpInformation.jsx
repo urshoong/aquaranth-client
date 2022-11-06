@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import "./employeestyle.css";
-import request from "../../utils/axiosUtil";
 
 
 function EmpInformation({ emps, clickEmpList, empInformation, clickEmpRegister,
-  changeEmpInput, clickEmpModify }) {
+  changeEmpInput, clickEmpModify, clickEmpRemove }) {
   return (
     <div className="pageLine">
       <div className="empList"> div2-1
@@ -39,7 +38,7 @@ function EmpInformation({ emps, clickEmpList, empInformation, clickEmpRegister,
 
         <button type="button" onClick={() => { clickEmpRegister(); }}>추가</button>
         <button type="button" onClick={() => { clickEmpModify(); }}>수정</button>
-        <button type="button">삭제</button>
+        <button type="button" onClick={() => { clickEmpRemove(); }}>삭제</button>
 
         <div className="empBasicInformation">
           <div className="category">{empInformation.empProfile}</div>
