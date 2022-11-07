@@ -90,3 +90,14 @@
     margin-top: 10px;
     grid-gap: 0rem 5rem;
 }
+
+.modal {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #61dafb;
+    text-align: left;
+}
+
+.button {
+    border: solid 1px red;
+}

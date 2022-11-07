@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import SearchBox from "./SearchBox";
 
-function RoleGroupList({ roleGroupList, companyList }) {
+function RoleGroupList({
+  roleGroupList,
+  companyList,
+  setModal,
+}) {
   const [filter, setFilter] = useState([]);
   const [groupCount, setGroupCount] = useState(0);
+
+  console.log("list componet에서 호출함 @@@@@@@@@@2", roleGroupList);
 
 
   return (
@@ -21,9 +27,7 @@ function RoleGroupList({ roleGroupList, companyList }) {
         <div className="listRegisterDiv">
           <button
             type="button"
-            onClick={() => {
-              alert("click");
-            }}
+            onClick={() => setModal(true)}
           >+ 추가
           </button>
         </div>
