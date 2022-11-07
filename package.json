@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/devaquariums/aquaranth-client#readme",
   "dependencies": {
-    "@loadable/component": "^5.15.2",
     "@reduxjs/toolkit": "^1.8.6",
     "axios": "^1.1.3",
     "cross-env": "^7.0.3",
@@ -37,7 +36,6 @@
     "@babel/core": "^7.19.0",
     "@babel/preset-env": "^7.19.0",
     "@babel/preset-react": "^7.18.6",
-    "@loadable/webpack-plugin": "^5.15.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "babel-loader": "^8.2.5",
     "clean-webpack-plugin": "^4.0.0",

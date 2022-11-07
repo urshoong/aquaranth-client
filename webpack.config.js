@@ -6,7 +6,6 @@ const dotenv = require("dotenv");
 const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 const DefinePlugin = require("webpack/lib/DefinePlugin");
 const EnvironmentPlugin = require("webpack/lib/EnvironmentPlugin");
-const LoadablePlugin = require("@loadable/webpack-plugin");
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -87,7 +86,6 @@ module.exports = {
   },
   plugins: [
     new ReactRefreshWebpackPlugin(),
-    new LoadablePlugin(),
     new LoaderOptionsPlugin({ minimize: true }),
     new DefinePlugin({
       "process.env": JSON.stringify(process.env),
