@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import request from "../../utils/axiosUtil";
+import request from "@utils/axiosUtil";
 import "./style.css";
-import RoleGroupList from "../../components/roleGroup/RoleGroupList";
+import RoleGroupList from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupList";
 
 const fetchData = async () => {
   // const { data } = await request.get("/company/list");
@@ -9,7 +9,7 @@ const fetchData = async () => {
   return data;
 };
 
-function RoleGroupPage() {
+function index() {
   const [companyList, setCompanyList] = useState([]);
   const [roleGroupList, setRoleGroupList] = useState([]);
 
@@ -39,4 +39,4 @@ function RoleGroupPage() {
   );
 }
 
-export default RoleGroupPage;
+export default index;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import request from "@utils/axiosUtil";
-import EmpInsert from "@components/emp/EmpInsert";
+import EmpInsert from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpInsert";
 
 const empRegister = async (emp) => {
   const { data } = await request.post("/emp/register", emp);
@@ -19,7 +19,7 @@ const initState = {
   empAddress: "",
 };
 
-function EmpInsertPage(props) {
+function index(props) {
   const [empValue, setEmpValue] = useState(initState);
 
   const history = useHistory();
@@ -53,4 +53,4 @@ function EmpInsertPage(props) {
   );
 }
 
-export default EmpInsertPage;
+export default index;

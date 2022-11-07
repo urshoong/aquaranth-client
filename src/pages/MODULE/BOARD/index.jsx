@@ -1,11 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
-import "./userrole.css";
-import RoleGroupContent from "@components/userRole/RoleGroupContent";
-import UserRoleRoleGroupBasedPage from "./UserRoleRoleGroupBasedPage";
-import UserRoleUserBasedPage from "./UserRoleUserBasedPage";
+import React from "react";
+import UserRoleUserBasedPage from "@pages/MODULE/SYS/ROLE/ROLE0020/UserRoleUserBasedPage";
 
-function UserRolePage(props) {
-  console.log("");
+const Index = () => {
+  console.log("Board");
   return (
     <div className="wrap">
       <div className="titleWrap">
@@ -17,7 +14,7 @@ function UserRolePage(props) {
       <div className="contentWrap">
         <div className="innerTabWrap">
           <span className="innerTab active">권한그룹기준</span>
-          <span className="innerTab">사용자 기준</span>
+          <span className="innerTab">사용자asdsa 기준</span>
         </div>
         <div className="content">
           {/* 권한그룹기준 페이지 */}
@@ -28,6 +25,6 @@ function UserRolePage(props) {
       </div>
     </div>
   );
-}
+};
 
-export default UserRolePage;
+export default Index;

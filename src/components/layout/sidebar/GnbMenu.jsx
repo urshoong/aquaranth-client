@@ -4,11 +4,13 @@ import { lighten, rem } from "polished";
 import { Link } from "react-router-dom";
 
 
-const GnbMenu = ({ menu, menuIcon }) => (
-  <MenuWrapper>
-    <Link to={menu}>{menu.menuName}</Link>
-  </MenuWrapper>
-);
+const GnbMenu = ({ menu: { menuName, url } }) => {
+  return (
+    <MenuWrapper>
+      <Link to={`/${url}`}>{menuName}</Link>
+    </MenuWrapper>
+  );
+};
 
 const MenuWrapper = styled.div`
   ${({ theme }) => {

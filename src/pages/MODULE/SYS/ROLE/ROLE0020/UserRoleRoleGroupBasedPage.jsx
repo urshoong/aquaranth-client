@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RoleGroupContent from "@components/userRole/RoleGroupContent";
+import RoleGroupContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGroupContent";
 import request from "@utils/axiosUtil";
 
 const getCompanyList = async (companyNo) => {

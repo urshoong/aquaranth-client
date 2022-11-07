@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import request from "@utils/axiosUtil";
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 import GnbMenu from "@components/layout/sidebar/GnbMenu";
 
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./employeestyle.css";
+import "../employeestyle.css";
 
 
 function EmpInformation({ emps, clickEmpList, empInformation, clickEmpRegister,

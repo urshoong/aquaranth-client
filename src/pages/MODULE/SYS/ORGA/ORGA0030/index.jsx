@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import request from "@utils/axiosUtil";
-import EmpInformation from "@components/emp/EmpInformation";
-import empInsertPage from "./EmpInsertPage";
+import EmpInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpInformation";
+
 // TODO 정렬, 페이징
 
 const empList = async () => {
@@ -30,7 +30,7 @@ const initState = {
   empName: "",
 };
 
-function EmpInformationPage() {
+function Index() {
   const [emps, setEmps] = useState([]);
 
   const [empInformation, setEmpInformation] = useState(initState);
@@ -93,4 +93,4 @@ function EmpInformationPage() {
   );
 }
 
-export default EmpInformationPage;
+export default Index;
