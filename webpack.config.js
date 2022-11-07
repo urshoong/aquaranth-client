@@ -1,5 +1,4 @@
 const path = require("path");
-const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
@@ -7,8 +6,10 @@ const dotenv = require("dotenv");
 const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 const DefinePlugin = require("webpack/lib/DefinePlugin");
 const EnvironmentPlugin = require("webpack/lib/EnvironmentPlugin");
+const LoadablePlugin = require("@loadable/webpack-plugin");
 
 const isDevelopment = process.env.NODE_ENV !== "production";
+
 
 const src = `${__dirname}/src`;
 dotenv.config();
@@ -16,6 +17,9 @@ dotenv.config();
 module.exports = {
   mode: isDevelopment ? "development" : "production",
   devtool: !isDevelopment ? "hidden-source-map" : "eval",
+
+  node: false,
+
   resolve: {
     extensions: [".js", ".jsx"],
     alias: {
@@ -83,6 +87,7 @@ module.exports = {
   },
   plugins: [
     new ReactRefreshWebpackPlugin(),
+    new LoadablePlugin(),
     new LoaderOptionsPlugin({ minimize: true }),
     new DefinePlugin({
       "process.env": JSON.stringify(process.env),
@@ -104,6 +109,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "dist"),
     filename: "[name]-[hash].js",
+    chunkFilename: "[name]-[hash].js",
     publicPath: "/",
   },
   devServer: {

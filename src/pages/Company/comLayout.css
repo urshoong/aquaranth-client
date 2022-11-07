@@ -1,0 +1,77 @@
+.firstOutDiv {
+    box-sizing: border-box;
+    height: 100vh;
+    border: 1px solid darkgray;
+}
+
+.headLine {
+    box-sizing: border-box;
+    height: 38px;
+    border-bottom: 1px solid darkgray;
+    padding-top: 9px;
+    padding-left: 5px;
+}
+
+.comManage {
+    font-size: 2em;
+    font-weight: bolder;
+}
+
+.mainDiv {
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.searchDiv {
+    width: 100%;
+    line-height: 37px;
+    box-sizing: border-box;
+    border: 1px solid darkgray;
+}
+
+.comName, .comUse {
+    font-size: 20px;
+    padding-left: 3em;
+}
+
+.comNameInput {
+    font-size: 15px;
+    width: 15em;
+    height: 1.2em;
+    border: 1px solid darkgray;
+    margin-left: 1em;
+}
+
+.comUseSelect {
+    font-size: 15px;
+    margin-left: 1em;
+    position: relative;
+}
+
+.searchBt {
+    height: 2em;
+    width: 2em;
+    border: 1px solid darkgray;
+    position: absolute;
+    margin-top: 8px;
+    right: 2.5em;
+}
+
+.listInfoDiv {
+    box-sizing: border-box;
+    padding-top: 8px;
+}
+
+.comList {
+    height: 600px;
+    width: 300px;
+    border: 1px solid darkgray;
+    float: left;
+}
+
+.comInfo {
+    height: 6vh;
+    width: 12vw;
+    border: 1px solid darkgray;
+    float: right;
+}
