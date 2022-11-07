@@ -8,7 +8,7 @@ const Sidebar = () => {
   const [gnbMenuList, setGnbMenuList] = useState([]);
 
   useEffect(() => {
-    request.get("/menu/all").then(({ data }) => {
+    request.get("/menu").then(({ data }) => {
       setGnbMenuList(data);
     });
   }, []);

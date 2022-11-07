@@ -1,8 +1,5 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
-<<<<<<< HEAD:src/pages/company/ComBasicInfoPage.jsx
-function ComBasicInfoPage() {
-=======
 function ComPage() {
   const [comList, setComList] = useState([]);
 
@@ -13,7 +10,6 @@ function ComPage() {
   }, []);
 
   console.log(comList);
->>>>>>> menu:src/pages/Company/ComPage.jsx
   return (
     <div />
   );

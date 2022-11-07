@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "./userrole.css";
-import RoleGroupContent from "../../components/userRole/RoleGroupContent";
+import RoleGroupContent from "@components/userRole/RoleGroupContent";
 import UserRoleRoleGroupBasedPage from "./UserRoleRoleGroupBasedPage";
 import UserRoleUserBasedPage from "./UserRoleUserBasedPage";
 

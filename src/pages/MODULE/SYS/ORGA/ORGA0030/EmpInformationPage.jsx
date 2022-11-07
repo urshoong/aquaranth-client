@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import request from "../../utils/axiosUtil";
-import EmpInformation from "../../components/emp/EmpInformation";
+import request from "@utils/axiosUtil";
+import EmpInformation from "@components/emp/EmpInformation";
 import empInsertPage from "./EmpInsertPage";
 // TODO 정렬, 페이징
 

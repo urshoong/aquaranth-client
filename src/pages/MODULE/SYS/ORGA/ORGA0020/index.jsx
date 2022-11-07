@@ -1,7 +1,7 @@
 import React from "react";
 import "./view.css";
 
-function DeptPage(props) {
+function Index(props) {
   return (
     <div className="all">
 
@@ -51,4 +51,4 @@ function DeptPage(props) {
   );
 }
 
-export default DeptPage;
+export default Index;

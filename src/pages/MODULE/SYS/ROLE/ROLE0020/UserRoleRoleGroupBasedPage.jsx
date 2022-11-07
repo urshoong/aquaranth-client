@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import RoleGroupContent from "../../components/userRole/RoleGroupContent";
-import request from "../../utils/axiosUtil";
+import RoleGroupContent from "@components/userRole/RoleGroupContent";
+import request from "@utils/axiosUtil";
 
 const getCompanyList = async (companyNo) => {
   const { data } = await request.get(`/userrole/companyList/${companyNo}`);
