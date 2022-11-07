@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import request from "@utils/axiosUtil";
 import EmpInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpInformation";
+import useNavigate from "@hooks/useNavigate";
 
 // TODO 정렬, 페이징
 
@@ -35,7 +36,6 @@ function Index() {
 
   const [empInformation, setEmpInformation] = useState(initState);
 
-  const history = useHistory();
 
   const clickEmpList = (empNo) => {
     empRead(empNo).then((data) => {
@@ -45,9 +45,11 @@ function Index() {
     console.log(empNo);
   };
 
-  const clickEmpRegister = () => {
-    history.push("/emp/register");
-  };
+
+  const handleRegister = useNavigate("/emp/register");
+
+
+  // const clickEmpRegister = useNavigate("/emp/register");
 
   const changeEmpInput = (e) => {
     const { name } = e.target;
@@ -85,7 +87,7 @@ function Index() {
       emps={emps}
       clickEmpList={clickEmpList}
       empInformation={empInformation}
-      clickEmpRegister={clickEmpRegister}
+      // clickEmpRegister={clickEmpRegister}
       changeEmpInput={changeEmpInput}
       clickEmpModify={clickEmpModify}
       clickEmpRemove={clickEmpRemove}

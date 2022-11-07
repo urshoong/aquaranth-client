@@ -1,6 +1,6 @@
 import React from "react";
 
-const index = () => {
+const Index = () => {
   console.log("Calender");
   return (
     <div>
@@ -9,4 +9,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

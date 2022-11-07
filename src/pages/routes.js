@@ -3,6 +3,7 @@ import BOARD from "@pages/MODULE/BOARD";
 import CALENDER from "@pages/MODULE/CALENDER";
 import DRIVE from "@pages/MODULE/DRIVE";
 import MAIL from "@pages/MODULE/MAIL";
+import MAIN from "@pages/MODULE/MAIN";
 
 /**
  * FIXME : 동적으로 주입하는 방법 찾기
@@ -19,6 +20,10 @@ const routes = [
   /**
    * 기본 모듈
    */
+  {
+    path: "/",
+    module: MAIN,
+  },
   {
     path: "/board",
     module: BOARD,
