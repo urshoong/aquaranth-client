@@ -1,30 +1,20 @@
-import React, { useEffect, useState } from "react";
-import request from "@utils/axiosUtil";
+import React from "react";
 
-const fetchData = async () => {
-  const { data } = await request.get("/company/list");
-  return data;
-};
-
-function SearchBox(props) {
-  const [companyList, setCompanyList] = useState([]);
-
-  useEffect(() => {
-    fetchData()
-      .then((data) => setCompanyList(data));
-  }, []);
-
+function SearchBox({ companyList }) {
   return (
-    <div className="search">
-      소속 회사 선택
-      <select>
+    <div className="searchDiv">
+      <span className="comName">소속회사선택</span>
+      <select className="comUseSelect">
         {companyList.map((company) => {
-          const { companyNo, companyName } = company;
+          const {
+            companyNo,
+            companyName,
+          } = company;
           return <option key={companyNo}>{companyName}</option>;
         })}
       </select>
-      <br /><input className="input" type="text" />
-      <button className="button">찾기</button>
+      <input className="comNameInput" type="text" placeholder="회사코드/회사명을 입력하세요." />
+      <button type="button">🔍</button>
     </div>
   );
 }
