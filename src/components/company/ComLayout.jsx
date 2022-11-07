@@ -77,6 +77,16 @@ function ComLayout() {
     });
   };
 
+  const changeBoolean = (value) => {
+    let booleanValue = true;
+    if (value && typeof value === "string") {
+      if (value.toLowerCase() === "false") {
+        booleanValue = false;
+      }
+    }
+    return booleanValue;
+  };
+
   const changeRegister = (e) => {
     const { name } = e.target;
     const { value } = e.target;
@@ -96,13 +106,6 @@ function ComLayout() {
         setSearch(data);
       });
     });
-  };
-
-  const changeBoolean = (value) => {
-    if (value && typeof value === "string") {
-      if (value.toLowerCase() === "true") return true;
-      if (value.toLowerCase() === "false") return false;
-    }
   };
 
   const clickRegister = (info) => {
@@ -140,7 +143,7 @@ function ComLayout() {
             <option value="true">사용</option>
             <option value="false">미사용</option>
           </select>
-          <button className="searchBt" onClick={() => { clickHandler(); }}>🔍</button>
+          <button className="searchBt" type="submit" onClick={() => { clickHandler(); }}>🔍</button>
         </div>
         <div className="listInfoDiv">
           <div className="comList">
@@ -157,10 +160,10 @@ function ComLayout() {
             <div className="contentDiv">
               <span className="companyCount">회사 {search.length}건</span>
               <div className="buttonsDiv">
-                <button className="registerBeforeBt" onClick={() => { clickRegisterBefore(); }}>추가</button>
-                <button className="registerBt" onClick={() => { clickRegister(information); }}>저장</button>
-                <button className="modifyBt" onClick={() => { clickModify(companyNo, information); }}>수정</button>
-                <button className="removeBt" onClick={() => { clickRemove(companyNo); }}>삭제</button>
+                <button className="registerBeforeBt" type="submit" onClick={() => { clickRegisterBefore(); }}>추가</button>
+                <button className="registerBt" type="submit" onClick={() => { clickRegister(information); }}>저장</button>
+                <button className="modifyBt" type="submit" onClick={() => { clickModify(companyNo, information); }}>수정</button>
+                <button className="removeBt" type="submit" onClick={() => { clickRemove(companyNo); }}>삭제</button>
               </div>
             </div>
             <p className="basicFont">ㆍ기본정보</p>
