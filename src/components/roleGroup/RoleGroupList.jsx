@@ -11,7 +11,8 @@ function RoleGroupList(props) {
       {/* list header */}
       <div className="flex-container">
         <div>그룹: {groupCount}개</div>
-        &nbsp;&nbsp;&nbsp;필터 : <select>
+        &nbsp;&nbsp;&nbsp;필터 :
+        <select>
           <option>이름순</option>
           <option>최신순</option>
           <option>오래된순</option>
