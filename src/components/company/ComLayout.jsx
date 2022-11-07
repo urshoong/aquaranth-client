@@ -42,15 +42,6 @@ const initState = {
   companyUse: true,
 };
 
-const initStateModify = {
-  companyNo: 0,
-  companyName: "",
-  companyAddress: "",
-  companyTel: "",
-  ownerName: "",
-  companyUse: true,
-};
-
 function ComLayout() {
   const [search, setSearch] = useState([]);
   const [information, setInformation] = useState(initState);
