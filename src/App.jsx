@@ -8,7 +8,9 @@ import EmpInformationPage from "@pages/emp/EmpInformationPage";
 import IndexPage from "@pages/IndexPage";
 import ComBasicInfoPage from "@pages/company/ComBasicInfoPage";
 import UserRolePage from "@pages/userrole/UserRolePage";
+
 import ComLayout from "./components/company/ComLayout";
+
 
 
 const App = () => (
@@ -20,8 +22,9 @@ const App = () => (
     <Route path="/role">
       <Route path="/role/group" component={RoleGroupPage} />
     </Route>
-    <Route path="/employee">
-      <Route path="/employee/info" component={EmpInformationPage} />
+    <Route path="/emp">
+      <Route path="/emp/information" component={EmpInformationPage} />
+      <Route path="/emp/register" component={EmpInsertPage} />
     </Route>
     <Route path="/orga">
       <Route path="/orga/company" component={ComLayout} />
