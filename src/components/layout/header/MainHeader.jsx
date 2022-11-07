@@ -1,11 +1,12 @@
 import React from "react";
 import styled, {css} from "styled-components";
 import {rem} from "polished";
+import {Link} from "react-router-dom";
 
 const MainHeader = () => {
   return (
     <HeaderWrapper>
-      Aquaranth 10
+      <Link to="/">Aquaranth10</Link>
     </HeaderWrapper>
   )
 }
