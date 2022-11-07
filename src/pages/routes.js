@@ -35,57 +35,56 @@ const routes = [
     path: "/mail",
     module: MAIL,
   },
+
   /**
-   * 조직 모듈
-   */
-  {
-    /**
      * 회사
      * @Author 강도영
      */
+  {
     path: "/SYS/ORGA/ORGA0010",
     module: ORGA0010,
   },
-  {
-    /**
+  /**
      * 부서
      * @Author 박경민
      */
+  {
     path: "/SYS/ORGA/ORGA0020",
     module: ORGA0020,
   },
-  {
-    /**
+  /**
      * 사원 관리
      * @Author 정수연
      */
+  {
     path: "/SYS/ORGA/ORGA0030",
     module: ORGA0030,
   },
+
+
   /**
-   * 권한 모듈
-   */
-  {
-    /**
      * 권한 그룹
      * @Author 임종현
      */
+  {
     path: "/SYS/ROLE/ROLE0010",
     module: ROLE0010,
   },
-  {
-    /**
+
+
+  /**
      * 사용자 권한 설정
      * @Author 박준성
      */
+  {
     path: "/SYS/ROLE/ROLE0020",
     module: ROLE0020,
   },
-  {
-    /**
+  /**
      * 메뉴 사용 설정
      * @Author 김민준
      */
+  {
     path: "/SYS/ROLE/ROLE0030",
     module: ROLE0030,
   },

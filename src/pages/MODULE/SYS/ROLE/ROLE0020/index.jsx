@@ -20,10 +20,10 @@ function Index(props) {
           <span className="innerTab">사용자 기준</span>
         </div>
         <div className="content">
-          {/* 권한그룹기준 페이지 */}
-          {/* <UserRoleRoleGroupBasedPage /> */}
-          {/* 사용자기준 페이지 */}
-          <UserRoleUserBasedPage />
+           {/*권한그룹기준 페이지 */}
+           <UserRoleRoleGroupBasedPage />
+           {/*사용자기준 페이지 */}
+          {/*<UserRoleUserBasedPage />*/}
         </div>
       </div>
     </div>
