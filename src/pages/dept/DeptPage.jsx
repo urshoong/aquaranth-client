@@ -9,7 +9,7 @@ function DeptPage(props) {
       <div className="top">
         <span>
           부서관리
-          {/*  FIXME : 버튼에 타입 추가해주세요. 아래 예시처럼*/}
+          {/*  FIXME : 버튼에 타입 추가해주세요. 아래 예시처럼 */}
           <button type="button">일괄 등록</button>
           <button>추가</button>
         </span>
