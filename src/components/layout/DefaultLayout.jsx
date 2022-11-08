@@ -16,6 +16,8 @@ const DefaultLayout = ({ children }) => (
 const ModuleLayout = styled.div`
   ${() => css`
       min-width: 1232px;
+      width: calc(100% - 100px);
+      height: 100%;
       position: absolute;
       overflow: auto;
       left: 100px;
@@ -26,7 +28,8 @@ const Layout = styled.div`
   ${({ theme }) => {
     const { color: { white } } = theme;
     return css`
-      width: 100%;
+      width: 100vw;
+      height: 100vh;
       color: ${white};
     `;
   }}

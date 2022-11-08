@@ -15,6 +15,7 @@ a {color:inherit;text-decoration:none}
 a:hover {text-decoration:none}
 iframe {overflow:hidden;margin:0;border:0;padding:0;vertical-align:top}
 mark {background-color:transparent}
-i {font-style:normal}`;
+i {font-style:normal}
+div, input {box-sizing: border-box}`;
 
 export default GlobalStyles;
