@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import request from "@utils/axiosUtil";
 import "./style.css";
+import styled from "styled-components";
 import RoleGroupList from "./components/RoleGroupList";
 import RoleGroupAddModal from "./components/RoleGroupAddModal";
-import UserRoleRoleGroupBasedPage from "../ROLE0020/UserRoleRoleGroupBasedPage";
 import UserMenu from "./components/UserMenu";
 
 const fetchGNBList = async () => {
@@ -27,6 +27,15 @@ const addRoleGroup = async (roleGroup) => {
 };
 
 
+export const ModalContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+`;
+
 function Index() {
   const [companyList, setCompanyList] = useState([]);
   const [roleGroupList, setRoleGroupList] = useState([]);
@@ -46,22 +55,15 @@ function Index() {
   }, [refresh]);
 
   return (
-    <div className="firstOutDiv">
-      <div className="headLine">
-        <span className="comManage">권한그룹관리</span>
-      </div>
+    <ModalContainer className="firstOutDiv">
       <div className="mainDiv">
         <div className="listInfoDiv">
-          {/* 왼쪽 권한그룹 div */}
           <RoleGroupList
             roleGroupList={roleGroupList}
             companyList={companyList}
             setModal={setModal}
           />
-          {/* 오른쪽 메뉴 div */}
-          <div className="comInfo">
-            <UserMenu />
-          </div>
+          <UserMenu />
         </div>
       </div>
 
@@ -75,8 +77,7 @@ function Index() {
           />
         ) : null
       }
-
-    </div>
+    </ModalContainer>
   );
 }
 

@@ -26,6 +26,7 @@
     "dotenv": "^16.0.3",
     "polished": "^4.2.2",
     "react": "^16.10.2",
+    "react-cookie": "^4.1.1",
     "react-dom": "^16.10.2",
     "react-redux": "^8.0.4",
     "react-router-dom": "^5.3.4",

@@ -29,3 +29,8 @@ Aquaranth Client
 #### menu-list
 - state => GNB를 포함한 하위 메뉴목록을 제공합니다.
 - 저장버튼 클릭시 => 체크된 메뉴권한을 선택된 권한그룹에게 부여합니다.
+
+
+### login logic
+1. login 성공시 오쎈 권한을 서버로부터 받습니다 (ROLE_USER)
+2. api 호출시마다 오쎈권한만 확인합니다.
