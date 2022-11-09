@@ -39,6 +39,7 @@
       "error",
       "always"
     ],
+    "arrow-body-style": "off",
     "no-unused-vars": "warn",
     "no-trailing-spaces": "off",
     "no-multiple-empty-lines":["error", {"max": 2}],

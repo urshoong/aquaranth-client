@@ -1,25 +1,26 @@
 import React from "react";
-import styled, {css} from "styled-components";
-import {rem} from "polished";
-import MainHeader from "@components/layout/header/MainHeader";
+import styled, { css } from "styled-components";
 
-const SubHeader = () => {
+
+/**
+ * GNB 메뉴 이름을 표시하는 헤더입니다.
+ * @return {JSX.Element}
+ * @constructor
+ */
+const SubHeader = ({ setPageTitle, pageTitle }) => {
   return (
-    <HeaderWrapper>
-      SubHeader
-    </HeaderWrapper>
-  )
-}
+    <SubHeaderWrapper>
+      {pageTitle || "Page Title"}
+    </SubHeaderWrapper>
+  );
+};
 
-const HeaderWrapper = styled.div`
-  ${() => {
-    return css`
-      padding: ${rem(10)};
-      background-color: ${(props) => props.theme.color.white};
-      color: ${(props) => props.theme.color.douzone500};
-      width: 100%;
-      `
-  }}
-`
+const SubHeaderWrapper = styled.div`
+  ${({ theme }) => css`
+    background-color: ${theme.color.douzone300};
+    color:${theme.color.white};
+    padding: 10px;
+  `}
+`;
 
 export default SubHeader;

@@ -1,3 +1,6 @@
+import { rem } from "polished";
+import { css } from "styled-components";
+
 const theme = {
   color: {
     sidebar: "#343947",
@@ -52,6 +55,44 @@ const theme = {
     activeIcon: "#FFFFFF",
   },
 
+  typo: {
+    heading1: () => ({
+      fontSize: rem(28),
+      fontWeight: 700,
+    }),
+    heading2: () => ({
+      fontSize: rem(18),
+      fontWeight: 700,
+    }),
+    heading3: () => ({
+      fontSize: rem(16),
+      fontWeight: 700,
+    }),
+    subtitle1: () => ({
+      fontSize: rem(15),
+      fontWeight: 700,
+    }),
+    subtitle2: () => ({
+      fontSize: rem(14),
+      fontWeight: 700,
+    }),
+    subtitle3: () => ({
+      fontSize: rem(13),
+      fontWeight: 700,
+    }),
+    xxl: rem(14),
+    xl: rem(13),
+    lg: rem(12),
+    md: rem(11),
+    sm: rem(10),
+  },
+
+  ui: {
+    gnbSidebar: "100px",
+    lnbSidebar: "120px",
+    header: "80px",
+    moduleTitle: "40px",
+  },
 };
 
 export default theme;

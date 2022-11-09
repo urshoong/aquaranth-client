@@ -3,17 +3,19 @@ import styled from "styled-components";
 
 
 const ErrorLayout = ({ image, messange, buttonText, onButtonClick }) => (
-  <Wrapper>
-    <img src={image} alt="error" />
-    <div className="errmsg">{messange}</div>
-    {buttonText && (
-      <div className="button-wrapper">
-        <button type="button" onClick={onButtonClick}>
-          {buttonText}
-        </button>
-      </div>
-    )}
-  </Wrapper>
+  <div>
+    <Wrapper>
+      <img src={image} alt="error" />
+      <div>{messange}</div>
+      {buttonText && (
+        <div className="button-wrapper">
+          <button type="button" onClick={onButtonClick}>
+            {buttonText}
+          </button>
+        </div>
+      )}
+    </Wrapper>
+  </div>
 );
 
 const Wrapper = styled.div`

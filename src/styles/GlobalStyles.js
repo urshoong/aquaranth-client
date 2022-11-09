@@ -17,6 +17,7 @@ iframe {overflow:hidden;margin:0;border:0;padding:0;vertical-align:top}
 mark {background-color:transparent}
 i {font-style:normal}
 div{box-sizing: border-box}
+input{outline: none}
 `;
 
 export default GlobalStyles;

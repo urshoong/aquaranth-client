@@ -4,8 +4,6 @@ import "./view.css";
 function Index(props) {
   return (
     <div className="all">
-
-
       <div className="top">
         <span>
           부서관리

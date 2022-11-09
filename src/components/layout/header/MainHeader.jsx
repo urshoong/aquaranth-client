@@ -1,25 +1,26 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled, {css} from "styled-components";
-import {rem} from "polished";
-import {Link} from "react-router-dom";
 
+
+/**
+ * 어플리케이션 메인 아이콘과, 로그인 정보를 표시하는 헤더입니다.
+ * @return {JSX.Element}
+ * @constructor
+ */
 const MainHeader = () => {
   return (
-    <HeaderWrapper>
+    <MainHeaderWrapper>
       <Link to="/">Aquaranth10</Link>
-    </HeaderWrapper>
-  )
-}
+    </MainHeaderWrapper>
+  );
+};
 
-const HeaderWrapper = styled.div`
-  ${() => {
-    return css`
-      padding: ${rem(10)};
-      background-color: ${(props) => props.theme.color.white};
-      color: ${(props) => props.theme.color.douzone500};
-      width: 100%;
-      `
-  }}
-`
+const MainHeaderWrapper = styled.div`
+  ${({ theme }) => css`
+    background-color: ${theme.color.white};
+    padding: 10px;
+  `}
+`;
 
 export default MainHeader;

@@ -1,23 +1,27 @@
 import React from "react";
-import styled, { css } from "styled-components";
-import { rem } from "polished";
 import MainHeader from "@components/layout/header/MainHeader";
 import SubHeader from "@components/layout/header/SubHeader";
+import styled, { css } from "styled-components";
 
-const Header = () => {
+/**
+ * 헤더 레이아웃 입니다.
+ * @return {JSX.Element}
+ * @constructor
+ */
+const Header = ({ setPageTitle, pageTitle }) => {
   return (
     <HeaderWrapper>
       <MainHeader />
-      <SubHeader />
+      <SubHeader pageTitle={pageTitle} setPageTitle={setPageTitle} />
     </HeaderWrapper>
   );
 };
 
+
 const HeaderWrapper = styled.div`
-  ${() => css`
-      padding: ${rem(10)};
-      background-color: ${(props) => props.theme.color.white};
-      color: ${(props) => props.theme.color.douzone500};
+  ${({ theme }) => css`
+      height: ${theme.ui.header};
+      overflow: hidden;
       width: 100%;
       `}
 `;

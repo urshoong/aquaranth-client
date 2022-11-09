@@ -24,7 +24,6 @@ const root = (
   </BrowserRouter>
 );
 if (process.env.NODE_ENV === "development") {
-  console.log(process.env.NODE_ENV);
   render(root, rootElement);
 } else {
   hydrate(root, rootElement);

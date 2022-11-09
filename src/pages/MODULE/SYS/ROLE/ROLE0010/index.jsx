@@ -3,6 +3,7 @@ import request from "@utils/axiosUtil";
 import "./style.css";
 import RoleGroupList from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupList";
 
+
 const fetchData = async () => {
   // const { data } = await request.get("/company/list");
   const { data } = await request.get("/role-group");
@@ -23,7 +24,7 @@ function index() {
   }, []);
 
   return (
-    <div className="firstOutDiv">
+    <div>
       <div className="headLine">
         <span className="comManage">권한그룹관리</span>
       </div>
@@ -35,6 +36,7 @@ function index() {
           <div className="comInfo" />
         </div>
       </div>
+
     </div>
   );
 }

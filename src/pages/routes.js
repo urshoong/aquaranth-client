@@ -65,8 +65,6 @@ const routes = [
     path: "/SYS/ORGA/ORGA0030",
     module: ORGA0030,
   },
-
-
   /**
      * 권한 그룹
      * @Author 임종현
@@ -75,8 +73,6 @@ const routes = [
     path: "/SYS/ROLE/ROLE0010",
     module: ROLE0010,
   },
-
-
   /**
      * 사용자 권한 설정
      * @Author 박준성

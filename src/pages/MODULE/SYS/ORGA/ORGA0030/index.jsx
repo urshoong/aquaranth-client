@@ -46,10 +46,6 @@ function Index() {
   };
 
 
-  const handleRegister = useNavigate("/emp/register");
-
-
-  // const clickEmpRegister = useNavigate("/emp/register");
 
   const changeEmpInput = (e) => {
     const { name } = e.target;
