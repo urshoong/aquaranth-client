@@ -15,7 +15,7 @@ const App = () => {
           {routes.map((props, index) => (
             <Route
               exact
-              path= {props.path}
+              path={props.path}
               render={() => <props.module />}
               key={index}
             />
