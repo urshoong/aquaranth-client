@@ -4,24 +4,24 @@ import { getCookie, setCookie } from "@utils/cookieUtil";
 
 const request = axios.create({
   baseURL: API_URL,
-  // timeout: 5000,
-  withCredentials: false,
+  timeout: 5000,
+  withCredentials: true,
 });
 
 
-const setToken = (accessToken, refreshToken) => {
-  if (accessToken) {
-    setCookie(ACCESS_TOKEN, accessToken, {
+const setToken = (getAccessTokenFromResponse, response) => {
+  if (getAccessTokenFromResponse) {
+    setCookie(ACCESS_TOKEN, getAccessTokenFromResponse, {
       path: "/",
       maxAge: 3600,
     });
-
-    setCookie(REFRESH_TOKEN, refreshToken, {
+    setCookie(REFRESH_TOKEN, response.data.refresh_token, {
       path: "/",
       maxAge: 8640000,
     });
   }
 };
+
 
 request.interceptors.request.use(
   (config) => {
@@ -34,7 +34,6 @@ request.interceptors.request.use(
     }
     return { ...config };
   },
-
   (error) => {
     return Promise.reject(error);
   },
@@ -42,70 +41,48 @@ request.interceptors.request.use(
 
 request.interceptors.response.use(
   (response) => {
-    const { data } = response;
-    const access = data.access_token;
-    const refresh = data.refresh_token;
-    setToken(access, refresh);
+    const getAccessTokenFromResponse = response.data.access_token;
+    setToken(getAccessTokenFromResponse, response);
     return response;
   },
 
   async (error) => {
-    if (error.response.status === 401) {
-      const originalRequest = error;
+    if (
+      error.response.status === 401
+    ) {
+      const originalRequest = error.config;
+
       const getRefreshTokenFromCookies = getCookie(REFRESH_TOKEN);
+
       await axios
         .get(`${API_URL}${TOKEN_REFRESH_PATH}`, {
           headers: { Authorization: `Bearer ${getRefreshTokenFromCookies}` },
         })
-        .then(({ data }) => {
-          setToken(data.access_token, data.refresh_token);
+        .then((res) => {
+          setToken(getRefreshTokenFromCookies, res);
         });
-
 
       if (originalRequest.method === "get") {
         return axios
-          .get(
-            `${API_URL}${originalRequest.url}`,
-            { ...originalRequest.config, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` },
-            },
-          )
-          .then((res) => res);
+          .get(`${API_URL}${originalRequest.url}`, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
+          .then((response) => response);
       }
-
       if (originalRequest.method === "delete") {
         return axios
-          .delete(
-            `${API_URL}${originalRequest.url}`,
-            { ...originalRequest.config, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` },
-            },
-          )
-          .then((res) => res);
+          .get(`${API_URL}${originalRequest.url}`, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
+          .then((response) => response);
       }
-
       if (originalRequest.method === "post") {
         return axios
-          .post(
-            `${API_URL}${originalRequest.url}`,
-            originalRequest.data,
-            { ...originalRequest.config, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` },
-            },
-          )
-          .then((res) => res);
+          .post(`${API_URL}${originalRequest.url}`, originalRequest.data, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
+          .then((response) => response);
       }
       if (originalRequest.method === "put") {
         return axios
-          .put(
-            `${API_URL}${originalRequest.url}`,
-            originalRequest.data,
-            { ...originalRequest.config, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` },
-            },
-          )
-          .then((res) => res);
+          .post(`${API_URL}${originalRequest.url}`, originalRequest.data, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
+          .then((response) => response);
       }
     }
-    window.location.href = "/login";
-
-
     return Promise.reject(error);
   },
 );

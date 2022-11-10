@@ -1,4 +1,7 @@
-export const { API_URL } = process.env;
+// export const { API_URL } = process.env;
+export const API_URL = "http://192.168.0.176:8080/api";
+
+
 
 export const ACCESS_TOKEN = "_at";
 export const REFRESH_TOKEN = "_rt";
