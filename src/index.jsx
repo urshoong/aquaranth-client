@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import theme from "@styles/theme";
-import { CookiesProvider } from "react-cookie";
 import GlobalStyles from "./styles/GlobalStyles";
 
 import { store } from "./store/store";
@@ -18,11 +17,9 @@ const root = (
   <BrowserRouter>
     <GlobalStyles />
     <ThemeProvider theme={theme}>
-      <CookiesProvider>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </CookiesProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ThemeProvider>
   </BrowserRouter>
 );

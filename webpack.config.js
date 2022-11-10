@@ -14,10 +14,8 @@ const src = `${__dirname}/src`;
 dotenv.config();
 
 module.exports = {
-  // mode: isDevelopment ? "development" : "production",
-  mode: "development",
-  // devtool: !isDevelopment ? "hidden-source-map" : "eval",
-  devtool: "eval-source-map",
+  mode: isDevelopment ? "development" : "production",
+  devtool: !isDevelopment ? "hidden-source-map" : "eval-source-map",
 
   node: false,
 
@@ -88,7 +86,7 @@ module.exports = {
   },
   plugins: [
     new ReactRefreshWebpackPlugin(),
-    // new LoaderOptionsPlugin({ minimize: true }),
+    new LoaderOptionsPlugin({ minimize: true }),
     new DefinePlugin({
       "process.env": JSON.stringify(process.env),
     }),

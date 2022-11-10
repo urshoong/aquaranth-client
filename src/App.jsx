@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
-
 import routes from "@pages/routes";
 import DefaultLayout from "@components/layout/DefaultLayout";
 import NotFoundPage from "@pages/NotFoundPage";

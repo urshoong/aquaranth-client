@@ -58,6 +58,7 @@ request.interceptors.response.use(
           setToken(getRefreshTokenFromCookies, res);
         })
         .catch(() => {
+          // FIXME
           window.location.href = "/login";
         });
 
@@ -68,7 +69,7 @@ request.interceptors.response.use(
       }
       if (originalRequest.method === "delete") {
         return axios
-          .get(`${API_URL}${originalRequest.url}`, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
+          .delete(`${API_URL}${originalRequest.url}`, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
           .then((response) => response);
       }
       if (originalRequest.method === "post") {
@@ -78,7 +79,7 @@ request.interceptors.response.use(
       }
       if (originalRequest.method === "put") {
         return axios
-          .post(`${API_URL}${originalRequest.url}`, originalRequest.data, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
+          .put(`${API_URL}${originalRequest.url}`, originalRequest.data, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
           .then((response) => response);
       }
     }

@@ -3,7 +3,7 @@ import LoginForm from "@pages/login/component/LoginForm";
 import { useForm } from "react-hook-form";
 import request from "@utils/axiosUtil";
 import { useHistory } from "react-router-dom";
-import {setCookie} from "@utils/cookieUtil";
+import { setCookie } from "@utils/cookieUtil";
 
 const Index = () => {
   const form = useForm();

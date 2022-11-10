@@ -25,7 +25,6 @@
     "dotenv": "^16.0.3",
     "polished": "^4.2.2",
     "react": "^16.10.2",
-    "react-cookie": "^4.1.1",
     "react-dom": "^16.10.2",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.39.1",
