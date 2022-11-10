@@ -1,44 +1,84 @@
 import React, { useEffect, useState } from "react";
 import request from "@utils/axiosUtil";
 import "./style.css";
-import RoleGroupList from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupList";
+import styled from "styled-components";
+import RoleGroupList from "./components/RoleGroupList";
+import RoleGroupAddModal from "./components/RoleGroupAddModal";
+import UserMenu from "./components/UserMenu";
 
+const fetchGNBList = async () => {
+  const { data } = await request.get("/company/list");
+  return data;
+};
 
-const fetchData = async () => {
-  // const { data } = await request.get("/company/list");
+const fetchCompanyList = async () => {
+  const { data } = await request.get("/company/list");
+  return data;
+};
+
+const fetchRoleGroup = async () => {
   const { data } = await request.get("/role-group");
   return data;
 };
 
-function index() {
+const addRoleGroup = async (roleGroup) => {
+  const { data } = await request.post("/role-group", roleGroup);
+  return data;
+};
+
+
+export const ModalContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+function Index() {
   const [companyList, setCompanyList] = useState([]);
   const [roleGroupList, setRoleGroupList] = useState([]);
+  const [GNBList, setGNBList] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+
+  const refreshPage = () => {
+    setRefresh(!refresh);
+  };
 
   useEffect(() => {
-    // fetchData()
-    //   .then((data) => setCompanyList(data))
-    //   .catch((reason) => alert(reason));
-
-    fetchData()
+    fetchRoleGroup()
       .then((data) => setRoleGroupList(data));
-  }, []);
+    fetchCompanyList()
+      .then((data) => setCompanyList(data));
+  }, [refresh]);
 
   return (
-    <div>
-      <div className="headLine">
-        <span className="comManage">권한그룹관리</span>
-      </div>
+    <ModalContainer className="firstOutDiv">
       <div className="mainDiv">
         <div className="listInfoDiv">
-          {/* 왼쪽 권한그룹 div */}
-          <RoleGroupList roleGroupList={roleGroupList} companyList={companyList} />
-          {/* 오른쪽 메뉴 div */}
-          <div className="comInfo" />
+          <RoleGroupList
+            roleGroupList={roleGroupList}
+            companyList={companyList}
+            setModal={setModal}
+          />
+          <UserMenu />
         </div>
       </div>
 
-    </div>
+      {
+        modal === true ? (
+          <RoleGroupAddModal
+            addRoleGroup={addRoleGroup}
+            companyList={companyList}
+            setModal={setModal}
+            refreshPage={refreshPage}
+          />
+        ) : null
+      }
+    </ModalContainer>
   );
 }
 
-export default index;
+export default Index;
