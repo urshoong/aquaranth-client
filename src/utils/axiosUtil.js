@@ -47,19 +47,18 @@ request.interceptors.response.use(
   },
 
   async (error) => {
-    if (
-      error.response.status === 401
-    ) {
+    if (error.response.status === 401 && error.response.data.error_message.indexOf(/expired/)) {
       const originalRequest = error.config;
-
       const getRefreshTokenFromCookies = getCookie(REFRESH_TOKEN);
-
       await axios
         .get(`${API_URL}${TOKEN_REFRESH_PATH}`, {
           headers: { Authorization: `Bearer ${getRefreshTokenFromCookies}` },
         })
         .then((res) => {
           setToken(getRefreshTokenFromCookies, res);
+        })
+        .catch(() => {
+          window.location.href = "/login";
         });
 
       if (originalRequest.method === "get") {
