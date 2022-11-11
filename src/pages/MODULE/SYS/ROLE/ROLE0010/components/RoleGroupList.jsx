@@ -1,5 +1,16 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import SearchBox from "./SearchBox";
+
+export const AddModalBtn = styled.button`
+  background-color: #4000c7;
+  text-decoration: none;
+  border: none;
+  padding: 20px;
+  color: white;
+  border-radius: 30px;
+  cursor: grab;
+`;
 
 function RoleGroupList({
   roleGroupList,
@@ -25,11 +36,11 @@ function RoleGroupList({
           </div>
         ))}
         <div className="listRegisterDiv">
-          <button
+          <AddModalBtn
             type="button"
             onClick={() => setModal(true)}
           >+ 추가
-          </button>
+          </AddModalBtn>
         </div>
       </div>
     </div>

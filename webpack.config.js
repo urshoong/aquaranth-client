@@ -15,7 +15,7 @@ dotenv.config();
 
 module.exports = {
   mode: isDevelopment ? "development" : "production",
-  devtool: !isDevelopment ? "hidden-source-map" : "eval",
+  devtool: !isDevelopment ? "hidden-source-map" : "eval-source-map",
 
   node: false,
 
