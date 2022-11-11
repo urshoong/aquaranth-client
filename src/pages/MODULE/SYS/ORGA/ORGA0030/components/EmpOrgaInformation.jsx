@@ -19,7 +19,9 @@ function EmpOrgaInformation({ orga }) {
             </div>
 
             <div>사번</div>
-            <div><input className="unchangeable" value={orgaNo} /></div>
+            <div>
+              <input className="unchangeable" value={orgaNo} />
+            </div>
 
             <div>회사구분</div>
             <div>

@@ -1,6 +1,10 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 
 function EmpInsert({ company, chengeEmpInput, clickEmpAdd, clickMoveEmpListPage, idCheck }) {
+  const { register, watch, formState: { errors } } = useForm();
+
+  console.log(watch("email"));
   return (
     <div>
       <span>사원 정보 추가하기</span>
@@ -51,12 +55,21 @@ function EmpInsert({ company, chengeEmpInput, clickEmpAdd, clickMoveEmpListPage,
 
         <div>
           <span> 이름 </span>
-          <input type="text" name="empName" onChange={(e) => { chengeEmpInput(e); }} />
+          <input
+            type="text"
+            name="empName"
+            onChange={(e) => { chengeEmpInput(e); }}
+          />
         </div>
 
         <div>
           <span> ID </span>
-          <input type="text" name="username" onChange={(e) => { chengeEmpInput(e); }} onBlur={(e) => { idCheck(e); }} />
+          <input
+            type="text"
+            name="username"
+            onChange={(e) => { chengeEmpInput(e); }}
+            onBlur={(e) => { idCheck(e); }}
+          />
         </div>
 
         <div>
@@ -75,7 +88,8 @@ function EmpInsert({ company, chengeEmpInput, clickEmpAdd, clickMoveEmpListPage,
 
         <div>
           <span> 이메일 </span>
-          <input type="text" name="email" onChange={(e) => { chengeEmpInput(e); }} />
+          <input type="email" name="email" onChange={(e) => { chengeEmpInput(e); }} />
+          {/* {...register("email", { required: true })} */}
         </div>
 
         <div>
