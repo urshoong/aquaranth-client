@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import RoleGroupContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGroupContent";
+// import RoleGroupContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGroupContent";
 import request from "@utils/axiosUtil";
+import RoleGroupContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGroupContent";
 
 const getCompanyList = async (companyNo) => {
   const { data } = await request.get(`/userrole/companyList/${companyNo}`);
@@ -12,13 +13,26 @@ const getGroupList = async (companyName, roleGroupSearch) => {
   return data;
 };
 
+const getUserList = async (companyNo, roleGroupNo, userListSearch) => {
+  const { data } = await request.get(`/userrole/roleGroupUserList?companyNo=${companyNo}&roleGroupNo=${roleGroupNo}&userListSearch=${userListSearch}`);
+  return data;
+};
+
+const initSearchCondition = {
+  companyNo: 0,
+  roleGroupNo: 0,
+};
+
 const UserRoleRoleGroupBasedPage = (props) => {
   const [company, setCompany] = useState([]);
   const [roleGroup, setRoleGroup] = useState([]);
+  const [searchCondition, setSearchCondition] = useState(initSearchCondition);
+  const [userList, setUserList] = useState([]);
 
   useEffect(() => {
     // 로그인한 사용자의 회사 코드를 입력받아서 처리해야함
     getCompanyList(1).then((data) => {
+      console.log("company", company);
       setCompany(data);
     });
   }, []);
@@ -27,16 +41,27 @@ const UserRoleRoleGroupBasedPage = (props) => {
     const selectedCompany = document.querySelector(".companySelect");
     const searchInput = document.querySelector(".searchInput");
     getGroupList(selectedCompany.value, searchInput.value).then((data) => {
+      // roleGroupList에서 active 해제해주기 위하여 처리
       setRoleGroup([]);
       setRoleGroup(data);
+      // 초기화
+      setSearchCondition({ ...initSearchCondition });
+      setUserList([]);
     });
   };
 
   const roleGroupClickHandler = (e) => {
     const target = e.target.tagName === "DIV" ? e.target : e.target.parentElement;
+    console.log("target", target);
     const groupContentList = document.querySelectorAll(".groupContent");
     groupContentList.forEach((groupContent) => groupContent.classList.remove("active"));
     target.classList.add("active");
+    console.log(target.dataset);
+    // setSearchCondition({ companyNo: company.companyNo });
+  };
+
+  const userSearchClickHandler = (e) => {
+    console.log("searchCondition", searchCondition);
   };
 
   return (
@@ -109,8 +134,8 @@ const UserRoleRoleGroupBasedPage = (props) => {
           <span>선택한 권한을 사용할 사용자를 선택하세요.</span>
         </div>
         <div className="innerSearchWrap">
-          <input type="text" className="innerSearchInput" placeholder="부서 / 직급 / 직책 / 이름 / ID 를 검색 하세요" />
-          <button type="button" className="btn innerSearchBtn">🔍</button>
+          <input type="text" className="innerSearchInput" placeholder="부서 / 직급 / 이름 / ID 를 검색 하세요" />
+          <button type="button" className="btn innerSearchBtn" onClick={() => { userSearchClickHandler(); }}>🔍</button>
         </div>
         <div className="innerContent">
           <div className="contentContainer">
@@ -120,12 +145,18 @@ const UserRoleRoleGroupBasedPage = (props) => {
               <div><span>직급</span></div>
               <div><span>이름(ID)</span></div>
             </div>
-            <div className="contentRow">
-              <div><input type="checkbox" /></div>
-              <div><span>DOUZONE&gt;인사팀</span></div>
-              <div><span>사원</span></div>
-              <div><span>정수연(user01)</span></div>
-            </div>
+            {/* <div><input type="checkbox" /></div> */}
+            {/* <div><span>DOUZONE&gt;인사팀</span></div> */}
+            {/* <div><span>사원</span></div> */}
+            {/* <div><span>정수연(user01)</span></div> */}
+            {userList?.map((user) => (
+              <div className="contentRow" key={user.emp_no}>
+                <div><input type="checkbox" /></div>
+                <div><span>company_name&gt;인사팀</span></div>
+                <div><span>사원</span></div>
+                <div><span>정수연(user01)</span></div>
+              </div>
+            ))}
           </div>
         </div>
         <div className="innerPaginationWrap">
