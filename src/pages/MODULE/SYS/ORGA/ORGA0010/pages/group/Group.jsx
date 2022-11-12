@@ -20,7 +20,7 @@ const Group = () => {
     getOrgaTree().then((data) => {
       setTree(data);
       console.log(data);
-    })
+    });
   }, []);
 
 
