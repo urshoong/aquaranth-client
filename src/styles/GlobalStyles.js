@@ -16,8 +16,12 @@ a:hover {text-decoration:none}
 iframe {overflow:hidden;margin:0;border:0;padding:0;vertical-align:top}
 mark {background-color:transparent}
 i {font-style:normal}
+<<<<<<< HEAD
 div{box-sizing: border-box}
 input{outline: none}
 `;
+=======
+div, input {box-sizing: border-box}`;
+>>>>>>> 30b2f361c5f3bf49ef1ed924f7158df2dd197ef1
 
 export default GlobalStyles;

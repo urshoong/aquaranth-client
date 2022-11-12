@@ -37,8 +37,12 @@ const DefaultLayout = ({ children }) => {
 const ContentWrapper = styled.div`
   ${({ theme }) => css`
       min-width: 1232px;
+<<<<<<< HEAD
       background-color: ${(props) => props.theme.color.white};
       width: calc(100% - ${theme.ui.gnbSidebar});
+=======
+      width: calc(100% - 100px);
+>>>>>>> 30b2f361c5f3bf49ef1ed924f7158df2dd197ef1
       height: 100%;
       position: absolute;
       overflow: auto;
@@ -58,8 +62,14 @@ const DefaultLayoutWrapper = styled.div`
 const Wrapper = styled.div`
   ${({ theme }) => {
     return css`
+<<<<<<< HEAD
       display: flex;
       height: calc(100% - ${theme.ui.header});
+=======
+      width: 100vw;
+      height: 100vh;
+      color: ${white};
+>>>>>>> 30b2f361c5f3bf49ef1ed924f7158df2dd197ef1
     `;
   }}
 `;
