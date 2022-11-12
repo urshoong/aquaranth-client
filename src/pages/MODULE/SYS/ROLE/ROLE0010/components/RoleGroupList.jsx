@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
+import RoleGroupAddModal from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupAddModal";
+import RoleGroupModModal from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupModModal";
+import { ModalContainer } from "@pages/MODULE/SYS/ROLE/ROLE0010";
 import SearchBox from "./SearchBox";
 
 export const AddModalBtn = styled.button`
@@ -14,36 +17,57 @@ export const AddModalBtn = styled.button`
 
 function RoleGroupList({
   roleGroupList,
-  companyList,
-  setModal,
+  loginUserCompany,
+  addModal,
+  setAddModal,
+  modModal,
+  setModModal,
+  refreshPage,
+  onClickDelBtn,
+  addRoleGroup,
 }) {
-  const [filter, setFilter] = useState([]);
-  const [groupCount, setGroupCount] = useState(0);
-
-  console.log("list componet에서 호출함 @@@@@@@@@@2", roleGroupList);
-
-
   return (
-    <div>
-      <SearchBox companyList={companyList} />
+    <ModalContainer>
+      <SearchBox loginUserCompany={loginUserCompany} />
       <div className="comList">
         {roleGroupList?.map(({
           roleGroupNo,
           roleGroupName,
         }) => (
-          <div key={roleGroupNo} className="comListDiv">
+          <div key={roleGroupNo} className="comListDiv" onClick={() => setModModal(true)}>
             <div>{roleGroupName}</div>
+            {
+              modModal === true ? (
+                <RoleGroupModModal
+                  loginUserCompany={loginUserCompany}
+                  setModModal={setModModal}
+                  onClickDelBtn={onClickDelBtn}
+                />
+              ) : null
+            }
           </div>
         ))}
         <div className="listRegisterDiv">
           <AddModalBtn
             type="button"
-            onClick={() => setModal(true)}
+            onClick={() => setAddModal(true)}
           >+ 추가
           </AddModalBtn>
         </div>
       </div>
-    </div>
+      {
+        addModal === true ? (
+          <RoleGroupAddModal
+            addRoleGroup={addRoleGroup}
+            loginUserCompany={loginUserCompany}
+            setAddModal={setAddModal}
+            refreshPage={refreshPage}
+          />
+        ) : null
+      }
+
+
+    </ModalContainer>
   );
 }
 

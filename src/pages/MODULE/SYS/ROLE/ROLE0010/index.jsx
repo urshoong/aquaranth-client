@@ -2,46 +2,66 @@ import React, { useEffect, useState } from "react";
 import request from "@utils/axiosUtil";
 import "./style.css";
 import styled from "styled-components";
+import RoleGroupModModal from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupModModal";
 import RoleGroupList from "./components/RoleGroupList";
 import RoleGroupAddModal from "./components/RoleGroupAddModal";
 import UserMenu from "./components/UserMenu";
 
-const fetchGNBList = async () => {
-  const { data } = await request.get("/company/list");
-  return data;
-};
-
-const fetchCompanyList = async () => {
-  const { data } = await request.get("/company/list");
-  return data;
-};
-
-const fetchRoleGroup = async () => {
-  const { data } = await request.get("/role-group");
-  return data;
-};
-
-const addRoleGroup = async (roleGroup) => {
-  const { data } = await request.post("/role-group", roleGroup);
-  return data;
-};
-
-
 export const ModalContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
+  //width: 100vw;
+  //height: 100vh;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
 `;
+const fetchGNBList = async () => {
+  const { data } = await request.get("/company/list");
+  return data;
+};
+const fetchLoginUserCompany = async () => {
+  const { data } = await request.get("/login/company");
+  return data;
+};
+const fetchRoleGroup = async () => {
+  const { data } = await request.get("/role-group");
+  return data;
+};
+
+
+// 권한그룹 추가
+const addRoleGroup = async (roleGroup) => {
+  const { data } = await request.post("/role-group", roleGroup);
+  return data;
+};
+
+// 권한그룹 수정
+const modRoleGroup = async (roleGroup) => {
+  const { data } = await request.put("/role-group", roleGroup);
+  return data;
+};
+
+// 권한그룹 수정
+const delRoleGroup = async (roleGroupNo) => {
+  const { data } = await request.delete(`/role-group/${roleGroupNo}`);
+  return data;
+};
 
 function Index() {
-  const [companyList, setCompanyList] = useState([]);
+  const [loginUserCompany, setLoginUserCompany] = useState({});
   const [roleGroupList, setRoleGroupList] = useState([]);
-  const [GNBList, setGNBList] = useState([]);
-  const [modal, setModal] = useState(false);
+  const [addModal, setAddModal] = useState(false);
+  const [modModal, setModModal] = useState(false);
   const [refresh, setRefresh] = useState(false);
+
+  const onClickDelBtn = (roleGroupNo) => {
+    delRoleGroup(roleGroupNo)
+      .then((data) => {
+        alert("권한그룹 삭제가 완료되었습니다.");
+        setModModal(false);
+      })
+      .catch((data) => alert(data));
+  };
 
   const refreshPage = () => {
     setRefresh(!refresh);
@@ -50,34 +70,27 @@ function Index() {
   useEffect(() => {
     fetchRoleGroup()
       .then((data) => setRoleGroupList(data));
-    fetchCompanyList()
-      .then((data) => setCompanyList(data));
+    fetchLoginUserCompany()
+      .then((data) => setLoginUserCompany(data));
   }, [refresh]);
 
   return (
-    <ModalContainer className="firstOutDiv">
-      <div className="mainDiv">
-        <div className="listInfoDiv">
-          <RoleGroupList
-            roleGroupList={roleGroupList}
-            companyList={companyList}
-            setModal={setModal}
-          />
-          <UserMenu />
-        </div>
+    <div className="mainDiv">
+      <div className="listInfoDiv">
+        <RoleGroupList
+          roleGroupList={roleGroupList}
+          loginUserCompany={loginUserCompany}
+          addModal={addModal}
+          modModal={modModal}
+          setAddModal={setAddModal}
+          setModModal={setModModal}
+          refreshPage={refreshPage}
+          onClickDelBtn={onClickDelBtn}
+          addRoleGroup={addRoleGroup}
+        />
+        <UserMenu />
       </div>
-
-      {
-        modal === true ? (
-          <RoleGroupAddModal
-            addRoleGroup={addRoleGroup}
-            companyList={companyList}
-            setModal={setModal}
-            refreshPage={refreshPage}
-          />
-        ) : null
-      }
-    </ModalContainer>
+    </div>
   );
 }
 

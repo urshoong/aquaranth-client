@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
+// style div
 export const ModalBackdrop = styled.div`
   width: 100%;
   height: 100%;
@@ -11,7 +12,6 @@ export const ModalBackdrop = styled.div`
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
 `;
-
 export const ModalView = styled.div.attrs((props) => ({
   role: "dialog",
 }))`
@@ -24,21 +24,20 @@ export const ModalView = styled.div.attrs((props) => ({
 `;
 
 const initState = {
-  companyName: "",
   roleGroupName: "",
   roleGroupUse: true,
 };
 
 function RoleGroupAddModal({
-  setModal,
-  companyList,
+  setAddModal,
+  loginUserCompany,
   addRoleGroup,
   refreshPage,
 }) {
   const [roleGroup, setRoleGroup] = useState({ ...initState });
   const {
-    roleGroupUse,
     roleGroupName,
+    roleGroupUse,
   } = roleGroup;
 
   const roleGroupChangeEvent = (e) => {
@@ -57,37 +56,19 @@ function RoleGroupAddModal({
   };
 
   const onClickAddBtn = () => {
-    if (roleGroup.companyName === "") {
-      alert("회사를 선택해 주십시오.");
-      return;
-    }
-
     addRoleGroup(roleGroup)
       .then((data) => {
         console.log(data);
         // 상위 컴포넌트의 주소창 이동 함수를 받아서 이동
-        setModal(false);
+        setAddModal(false);
         refreshPage();
       });
   };
 
   return (
-    <ModalBackdrop className="modal">
       <ModalView>
         <h2>** 권한그룹 등록 **</h2>
-        <div>
-          회사:
-          <select name="companyName" onChange={(e) => roleGroupChangeEvent(e)}>
-            <option>회사선택</option>
-            {companyList.map((company) => {
-              const {
-                companyNo,
-                companyName,
-              } = company;
-              return <option key={companyNo}>{companyName}</option>;
-            })}
-          </select>
-        </div>
+        <div className="comName">{loginUserCompany.companyName}</div>
         <div>
           그룹명:
           <input
@@ -120,14 +101,13 @@ function RoleGroupAddModal({
             type="button"
             onClick={() => {
               setRoleGroup({ ...initState });
-              setModal(false);
+              setAddModal(false);
             }}
           >취소
           </button>
           <button className="button" type="button" onClick={() => onClickAddBtn()}>확인</button>
         </div>
       </ModalView>
-    </ModalBackdrop>
   );
 }
 
