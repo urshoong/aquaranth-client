@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import RoleGroupAddModal from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupAddModal";
 import RoleGroupModModal from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupModModal";
-import { ModalContainer } from "@pages/MODULE/SYS/ROLE/ROLE0010";
 import SearchBox from "./SearchBox";
 
 export const AddModalBtn = styled.button`
@@ -27,9 +26,8 @@ function RoleGroupList({
   addRoleGroup,
 }) {
   return (
-    <ModalContainer>
-      <SearchBox loginUserCompany={loginUserCompany} />
-      <div className="comList">
+    <div>
+      <div className="roleGroupList">
         {roleGroupList?.map(({
           roleGroupNo,
           roleGroupName,
@@ -47,14 +45,12 @@ function RoleGroupList({
             }
           </div>
         ))}
-        <div className="listRegisterDiv">
-          <AddModalBtn
-            type="button"
-            onClick={() => setAddModal(true)}
-          >+ 추가
-          </AddModalBtn>
-        </div>
       </div>
+      <AddModalBtn
+        type="button"
+        onClick={() => setAddModal(true)}
+      >+ 추가
+      </AddModalBtn>
       {
         addModal === true ? (
           <RoleGroupAddModal
@@ -64,10 +60,7 @@ function RoleGroupList({
             refreshPage={refreshPage}
           />
         ) : null
-      }
-
-
-    </ModalContainer>
+      }</div>
   );
 }
 

@@ -143,7 +143,7 @@ function Index() {
         <button className="searchBt" type="submit" onClick={() => { clickHandler(); }}>🔍</button>
       </div>
       <div className="listInfoDiv">
-        <div className="comList">
+        <div className="roleGroupList">
           {search?.map(({ companyNo, companyName, ownerName, companyUse }) => (
             <div key={companyNo} className="comListDiv" onClick={() => { clickInformation(companyNo); }}>
               <div>{companyNo}</div>

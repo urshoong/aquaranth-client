@@ -19,6 +19,7 @@
 
 .mainDiv {
     box-sizing: border-box;
+    display: flex;
     padding: 10px;
 }
 
@@ -60,15 +61,12 @@
 .listInfoDiv {
     box-sizing: border-box;
     padding-top: 8px;
-    display: grid;
     grid-template-columns: 1fr 4fr;
     grid-gap: 1rem;
 }
 
-.comList {
-    height: 88vh;
+.roleGroupList {
     border: 1px solid darkgray;
-    overflow: auto;
 }
 
 .comInfo {

@@ -1,20 +1,10 @@
 import React, { useEffect, useState } from "react";
 import request from "@utils/axiosUtil";
 import "./style.css";
-import styled from "styled-components";
-import RoleGroupModModal from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupModModal";
+import SearchBox from "@pages/MODULE/SYS/ROLE/ROLE0010/components/SearchBox";
 import RoleGroupList from "./components/RoleGroupList";
-import RoleGroupAddModal from "./components/RoleGroupAddModal";
 import UserMenu from "./components/UserMenu";
 
-export const ModalContainer = styled.div`
-  //width: 100vw;
-  //height: 100vh;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-`;
 const fetchGNBList = async () => {
   const { data } = await request.get("/company/list");
   return data;
@@ -69,14 +59,19 @@ function Index() {
 
   useEffect(() => {
     fetchRoleGroup()
-      .then((data) => setRoleGroupList(data));
+      .then((data) => {
+        setRoleGroupList(data);
+      });
     fetchLoginUserCompany()
-      .then((data) => setLoginUserCompany(data));
+      .then((data) => {
+        setLoginUserCompany(data);
+      });
   }, [refresh]);
 
   return (
     <div className="mainDiv">
       <div className="listInfoDiv">
+        <SearchBox loginUserCompany={loginUserCompany} />
         <RoleGroupList
           roleGroupList={roleGroupList}
           loginUserCompany={loginUserCompany}
@@ -88,6 +83,8 @@ function Index() {
           onClickDelBtn={onClickDelBtn}
           addRoleGroup={addRoleGroup}
         />
+      </div>
+      <div>
         <UserMenu />
       </div>
     </div>
