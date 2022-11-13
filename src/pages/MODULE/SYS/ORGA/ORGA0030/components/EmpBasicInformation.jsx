@@ -66,19 +66,20 @@ function EmpBasicInformation({ clickEmpRegister, clickEmpModify, clickEmpRemove,
           onChange={(e) => { changeEmpInput(e); }}
         />
 
-        <div>
-          <span>권한</span>
-        </div>
-        <div>
-          <input name="admin" type="radio" value="false" />일반
-          <input name="admin" type="radio" value="true" />관리자
-        </div>
-
         <div>최초입사일</div>
-        <input type="date" value={empInformation.firstHiredate} readOnly className="unchangeable" />
+        <input type="date" value={empInformation.firstHiredDate} readOnly className="unchangeable" />
 
         <div>최종퇴사일</div>
-        <input type="date" value={empInformation.lastRetiredate} readOnly className="unchangeable" />
+        <input type="date" value={empInformation.firstRetiredDate} readOnly className="unchangeable" />
+
+        <div>
+          <span>계정 사용</span>
+        </div>
+        <div>
+          <input name="empUse" type="radio" value="true" checked={empInformation.empUse === true} onChange={(e) => { changeEmpInput(e); }} />사용
+          <input name="empUse" type="radio" value="false" checked={empInformation.empUse === false} onChange={(e) => { changeEmpInput(e); }} />미사용
+        </div>
+
       </div>
     </div>
   );

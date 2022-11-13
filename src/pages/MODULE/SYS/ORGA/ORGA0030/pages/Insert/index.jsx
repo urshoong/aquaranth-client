@@ -18,12 +18,17 @@ const empList = async () => {
 
 const companyList = async () => {
   const { data } = await request.get("/company/list");
-  console.log(data);
+  return data;
+};
+
+const deptNameList = async (companyNo) => {
+  const { data } = await request.get(`/dept/readName/${companyNo}`);
   return data;
 };
 
 const initState = {
-  deptNo: "",
+  companyNo: 0,
+  deptNo: 0,
   empRank: "",
   empProfile: "",
   empName: "",
@@ -33,11 +38,14 @@ const initState = {
   email: "",
   empPhone: "",
   empAddress: "",
+  empRole: "",
+  empUse: 1,
 };
 
-function index(props) {
-  const [empValue, setEmpValue] = useState(initState);
+function Index(props) {
+  const [employee, setEmployee] = useState(initState);
   const [company, setCompany] = useState([]);
+  const [department, setDepartment] = useState([]);
 
   const history = useHistory();
 
@@ -47,13 +55,23 @@ function index(props) {
     });
   }, []);
 
-  const chengeEmpInput = (e) => {
-    const { name } = e.target;
+  // 회사 선택 시 (선택 회사 정보 변경 시) 실행되는 함수
+  const handleOnChangeCompany = (e) => {
     const { value } = e.target;
+    setEmployee({ ...employee, companyNo: value });
+    // console.log(`companyselect${companyNo}`);
+    // 회사 정보 포스트 해주고 getMapping해주면 바뀔라나
+    // 여기서 then
+    deptNameList(value).then((data) => {
+      setDepartment(data);
+    });
+  };
 
-    empValue[name] = value;
-    setEmpValue({ ...empValue });
-    console.log(empValue);
+  // 사원 정보 입력값 변경 시 실행되는 함수
+  const handleOnChangeEmployee = (e) => {
+    const { name, value } = e.target;
+    setEmployee({ ...employee, [name]: value });
+    console.log(employee);
   };
 
   /// //////////////
@@ -63,8 +81,8 @@ function index(props) {
   /// //////////////
 
   const clickEmpAdd = () => {
-    empRegister(empValue).then(() => {
-      setEmpValue(empValue);
+    empRegister(employee).then(() => {
+      setEmployee(employee);
       history.replace("/SYS/ORGA/ORGA0030");
     });
   };
@@ -76,12 +94,14 @@ function index(props) {
   return (
     <EmpInsert
       company={company}
-      chengeEmpInput={chengeEmpInput}
+      handleOnChangeEmployee={handleOnChangeEmployee}
       clickEmpAdd={clickEmpAdd}
       clickMoveEmpListPage={clickMoveEmpListPage}
       idCheck={idCheck}
+      handleOnChangeCompany={handleOnChangeCompany}
+      department={department}
     />
   );
 }
 
-export default index;
+export default Index;

@@ -40,6 +40,14 @@ function EmpOrgaInformation({ orga }) {
 
             <div>회사 주소</div>
             <div><input value={companyAddress} /></div>
+
+            <div>
+              <span>권한</span>
+            </div>
+            <div>
+              <input name="admin" type="radio" value="false" />일반
+              <input name="admin" type="radio" value="true" />관리자
+            </div>
           </div>
         </div>
       ))}

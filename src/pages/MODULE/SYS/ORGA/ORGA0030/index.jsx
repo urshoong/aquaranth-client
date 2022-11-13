@@ -28,6 +28,14 @@ const empRemove = async (empNo) => {
 const initState = {
   empNo: 0,
   empName: "",
+  username: "",
+  gender: "",
+  email: "",
+  empPhone: "",
+  empAddress: "",
+  firstHiredDate: "",
+  firstRetiredDate: "",
+  empUse: "",
 };
 
 

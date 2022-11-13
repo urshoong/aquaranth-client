@@ -7,8 +7,9 @@ const empOrgaList = async (empNo) => {
   return data;
 };
 
-const index = () => {
+const Index = () => {
   const [orga, setOrga] = useState();
+  const [company, setCompany] = useState();
 
   const clickEmpList = () => {
     empOrgaList().then((data) => {
@@ -24,4 +25,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
