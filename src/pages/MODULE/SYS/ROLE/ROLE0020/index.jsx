@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "./userrole.css";
 
-import UserRoleRoleGroupBasedPage from "./UserRoleRoleGroupBasedPage";
+import UserRoleRoleGroupBasedPage from "@pages/MODULE/SYS/ROLE/ROLE0020/UserRoleRoleGroupBasedPage";
+import UserRoleUserBasedPage from "@pages/MODULE/SYS/ROLE/ROLE0020/UserRoleUserBasedPage";
+
+const initPageChange = {
+  pageName: "UserRoleRoleGroupBasedPage",
+};
 
 function Index() {
+  const [pageChange, setPageChange] = useState(initPageChange);
+
+  const userRolePageClickHandler = (e) => {
+    const pageName = e.target.dataset?.name;
+    console.log("pageName", pageName);
+    setPageChange({ pageName });
+  };
+
   return (
     <div>
       <div className="titleWrap">
@@ -14,14 +27,12 @@ function Index() {
       </div>
       <div className="contentWrap">
         <div className="innerTabWrap">
-          <span className="innerTab active">권한그룹기준</span>
-          <span className="innerTab">사용자 기준</span>
+          <span className={`innerTab ${pageChange?.pageName === "UserRoleRoleGroupBasedPage" ? "active" : ""}`} data-name="UserRoleRoleGroupBasedPage" onClick={userRolePageClickHandler}>권한그룹기준</span>
+          <span className={`innerTab ${pageChange?.pageName === "UserRoleUserBasedPage" ? "active" : ""}`} data-name="UserRoleUserBasedPage" onClick={userRolePageClickHandler}>사용자 기준</span>
         </div>
         <div className="content">
-          {/* 권한그룹기준 페이지 */}
-          <UserRoleRoleGroupBasedPage />
-          {/* 사용자기준 페이지 */}
-          {/* <UserRoleUserBasedPage /> */}
+          {pageChange?.pageName === "UserRoleRoleGroupBasedPage" && <UserRoleRoleGroupBasedPage />}
+          {pageChange?.pageName === "UserRoleUserBasedPage" && <UserRoleUserBasedPage />}
         </div>
       </div>
     </div>
