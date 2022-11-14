@@ -1,48 +1,28 @@
 import React, { useEffect, useState } from "react";
-import request from "@utils/axiosUtil";
 import "./style.css";
 import SearchBox from "@pages/MODULE/SYS/ROLE/ROLE0010/components/SearchBox";
-import RoleGroupList from "./components/RoleGroupList";
-
-const fetchLoginUserCompany = async () => {
-  const { data } = await request.get("/login/company");
-  return data;
-};
-const fetchRoleGroup = async () => {
-  const { data } = await request.get("/role-group");
-  return data;
-};
+import RoleGroupList from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupList";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_COMPANY, GET_ROLE_GROUP } from "@reducer/roleGroupSlice";
 
 function Index() {
-  const [loginUserCompany, setLoginUserCompany] = useState({});
-  const [roleGroupList, setRoleGroupList] = useState([]);
-  const [refresh, setRefresh] = useState(false);
-
-  const refreshPage = () => {
-    setRefresh(!refresh);
-  };
+  const { isLoading, refresh } = useSelector((state) => state.roleGroup);
+  const loading = isLoading && <>로딩중...</>;
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchRoleGroup()
-      .then((data) => {
-        setRoleGroupList(data);
-      });
-    fetchLoginUserCompany()
-      .then((data) => {
-        setLoginUserCompany(data);
-      });
+    dispatch(GET_COMPANY());
+    dispatch(GET_ROLE_GROUP());
   }, [refresh]);
 
   return (
     <div className="mainDiv">
-      <div className="listInfoDiv">
-        <SearchBox loginUserCompany={loginUserCompany} />
-        <RoleGroupList
-          roleGroupList={roleGroupList}
-          loginUserCompany={loginUserCompany}
-          refreshPage={refreshPage}
-        />
+      <div className="container">
+        {loading}
+        <SearchBox />
+        <RoleGroupList />
       </div>
+      <div className="menuRole-container" />
     </div>
   );
 }

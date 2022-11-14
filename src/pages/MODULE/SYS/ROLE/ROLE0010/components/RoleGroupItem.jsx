@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import RoleGroupModModal from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupModModal";
 
-function RoleGroupItem({ roleGroup, loginUserCompany, refreshPage }) {
-  const [modModal, setModModal] = useState(false);
+function RoleGroupItem({ roleGroup }) {
   const { roleGroupName } = roleGroup;
+  const [modModal, setModModal] = useState(false);
 
   return (
     <div className="comListDiv">
@@ -11,14 +11,7 @@ function RoleGroupItem({ roleGroup, loginUserCompany, refreshPage }) {
       <button className="button" type="button" onClick={() => setModModal(true)}>수정/삭제</button>
       <div className="modModal-check">
         {
-          modModal === true ? (
-            <RoleGroupModModal
-              loginUserCompany={loginUserCompany}
-              setModModal={setModModal}
-              roleGroup={roleGroup}
-              refreshPage={refreshPage}
-            />
-          ) : null
+          modModal === true ? <RoleGroupModModal setModModal={setModModal} roleGroup={roleGroup} /> : null
         }
       </div>
     </div>

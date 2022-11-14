@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import request from "@utils/axiosUtil";
+import { useDispatch, useSelector } from "react-redux";
+import { changeRefresh } from "@reducer/roleGroupSlice";
 
 // style div
 export const ModalBackdrop = styled.div`
@@ -29,11 +31,9 @@ const initRoleGroupDTO = {
   roleGroupUse: true,
 };
 
-function RoleGroupAddModal({
-  setAddModal,
-  loginUserCompany,
-  refreshPage,
-}) {
+function RoleGroupAddModal({ setAddModal }) {
+  const dispatch = useDispatch();
+  const { companyName } = useSelector((state) => state.roleGroup);
   const [roleGroupInsertReqDTO, setRoleGroupInsertReqDTO] = useState({ ...initRoleGroupDTO });
   const {
     roleGroupName,
@@ -55,13 +55,11 @@ function RoleGroupAddModal({
     setRoleGroupInsertReqDTO({ ...roleGroupInsertReqDTO });
   };
   const onClickAddBtn = async () => {
-    console.log("권한그룹을 추가합니다 reqDTO -> ", roleGroupInsertReqDTO);
     await request.post("/role-group", roleGroupInsertReqDTO)
       .then(({ data }) => {
-        alert("권한그룹이 추가되었습니다.");
         console.log("권한그룹 추가가 완료되었습니다. 추가된 권한그룹 -> ", data);
         setAddModal(false);
-        refreshPage();
+        dispatch(changeRefresh());
       });
   };
   const onClickCancelBtn = () => {
@@ -72,7 +70,7 @@ function RoleGroupAddModal({
   return (
     <ModalView>
       <h2>** 권한그룹 등록 **</h2>
-      <div className="comName">{loginUserCompany.companyName}</div>
+      <div className="comName">{companyName}</div>
       <div>
         그룹명:
         <input

@@ -4,53 +4,38 @@ import {
   ModalView,
 } from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupAddModal";
 import request from "@utils/axiosUtil";
+import { useDispatch, useSelector } from "react-redux";
+import { changeRefresh } from "@reducer/roleGroupSlice";
 
 const initRoleGroupModDTO = {
-  roleGroupNo: 0,
   roleGroupName: "",
   roleGroupUse: true,
 };
 
-function RoleGroupModModal({
-  loginUserCompany,
-  setModModal,
-  roleGroup,
-  refreshPage,
-}) {
+function RoleGroupModModal({ roleGroup, setModModal }) {
+  const { companyName } = useSelector((state) => state.roleGroup);
+  const dispatch = useDispatch();
   const [roleGroupModDTO, setRoleGroupModDTO] = useState({ ...initRoleGroupModDTO });
-  const {
-    roleGroupNo,
-    roleGroupName,
-    roleGroupUse,
-  } = roleGroupModDTO;
-
-  useEffect(() => {
-    console.log("use Effect 실행됨");
-    roleGroupModDTO.roleGroupNo = roleGroup.roleGroupNo;
-    setRoleGroupModDTO({ ...roleGroupModDTO });
-  }, []);
+  const { roleGroupName, roleGroupUse } = roleGroupModDTO;
 
   const onClickCancelBtn = () => {
     setRoleGroupModDTO({ ...initRoleGroupModDTO });
     setModModal(false);
   };
   const onClickModBtn = async () => {
-    console.log("수정하려는 권한그룹 DTO ", roleGroupModDTO);
     await request.put("/role-group", roleGroupModDTO)
       .then(() => {
-        alert("권한그룹이 수정되었습니다.");
         console.log("권한그룹이 수정되었습니다.");
         setModModal(false);
-        refreshPage();
+        dispatch(changeRefresh());
       });
   };
   const onClickDelBtn = async () => {
-    console.log("삭제하려는 권한그룹번호: ", roleGroupNo);
-    await request.delete(`/role-group/${roleGroupNo}`)
+    await request.delete(`/role-group/${roleGroup.roleGroupNo}`)
       .then(() => {
-        alert("권한그룹 삭제가 완료되었습니다.");
         console.log("권한그룹 삭제가 완료되었습니다.");
-        refreshPage();
+        setModModal(false);
+        dispatch(changeRefresh());
       });
   };
   const roleGroupChangeEvent = (e) => {
@@ -73,7 +58,7 @@ function RoleGroupModModal({
       <ModalView>
         <h2>** 권한그룹 수정 **</h2>
         <div className="comName">
-          <div>회사명: {loginUserCompany.companyName}</div>
+          <div>회사명: {companyName}</div>
           <div className="inputGroup">
             <div>
               그룹명:
@@ -108,7 +93,7 @@ function RoleGroupModModal({
         <div className="btnGroup">
           <button className="button" type="button" onClick={() => onClickCancelBtn()}>취소</button>
           <button className="button" type="button" onClick={() => onClickModBtn()}>수정</button>
-          <button className="button" type="button" onClick={() => onClickDelBtn(roleGroupNo)}>삭제</button>
+          <button className="button" type="button" onClick={() => onClickDelBtn()}>삭제</button>
         </div>
       </ModalView>
     </ModalBackdrop>
