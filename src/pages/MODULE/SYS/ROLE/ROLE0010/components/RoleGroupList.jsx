@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import RoleGroupAddModal from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupAddModal";
-import RoleGroupModModal from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupModModal";
-import SearchBox from "./SearchBox";
+import RoleGroupItem from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupItem";
 
 export const AddModalBtn = styled.button`
   background-color: #4000c7;
@@ -17,50 +16,34 @@ export const AddModalBtn = styled.button`
 function RoleGroupList({
   roleGroupList,
   loginUserCompany,
-  addModal,
-  setAddModal,
-  modModal,
-  setModModal,
   refreshPage,
-  onClickDelBtn,
-  addRoleGroup,
 }) {
+  const [addModal, setAddModal] = useState(false);
   return (
     <div>
       <div className="roleGroupList">
-        {roleGroupList?.map(({
-          roleGroupNo,
-          roleGroupName,
-        }) => (
-          <div key={roleGroupNo} className="comListDiv" onClick={() => setModModal(true)}>
-            <div>{roleGroupName}</div>
-            {
-              modModal === true ? (
-                <RoleGroupModModal
-                  loginUserCompany={loginUserCompany}
-                  setModModal={setModModal}
-                  onClickDelBtn={onClickDelBtn}
-                />
-              ) : null
-            }
-          </div>
-        ))}
-      </div>
-      <AddModalBtn
-        type="button"
-        onClick={() => setAddModal(true)}
-      >+ 추가
-      </AddModalBtn>
-      {
-        addModal === true ? (
-          <RoleGroupAddModal
-            addRoleGroup={addRoleGroup}
+        {roleGroupList?.map((roleGroup) => (
+          <RoleGroupItem
+            key={roleGroup.roleGroupNo}
+            roleGroup={roleGroup}
             loginUserCompany={loginUserCompany}
-            setAddModal={setAddModal}
             refreshPage={refreshPage}
           />
-        ) : null
-      }</div>
+        ))}
+      </div>
+      <AddModalBtn type="button" onClick={() => setAddModal(true)}>+ 추가</AddModalBtn>
+      <div className="addModal-check">
+        {
+          addModal === true ? (
+            <RoleGroupAddModal
+              loginUserCompany={loginUserCompany}
+              setAddModal={setAddModal}
+              refreshPage={refreshPage}
+            />
+          ) : null
+        }
+      </div>
+    </div>
   );
 }
 
