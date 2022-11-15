@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import EmpModal from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpModal";
+import Modal from "react-modal";
 
 function EmpInsert({ company, handleOnChangeEmployee, clickEmpAdd,
-  clickMoveEmpListPage, idCheck, handleOnChangeCompany, department }) {
+  clickMoveEmpListPage, idCheck, handleOnChangeCompany, department,
+}) {
   const { register, watch, formState: { errors } } = useForm();
 
   console.log(watch("email"));
   return (
-    <div>
-      <span>사원 정보 추가하기</span>
 
+
+    <div>
+      {/* ////////////////////////////////////////////////////////////// */}
+
+      {/* ////////////////////////////////////////////////////////////// */}
+      <EmpModal />
+      <span>사원 정보 추가하기</span>
       <div>
         {/* 회사 목록 selector */}
         <div>

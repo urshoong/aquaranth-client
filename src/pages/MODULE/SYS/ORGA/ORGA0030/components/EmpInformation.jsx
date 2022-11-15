@@ -6,12 +6,15 @@ import EmpBasicInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpB
 
 function EmpInformation({ emps, empInformation, clickEmpRegister,
   changeEmpInput, clickEmpModify, clickEmpRemove, clickEmp, clickOrga, view,
-  basicColor, orgaColor, orga }) {
+  basicColor, orgaColor, orga, handleOnClickOrgaRegister, orgaDisplay, company,
+  handleOnChangeCompany, department, handleOnClickOrgaRegisterSubmit,
+  handleOnClickOrgaRegisterReset, handleOnChangeOrgaRegisterInput,
+  handleOnClickOrgaModify, handleOnChangeOrgaInput, handleOnClickOrgaModifyDept }) {
   return (
     <div className="pageLine">
       <div className="empList">
         <span>사용자 : {emps.length} 명</span> <span>정렬▼</span>
-        {emps.map(({ empNo, username, empName, firstHiredate }) => (
+        {emps.map(({ empNo, username, empName, firstHiredDate }) => (
           <div className="empItem" key={empNo} onClick={() => clickEmp(empNo)} aria-hidden="true">
             <div className="empItemImg">사진 </div>
             <div className="empIdName">
@@ -23,7 +26,7 @@ function EmpInformation({ emps, empInformation, clickEmpRegister,
               </div>
             </div>
             <div>
-              {firstHiredate}
+              {firstHiredDate}
             </div>
           </div>
         ))}
@@ -53,6 +56,17 @@ function EmpInformation({ emps, empInformation, clickEmpRegister,
           ) : (
             <EmpOrgaInformation
               orga={orga}
+              handleOnClickOrgaRegister={handleOnClickOrgaRegister}
+              orgaDisplay={orgaDisplay}
+              company={company}
+              handleOnChangeCompany={handleOnChangeCompany}
+              department={department}
+              handleOnClickOrgaRegisterSubmit={handleOnClickOrgaRegisterSubmit}
+              handleOnClickOrgaRegisterReset={handleOnClickOrgaRegisterReset}
+              handleOnChangeOrgaRegisterInput={handleOnChangeOrgaRegisterInput}
+              handleOnClickOrgaModify={handleOnClickOrgaModify}
+              handleOnChangeOrgaInput={handleOnChangeOrgaInput}
+              handleOnClickOrgaModifyDept={handleOnClickOrgaModifyDept}
             />
           )}
 

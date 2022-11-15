@@ -16,12 +16,12 @@ const empList = async () => {
   return data;
 };
 
-const companyList = async () => {
+export const companyList = async () => {
   const { data } = await request.get("/company/list");
   return data;
 };
 
-const deptNameList = async (companyNo) => {
+const deptList = async (companyNo) => {
   const { data } = await request.get(`/dept/readName/${companyNo}`);
   return data;
 };
@@ -59,10 +59,7 @@ function Index(props) {
   const handleOnChangeCompany = (e) => {
     const { value } = e.target;
     setEmployee({ ...employee, companyNo: value });
-    // console.log(`companyselect${companyNo}`);
-    // 회사 정보 포스트 해주고 getMapping해주면 바뀔라나
-    // 여기서 then
-    deptNameList(value).then((data) => {
+    deptList(value).then((data) => {
       setDepartment(data);
     });
   };
@@ -71,7 +68,6 @@ function Index(props) {
   const handleOnChangeEmployee = (e) => {
     const { name, value } = e.target;
     setEmployee({ ...employee, [name]: value });
-    console.log(employee);
   };
 
   /// //////////////

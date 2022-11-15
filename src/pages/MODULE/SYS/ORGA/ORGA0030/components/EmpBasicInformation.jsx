@@ -70,7 +70,7 @@ function EmpBasicInformation({ clickEmpRegister, clickEmpModify, clickEmpRemove,
         <input type="date" value={empInformation.firstHiredDate} readOnly className="unchangeable" />
 
         <div>최종퇴사일</div>
-        <input type="date" value={empInformation.firstRetiredDate} readOnly className="unchangeable" />
+        <input type="date" name="lastRetiredDate" value={empInformation.lastRetiredDate} onChange={(e) => { changeEmpInput(e); }} />
 
         <div>
           <span>계정 사용</span>
