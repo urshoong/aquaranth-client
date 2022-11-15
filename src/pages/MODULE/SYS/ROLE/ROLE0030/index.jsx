@@ -1,15 +1,16 @@
-import React from "react";
+import React, {useEffect} from "react";
+
+
 
 
 const Index = () => {
+  useEffect(() => {
+  },[])
   return (
     <div>
       <div className="">
-        메뉴사용설정
-      </div>
-      <div className="">
         <div className="">
-          <div className="">메뉴 상세</div>
+          <div className="">메뉴 상세 설정</div>
           <div className="">
             <div className="">상위메뉴
               <input type="text" />
