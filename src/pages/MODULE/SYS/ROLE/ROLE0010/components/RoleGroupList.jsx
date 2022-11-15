@@ -14,7 +14,7 @@ export const AddModalBtn = styled.button`
   cursor: grab;
 `;
 
-function RoleGroupList() {
+function RoleGroupList({ showUserMenu }) {
   const { roleGroupList } = useSelector((state) => state.roleGroup);
   const [addModal, setAddModal] = useState(false);
 
@@ -25,6 +25,7 @@ function RoleGroupList() {
           <RoleGroupItem
             key={roleGroup.roleGroupNo}
             roleGroup={roleGroup}
+            showUserMenu={showUserMenu}
           />
         ))}
       </div>

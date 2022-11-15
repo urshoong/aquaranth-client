@@ -1,10 +1,10 @@
 import React from "react";
 
-function MenuItem({ menu }) {
-  const { menuName, menuNo } = menu;
+function MenuItem({ menu, onChangeInputBox }) {
+  const { menuName, menuNo, menuCode } = menu;
   return (
     <div>
-      <input type="checkbox" value={menuNo} />
+      <input type="checkbox" value={menuNo} onChange={(e) => onChangeInputBox(e)} />
       {menuName}
     </div>
   );

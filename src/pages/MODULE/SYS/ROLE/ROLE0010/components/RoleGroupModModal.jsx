@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeRefresh } from "@reducer/roleGroupSlice";
 
 const initRoleGroupModDTO = {
+  roleGroupNo: 0,
   roleGroupName: "",
   roleGroupUse: true,
 };
@@ -23,9 +24,11 @@ function RoleGroupModModal({ roleGroup, setModModal }) {
     setModModal(false);
   };
   const onClickModBtn = async () => {
+    roleGroupModDTO.roleGroupNo = roleGroup.roleGroupNo;
     await request.put("/role-group", roleGroupModDTO)
       .then(() => {
         console.log("권한그룹이 수정되었습니다.");
+        setRoleGroupModDTO({ ...initRoleGroupModDTO });
         setModModal(false);
         dispatch(changeRefresh());
       });
