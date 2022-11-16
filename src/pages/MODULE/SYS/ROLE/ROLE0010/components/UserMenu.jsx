@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import MenuItem from "@pages/MODULE/SYS/ROLE/ROLE0010/components/MenuItem";
 import { useDispatch, useSelector } from "react-redux";
-import { changeRefresh, GET_LNB_LIST } from "@reducer/roleGroupSlice";
+import { changeRefresh, GET_LNB_LIST, GET_MENU_ROLE_LIST } from "@reducer/roleGroupSlice";
 import request from "@utils/axiosUtil";
 
 const initState = {
   roleGroupNo: 0,
   moduleCode: "",
-  menuNoList: [],
+  dtoList: [],
 };
 
 function UserMenu({ roleGroupNo }) {
@@ -21,8 +21,9 @@ function UserMenu({ roleGroupNo }) {
     setLnb([]);
   }, [roleGroupNo]);
   useEffect(() => {
+    console.log("모듈코드 상태 변경");
     if (addMenuRoleDTO.moduleCode !== "") {
-      dispatch(GET_LNB_LIST(addMenuRoleDTO.moduleCode));
+      dispatch(GET_LNB_LIST({ roleGroupNo, moduleCode: addMenuRoleDTO.moduleCode }));
     }
   }, [addMenuRoleDTO.moduleCode]);
   useEffect(() => {
@@ -36,26 +37,22 @@ function UserMenu({ roleGroupNo }) {
   const onChangeSelectBoxEvent = (e) => {
     const gnbMenuCode = e.target.value;
     addMenuRoleDTO.moduleCode = gnbMenuCode;
-    setAddMenuRoleDTO({ ...addMenuRoleDTO, moduleCode: gnbMenuCode, checkedMenuList: [] });
+    setAddMenuRoleDTO({ ...addMenuRoleDTO, moduleCode: gnbMenuCode, menuNoList: [] });
     setLnb([]);
   };
   const onClickSaveBtn = () => {
-    addMenuRoleDTO.menuNoList.sort();
+    addMenuRoleDTO.dtoList = lnb.filter((menu) => menu.checked === true);
     request.post("/menu-role", addMenuRoleDTO)
       .then(() => {
         setAddMenuRoleDTO({ ...initState });
         dispatch(changeRefresh());
-        console.log("메뉴권한 추가가 완료되었습니다. --> ", addMenuRoleDTO);
+        console.log("저장이 완료되었습니다. 전달된 dto 객체--> ", addMenuRoleDTO);
       });
   };
   const onChangeInputBox = (e) => {
     const { checked, value } = e.target;
-    if (checked) {
-      addMenuRoleDTO.menuNoList = [...addMenuRoleDTO.menuNoList, value];
-    } else {
-      addMenuRoleDTO.menuNoList = addMenuRoleDTO.menuNoList.filter((menuNo) => menuNo !== value);
-    }
-    setAddMenuRoleDTO({ ...addMenuRoleDTO });
+    const temp = lnb.map((menu) => (menu.menuNo == value ? { ...menu, checked } : menu));
+    setLnb(temp);
   };
 
   return (

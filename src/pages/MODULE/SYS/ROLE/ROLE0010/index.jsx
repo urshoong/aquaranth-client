@@ -4,10 +4,8 @@ import SearchBox from "@pages/MODULE/SYS/ROLE/ROLE0010/components/SearchBox";
 import RoleGroupList from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupList";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  changeRefresh,
   GET_COMPANY,
   GET_GNB_LIST,
-  GET_LNB_LIST,
   GET_ROLE_GROUP,
 } from "@reducer/roleGroupSlice";
 import UserMenu from "@pages/MODULE/SYS/ROLE/ROLE0010/components/UserMenu";

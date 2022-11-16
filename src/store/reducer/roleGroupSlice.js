@@ -16,8 +16,8 @@ export const GET_GNB_LIST = createAsyncThunk("GET_GNB_LIST", async () => {
   return data;
 });
 
-export const GET_LNB_LIST = createAsyncThunk("GET_LNB_LIST", async (menuCode) => {
-  const { data } = await request.get(`/menu/findundermenu/${menuCode}`);
+export const GET_LNB_LIST = createAsyncThunk("GET_LNB_LIST", async ({ roleGroupNo, moduleCode }) => {
+  const { data } = await request.get(`/menu-role?roleGroupNo=${roleGroupNo}&moduleCode=${moduleCode}`);
   return data;
 });
 
