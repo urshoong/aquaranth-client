@@ -78,7 +78,6 @@ function EmpBasicInformation({ clickEmpRegister, clickEmpModify,
           <input name="empUse" type="radio" value="true" checked={empInformation.empUse === true} onChange={(e) => { changeEmpInput(e); }} />사용
           <input name="empUse" type="radio" value="false" checked={empInformation.empUse === false} onChange={(e) => { changeEmpInput(e); }} />미사용
         </div>
-
       </div>
     </div>
   );

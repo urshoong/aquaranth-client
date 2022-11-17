@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 
 function EmpInsert({ company, handleOnChangeEmployee, clickEmpAdd,
   clickMoveEmpListPage, idCheck, handleOnChangeCompany, department,
 }) {
-  const { register, watch, formState: { errors } } = useForm();
+  // const { register, watch, formState: { errors } } = useForm();
 
   // console.log(watch("email"));
   return (
@@ -37,7 +37,6 @@ function EmpInsert({ company, handleOnChangeEmployee, clickEmpAdd,
               </option>
             ))}
           </select>
-
 
           직급 :
           <select name="empRank" onChange={(e) => { handleOnChangeEmployee(e); }}>

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "../employeestyle.css";
 import EmpOrgaInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpOrgaInformation";
 import EmpBasicInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpBasicInformation";
@@ -69,12 +68,8 @@ function EmpInformation({ emps, empInformation, clickEmpRegister,
               handleOnClickOrgaModifyDept={handleOnClickOrgaModifyDept}
             />
           )}
-
       </div>
-
-
     </div>
-
 
   );
 }
