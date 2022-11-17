@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./comLayout.css";
 import request from "@utils/axiosUtil";
+import { Link } from "react-router-dom";
+import useNavigate from "../../../../../hooks/useNavigate";
 
 
 const companyList = async () => {
@@ -31,6 +33,7 @@ const companyModify = async (companyNo, modify) => {
   await request.put(`/company/modify/${companyNo}`, modify);
 };
 
+
 const initState = {
   companyNo: 0,
   companyName: "",
@@ -50,6 +53,7 @@ function Index() {
   const [register, setRegister] = useState(initState);
   const { companyNo, companyName, companyAddress, companyTel, ownerName, businessNumber, foundingDate, companyUse } = information;
 
+  const navigate = useNavigate();
   useEffect(() => {
     companyList().then((data) => {
       setSearch(data);
@@ -129,11 +133,16 @@ function Index() {
     });
   };
 
+  const handleOnNavigate = () => {
+    navigate.go("/group");
+  };
+
   return (
     <>
       <div className="searchDiv">
         <span className="comName">회사</span>
-        {/* <input className="comNameInput" type="text" placeholder="회사코드/회사명을 입력하세요." onChange={(e) => { changeHandler(e); }} /> */}
+        <button type="button" onClick={handleOnNavigate}>GO</button>
+        <input className="comNameInput" type="text" placeholder="회사코드/회사명을 입력하세요." onChange={(e) => { changeHandler(e); }} />
 
         <span className="comUse">사용여부</span>
         <select className="comUseSelect" onClick={(e) => { clikcHandlerUSe(e); }}>

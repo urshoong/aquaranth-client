@@ -9,6 +9,7 @@ import GnbMenuItem from "@components/layout/sidebar/gnb/GnbMenuItem";
  * 아이콘과, URL이 담긴 메뉴를 반환합니다.
  * @return {JSX.Element}
  * @constructor
+ * @author 김민준
  */
 const GnbSidebar = () => {
   const [gnbMenuList, setGnbMenuList] = useState([]);

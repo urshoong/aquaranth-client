@@ -1,7 +1,7 @@
 # aquaranth-client
 Aquaranth Client
 
-## Role Group Page
+## Role Index Page
 - url => /role/group 
 - state => title
 - state => information

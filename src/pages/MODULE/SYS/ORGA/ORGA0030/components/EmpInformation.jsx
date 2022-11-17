@@ -1,15 +1,21 @@
-import React, { useState } from "react";
 import "../employeestyle.css";
+import React from "react";
+import EmpOrgaInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpOrgaInformation";
+import EmpBasicInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpBasicInformation";
 
 
-function EmpInformation({ emps, clickEmpList, empInformation, clickEmpRegister,
-  changeEmpInput, clickEmpModify, clickEmpRemove }) {
+function EmpInformation({ emps, empInformation, clickEmpRegister,
+  changeEmpInput, clickEmpModify, clickEmpRemove, clickEmp, clickOrga, view,
+  basicColor, orgaColor, orga, handleOnClickOrgaRegister, orgaDisplay, company,
+  handleOnChangeCompany, department, handleOnClickOrgaRegisterSubmit,
+  handleOnClickOrgaRegisterReset, handleOnChangeOrgaRegisterInput,
+  handleOnClickOrgaModify, handleOnChangeOrgaInput, handleOnClickOrgaModifyDept }) {
   return (
-    <div className="pageLine">
-      <div className="empList"> div2-1
+    <div className="pageLine" style={{ height: "600px" }}>
+      <div className="empList" style={{ overflow: "auto", height: "600px" }}>
         <span>사용자 : {emps.length} 명</span> <span>정렬▼</span>
-        {emps.map(({ empNo, username, empName, firstHiredate }) => (
-          <div className="empItem" key={empNo} onClick={() => clickEmpList(empNo)} aria-hidden="true">
+        {emps.map(({ empNo, username, empName, firstHiredDate }) => (
+          <div className="empItem" key={empNo} onClick={() => clickEmp(empNo)} aria-hidden="true">
             <div className="empItemImg">사진 </div>
             <div className="empIdName">
               <div>
@@ -20,7 +26,7 @@ function EmpInformation({ emps, clickEmpList, empInformation, clickEmpRegister,
               </div>
             </div>
             <div>
-              {firstHiredate}
+              {firstHiredDate}
             </div>
           </div>
         ))}
@@ -28,7 +34,9 @@ function EmpInformation({ emps, clickEmpList, empInformation, clickEmpRegister,
 
 
       <div className="infoPage">
-        <span>●상세정보</span>
+        <span className="basicFont" style={{ color: basicColor }} onClick={() => clickEmp(empInformation.empNo)} aria-hidden="true">●기본정보</span>
+        <span className="orgaFont" style={{ color: orgaColor }} onClick={() => clickOrga(empInformation.empNo)} aria-hidden="true">●조직정보</span>
+
         <div>
           <span>빨간색은 필수 입력 항목입니다.</span>
         </div>
@@ -36,77 +44,34 @@ function EmpInformation({ emps, clickEmpList, empInformation, clickEmpRegister,
           <span>검정색은 변경 불가 항목입니다.</span>
         </div>
 
-        <button type="button" onClick={() => { clickEmpRegister(); }}>추가</button>
-        <button type="button" onClick={() => { clickEmpModify(); }}>수정</button>
-        <button type="button" onClick={() => { clickEmpRemove(); }}>삭제</button>
-
-        <div className="empBasicInformation">
-          <div className="category">{empInformation.empProfile}</div>
-          <div className="info">
-            <input type="file" />
-          </div>
-
-          <div>이름</div>
-          <input
-            type="text"
-            name="empName"
-            value={empInformation.empName}
-            onChange={(e) => { changeEmpInput(e); }}
-            className="essential"
-          />
-
-          <div>ID</div>
-          <div className="unchangeable">{empInformation.username}</div>
-
-          <div>비밀번호</div>
-          <input
-            type="text"
-            name="password"
-            value={empInformation.password}
-            onChange={(e) => { changeEmpInput(e); }}
-            className="essential"
-          />
-
-          <div>성별</div>
-          <select name="gender" value={empInformation.gender} onChange={(e) => { changeEmpInput(e); }}>
-            <option value="남성">남성</option>
-            <option value="여성">여성</option>
-          </select>
-
-
-          <div>이메일</div>
-          <input
-            type="text"
-            name="email"
-            value={empInformation.email}
-            onChange={(e) => { changeEmpInput(e); }}
-          />
-
-          <div>휴대전화</div>
-          <input
-            type="text"
-            name="empPhone"
-            value={empInformation.empPhone}
-            onChange={(e) => { changeEmpInput(e); }}
-          />
-
-          <div>주소</div>
-          <input
-            type="text"
-            name="empAddress"
-            value={empInformation.empAddress}
-            onChange={(e) => { changeEmpInput(e); }}
-          />
-
-          <div>최초입사일</div>
-          <input type="date" value={empInformation.firstHiredate} readOnly className="unchangeable" />
-
-          <div>최종퇴사일</div>
-          <input type="date" value={empInformation.lastRetiredate} readOnly className="unchangeable" />
-        </div>
-
+        {view
+          ? (
+            <EmpBasicInformation
+              clickEmpRegister={clickEmpRegister}
+              clickEmpModify={clickEmpModify}
+              clickEmpRemove={clickEmpRemove}
+              empInformation={empInformation}
+              changeEmpInput={changeEmpInput}
+            />
+          ) : (
+            <EmpOrgaInformation
+              orga={orga}
+              handleOnClickOrgaRegister={handleOnClickOrgaRegister}
+              orgaDisplay={orgaDisplay}
+              company={company}
+              handleOnChangeCompany={handleOnChangeCompany}
+              department={department}
+              handleOnClickOrgaRegisterSubmit={handleOnClickOrgaRegisterSubmit}
+              handleOnClickOrgaRegisterReset={handleOnClickOrgaRegisterReset}
+              handleOnChangeOrgaRegisterInput={handleOnChangeOrgaRegisterInput}
+              handleOnClickOrgaModify={handleOnClickOrgaModify}
+              handleOnChangeOrgaInput={handleOnChangeOrgaInput}
+              handleOnClickOrgaModifyDept={handleOnClickOrgaModifyDept}
+            />
+          )}
       </div>
     </div>
+
   );
 }
 

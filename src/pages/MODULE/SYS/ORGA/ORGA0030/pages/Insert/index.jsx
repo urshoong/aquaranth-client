@@ -1,15 +1,36 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import request from "@utils/axiosUtil";
 import EmpInsert from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpInsert";
+import { useHistory } from "react-router-dom";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import _ from "lodash";
 
 const empRegister = async (emp) => {
+  console.log("emp", emp);
   const { data } = await request.post("/emp/register", emp);
   return data;
 };
 
+// 앞에 index에서 썼는데 또 받아와서 써도 상관없나? 그것도 username만을 위해서 ㅇ0ㅇ?
+const empList = async () => {
+  const { data } = await request.get("/emp/information");
+  return data;
+};
+
+export const companyList = async () => {
+  const { data } = await request.get("/company/list");
+  return data;
+};
+
+const deptList = async (companyNo) => {
+  const { data } = await request.get(`/dept/readName/${companyNo}`);
+  return data;
+};
+
 const initState = {
-  empProfile: "",
+  companyNo: 0,
+  deptNo: 0,
+  empRank: "",
   empName: "",
   username: "",
   password: "",
@@ -17,40 +38,68 @@ const initState = {
   email: "",
   empPhone: "",
   empAddress: "",
+  empRole: "",
+  empUse: 1,
 };
 
-function index(props) {
-  const [empValue, setEmpValue] = useState(initState);
+function Index(props) {
+  const [employee, setEmployee] = useState(initState);
+  const [company, setCompany] = useState([]);
+  const [department, setDepartment] = useState([]);
 
   const history = useHistory();
 
-  const chengeEmpInput = (e) => {
-    const { name } = e.target;
-    const { value } = e.target;
+  useEffect(() => {
+    companyList().then((data) => {
+      setCompany(data);
+    });
+  }, []);
 
-    empValue[name] = value;
-    setEmpValue({ ...empValue });
-    console.log(empValue);
+  // 회사 선택 시 (선택 회사 정보 변경 시) 실행되는 함수
+  const handleOnChangeCompany = (e) => {
+    const { value } = e.target;
+    console.log("value", value);
+    setEmployee({ ...employee, companyNo: value });
+    deptList(value).then((data) => {
+      setDepartment(data);
+    });
   };
 
+  // 사원 정보 입력값 변경 시 실행되는 함수
+  const handleOnChangeEmployee = (e) => {
+    const { name, value } = e.target;
+    console.log("Input value", value);
+    setEmployee({ ...employee, [name]: value });
+  };
+
+  /// //////////////
+  const idCheck = () => {
+
+  };
+  /// //////////////
+
   const clickEmpAdd = () => {
-    empRegister(empValue).then(() => {
-      setEmpValue(empValue);
-      history.replace("/emp/information");
+    empRegister(employee).then(() => {
+      setEmployee(employee);
+      history.replace("/SYS/ORGA/ORGA0030");
     });
   };
 
   const clickMoveEmpListPage = () => {
-    history.replace("/emp/information");
+    history.replace("/SYS/ORGA/ORGA0030");
   };
 
   return (
     <EmpInsert
-      chengeEmpInput={chengeEmpInput}
+      company={company}
+      handleOnChangeEmployee={handleOnChangeEmployee}
       clickEmpAdd={clickEmpAdd}
       clickMoveEmpListPage={clickMoveEmpListPage}
+      idCheck={idCheck}
+      handleOnChangeCompany={handleOnChangeCompany}
+      department={department}
     />
   );
 }
 
-export default index;
+export default Index;

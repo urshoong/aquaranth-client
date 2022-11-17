@@ -1,0 +1,97 @@
+.outsideDiv {
+    color: black;
+    width: 100%;
+    height: calc( 100% - 92px);
+}
+
+.displayBt {
+    width: 4em;
+    height: 2em;
+    color: white;
+    border: 1px solid darkgray;
+    border-radius: 0.3em;
+    background-color: gray;
+    margin-left: 1em;
+}
+
+.orgaMainDiv {
+    box-sizing: border-box;
+    border: 1px solid darkgray;
+    width: 95em;
+    height: 48em;
+    margin-left: 1em;
+    margin-top: 1em;
+}
+
+.orgaTree {
+    font-size: 15px;
+}
+
+.orgaTreeSpanDiv {
+    margin-top: 0.5em;
+    margin-left: 0.5em;
+    width: 93.5em;
+    border-bottom: 1px solid darkgray;
+}
+
+.orgaGroupSpanDiv {
+    font-size: 13px;
+    margin-top: 0.5em;
+    margin-left: 0.5em;
+    margin-bottom: 0.5em;
+    width: 86em;
+}
+
+.allGroup, .myGroup {
+    padding-right: 1em;
+}
+
+.searchGroupDiv {
+    border: 1px solid darkgray;
+    margin: 0.5em 0.5em 0.5em 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.searchSelect {
+    width: 5em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.searchInput {
+    border: 1px solid darkgray;
+    width: 40em;
+    height: 2em;
+}
+
+.searchBt {
+    height: 2em;
+    width: 2em;
+    border: 1px solid darkgray;
+    border-radius: 0.3em;
+    margin-left: 43em;
+}
+
+.orgaTreeEmpInfoDiv {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1.3fr;
+    grid-gap: 1em;
+}
+
+.orgaTreeDiv {
+    border: 1px solid darkgray;
+    height: 39.3em;
+    margin-left: 0.5em;
+}
+
+.orgaEmpDiv {
+    border: 1px solid darkgray;
+    height: 39.3em;
+}
+
+.orgaEmpInfoDiv {
+    border: 1px solid darkgray;
+    height: 39.3em;
+    margin-right: 0.5em;
+}

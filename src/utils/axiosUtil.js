@@ -59,7 +59,7 @@ request.interceptors.response.use(
         })
         .catch(() => {
           // FIXME
-          window.location.href = "/login";
+          // window.location.href = "/login";
         });
 
       if (originalRequest.method === "get") {
