@@ -70,8 +70,8 @@ const UserRoleUserBasedPage = (props) => {
   };
 
   const roleGroupClickHandler = (e) => {
-
-  }
+    console.log("roleGroupClickHandler");
+  };
 
   useEffect(() => {
     // 로그인한 사용자의 회사 코드를 입력받아서 처리해야함
@@ -189,7 +189,7 @@ const UserRoleUserBasedPage = (props) => {
                 displayChekcbox=""
               />
             ))}
-          </div>y;.yyyy
+          </div>
           <div className="leftSection footer">
             {/* TODO : paging 처리해야됨 */}
             <div className="paginationWrap">
