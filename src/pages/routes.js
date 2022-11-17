@@ -5,12 +5,6 @@ import CALENDER from "@pages/MODULE/CALENDER";
 import DRIVE from "@pages/MODULE/DRIVE";
 import MAIL from "@pages/MODULE/MAIL";
 import MAIN from "@pages/MODULE/MAIN";
-<<<<<<< HEAD
-import group from "./MODULE/SYS/ORGA/ORGA0010/pages/group";
-=======
-import group from "@pages/MODULE/SYS/ORGA/ORGA0010/pages/group/Group";
-import Group from "@pages/MODULE/SYS/ORGA/ORGA0010/pages/Group";
->>>>>>> 99dcdd4bb50b78dc0b204c91fe0faa4b448df44e
 
 /**
  * FIXME : 동적으로 주입하는 방법 찾기
@@ -55,20 +49,6 @@ const routes = [
     path: "/SYS/ORGA/ORGA0010",
     module: ORGA0010,
   },
-
-  {
-    path: "/SYS/ORGA/ORGA0010/group",
-    module: group,
-  },
-
-<<<<<<< HEAD
-=======
-  {
-    path: "/SYS/ORGA/ORGA0010/group",
-    module: Group,
-  },
-
->>>>>>> 99dcdd4bb50b78dc0b204c91fe0faa4b448df44e
   /**
      * 부서
      * @Author 박경민

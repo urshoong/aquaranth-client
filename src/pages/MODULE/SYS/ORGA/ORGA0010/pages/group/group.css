@@ -65,20 +65,12 @@
     height: 2em;
 }
 
-<<<<<<< HEAD
-.searchButton {
-=======
 .searchBt {
->>>>>>> 99dcdd4bb50b78dc0b204c91fe0faa4b448df44e
     height: 2em;
     width: 2em;
     border: 1px solid darkgray;
     border-radius: 0.3em;
-<<<<<<< HEAD
     margin-left: 43em;
-=======
-    margin-left: 43.5em;
->>>>>>> 99dcdd4bb50b78dc0b204c91fe0faa4b448df44e
 }
 
 .orgaTreeEmpInfoDiv {
