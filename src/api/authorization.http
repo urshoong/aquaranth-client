@@ -1,0 +1,23 @@
+#### 로그인
+#POST /api/login HTTP/1.1
+#Host: localhost:8080
+#Content-Type: application/json
+#
+#{
+#  "username" : "admin",
+#  "password" : "admin"
+#}
+#
+#### 로그아웃
+#### 엑세스토큰을 쏴야 한다.
+#POST /api/token/remove-refresh HTTP/1.1
+#Host: localhost:8080
+#Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2ODI0MzcxMn0.Eh8OcARVAxeoMDuHMbu_DlR9UWvjPuFvEy7lEY0nnlg
+#Content-Type: application/json
+#
+#
+#
+#### 토큰 재발급
+#GET /api/token/refresh HTTP/1.1
+#Host: localhost:8080
+#Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyOTkiLCJleHAiOjE2NjgwNjkxNTJ9.o-_OHEufwKLDnC_5LomedoN4Y0W2ylIAAJVMjV0959E

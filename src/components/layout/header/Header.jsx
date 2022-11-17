@@ -7,6 +7,7 @@ import styled, { css } from "styled-components";
  * 헤더 레이아웃 입니다.
  * @return {JSX.Element}
  * @constructor
+ * @author 김민준
  */
 const Header = ({ setPageTitle, pageTitle }) => {
   return (
