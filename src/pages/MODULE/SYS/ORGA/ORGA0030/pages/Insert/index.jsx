@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import _ from "lodash";
 
 const empRegister = async (emp) => {
+  console.log("emp", emp);
   const { data } = await request.post("/emp/register", emp);
   return data;
 };
@@ -30,7 +31,6 @@ const initState = {
   companyNo: 0,
   deptNo: 0,
   empRank: "",
-  empProfile: "",
   empName: "",
   username: "",
   password: "",
@@ -58,6 +58,7 @@ function Index(props) {
   // 회사 선택 시 (선택 회사 정보 변경 시) 실행되는 함수
   const handleOnChangeCompany = (e) => {
     const { value } = e.target;
+    console.log("value", value);
     setEmployee({ ...employee, companyNo: value });
     deptList(value).then((data) => {
       setDepartment(data);
@@ -67,6 +68,7 @@ function Index(props) {
   // 사원 정보 입력값 변경 시 실행되는 함수
   const handleOnChangeEmployee = (e) => {
     const { name, value } = e.target;
+    console.log("Input value", value);
     setEmployee({ ...employee, [name]: value });
   };
 

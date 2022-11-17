@@ -11,8 +11,8 @@ function EmpInformation({ emps, empInformation, clickEmpRegister,
   handleOnClickOrgaRegisterReset, handleOnChangeOrgaRegisterInput,
   handleOnClickOrgaModify, handleOnChangeOrgaInput, handleOnClickOrgaModifyDept }) {
   return (
-    <div className="pageLine">
-      <div className="empList">
+    <div className="pageLine" style={{ height: "600px" }}>
+      <div className="empList" style={{ overflow: "auto", height: "600px" }}>
         <span>사용자 : {emps.length} 명</span> <span>정렬▼</span>
         {emps.map(({ empNo, username, empName, firstHiredDate }) => (
           <div className="empItem" key={empNo} onClick={() => clickEmp(empNo)} aria-hidden="true">

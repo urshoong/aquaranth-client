@@ -5,7 +5,6 @@ import DRIVE from "@pages/MODULE/DRIVE";
 import MAIL from "@pages/MODULE/MAIL";
 import MAIN from "@pages/MODULE/MAIN";
 import insert from "@pages/MODULE/SYS/ORGA/ORGA0030/pages/Insert";
-import modal from "@pages/MODULE/SYS/ORGA/ORGA0030/pages/modal";
 
 /**
  * FIXME : 동적으로 주입하는 방법 찾기
@@ -70,10 +69,6 @@ const routes = [
   {
     path: "/SYS/ORGA/ORGA0030/register",
     module: insert,
-  },
-  {
-    path: "/SYS/ORGA/ORGA0030/modal",
-    module: modal,
   },
   /**
      * 권한 그룹

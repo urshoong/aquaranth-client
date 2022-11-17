@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import EmpModal from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpModal";
-import Modal from "react-modal";
 
 function EmpInsert({ company, handleOnChangeEmployee, clickEmpAdd,
   clickMoveEmpListPage, idCheck, handleOnChangeCompany, department,
 }) {
   const { register, watch, formState: { errors } } = useForm();
 
-  console.log(watch("email"));
+  // console.log(watch("email"));
   return (
 
 
@@ -16,7 +14,6 @@ function EmpInsert({ company, handleOnChangeEmployee, clickEmpAdd,
       {/* ////////////////////////////////////////////////////////////// */}
 
       {/* ////////////////////////////////////////////////////////////// */}
-      <EmpModal />
       <span>사원 정보 추가하기</span>
       <div>
         {/* 회사 목록 selector */}
@@ -61,7 +58,7 @@ function EmpInsert({ company, handleOnChangeEmployee, clickEmpAdd,
 
         <div>
           <div className="empItemImg">사진</div>
-          <input type="file" name="empProfile" onChange={(e) => { handleOnChangeEmployee(e); }} />
+          <input type="file" onChange={(e) => { handleOnChangeEmployee(e); }} />
         </div>
 
         <div>

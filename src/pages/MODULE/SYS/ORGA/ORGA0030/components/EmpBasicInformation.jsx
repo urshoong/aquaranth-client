@@ -1,12 +1,11 @@
 import React from "react";
 
-function EmpBasicInformation({ clickEmpRegister, clickEmpModify, clickEmpRemove,
+function EmpBasicInformation({ clickEmpRegister, clickEmpModify,
   empInformation, changeEmpInput }) {
   return (
     <div>
       <button type="button" onClick={() => { clickEmpRegister(); }}>추가</button>
       <button type="button" onClick={() => { clickEmpModify(); }}>수정</button>
-      <button type="button" onClick={() => { clickEmpRemove(); }}>삭제</button>
 
       <div className="empBasicInformation">
         <div className="category">{empInformation.empProfile}</div>
@@ -67,10 +66,10 @@ function EmpBasicInformation({ clickEmpRegister, clickEmpModify, clickEmpRemove,
         />
 
         <div>최초입사일</div>
-        <input type="date" value={empInformation.firstHiredDate} readOnly className="unchangeable" />
+        <input type="date" name="firstHiredDate" value={empInformation.firstHiredDate} readOnly className="unchangeable" />
 
         <div>최종퇴사일</div>
-        <input type="date" name="lastRetiredDate" value={empInformation.lastRetiredDate} onChange={(e) => { changeEmpInput(e); }} />
+        <input type="date" name="lastRetiredDate" value={empInformation.lastRetiredDate === null ? "" : empInformation.lastRetiredDate} onChange={(e) => { changeEmpInput(e); }} />
 
         <div>
           <span>계정 사용</span>

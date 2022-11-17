@@ -5,8 +5,6 @@ import EmpInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpInform
 import { companyList } from "@pages/MODULE/SYS/ORGA/ORGA0030/pages/Insert";
 
 
-// TODO 정렬, 페이징
-
 const empList = async () => {
   const { data } = await request.get("/emp/information");
   return data;
@@ -22,11 +20,6 @@ const empModify = async (empInfo) => {
   return data;
 };
 
-const empRemove = async (empNo) => {
-  const { data } = await request.delete(`/emp/remove/${empNo}`);
-  return data;
-};
-
 const deptList = async (companyNo) => { // TODO redux
   const { data } = await request.get(`/dept/readName/${companyNo}`);
   return data;
@@ -37,9 +30,14 @@ const empOrgaRegister = async (orga) => {
   return data;
 };
 
-const empOrgaModify = async () => {
-  console.log();
-  const { data } = await request.put("/emp/modifyOrga/");
+const empOrgaModify = async (orga) => {
+  console.log("orga", orga);
+
+  const listData = {
+    list: orga,
+  };
+
+  const { data } = await request.put("/emp/modifyOrga", listData);
   return data;
 };
 
@@ -62,8 +60,9 @@ const orgaInitState = {
   companyNo: 0,
   deptNo: 0,
   empRank: 0,
-  empRole: "",
+  empRole: true,
   orgaNo: 0,
+  retiredDate: "",
 };
 
 
@@ -90,6 +89,7 @@ function Index() {
   // -----------------조직 TEst----------------------------
 
   const [orga, setOrga] = useState([]);
+  const [orgaModifyNo, setOrgaModifyNo] = useState(0);
   const [orgaChange, setOrgaChange] = useState(orgaInitState);
 
   //---------------------------------------------
@@ -115,6 +115,12 @@ function Index() {
       setEmpInformation(data);
     });
   };
+
+  // const changeRole = (roleName) => {
+  //   if (orga) {
+  //     orga.empRole = roleName;
+  //   }
+  // };
 
   // 조직 정보가 담긴 컴포넌트를 부르기 위한 함수 선언
   const clickOrga = (empNo) => {
@@ -161,15 +167,6 @@ function Index() {
   const clickEmpModify = () => {
     alert("사원 정보 수정 완료");
     empModify(empInformation).then(() => {
-      empList().then((data) => {
-        setEmps(data);
-      });
-    });
-  };
-
-  // 사원 삭제 버튼
-  const clickEmpRemove = () => {
-    empRemove(empInformation.empNo).then(() => {
       empList().then((data) => {
         setEmps(data);
       });
@@ -232,23 +229,38 @@ function Index() {
     });
   };
 
-  // 조직 정보 수정 버튼 클릭
-  const handleOnClickOrgaModify = () => {
+  // 조직 정보 수정 input change 이벤트
+  const handleOnChangeOrgaInput = (e, targetOrga) => {
+    const { type, value, name, checked } = e.target;
+
+    console.log("--------------------");
+    console.log("type", type);
+    console.log("value", value);
+    console.log("name", name);
+    console.log("checked", checked);
+
+    const replaceName = name.replace(/[0-9]/g, "");
+    console.log(name, "변경 후 > ", replaceName);
+    console.log(value);
+
+    if (type === "radio") {
+      targetOrga[replaceName] = value;
+    } else {
+      targetOrga[name] = value;
+    }
+
+    setOrgaModifyNo(targetOrga.orgaNo);
+
+    console.log(targetOrga);
+    console.log("--------------------");
+    console.log(orga);
+    setOrga([...orga]);
   };
 
-  // 조직 정보 수정 input change 이벤트
-  const handleOnChangeOrgaInput = (e) => {
-    const { name, value } = e.target;
-    console.log(orga);
-
-    // const replaceName = name.replace(/[0-9]/g, "");
-    // console.log(replaceName);
-    // console.log(name);
-    // console.log(value);
-    // orga[replaceName] = value;
-    //
-    // console.log(orga);
-    // setOrga([...orga]);
+  // 조직 정보 수정 버튼 클릭
+  const handleOnClickOrgaModify = () => {
+    console.log("clickOrga", orga);
+    empOrgaModify(orga, orgaModifyNo).then((data) => { setOrga(data); });
   };
 
 
@@ -264,7 +276,6 @@ function Index() {
       clickEmpRegister={clickEmpRegister}
       changeEmpInput={changeEmpInput}
       clickEmpModify={clickEmpModify}
-      clickEmpRemove={clickEmpRemove}
       clickEmp={clickEmp}
       clickOrga={clickOrga}
       view={view}
@@ -283,7 +294,6 @@ function Index() {
       handleOnChangeOrgaInput={handleOnChangeOrgaInput}
       handleOnClickOrgaModifyDept={handleOnClickOrgaModifyDept}
     />
-
   );
 }
 
