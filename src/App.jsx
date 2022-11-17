@@ -31,7 +31,6 @@ const App = () => {
           </Switch>
         </DefaultLayout>
       </Suspense>
-
     </Switch>
   );
 };
