@@ -13,22 +13,21 @@ function Index() {
 
   const userRolePageClickHandler = (e) => {
     const pageName = e.target.dataset?.name;
-    console.log("pageName", pageName);
     setPageChange({ pageName });
   };
 
   return (
-    <div>
+    <div className="userRoleWrap">
       <div className="titleWrap">
         <span className="title">사용자권한설정</span>
         <div className="titleBtnDiv">
-          <button type="button" className="btn">마스터권한설정</button>
+          {/* <button type="button" className="btn">마스터권한설정</button> */}
         </div>
       </div>
       <div className="contentWrap">
         <div className="innerTabWrap">
-          <span className={`innerTab ${pageChange?.pageName === "UserRoleRoleGroupBasedPage" ? "active" : ""}`} data-name="UserRoleRoleGroupBasedPage" onClick={userRolePageClickHandler}>권한그룹기준</span>
-          <span className={`innerTab ${pageChange?.pageName === "UserRoleUserBasedPage" ? "active" : ""}`} data-name="UserRoleUserBasedPage" onClick={userRolePageClickHandler}>사용자 기준</span>
+          <span className={`innerTab ${pageChange?.pageName === "UserRoleRoleGroupBasedPage" ? "active" : ""}`} data-name="UserRoleRoleGroupBasedPage" onClick={userRolePageClickHandler} aria-hidden="true">권한그룹기준</span>
+          <span className={`innerTab ${pageChange?.pageName === "UserRoleUserBasedPage" ? "active" : ""}`} data-name="UserRoleUserBasedPage" onClick={userRolePageClickHandler} aria-hidden="true">사용자 기준</span>
         </div>
         <div className="content">
           {pageChange?.pageName === "UserRoleRoleGroupBasedPage" && <UserRoleRoleGroupBasedPage />}
