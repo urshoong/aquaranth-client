@@ -39,6 +39,7 @@ const ContentWrapper = styled.div`
       min-width: 1232px;
       background-color: ${(props) => props.theme.color.white};
       width: calc(100% - ${theme.ui.gnbSidebar});
+      width: calc(100% - 100px);
       height: 100%;
       position: absolute;
       overflow: auto;
