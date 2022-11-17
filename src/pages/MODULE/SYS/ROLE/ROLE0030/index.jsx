@@ -10,7 +10,7 @@ const Index = () => {
   const getData = async () => {
     await request.get("/menu").then((res) => {
       setMenuList(res.data);
-      console.log(res.data)
+      console.log(res.data);
     });
   };
 
@@ -48,7 +48,7 @@ const Index = () => {
           상위메뉴번호 : {selectedMenu.upperMenuNo}
         </Divider>
         <Divider>
-          메뉴사용여부 : {selectedMenu.menuUse?"사용":"사용안함"}
+          메뉴사용여부 : {selectedMenu.menuUse ? "사용" : "사용안함"}
         </Divider>
         <Divider>
           메뉴사진 : {selectedMenu.uuid}

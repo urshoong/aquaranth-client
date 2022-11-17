@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import request from "@utils/axiosUtil";
 import EmpInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpInformation";
 import { companyList } from "@pages/MODULE/SYS/ORGA/ORGA0030/pages/Insert";
@@ -260,7 +260,9 @@ function Index() {
   // 조직 정보 수정 버튼 클릭
   const handleOnClickOrgaModify = () => {
     console.log("clickOrga", orga);
-    empOrgaModify(orga, orgaModifyNo).then((data) => { setOrga(data); });
+    empOrgaModify(orga, orgaModifyNo).then((data) => {
+      setOrga(data);
+    });
   };
 
 

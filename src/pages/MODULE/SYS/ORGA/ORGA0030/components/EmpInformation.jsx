@@ -1,4 +1,5 @@
 import "../employeestyle.css";
+import React from "react";
 import EmpOrgaInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpOrgaInformation";
 import EmpBasicInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpBasicInformation";
 
