@@ -38,7 +38,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx)$/,
         loader: "babel-loader",
         options: {
           presets: [
@@ -53,7 +53,8 @@ module.exports = {
           ],
           env: {
             development: {
-              plugins: [require.resolve("react-refresh/babel")],
+              plugins: [require.resolve("react-refresh/babel"),
+                "babel-plugin-styled-components"],
             },
           },
         },
@@ -63,25 +64,23 @@ module.exports = {
         test: /\.css?$/,
         use: ["style-loader", "css-loader"],
       },
+
       {
-        test: /\.svg$/,
-        loader: "file-loader",
-        options: {
-          publicPath: "./dist/",
-          name: "[name].[ext]?[hash]",
-        },
-      },
-      {
-        test: /\.svg$/,
-        use: {
-          loader: "url-loader",
-          options: {
-            name: "[name].[ext]?[hash]",
-            publicPath: "./dist/",
-            limit: 10000,
+        test: /\.(png|svg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "images/[name].[ext]?[hash]",
+            },
           },
-        },
+        ],
       },
+      // FIXME : 상황별 사용
+      // {
+      //   test: /\.svg$/,
+      //   use: ["@svgr/webpack"],
+      // },
     ],
   },
   plugins: [

@@ -6,6 +6,7 @@ import styled, { css } from "styled-components";
  * GNB 메뉴 이름을 표시하는 헤더입니다.
  * @return {JSX.Element}
  * @constructor
+ * @author 김민준
  */
 const SubHeader = ({ setPageTitle, pageTitle }) => {
   return (

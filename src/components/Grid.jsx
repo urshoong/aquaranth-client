@@ -15,4 +15,8 @@ export const Span = ({ span }) => css`
   grid-column: span ${span};
 `;
 
+export const Divider = styled.div`
+  ${Span}
+  
+`;
 

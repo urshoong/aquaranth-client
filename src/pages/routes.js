@@ -1,4 +1,5 @@
 import { lazy } from "react";
+
 import BOARD from "@pages/MODULE/BOARD";
 import CALENDER from "@pages/MODULE/CALENDER";
 import DRIVE from "@pages/MODULE/DRIVE";

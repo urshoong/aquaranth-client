@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
  * @param url
  * @return {JSX.Element}
  * @constructor
+ * @author 김민준
  */
 const GnbMenuItem = ({ menu: { menuName, url } }) => {
   return (
