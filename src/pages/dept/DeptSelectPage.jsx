@@ -30,7 +30,6 @@ function DeptSelectPage(props) {
     console.log(targetDept);
   }
 
-
   const changeTarget = (target) => {
     setTarget(target)
     console.log("target : " + target);
