@@ -11,7 +11,7 @@ const root = document.querySelector("#root");
 
 ReactDOM.render(
   <BrowserRouter>
-    <GlobalStyles />
+    {/* <GlobalStyles /> */}
     <Provider store={store}>
       <App />
     </Provider>

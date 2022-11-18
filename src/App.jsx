@@ -9,6 +9,10 @@ import IndexPage from "@pages/IndexPage";
 import ComBasicInfoPage from "@pages/company/ComBasicInfoPage";
 import ComLayout from "@pages/company/ComLayout";
 import UserRolePage from "@pages/userrole/UserRolePage";
+import DeptPage from "./pages/dept/DeptPage";
+import DeptSelectPage from "./pages/dept/DeptSelectPage";
+import DeptRegisterPage from "./pages/dept/DeptRegisterPage";
+import DeptTree from "./components/dept/DeptTree";
 
 
 const App = () => (
@@ -16,6 +20,14 @@ const App = () => (
   <Switch>
     <Route path="/" component={IndexPage} exact />
     <Route path="/menu" component={MenuPage} />
+
+    <Route path="/dept" component={DeptPage}>
+      <Route path="/dept/register" component={DeptRegisterPage} />
+      <Route path="/dept/read/:gno" component={DeptSelectPage} componenet={DeptTree}/>
+      {/* <Route path="/dept/register1" component={DeptRegisterPage2}></Route> */}
+      {/* <Route path="/dept/read1/:deptNo" component={DeptSelectPage2}/> */}
+    </Route>
+
     <Route path="/userrole" component={UserRolePage} />
     <Route path="/role">
       <Route path="/role/group" component={RoleGroupPage} />
