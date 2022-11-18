@@ -8,6 +8,7 @@ function DeptPage(props) {
     <div className="all">
 
 
+<<<<<<< HEAD
       <div className="firstOne">
         {/* <span> */}
         {/*   부서관리 */}
@@ -20,6 +21,15 @@ function DeptPage(props) {
           <button type="button"><Link to={"dept/register"}>일괄 등록</Link></button>
           <button><Link to={"dept/register"}>추가</Link></button>
         </div>
+=======
+      <div className="top">
+        <span>
+          부서관리
+          {/*  FIXME : 버튼에 타입 추가해주세요. 아래 예시처럼 */}
+          <button type="button">일괄 등록</button>
+          <button>추가</button>
+        </span>
+>>>>>>> d96e70de59857c0c7bcc897a53a5194692597022
       </div>
 
 
