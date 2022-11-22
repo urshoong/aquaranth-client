@@ -1,35 +1,49 @@
-import React, { Suspense } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
-import routes from "@pages/routes";
+import React, { lazy, Suspense, useEffect, useState } from "react";
+import { Link, Route, Switch, useHistory, useLocation } from "react-router-dom";
 import DefaultLayout from "@components/layout/DefaultLayout";
-import NotFoundPage from "@pages/NotFoundPage";
 import Login from "@pages/login";
-import { getCookie } from "@utils/cookieUtil";
+import Spinner from "@components/Spinner";
+
+import { ErrorBoundary } from "react-error-boundary";
+import Error from "@components/error/Error";
+import { GET_ROUTES } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
 
 
 const App = () => {
+  const [routes, setRoutes] = useState([]);
   const location = useLocation();
-  if (!getCookie("_at")) {
-    return (<Login />);
-  }
+
+  // if (!getCookie("_at")) {
+  //   return <Login />;
+  // }
+  /**
+   * FIXME : 로그인 로직 수정
+   */
+
+  useEffect(() => {
+    GET_ROUTES().then((res) => {
+      setRoutes(res.data);
+    });
+  }, []);
 
   return (
     <Switch>
       <Route path="/login" render={() => <Login />} />
-      <Suspense fallback={<>Spinning</>}>
-        <DefaultLayout>
-          <Switch location={location}>
-            {routes.map((props, index) => (
-              <Route
-                exact
-                path={props.path}
-                render={() => <props.module />}
-                key={index}
-              />
-            ))}
-            <Route render={() => <NotFoundPage />} />
-          </Switch>
-        </DefaultLayout>
+      <Suspense fallback={<Spinner />}>
+        <ErrorBoundary fallbackRender={Error}>
+          <DefaultLayout>
+            <Switch location={location}>
+              {routes.map(({ menuNo, menuPath }) => (
+                <Route
+                  exact
+                  path={menuPath}
+                  component={lazy(() => import(`@pages/MODULE${menuPath}`))}
+                  key={menuNo}
+                />
+              ))}
+            </Switch>
+          </DefaultLayout>
+        </ErrorBoundary>
       </Suspense>
     </Switch>
   );

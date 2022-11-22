@@ -4,6 +4,7 @@ import Header from "@components/layout/header/Header";
 import styled, { css } from "styled-components";
 import Module from "@components/layout/module/Module";
 import LnbSidebar from "@components/layout/sidebar/lnb/LnbSidebar";
+import { FullLayout } from "@components/Util";
 
 /**
  * 기본 레이아웃 입니다.
@@ -15,7 +16,7 @@ const DefaultLayout = ({ children }) => {
   const [pageTitle, setPageTitle] = useState("");
   const [moduleTitle, setModuleTitle] = useState("");
   return (
-    <DefaultLayoutWrapper>
+    <FullLayout>
       <GnbSidebar />
       <ContentWrapper>
         <Header pageTitle={pageTitle} setPageTitle={setPageTitle} />
@@ -26,7 +27,7 @@ const DefaultLayout = ({ children }) => {
           </Module>
         </Wrapper>
       </ContentWrapper>
-    </DefaultLayoutWrapper>
+    </FullLayout>
   );
 };
 
@@ -39,21 +40,11 @@ const ContentWrapper = styled.div`
       min-width: 1232px;
       background-color: ${(props) => props.theme.color.white};
       width: calc(100% - ${theme.ui.gnbSidebar});
-      width: calc(100% - 100px);
       height: 100%;
       position: absolute;
       overflow: auto;
       left: ${theme.ui.gnbSidebar};
     `}
-`;
-
-const DefaultLayoutWrapper = styled.div`
-  ${() => {
-    return css`
-      width: 100vw;
-      height: 100vh;
-    `;
-  }}
 `;
 
 const Wrapper = styled.div`

@@ -4,6 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import theme from "@styles/theme";
+import ModalProvider from "@components/modal/ModalProvider";
+import ModalContainer from "@components/modal/ModalContainer";
 import GlobalStyles from "./styles/GlobalStyles";
 
 import { store } from "./store/store";
@@ -15,12 +17,15 @@ const rootElement = document.querySelector("#root");
 
 const root = (
   <BrowserRouter>
-    <GlobalStyles />
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </ThemeProvider>
+    <ModalProvider>
+      <GlobalStyles />
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <App />
+          <ModalContainer />
+        </Provider>
+      </ThemeProvider>
+    </ModalProvider>
   </BrowserRouter>
 );
 if (process.env.NODE_ENV === "development") {

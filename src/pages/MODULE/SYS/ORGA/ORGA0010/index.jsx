@@ -3,6 +3,8 @@ import "./comLayout.css";
 import request from "@utils/axiosUtil";
 import { Link } from "react-router-dom";
 import useNavigate from "../../../../../hooks/useNavigate";
+import useModal from "@hooks/useModal";
+import Button from "@components/Button";
 
 
 const companyList = async () => {
@@ -136,9 +138,15 @@ function Index() {
   const handleOnNavigate = () => {
     navigate.go("/group");
   };
+  const { openModal } = useModal();
+  const data = { menucode: "ORGA0010", menuname: "회사 관리" };
+  const handleOnModal = () => {
+    openModal({ type: "ORGA0010", props: data });
+  };
 
   return (
     <>
+      <Button type="button" onClick={handleOnModal}>ORGA0010 모달 띄우기</Button>
       <div className="searchDiv">
         <span className="comName">회사</span>
         <button type="button" onClick={handleOnNavigate}>GO</button>

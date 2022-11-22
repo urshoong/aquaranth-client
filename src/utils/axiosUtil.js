@@ -57,10 +57,17 @@ request.interceptors.response.use(
         .then((res) => {
           setToken(getRefreshTokenFromCookies, res);
         })
-        .catch(() => {
+        .catch((err) => {
           // FIXME
           // window.location.href = "/login";
+          return Promise.reject(err);
         });
+      // return axios({
+      //   ...originalRequest,
+      //   headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` },
+      // })
+      //   .then((response) => response);
+
 
       if (originalRequest.method === "get") {
         return axios

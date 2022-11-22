@@ -1,10 +1,8 @@
 import { rem } from "polished";
-import { css } from "styled-components";
 
 const theme = {
   color: {
     sidebar: "#343947",
-    mainColor: "#F0F0F0",
 
     white: "#FFFFFF",
     whiteA100: "#FFFFFFFF",
@@ -43,12 +41,9 @@ const theme = {
 
     background: "#FFFFFF",
 
-    douzone100: "#F0F7FE",
-    douzone300: "#458EF3",
-    douzone500: "#3574D1",
-    douzone700: "#2558A6",
 
-    amaranth: "#4CA7EA",
+    douzoneBlue: "#00AAFF",
+    amaranthPurple: "#8168FF",
 
     icon: "#666666",
     hoverIcon: "#858891",
@@ -92,6 +87,16 @@ const theme = {
     lnbSidebar: "120px",
     header: "80px",
     moduleTitle: "40px",
+  },
+
+  shadow: {
+    shadowSm: "box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)",
+    shadow: "box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+    shadowMd: "box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+    shadowLg: "box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+    shadowXl: "box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
+    shadow2xl: "box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25)",
+    shadowInner: "box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05)",
   },
 };
 

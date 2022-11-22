@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import Arrow from "@styles/assets/icon/Arrow";
 
 
-const TreeItem = ({ item, item: { depth }, itemColumn, initCollapsed, selectedMenu, setSelectedMenu }) => {
+const TreeItem = ({ item, item: { depth }, itemColumn, initCollapsed, selectedItem, setSelectedItem }) => {
   const [collapsed, setCollapsed] = useState(initCollapsed);
 
   const handleOnCollapsed = () => {
@@ -11,7 +11,7 @@ const TreeItem = ({ item, item: { depth }, itemColumn, initCollapsed, selectedMe
   };
 
   const handleSelectedMenu = (e, menu) => {
-    setSelectedMenu(menu);
+    setSelectedItem(menu);
   };
 
   const Items = ({ children, menu }) => {
@@ -44,8 +44,8 @@ const TreeItem = ({ item, item: { depth }, itemColumn, initCollapsed, selectedMe
               key={child[itemColumn]}
               itemColumn={itemColumn}
               initCollapsed={initCollapsed}
-              selectedMenu={selectedMenu}
-              setSelectedMenu={setSelectedMenu}
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
             />
           ))}
         </SubItem>

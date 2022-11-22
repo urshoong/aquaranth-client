@@ -12,9 +12,9 @@ import { Link } from "react-router-dom";
  * @constructor
  * @author 김민준
  */
-const GnbMenuItem = ({ menu: { menuName, url } }) => {
+const GnbMenuItem = ({ menu: { menuName, menuPath } }) => {
   return (
-    <Link to={`/${url}`}>
+    <Link to={`${menuPath}`}>
       <GnbMenuItemWrapper>
         {menuName}
       </GnbMenuItemWrapper>
@@ -28,7 +28,7 @@ const GnbMenuItemWrapper = styled.div`
     return css`
     color : ${white};
     padding : ${rem(20)};
-      &:hover{background-color: ${lighten(0.3, sidebar)};}
+      &:hover{background-color: ${lighten(0.1, sidebar)};}
     `;
   }}
 `;

@@ -18,7 +18,7 @@ const SubHeader = ({ setPageTitle, pageTitle }) => {
 
 const SubHeaderWrapper = styled.div`
   ${({ theme }) => css`
-    background-color: ${theme.color.douzone300};
+    background-color: ${theme.color.douzoneBlue};
     color:${theme.color.white};
     padding: 10px;
   `}

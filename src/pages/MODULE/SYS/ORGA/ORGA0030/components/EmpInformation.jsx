@@ -2,6 +2,8 @@ import "../employeestyle.css";
 import React from "react";
 import EmpOrgaInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpOrgaInformation";
 import EmpBasicInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpBasicInformation";
+import useModal from "@hooks/useModal";
+import Button from "@components/Button";
 
 
 function EmpInformation({ emps, empInformation, clickEmpRegister,
@@ -10,8 +12,15 @@ function EmpInformation({ emps, empInformation, clickEmpRegister,
   handleOnChangeCompany, department, handleOnClickOrgaRegisterSubmit,
   handleOnClickOrgaRegisterReset, handleOnChangeOrgaRegisterInput,
   handleOnClickOrgaModify, handleOnChangeOrgaInput, handleOnClickOrgaModifyDept }) {
+  const { openModal } = useModal();
+  const data = { menucode: "ORGA0030", menuname: "사원 관리" };
+  const handleOnModal = () => {
+    openModal({ type: "ORGA0030", props: data });
+  };
   return (
+
     <div className="pageLine" style={{ height: "600px" }}>
+      <Button type="button" onClick={handleOnModal}>ORGA0030 모달 띄우기</Button>
       <div className="empList" style={{ overflow: "auto", height: "600px" }}>
         <span>사용자 : {emps.length} 명</span> <span>정렬▼</span>
         {emps.map(({ empNo, username, empName, firstHiredDate }) => (

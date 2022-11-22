@@ -1,9 +1,18 @@
 import React from "react";
 import "./view.css";
+import useModal from "@hooks/useModal";
+import Button from "@components/Button";
 
 function Index(props) {
+  const { openModal } = useModal();
+  const data = { menucode: "ORGA0020", menuname: "부서 관리" };
+  const handleOnModal = () => {
+    openModal({ type: "ORGA0020", props: data });
+  };
   return (
+
     <div className="all">
+      <Button type="button" onClick={handleOnModal}>ORGA0020 모달 띄우기</Button>
       <div className="top">
         <span>
           부서관리
