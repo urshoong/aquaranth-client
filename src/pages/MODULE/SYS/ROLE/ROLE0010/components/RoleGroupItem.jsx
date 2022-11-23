@@ -1,10 +1,13 @@
-import React from 'react';
+import React from "react";
+import {RoleGroupItemWrapper} from "./RoleGroupList";
 
-function RoleGroupItem(props) {
+function RoleGroupItem({ roleGroup }) {
+  const {roleGroupName} = roleGroup;
+
   return (
-    <div>
-      아이템
-    </div>
+    <RoleGroupItemWrapper>
+      {roleGroupName}
+    </RoleGroupItemWrapper>
   );
 }
 

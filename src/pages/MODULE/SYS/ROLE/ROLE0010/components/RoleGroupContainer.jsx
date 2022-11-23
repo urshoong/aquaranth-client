@@ -43,6 +43,7 @@ const RoleGroupHeader = styled.div`
 
 export const RoleGroupListWrapper = styled.div`
   border: black solid 1px;
+  overflow: auto;
   width: 100%;
   height: 60%;
   
