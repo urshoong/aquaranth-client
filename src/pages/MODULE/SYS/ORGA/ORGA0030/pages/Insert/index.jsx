@@ -6,14 +6,7 @@ import { useHistory } from "react-router-dom";
 import _ from "lodash";
 
 const empRegister = async (emp) => {
-  console.log("emp", emp);
   const { data } = await request.post("/emp/register", emp);
-  return data;
-};
-
-// 앞에 index에서 썼는데 또 받아와서 써도 상관없나? 그것도 username만을 위해서 ㅇ0ㅇ?
-const empList = async () => {
-  const { data } = await request.get("/emp/information");
   return data;
 };
 
@@ -23,7 +16,7 @@ export const companyList = async () => {
 };
 
 const deptList = async (companyNo) => {
-  const { data } = await request.get(`/dept/readName/${companyNo}`);
+  const { data } = await request.get(`/dept2/readName/${companyNo}`);
   return data;
 };
 
@@ -42,7 +35,7 @@ const initState = {
   empUse: 1,
 };
 
-function Index(props) {
+function Index() {
   const [employee, setEmployee] = useState(initState);
   const [company, setCompany] = useState([]);
   const [department, setDepartment] = useState([]);
@@ -58,7 +51,6 @@ function Index(props) {
   // 회사 선택 시 (선택 회사 정보 변경 시) 실행되는 함수
   const handleOnChangeCompany = (e) => {
     const { value } = e.target;
-    console.log("value", value);
     setEmployee({ ...employee, companyNo: value });
     deptList(value).then((data) => {
       setDepartment(data);
@@ -68,7 +60,6 @@ function Index(props) {
   // 사원 정보 입력값 변경 시 실행되는 함수
   const handleOnChangeEmployee = (e) => {
     const { name, value } = e.target;
-    console.log("Input value", value);
     setEmployee({ ...employee, [name]: value });
   };
 

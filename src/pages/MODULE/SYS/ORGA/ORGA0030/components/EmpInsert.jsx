@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 // import { useForm } from "react-hook-form";
 
 function EmpInsert({ company, handleOnChangeEmployee, clickEmpAdd,
@@ -8,19 +7,16 @@ function EmpInsert({ company, handleOnChangeEmployee, clickEmpAdd,
 
   // console.log(watch("email"));
   return (
-
-
     <div>
-      {/* ////////////////////////////////////////////////////////////// */}
+      <div>사원정보</div>
 
-      {/* ////////////////////////////////////////////////////////////// */}
+
       <span>사원 정보 추가하기</span>
       <div>
-        {/* 회사 목록 selector */}
         <div>
           회사 :
           <select name="companyNo" onChange={(e) => { handleOnChangeCompany(e); }}>
-            <option value="-">--회사 선택--</option>
+            <option value="0">--회사 선택--</option>
             {company.map((com) => (
               <option key={com.companyNo} value={com.companyNo}>
                 {com.companyName}
@@ -30,7 +26,7 @@ function EmpInsert({ company, handleOnChangeEmployee, clickEmpAdd,
 
           부서 :
           <select name="deptNo" onChange={(e) => { handleOnChangeEmployee(e); }}>
-            <option value="-">--부서 선택--</option>
+            <option value="0">--부서 선택--</option>
             {department.map((dept) => (
               <option key={dept.deptNo} value={dept.deptNo}>
                 {dept.deptName}

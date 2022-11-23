@@ -8,7 +8,7 @@ function EmpBasicInformation({ clickEmpRegister, clickEmpModify,
       <button type="button" onClick={() => { clickEmpModify(); }}>수정</button>
 
       <div className="empBasicInformation">
-        <div className="category">{empInformation.empProfile}</div>
+        <div className="category" />
         <div className="info">
           <input type="file" />
         </div>
@@ -31,6 +31,7 @@ function EmpBasicInformation({ clickEmpRegister, clickEmpModify,
           name="password"
           onChange={(e) => { changeEmpInput(e); }}
           className="essential"
+          readOnly
         />
 
         <div>성별</div>
