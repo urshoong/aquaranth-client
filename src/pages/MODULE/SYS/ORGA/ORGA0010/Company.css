@@ -1,0 +1,101 @@
+/*
+ * CompanyManagement component
+ */
+.companyManagementDiv {
+    color: black;
+    box-sizing: border-box;
+    height: 80vh;
+    width: 80vw;
+    margin-left: 1em;
+}
+
+
+/*
+ * CompanySearch component
+ */
+.companySearchDiv {
+    width: 100%;
+    line-height: 37px;
+    box-sizing: border-box;
+    border: 1px solid darkgray;
+    display: flex;
+    justify-content: space-evenly;
+}
+.companySearchSpan {
+    font-size: 1.3em;
+    padding-right: 1em;
+}
+.companySearchInput {
+    border: 1px solid darkgray;
+    height: 1.7em;
+    width: 25em;
+}
+.companySearchBtn {
+    border: 1px solid darkgray;
+    border-radius: 0.5em;
+    height: 2.5em;
+    width: 3em;
+    margin-top: 0.3em;
+}
+
+
+/*
+ * CompanyList component
+ */
+.companyListDiv {
+    border: 1px solid darkgray;
+    height: 72vh;
+    width: 20vw;
+    display: grid;
+    grid-template-rows: 1fr 14fr;
+    margin-top: 1em;
+
+}
+.companyItemDiv {
+    overflow: auto;
+}
+.companyCountItemDiv {
+    font-size: 1.3em;
+    padding-top: 0.5em;
+    padding-left: 0.5em;
+    border-bottom: 1px solid darkgray;
+}
+
+
+/*
+ * CompanyCount component
+ */
+.CompanySortDiv {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 0.5em;
+}
+.companyCountSpan {
+    margin-left: 0.5em;
+    color: #46a3fb;
+}
+
+
+/*
+ * CompanyListItem component
+ */
+.companyListItemDiv {
+    width: 23em;
+    height: 6em;
+    border: 1px solid darkgray;
+    border-radius: 0.5rem;
+    justify-items: center;
+    margin: 0.5em 0.5em 0.5em 0.5em;
+    padding-top: 1em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.companyUseItemDiv {
+    border: 1px solid;
+    border-radius: 1rem;
+    height: 2em;
+    width: 4em;
+    padding-top: 0.2em;
+    text-align: center;
+    color: white;
+}
