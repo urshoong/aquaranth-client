@@ -9,19 +9,6 @@ const initState = {
   upperDeptNo: "",
   mainflag: false,
   delflag: false,
-<<<<<<< HEAD
-  gno : "",
-  depth : ""
-};
-
-const registerDept = async (dept) => {
-  const { data } = await axios.post("http://localhost:8080/api/dept2", dept);
-  return data;
-};
-
-
-
-=======
 };
 
 const registerDept = async (deptDTO) => {
@@ -29,13 +16,11 @@ const registerDept = async (deptDTO) => {
   return data;
 };
 
->>>>>>> d96e70de59857c0c7bcc897a53a5194692597022
 function DeptRegisterComponent(props) {
   const [dept, setDept] = useState(initState);
 
   const history = useHistory();
 
-<<<<<<< HEAD
   // useEffect( () => {
     // registerDept(dept).then( (result) => {
     //   console.log(result);
@@ -109,59 +94,6 @@ function DeptRegisterComponent(props) {
       }>등록</button>
 
     </div>
-=======
-  const registerClickHandler = (e) => {
-    dept[e.target.name] = e.target.value;
-    setDept({...dept});
-  };
-
-  const registerCheckClickHandler = (e) => {
-    dept[e.target.name] = e.target.checked;
-    setDept({...dept});
-  };
-
-
-  return (
-    <div>
-      <h1> register component test </h1>
-
-      <div>
-        <label>dname</label>
-        <input type="text" name="dname" onChange={(e) => registerClickHandler(e)} />
-      </div>
-      <div>
-        <label>deptSort</label>
-        <input type="text" name="deptSort" onChange={(e) => registerClickHandler(e)} />
-      </div>
-      <div>
-        <label>ddesc</label>
-        <input type="text" name="ddesc" onChange={(e) => registerClickHandler(e)} />
-      </div>
-      <div>
-        <label>upperDeptNo</label>
-        <input type="text" name="upperDeptNo" onChange={(e) => registerClickHandler(e)} />
-      </div>
-      <div>
-        <label>mainflag</label>
-        <input type="checkbox" name="mainflag" onChange={(e) => registerCheckClickHandler(e)} />
-      </div>
-      <div>
-        <label>delflag</label>
-        <input type="checkbox" name="delflag" onChange={(e) => registerCheckClickHandler(e)} />
-      </div>
-
-      <button onClick={() => {
-        registerDept(dept).then((result) => {
-          console.log(result);
-          history.push("/");
-        });
-      }}
-      >등록
-      </button>
-    </div>
-
-
->>>>>>> d96e70de59857c0c7bcc897a53a5194692597022
   );
 }
 

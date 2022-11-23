@@ -8,7 +8,6 @@ function DeptPage(props) {
     <div className="all">
 
 
-<<<<<<< HEAD
       <div className="firstOne">
         {/* <span> */}
         {/*   부서관리 */}
@@ -18,18 +17,9 @@ function DeptPage(props) {
         {/* </span> */}
         <span>부서관리</span>
         <div>
-          <button type="button"><Link to={"dept/register"}>일괄 등록</Link></button>
-          <button><Link to={"dept/register"}>추가</Link></button>
+          <button type="button"><Link to="dept/register">일괄 등록</Link></button>
+          <button><Link to="dept/register">추가</Link></button>
         </div>
-=======
-      <div className="top">
-        <span>
-          부서관리
-          {/*  FIXME : 버튼에 타입 추가해주세요. 아래 예시처럼 */}
-          <button type="button">일괄 등록</button>
-          <button>추가</button>
-        </span>
->>>>>>> d96e70de59857c0c7bcc897a53a5194692597022
       </div>
 
 
@@ -45,29 +35,29 @@ function DeptPage(props) {
 
           <div className="secondTwoContainer1">
 
-              <select name="company" className="secondTwoSelect">
-                <option>회사선택</option>
-                <option value="회사1">회사1</option>
-                <option value="회사1">회사2</option>
-                <option value="회사1">회사3</option>
-              </select>
+            <select name="company" className="secondTwoSelect">
+              <option>회사선택</option>
+              <option value="회사1">회사1</option>
+              <option value="회사1">회사2</option>
+              <option value="회사1">회사3</option>
+            </select>
 
-              <div>
-                <input className="secondTwoInput"  placeholder="코드/사업장/부서명을 입력하세요." type="text" />
-                <button>㉾</button>
-              </div>
+            <div>
+              <input className="secondTwoInput" placeholder="코드/사업장/부서명을 입력하세요." type="text" />
+              <button>㉾</button>
+            </div>
           </div>
 
 
           <div className="secondTwoContainer2">
             <div className="selectTwoDetail">
-                <div className="info">
-                  상세정보
-                </div>
-                <div className="infoBtn">
-                  <button>저장</button>
-                  <button>삭제</button>
-                </div>
+              <div className="info">
+                상세정보
+              </div>
+              <div className="infoBtn">
+                <button>저장</button>
+                <button>삭제</button>
+              </div>
             </div>
 
             <div className="basicInfo">
@@ -80,19 +70,11 @@ function DeptPage(props) {
               </span>
 
 
-
             </div>
           </div>
 
 
         </div>
-
-
-
-
-
-
-
 
 
         <div className="secondThree">
@@ -121,51 +103,41 @@ function DeptPage(props) {
 
               <div className="deptDataRight">
                 <div className="rightItem">
-                  <input type="text"/>
+                  <input type="text" />
                 </div>
                 <div className="rightItem">
-                  <input type="text"/>
+                  <input type="text" />
                 </div>
                 <div className="rightItem">
-                  <input type="text"/>
+                  <input type="text" />
                 </div>
                 <div className="rightItem">
-                  <input type="text"/>
+                  <input type="text" />
                 </div>
                 <div className="rightItem">
-                  <input type="text"/>
+                  <input type="text" />
                 </div>
                 <div className="rightItem">
-                  <input type="email"/>
+                  <input type="email" />
                 </div>
                 <div className="rightItem">
-                  <input type="checkbox"/>
+                  <input type="checkbox" />
                 </div>
                 <div className="rightItem">
-                  <input type="checkbox"/>
+                  <input type="checkbox" />
                 </div>
                 <div className="rightItem">
-                  <input type="date"/>
+                  <input type="date" />
                 </div>
                 <div className="rightItem">
-                  <input type="date"/>
+                  <input type="date" />
                 </div>
               </div>
             </div>
           </div>
-
-
-
-
         </div>
-
-
-
       </div>
     </div>
-
-
-
 
 
   );
