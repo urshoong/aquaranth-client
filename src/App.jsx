@@ -1,12 +1,13 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
-import { Link, Route, Switch, useHistory, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import DefaultLayout from "@components/layout/DefaultLayout";
 import Login from "@pages/login";
 import Spinner from "@components/Spinner";
 
 import { ErrorBoundary } from "react-error-boundary";
 import Error from "@components/error/Error";
-import { GET_ROUTES } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import {GET_ROUTES} from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import {getCookie} from "@utils/cookieUtil";
 
 
 const App = () => {

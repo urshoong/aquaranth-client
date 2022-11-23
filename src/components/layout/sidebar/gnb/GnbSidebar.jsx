@@ -12,17 +12,18 @@ import GnbMenuItem from "@components/layout/sidebar/gnb/GnbMenuItem";
  * @author 김민준
  */
 const GnbSidebar = () => {
-  const [gnbMenuList, setGnbMenuList] = useState([]);
-  useEffect(() => {
-    request.get("/menu").then(({ data }) => {
-      setGnbMenuList(data);
-    });
-  }, []);
-
+  // const [gnbMenuList, setGnbMenuList] = useState([]);
+  // useEffect(() => {
+  //   request.get("/menu").then(({ data }) => {
+  //     setGnbMenuList(data);
+  //   });
+  // }, []);
+  //
   return (
-    <GnBSidebarWrapper>
-      {gnbMenuList.map((menu) => <GnbMenuItem key={menu.menuNo} menu={menu} />)}
-    </GnBSidebarWrapper>
+    <></>
+    // <GnBSidebarWrapper>
+    //   {gnbMenuList.map((menu) => <GnbMenuItem key={menu.menuNo} menu={menu} />)}
+    // </GnBSidebarWrapper>
   );
 };
 
