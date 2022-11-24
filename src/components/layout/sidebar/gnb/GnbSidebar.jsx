@@ -20,6 +20,7 @@ const GnbSidebar = () => {
   }, []);
 
   return (
+    // <></>
     <GnBSidebarWrapper>
       {gnbMenuList.map((menu) => <GnbMenuItem key={menu.menuNo} menu={menu} />)}
     </GnBSidebarWrapper>
