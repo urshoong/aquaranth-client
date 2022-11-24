@@ -13,16 +13,15 @@ import LinkTreeLayout from "@components/linktree/LinkTreeLayout";
 const LnbSidebar = () => {
   const [menuList, setMenuList] = useState([]);
 
-  const getData = async () => {
-    // await request.get("/menu.js/findundermenu/SYS").then((res) => {
-    await request.get("/menu").then((res) => {
-      setMenuList(res.data);
-    });
-  };
+  // const getData = async () => {
+  //   await request.get("/menu").then((res) => {
+  //     setMenuList(res.data);
+  //   });
+  // };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   return (
     <LnbSidebarWrapper>

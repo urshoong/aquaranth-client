@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import request from "@utils/axiosUtil";
 import styled, { css } from "styled-components";
 import GnbMenuItem from "@components/layout/sidebar/gnb/GnbMenuItem";
 import { GET_ROUTES } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
@@ -21,6 +20,7 @@ const GnbSidebar = () => {
   }, []);
 
   return (
+    // <></>
     <GnBSidebarWrapper>
       {gnbMenuList.map((menu) => <GnbMenuItem key={menu.menuNo} menu={menu} />)}
     </GnBSidebarWrapper>

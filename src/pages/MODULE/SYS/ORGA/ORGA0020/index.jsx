@@ -10,7 +10,6 @@ function Index(props) {
     openModal({ type: "ORGA0020", props: data });
   };
   return (
-
     <div className="all">
       <Button type="button" onClick={handleOnModal}>ORGA0020 모달 띄우기</Button>
       <div className="top">
