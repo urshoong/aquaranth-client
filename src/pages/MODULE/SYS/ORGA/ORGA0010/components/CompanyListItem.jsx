@@ -2,11 +2,11 @@ import React from "react";
 import "../Company.css";
 
 // 회사 리스트 아이템 component
-function CompanyListItem({ item }) {
+function CompanyListItem({ item, clickCompanyListItem }) {
   const { companyNo, companyName, ownerName, companyUse } = item;
 
   return (
-    <div className="companyListItemDiv">
+    <div className="companyListItemDiv" onClick={() => { clickCompanyListItem(companyNo); }}>
       <div>{companyNo}</div>
       <div>{ownerName}</div>
       <div>{companyName}</div>

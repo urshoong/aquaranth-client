@@ -8,6 +8,11 @@
     width: 80vw;
     margin-left: 1em;
 }
+.companyListInfoDiv {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-gap: 1em;
+}
 
 
 /*
@@ -35,7 +40,7 @@
     border-radius: 0.5em;
     height: 2.5em;
     width: 3em;
-    margin-top: 0.3em;
+    margin-top: 0.4em;
 }
 
 
@@ -47,18 +52,26 @@
     height: 72vh;
     width: 20vw;
     display: grid;
-    grid-template-rows: 1fr 14fr;
+    grid-template-rows: 1fr 15fr 2fr;
     margin-top: 1em;
-
 }
 .companyItemDiv {
     overflow: auto;
 }
 .companyCountItemDiv {
     font-size: 1.3em;
-    padding-top: 0.5em;
+    padding-top: 0.3em;
     padding-left: 0.5em;
     border-bottom: 1px solid darkgray;
+}
+.companyRegisterBtnDiv {
+    border-top: 1px solid darkgray;
+    display: flex;
+    justify-content: center;
+}
+.companyRegisterBtnDiv>button {
+    font-size: 1.2em;
+    color: #888888;
 }
 
 
@@ -98,4 +111,69 @@
     padding-top: 0.2em;
     text-align: center;
     color: white;
+}
+
+
+/*
+ * CompanyInformation component
+ */
+.companyInformationDiv {
+    display: grid;
+    grid-template-rows: 1fr 15fr;
+    margin-top: 1em;
+}
+.companyInfoBtnDiv {
+    display: grid;
+    grid-template-columns: 20fr 1fr 1fr 1fr;
+    grid-column-gap: 1em;
+    border-bottom: 2px solid #6c6c6c;
+}
+.companyInfoSpan {
+    font-size: 1.5em;
+}
+.companyInfoSaveBtn, .companyInfoDelBtn {
+    border: 1px solid darkgray;
+    border-radius: 0.5em;
+    margin-bottom: 0.5em;
+    height: 2em;
+    width: 3em;
+}
+.companyInfoShowBtn {
+    margin-bottom: 0.5em;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #6c6c6c;
+}
+
+
+/*
+ * CompanyInfoItem component
+ */
+.companyInfoItemDiv {
+    display: grid;
+    grid-template-columns: 1.5fr 10fr;
+    border-bottom: 1px solid #6c6c6c;
+}
+.companyInfoNameDiv {
+    text-align: right;
+    border-right: 1px solid #6c6c6c;
+    height: 3em;
+    line-height: 3em;
+}
+.companyInfoNameDiv>span {
+    margin-right: 0.5em;
+}
+.companyInfoInputDiv {
+    height: 3em;
+    line-height: 3em;
+    width: 20em;
+}
+.companyUseInputDiv>input {
+    margin-left: 1em;
+}
+.companyInfoInputDiv>input {
+    width: 20em;
+    height: 2em;
+    line-height: 2em;
+    margin-left: 1em;
 }

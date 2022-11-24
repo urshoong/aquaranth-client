@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // 회사 검색 component
-function CompanySearch({ getCompanySearch, setSearch }) {
+function CompanySearch({ getCompanySearch, setList }) {
   const [companySearch, setCompanySearch] = useState(""); // 검색어를 담을 상태값
   const [companyUse, setCompanyUse] = useState(true); // 사용여부를 담을 상태값
 
@@ -23,7 +23,7 @@ function CompanySearch({ getCompanySearch, setSearch }) {
   const clickCompanySearch = () => {
     getCompanySearch(companyUse, companySearch).then((data) => {
       console.log("검색결과 : ", data);
-      setSearch(data);
+      setList(data);
     });
   };
 
