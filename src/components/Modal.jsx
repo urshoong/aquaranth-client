@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import ModalContainer from "./modal/ModalContainer";
 
 
 const Modal = ({ onClose, children }) => {

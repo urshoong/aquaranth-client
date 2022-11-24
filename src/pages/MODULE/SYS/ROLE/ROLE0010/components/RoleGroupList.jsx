@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import RoleGroupItem from "./RoleGroupItem";
-import {RoleGroupListWrapper} from "./RoleGroupContainer";
+import { RoleGroupListWrapper } from "./RoleGroupContainer";
 
 function RoleGroupList({ roleGroupList }) {
   return (

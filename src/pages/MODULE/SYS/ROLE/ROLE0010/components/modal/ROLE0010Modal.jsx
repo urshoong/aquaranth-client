@@ -1,28 +1,43 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
 import styled from "styled-components";
 import request from "@utils/axiosUtil";
+import { useDispatch } from "react-redux";
+import { changeRefresh } from "../../../../../../../store/reducer/roleGroupSlice";
+import insert from "../../../../ORGA/ORGA0030/pages/Insert";
 
 const initDTO = {
   companyNo: 0,
   roleGroupName: "",
+  roleGroupUse: true,
 };
 
 const ROLE0010Modal = (props) => {
   const { closeModal } = useModal();
-  const [insertDTO, setInsertDTO] = useState(initDTO);
+  const dispatch = useDispatch();
+  const [insertDTO, setInsertDTO] = useState({ ...initDTO });
+  const [companyList, setCompanyList] = useState([]);
+  const { companyNo } = insertDTO;
 
   const handleCloseModal = () => {
     closeModal();
   };
 
-  console.log(props);
+  useEffect(() => {
+    request.get("/company/list")
+      .then(({ data }) => setCompanyList(data));
+  }, []);
 
   const onClickSaveBtn = async () => {
+    if (insertDTO.companyNo === "" || insertDTO.roleGroupName === "") {
+      alert("입력되지 않은 값이 있습니다.");
+      return;
+    }
+
     await request.post("/role-group", insertDTO)
       .then(({ data }) => {
-        // changeRefresh();
+        dispatch(changeRefresh());
         setInsertDTO({ ...initDTO });
         closeModal();
         console.log("권한그룹 추가가 완료되었습니다. 추가된 권한그룹 -> ", data);
@@ -37,6 +52,11 @@ const ROLE0010Modal = (props) => {
     setInsertDTO({ ...insertDTO });
   };
 
+  const onChangeSelectBoxEvent = (selectedCompanyNo) => {
+    insertDTO.companyNo = selectedCompanyNo;
+    setInsertDTO({ ...insertDTO });
+  };
+
   return (
     <Modal
       onClose={handleCloseModal}
@@ -45,10 +65,8 @@ const ROLE0010Modal = (props) => {
       <ModalContent>
         <div>
           회사명 :
-          <select>
-            <option>회사1</option>
-            <option>회사2</option>
-            <option>회사3</option>
+          <select onChange={(e) => onChangeSelectBoxEvent(e.target.value)} value={companyNo}>
+            {companyList.map((company) => <option key={company.companyNo} value={company.companyNo}>{company.companyName}</option>)}
           </select>
         </div>
         <div>

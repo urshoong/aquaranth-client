@@ -10,9 +10,14 @@ const fetchRoleGroupList = async () => {
   return data;
 };
 
+const fetchLoginUserInfo = async () => {
+  const { data } = await request.get("/role-group");
+  return data;
+};
 
 function RoleGroupContainer({ handleOnRoleGroupAddModal, refresh }) {
   const [roleGroupList, setRoleGroupList] = useState([]);
+  const [loginUserInfo, setLoginUserInfo] = useState([]);
 
   const onClickAddBtn = () => {
     handleOnRoleGroupAddModal();

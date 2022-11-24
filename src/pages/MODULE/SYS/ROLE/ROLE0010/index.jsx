@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react";
 import useModal from "@hooks/useModal";
 import styled from "styled-components";
 import RoleGroupContainer from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupContainer";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const Index = () => {
-  const [refresh, setRefresh] = useState(false);
+  const { refresh } = useSelector((state) => state.roleGroup);
   const { openModal } = useModal();
-
-  const changeRefresh = () => {
-    setRefresh(!refresh);
-  };
 
   const handleOnRoleGroupAddModal = () => {
     openModal({ type: "ROLE0010", props: [] });
