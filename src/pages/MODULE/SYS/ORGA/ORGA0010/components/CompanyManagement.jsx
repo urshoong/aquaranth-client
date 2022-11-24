@@ -88,7 +88,7 @@ function CompanyManagement({ list, setList }) {
     <div className="companyManagementDiv">
       <CompanySearch setList={setList} />
       <div className="companyListInfoDiv">
-        <CompanyList list={list} clickCompanyListItem={clickCompanyListItem} clickCompanyRegister={clickCompanyRegister} />
+        <CompanyList list={list} setList={setList} clickCompanyListItem={clickCompanyListItem} clickCompanyRegister={clickCompanyRegister} />
         <CompanyInformation information={information} setInformation={setInformation} show={show}
                             clickCompanyInfoShow={clickCompanyInfoShow} clickCompanySave={clickCompanySave}
                             clickCompanyRemove={clickCompanyRemove} />
