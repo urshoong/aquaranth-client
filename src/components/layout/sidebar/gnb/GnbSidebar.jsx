@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import request from "@utils/axiosUtil";
 import styled, { css } from "styled-components";
 import GnbMenuItem from "@components/layout/sidebar/gnb/GnbMenuItem";
+import { GET_ROUTES } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
 
 /**
  * GNB 사이드바 컴포넌트 입니다.
@@ -14,8 +15,8 @@ import GnbMenuItem from "@components/layout/sidebar/gnb/GnbMenuItem";
 const GnbSidebar = () => {
   const [gnbMenuList, setGnbMenuList] = useState([]);
   useEffect(() => {
-    request.get("/menu").then(({ data }) => {
-      setGnbMenuList(data);
+    GET_ROUTES().then((res) => {
+      setGnbMenuList(res.data);
     });
   }, []);
 
