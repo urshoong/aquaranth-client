@@ -36,7 +36,6 @@ const App = () => {
     <Switch>
       <Route path="/login" render={() => <Login />} />
       <Suspense fallback={<Spinner />}>
-        {/*  <ErrorBoundary fallbackRender={Error}> */}
         <DefaultLayout>
           <Route path="/" exact render={() => <Main />} />
           <Switch location={location}>
@@ -53,7 +52,6 @@ const App = () => {
             })}
           </Switch>
         </DefaultLayout>
-        {/* </ErrorBoundary> */}
       </Suspense>
     </Switch>
   );
