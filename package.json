@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/devaquariums/aquaranth-client#readme",
   "dependencies": {
+    "@loadable/component": "^5.15.2",
     "@reduxjs/toolkit": "^1.8.6",
     "@sentry/react": "^7.20.0",
     "@sentry/tracing": "^7.20.0",

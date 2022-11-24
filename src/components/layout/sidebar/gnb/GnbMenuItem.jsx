@@ -12,11 +12,14 @@ import { Link } from "react-router-dom";
  * @constructor
  * @author 김민준
  */
-const GnbMenuItem = ({ menu: { menuName, menuPath } }) => {
+const GnbMenuItem = ({ menu: { menuName, menuPath, iconUrl } }) => {
   return (
     <Link to={`${menuPath}`}>
       <GnbMenuItemWrapper>
-        {menuName}
+        <Icon src={iconUrl} />
+        <div className="">
+          {menuName}
+        </div>
       </GnbMenuItemWrapper>
     </Link>
   );
@@ -31,6 +34,12 @@ const GnbMenuItemWrapper = styled.div`
       &:hover{background-color: ${lighten(0.1, sidebar)};}
     `;
   }}
+`;
+
+const Icon = styled.img.attrs({
+  alt: "메뉴 아이콘",
+})`
+width: 30px;
 `;
 
 

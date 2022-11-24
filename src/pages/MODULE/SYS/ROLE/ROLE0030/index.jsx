@@ -3,10 +3,11 @@ import useModal from "@hooks/useModal";
 import Button from "@components/Button";
 import TreeLayout from "@components/tree/TreeLayout";
 import { Divider, GridWrapper } from "@components/Grid";
-// import { GET_ROUTES, PUT_UPDATE_MENU } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import { GET_ROUTES, PUT_UPDATE_MENU } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import { Route, Switch } from "react-router-dom";
 
 const Index = () => {
-  // const [menuList, setMenuList] = useState([]);
+  const [menuList, setMenuList] = useState([]);
   const [selectedMenu, setSelectedMenu] = useState({});
 
   const handleOnChange = (e) => {
@@ -23,30 +24,30 @@ const Index = () => {
     openModal({ type: "ROLE0030", props: data });
   };
 
-  // const handleOnUpdate = () => {
-  //   PUT_UPDATE_MENU(selectedMenu);
-  // };
-
-  // useEffect(() => {
-  //   GET_ROUTES().then((res) => {
-  //     setMenuList(res.data);
-  //   });
-  // }, []);
+  const handleOnUpdate = () => {
+    PUT_UPDATE_MENU(selectedMenu);
+  };
+  //
+  useEffect(() => {
+    GET_ROUTES().then((res) => {
+      setMenuList(res.data);
+    });
+  }, []);
 
 
   return (
     <GridWrapper>
       <Divider span="12">
-        {/*<TreeLayout*/}
-        {/*  apiList={menuList}*/}
-        {/*  rootValue={null}*/}
-        {/*  selectedItem={selectedMenu}*/}
-        {/*  setSelectedItem={setSelectedMenu}*/}
-        {/*  upperColumn="upperMenuNo"*/}
-        {/*  matchColumn="menuNo"*/}
-        {/*  columnName="menuName"*/}
-        {/*  initCollapsed*/}
-        {/*/>*/}
+        <TreeLayout
+          apiList={menuList}
+          rootValue={null}
+          selectedItem={selectedMenu}
+          setSelectedItem={setSelectedMenu}
+          upperColumn="upperMenuNo"
+          matchColumn="menuNo"
+          columnName="menuName"
+          initCollapsed
+        />
       </Divider>
       <Divider span="1">
         메뉴번호 : {selectedMenu.menuNo}
@@ -54,6 +55,8 @@ const Index = () => {
       <Divider>
         메뉴코드 : {selectedMenu.menuCode}
       </Divider>
+
+
       <Divider>
         <input
           type="text"

@@ -4,7 +4,7 @@ import { getCookie, setCookie } from "@utils/cookieUtil";
 
 const request = axios.create({
   baseURL: API_URL,
-  timeout: 5000,
+  // timeout: 5000,
   withCredentials: true,
 });
 
@@ -62,26 +62,32 @@ request.interceptors.response.use(
           // window.location.href = "/login";
         });
 
-      if (originalRequest.method === "get") {
-        return axios
-          .get(`${API_URL}${originalRequest.url}`, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
-          .then((response) => response);
-      }
-      if (originalRequest.method === "delete") {
-        return axios
-          .delete(`${API_URL}${originalRequest.url}`, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
-          .then((response) => response);
-      }
-      if (originalRequest.method === "post") {
-        return axios
-          .post(`${API_URL}${originalRequest.url}`, originalRequest.data, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
-          .then((response) => response);
-      }
-      if (originalRequest.method === "put") {
-        return axios
-          .put(`${API_URL}${originalRequest.url}`, originalRequest.data, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
-          .then((response) => response);
-      }
+      return axios({
+        ...originalRequest,
+        headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` },
+      })
+        .then((response) => response);
+
+      // if (originalRequest.method === "get") {
+      //   return axios
+      //     .get(`${API_URL}${originalRequest.url}`, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
+      //     .then((response) => response);
+      // }
+      // if (originalRequest.method === "delete") {
+      //   return axios
+      //     .delete(`${API_URL}${originalRequest.url}`, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
+      //     .then((response) => response);
+      // }
+      // if (originalRequest.method === "post") {
+      //   return axios
+      //     .post(`${API_URL}${originalRequest.url}`, originalRequest.data, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
+      //     .then((response) => response);
+      // }
+      // if (originalRequest.method === "put") {
+      //   return axios
+      //     .put(`${API_URL}${originalRequest.url}`, originalRequest.data, { ...originalRequest, headers: { Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}` } })
+      //     .then((response) => response);
+      // }
     }
     return Promise.reject(error);
   },
