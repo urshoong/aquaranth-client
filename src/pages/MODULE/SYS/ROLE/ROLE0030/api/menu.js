@@ -1,7 +1,7 @@
 import request from "@utils/axiosUtil";
 
 export const GET_ROUTES = async () => {
-  return request.get("/menu");
+  return request.get("/menu/list");
 };
 
 export const PUT_UPDATE_MENU = async (updateMenuDto) => {
