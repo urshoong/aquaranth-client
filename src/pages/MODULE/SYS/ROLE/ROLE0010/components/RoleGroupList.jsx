@@ -3,10 +3,10 @@ import styled from "styled-components";
 import RoleGroupItem from "./RoleGroupItem";
 import { RoleGroupListWrapper } from "./RoleGroupContainer";
 
-function RoleGroupList({ roleGroupList }) {
+function RoleGroupList({ roleGroupList, companyList, onClickRoleGroupItem }) {
   return (
     <RoleGroupListWrapper>
-      {roleGroupList.map((roleGroup) => <RoleGroupItem key={roleGroup.roleGroupNo} roleGroup={roleGroup} />)}
+      {roleGroupList.map((roleGroup) => <RoleGroupItem onClickRoleGroupItem={onClickRoleGroupItem} companyList={companyList} key={roleGroup.roleGroupNo} roleGroup={roleGroup} />)}
     </RoleGroupListWrapper>
   );
 }

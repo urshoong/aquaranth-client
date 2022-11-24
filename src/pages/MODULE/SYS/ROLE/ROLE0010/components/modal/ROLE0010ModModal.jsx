@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "@components/modal/Modal";
 import styled from "styled-components";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import useModal from "../../../../../../../hooks/useModal";
 import request from "../../../../../../../utils/axiosUtil";
-import {changeRefresh} from "../../../../../../../store/reducer/roleGroupSlice";
+import { changeRefresh } from "../../../../../../../store/reducer/roleGroupSlice";
 
 
 const initDTO = {
@@ -14,17 +14,11 @@ const initDTO = {
   roleGroupUse: true,
 };
 
-function Role0010ModModal(roleGroup) {
+function Role0010ModModal({ roleGroup, companyList }) {
   const dispatch = useDispatch();
   const [updateDTO, setUpdateDTO] = useState({ ...initDTO });
-  const [companyList, setCompanyList] = useState([]);
   const { closeModal } = useModal();
   const { roleGroupName, roleGroupNo, roleGroupUse, companyNo } = updateDTO;
-
-  useEffect(() => {
-    request.get("/company/list")
-      .then(({ data }) => setCompanyList(data));
-  }, []);
 
   useEffect(() => {
     setUpdateDTO({ ...roleGroup });

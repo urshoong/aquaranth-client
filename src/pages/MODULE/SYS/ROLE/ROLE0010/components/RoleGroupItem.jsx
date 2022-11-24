@@ -4,18 +4,18 @@ import { RoleGroupItemWrapper } from "./RoleGroupList";
 import Button from "../../../../../../components/Button";
 import useModal from "../../../../../../hooks/useModal";
 
-function RoleGroupItem({ roleGroup }) {
-  const { roleGroupName, companyNo } = roleGroup;
+function RoleGroupItem({ roleGroup, companyList, onClickRoleGroupItem }) {
+  const { roleGroupName, companyNo, companyName } = roleGroup;
   const { openModal } = useModal();
 
   const handleOnRoleGroupMocModal = () => {
-    openModal({ type: "ROLE0010Mod", props: roleGroup });
+    openModal({ type: "ROLE0010Mod", props: { roleGroup, companyList } });
   };
 
   return (
     <RoleGroupItemWrapper>
-      <RoleGroupItemDiv>
-        회사번호: {companyNo}<br />
+      <RoleGroupItemDiv onClick={() => onClickRoleGroupItem(roleGroup)}>
+        회사이름: {companyName}<br />
         {roleGroupName}
       </RoleGroupItemDiv>
       <button onClick={handleOnRoleGroupMocModal}>수정/삭제</button>

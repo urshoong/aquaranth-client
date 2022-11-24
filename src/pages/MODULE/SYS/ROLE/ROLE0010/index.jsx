@@ -2,25 +2,29 @@ import React, { useEffect, useState } from "react";
 import useModal from "@hooks/useModal";
 import styled from "styled-components";
 import RoleGroupContainer from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupContainer";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import request from "../../../../../utils/axiosUtil";
+import MenuRoleContainer from "./components/MenuRoleContainer";
 
 
 const Index = () => {
+  const [companyList, setCompanyList] = useState([]);
+  const [selectedRoleGroup, setSelectedRoleGroup] = useState({});
   const { refresh } = useSelector((state) => state.roleGroup);
-  const { openModal } = useModal();
 
-  const handleOnRoleGroupAddModal = () => {
-    openModal({ type: "ROLE0010", props: [] });
+  useEffect(() => {
+    request.get("/company/list")
+      .then(({ data }) => setCompanyList(data));
+  }, []);
+
+  const onClickRoleGroupItem = (roleGroup) => {
+    setSelectedRoleGroup(roleGroup);
   };
-
 
   return (
     <Layout>
-      <RoleGroupContainer
-        handleOnRoleGroupAddModal={handleOnRoleGroupAddModal}
-        refresh={refresh}
-      />
-      <MenuRoleWrapper />
+      <RoleGroupContainer onClickRoleGroupItem={onClickRoleGroupItem} refresh={refresh} companyList={companyList} />
+      <MenuRoleContainer selectedRoleGroup={selectedRoleGroup} />
     </Layout>
   );
 };

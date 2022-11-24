@@ -13,21 +13,15 @@ const initDTO = {
   roleGroupUse: true,
 };
 
-const ROLE0010Modal = (props) => {
+const ROLE0010Modal = ({ companyList }) => {
   const { closeModal } = useModal();
   const dispatch = useDispatch();
   const [insertDTO, setInsertDTO] = useState({ ...initDTO });
-  const [companyList, setCompanyList] = useState([]);
   const { companyNo } = insertDTO;
 
   const handleCloseModal = () => {
     closeModal();
   };
-
-  useEffect(() => {
-    request.get("/company/list")
-      .then(({ data }) => setCompanyList(data));
-  }, []);
 
   const onClickSaveBtn = async () => {
     if (insertDTO.companyNo === "" || insertDTO.roleGroupName === "") {
