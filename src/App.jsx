@@ -1,15 +1,11 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { Redirect, Route, Switch, useHistory, useLocation } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import DefaultLayout from "@components/layout/DefaultLayout";
 import Login from "@pages/login";
 import Spinner from "@components/Spinner";
 import { lazy } from "@loadable/component";
 
-
-import { ErrorBoundary } from "react-error-boundary";
-import Error from "@components/error/Error";
 import { GET_ROUTES } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
-import { getCookie } from "@utils/cookieUtil";
 import Main from "@pages/main";
 
 
@@ -45,7 +41,9 @@ const App = () => {
                   exact
                   path={menuPath}
                   component={lazy(() => import(`@pages/MODULE${menuPath}`)
-                    .catch(() => { return history.push("/"); }))}
+                    .catch(() => {
+                      return history.push("/");
+                    }))}
                   key={menuNo}
                 />
               );

@@ -29,7 +29,6 @@
     "polished": "^4.2.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "react-error-boundary": "^3.1.4",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.39.1",
     "react-redux": "^8.0.4",
