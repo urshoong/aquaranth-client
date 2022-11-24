@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import CompanyInfoItem from "./CompanyInfoItem";
-import request from "../../../../../../utils/axiosUtil";
 
 // 회사 기본정보 component
-function CompanyInformation({ information, setInformation, clickCompanyInfoShow, clickCompanySave, show }) {
+function CompanyInformation({ information, setInformation, clickCompanyInfoShow
+                              , clickCompanySave, clickCompanyRemove, show }) {
   // 해당 회사 기본정보 구조분해
-  const { companyNo, companyName, companyAddress, companyTel, ownerName, businessNumber, foundingDate, companyUse } = information;
+  const { companyNo, companyName, companyAddress, companyTel
+          , ownerName, businessNumber, foundingDate, companyUse } = information;
 
   // 회사 기본정보값 변화를 도와줄 handler
   const changeCompanyInformation = (e) => {
@@ -36,7 +37,7 @@ function CompanyInformation({ information, setInformation, clickCompanyInfoShow,
       <div className="companyInfoBtnDiv">
         <span className="companyInfoSpan">ㆍ기본정보</span>
         <button className="companyInfoSaveBtn" type="submit" onClick={ clickCompanySave }>저장</button>
-        <button className="companyInfoDelBtn" type="submit">삭제</button>
+        <button className="companyInfoDelBtn" type="submit" onClick={() => { clickCompanyRemove(companyNo); }}>삭제</button>
         <button className="companyInfoShowBtn" onClick={ clickCompanyInfoShow }>X</button>
       </div>
       {show &&

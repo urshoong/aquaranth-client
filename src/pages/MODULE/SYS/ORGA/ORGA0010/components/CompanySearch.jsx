@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { getCompanySearch } from "../api/company";
 
 // 회사 검색 component
-function CompanySearch({ getCompanySearch, setList }) {
+function CompanySearch({ setList }) {
   const [companySearch, setCompanySearch] = useState(""); // 검색어를 담을 상태값
   const [companyUse, setCompanyUse] = useState(true); // 사용여부를 담을 상태값
 

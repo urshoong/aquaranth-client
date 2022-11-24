@@ -10,7 +10,8 @@ function CompanyListItem({ item, clickCompanyListItem }) {
       <div>{companyNo}</div>
       <div>{ownerName}</div>
       <div>{companyName}</div>
-      <div className="companyUseItemDiv" style={companyUse ? { backgroundColor: "#6bb4ff" } : { backgroundColor: "#4b7dff" }}>{companyUse ? "사용" : "미사용"}</div>
+      <div className="companyUseItemDiv" style={companyUse ? { backgroundColor: "#6bb4ff" }
+                                                : { backgroundColor: "#4b7dff" }}>{companyUse ? "사용" : "미사용"}</div>
     </div>
   );
 }
