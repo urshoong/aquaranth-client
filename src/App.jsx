@@ -22,6 +22,7 @@ const App = () => {
 
   useEffect(() => {
     GET_ROUTES().then((res) => {
+      console.log(res);
       setRoutes(res.data);
     });
   }, []);
