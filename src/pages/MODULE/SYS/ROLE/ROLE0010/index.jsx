@@ -1,84 +1,52 @@
 import React, { useEffect, useState } from "react";
-import request from "@utils/axiosUtil";
-import "./style.css";
+import useModal from "@hooks/useModal";
 import styled from "styled-components";
-import RoleGroupList from "./components/RoleGroupList";
-import RoleGroupAddModal from "./components/RoleGroupAddModal";
-import UserMenu from "./components/UserMenu";
-
-const fetchGNBList = async () => {
-  const { data } = await request.get("/company/list");
-  return data;
-};
-
-const fetchCompanyList = async () => {
-  const { data } = await request.get("/company/list");
-  return data;
-};
-
-const fetchRoleGroup = async () => {
-  const { data } = await request.get("/role-group");
-  return data;
-};
-
-const addRoleGroup = async (roleGroup) => {
-  const { data } = await request.post("/role-group", roleGroup);
-  return data;
-};
+import RoleGroupContainer from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupContainer";
+import { useDispatch, useSelector } from "react-redux";
+import request from "../../../../../utils/axiosUtil";
+import MenuRoleContainer from "./components/MenuRoleContainer";
 
 
-export const ModalContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-`;
-
-function Index() {
+const Index = () => {
   const [companyList, setCompanyList] = useState([]);
-  const [roleGroupList, setRoleGroupList] = useState([]);
-  const [GNBList, setGNBList] = useState([]);
-  const [modal, setModal] = useState(false);
-  const [refresh, setRefresh] = useState(false);
-
-  const refreshPage = () => {
-    setRefresh(!refresh);
-  };
+  const [selectedRoleGroup, setSelectedRoleGroup] = useState({});
+  const { refresh } = useSelector((state) => state.roleGroup);
 
   useEffect(() => {
-    fetchRoleGroup()
-      .then((data) => setRoleGroupList(data));
-    fetchCompanyList()
-      .then((data) => setCompanyList(data));
-  }, [refresh]);
+    request.get("/company/list")
+      .then(({ data }) => setCompanyList(data));
+  }, []);
+
+  const onClickRoleGroupItem = (roleGroup) => {
+    setSelectedRoleGroup(roleGroup);
+  };
 
   return (
-    <ModalContainer className="firstOutDiv">
-      <div className="mainDiv">
-        <div className="listInfoDiv">
-          <RoleGroupList
-            roleGroupList={roleGroupList}
-            companyList={companyList}
-            setModal={setModal}
-          />
-          <UserMenu />
-        </div>
-      </div>
-
-      {
-        modal === true ? (
-          <RoleGroupAddModal
-            addRoleGroup={addRoleGroup}
-            companyList={companyList}
-            setModal={setModal}
-            refreshPage={refreshPage}
-          />
-        ) : null
-      }
-    </ModalContainer>
+    <Layout>
+      <RoleGroupContainer onClickRoleGroupItem={onClickRoleGroupItem} refresh={refresh} companyList={companyList} />
+      <MenuRoleContainer selectedRoleGroup={selectedRoleGroup} />
+    </Layout>
   );
-}
+};
 
 export default Index;
+
+const Layout = styled.div`
+  border: black solid 1px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+`;
+
+export const RoleGroupWrapper = styled.div`
+  border: black solid 1px;
+  width: 30%;
+  height: 100%;
+`;
+
+export const MenuRoleWrapper = styled.div`
+  border: black solid 1px;
+  width: 70%;
+  height: 100%;
+`;
+

@@ -1,33 +1,53 @@
-import React, { Suspense } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
-import routes from "@pages/routes";
+import React, { Suspense, useEffect, useState } from "react";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import DefaultLayout from "@components/layout/DefaultLayout";
-import NotFoundPage from "@pages/NotFoundPage";
 import Login from "@pages/login";
-import { getCookie } from "@utils/cookieUtil";
+import Spinner from "@components/Spinner";
+import { lazy } from "@loadable/component";
+
+import { GET_ROUTES } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import Main from "@pages/main";
 
 
 const App = () => {
+  const [routes, setRoutes] = useState([]);
+  const history = useHistory();
   const location = useLocation();
-  if (!getCookie("_at")) {
-    return (<Login />);
-  }
+
+
+  // if (!getCookie("_at")) {
+  //   return <Login />;
+  // }
+  /**
+   * FIXME : 로그인 로직 수정
+   */
+
+  useEffect(() => {
+    GET_ROUTES().then((res) => {
+      setRoutes(res.data);
+    });
+  }, []);
 
   return (
     <Switch>
       <Route path="/login" render={() => <Login />} />
-      <Suspense fallback={<>Spinning</>}>
+      <Suspense fallback={<Spinner />}>
         <DefaultLayout>
+          <Route path="/" exact render={() => <Main />} />
           <Switch location={location}>
-            {routes.map((props, index) => (
-              <Route
-                exact
-                path={props.path}
-                render={() => <props.module />}
-                key={index}
-              />
-            ))}
-            <Route render={() => <NotFoundPage />} />
+            {routes.map(({ menuNo, menuPath }) => {
+              return (
+                <Route
+                  exact
+                  path={menuPath}
+                  component={lazy(() => import(`@pages/MODULE${menuPath}`)
+                    .catch(() => {
+                      return history.push("/");
+                    }))}
+                  key={menuNo}
+                />
+              );
+            })}
           </Switch>
         </DefaultLayout>
       </Suspense>

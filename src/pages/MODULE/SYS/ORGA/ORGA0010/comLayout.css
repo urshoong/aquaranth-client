@@ -67,7 +67,7 @@
     grid-gap: 1rem;
 }
 
-.comList {
+.roleGroupList {
     height: 600px;
     border: 1px solid darkgray;
     overflow: auto;

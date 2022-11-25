@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import indexSlice from "@reducer/indexSlice";
+import modalSlice from "@reducer/modalSlice";
+import roleGroupSlice from "@reducer/roleGroupSlice";
 
 export const store = configureStore({
   reducer: {
-    index: indexSlice,
+    modal: modalSlice,
+    roleGroup: roleGroupSlice,
   },
 });

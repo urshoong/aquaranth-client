@@ -10,11 +10,13 @@ import TreeItem from "@components/tree/TreeItem";
  * @param matchColumn "상위 컬럼과 비교할 컬럼"
  * @param columnName "표시할 컬럼"
  * @param initCollapsed "컬럼 펼침여부"
+ * @param selectedItem "트리구조 아이템"
+ * @param setSelectedItem "트리구조 아이템 설정"
  * @return {JSX.Element}
  * @constructor
  * @author 김민준
  */
-const TreeLayout = ({ apiList, rootValue, upperColumn, matchColumn, columnName, initCollapsed, selectedMenu, setSelectedMenu }) => {
+const TreeLayout = ({ apiList, rootValue, upperColumn, matchColumn, columnName, initCollapsed, selectedItem, setSelectedItem }) => {
   /**
    * JSON 데이터를 트리구조로 반환합니다.
    * @param list
@@ -39,8 +41,8 @@ const TreeLayout = ({ apiList, rootValue, upperColumn, matchColumn, columnName, 
           key={item[matchColumn]}
           itemColumn={columnName}
           initCollapsed={initCollapsed}
-          selectedMenu={selectedMenu}
-          setSelectedMenu={setSelectedMenu}
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
         />
       ))}
     </TreeWrapper>

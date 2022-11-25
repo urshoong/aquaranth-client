@@ -61,7 +61,7 @@ module.exports = {
         exclude: path.join(__dirname, "node_modules"),
       },
       {
-        test: /\.css?$/,
+        test: /\.s?css?$/,
         use: ["style-loader", "css-loader"],
       },
 
@@ -76,11 +76,6 @@ module.exports = {
           },
         ],
       },
-      // FIXME : 상황별 사용
-      // {
-      //   test: /\.svg$/,
-      //   use: ["@svgr/webpack"],
-      // },
     ],
   },
   plugins: [

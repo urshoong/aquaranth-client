@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import Arrow from "@styles/assets/icon/Arrow";
 
 
-const TreeItem = ({ item, item: { depth }, itemColumn, initCollapsed, selectedMenu, setSelectedMenu }) => {
+const TreeItem = ({ item, item: { depth }, itemColumn, initCollapsed, selectedItem, setSelectedItem }) => {
   const [collapsed, setCollapsed] = useState(initCollapsed);
 
   const handleOnCollapsed = () => {
@@ -11,7 +11,7 @@ const TreeItem = ({ item, item: { depth }, itemColumn, initCollapsed, selectedMe
   };
 
   const handleSelectedMenu = (e, menu) => {
-    setSelectedMenu(menu);
+    setSelectedItem(menu);
   };
 
   const Items = ({ children, menu }) => {
@@ -33,7 +33,7 @@ const TreeItem = ({ item, item: { depth }, itemColumn, initCollapsed, selectedMe
       <>
         <Items menu={item}>
           <Arrow color="black" size="1rem" isOpen={collapsed} />
-          <IconImage src="https://cdn-icons-png.flaticon.com/512/29/29495.png" />
+          <IconImage src={item.iconUrl} />
           {item[itemColumn]}
         </Items>
         <SubItem isOpen={collapsed}>
@@ -44,8 +44,8 @@ const TreeItem = ({ item, item: { depth }, itemColumn, initCollapsed, selectedMe
               key={child[itemColumn]}
               itemColumn={itemColumn}
               initCollapsed={initCollapsed}
-              selectedMenu={selectedMenu}
-              setSelectedMenu={setSelectedMenu}
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
             />
           ))}
         </SubItem>
@@ -54,7 +54,7 @@ const TreeItem = ({ item, item: { depth }, itemColumn, initCollapsed, selectedMe
   }
   return (
     <Items menu={item}>
-      <IconImage src="https://cdn-icons-png.flaticon.com/512/29/29495.png" />
+      <IconImage src={item.iconUrl} />
       {item[itemColumn]}
     </Items>
   );

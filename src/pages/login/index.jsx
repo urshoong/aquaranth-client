@@ -1,27 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import LoginForm from "@pages/login/component/LoginForm";
-import { useForm } from "react-hook-form";
+import { useHistory, useLocation } from "react-router-dom";
 import request from "@utils/axiosUtil";
-import { useHistory } from "react-router-dom";
 import { setCookie } from "@utils/cookieUtil";
 
 const Index = () => {
-  const form = useForm();
   const history = useHistory();
   const loginHandler = async (loginFormData) => {
-    await request.post("/login", loginFormData).then(
-      (res) => {
-        setCookie("_at", res.data.access_token);
-        setCookie("_rt", res.data.refresh_token);
-        history.push("/");
-      },
-    ).catch((error) => {
-      console.log(error);
+    await request(
+      { method: "POST",
+        url: "/login",
+        data: loginFormData },
+    ).then((res) => {
+      setCookie("_at", res.data.access_token);
+      setCookie("_rt", res.data.refresh_token);
+      history.push("/");
     });
   };
 
   return (
-    <LoginForm loginHandler={loginHandler} form={form} />
+    <LoginForm
+      loginHandler={loginHandler}
+    />
   );
 };
 
