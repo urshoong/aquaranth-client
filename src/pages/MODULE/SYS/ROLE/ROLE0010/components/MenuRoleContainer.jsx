@@ -19,7 +19,7 @@ const fetchMenuRoles = async (selectMenuCode, roleGroupNo) => {
   return data;
 };
 
-function MenuRoleContainer({ selectedRoleGroup }) {
+function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
   const [gnbList, setGnbList] = useState([]);
   const [lnbList, setLnbList] = useState([]);
   const [menuRoleDTO, setMenuRoleDTO] = useState({ ...initState });
@@ -68,10 +68,10 @@ function MenuRoleContainer({ selectedRoleGroup }) {
       return;
     }
     console.log("post 요청발송 DTO->", menuRoleDTO);
-
     request.post("/menu-role", menuRoleDTO)
       .then(() => {
         dispatch(changeRefresh());
+        setSelectedRoleGroup({});
       });
   };
 
