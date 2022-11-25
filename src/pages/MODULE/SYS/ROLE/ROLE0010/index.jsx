@@ -24,7 +24,7 @@ const Index = () => {
   return (
     <Layout>
       <RoleGroupContainer onClickRoleGroupItem={onClickRoleGroupItem} refresh={refresh} companyList={companyList} />
-      <MenuRoleContainer selectedRoleGroup={selectedRoleGroup} />
+      <MenuRoleContainer selectedRoleGroup={selectedRoleGroup} setSelectedRoleGroup={setSelectedRoleGroup} />
     </Layout>
   );
 };
