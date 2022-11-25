@@ -1,68 +1,92 @@
 import React, { useEffect, useRef, useState } from "react";
-import request from "@utils/axiosUtil";
+import { getTree } from "@pages/MODULE/SYS/ORGA/ORGA0020/api/department";
+import styled, { css } from "styled-components";
 
-// 트리 구조 데이터 출력
-const getTreeStructure = async (companyNo, depth, upperDeptNo) => {
-  const { data } = await request.get(`/dept2/findTree/${companyNo}/${depth}/${upperDeptNo}`);
-  return data;
-};
+function TreeItemComp({ topDepartment, handleSelectDepartment }) {
 
-
-function TreeItemComp({ arr, handleSelectDepartment }) {
-  const [subArr, setSubArr] = useState([]);
+  console.log("트리 아이템을 조회합니다.", topDepartment);
+  /**
+   * 조직도에서 1depth밑의 부서들의 상태를 관리합니다.
+   */
+  const [department, setDepartment] = useState([]);
+  /**
+   * 조직도에서 조직도를 열고 닫고 할 때 사용하는 아이콘을 관리합니다.
+   */
   const [icon, setIcon] = useState("+");
+  /**
+   * HTML 태그 선택자
+   * @type {React.MutableRefObject<undefined>}
+   */
   const buttonRef = useRef();
 
-  const clickMore = (companyNo, depth, upperDeptNo) => {
-    getTreeStructure(companyNo, depth, upperDeptNo).then((result) => {
-      setSubArr(result);
+  /**
+   * 클릭을 할 때 마다, 하위 부서가 있는지 탐색합니다.
+   * @param companyNo
+   * @param depth
+   * @param upperDeptNo
+   */
+  const findUnderDepartment = (companyNo, depth, upperDeptNo) => {
+    getTree(companyNo, depth, upperDeptNo).then((result) => {
+      setDepartment(result);
       setIcon("-");
     });
   };
 
-  const clickButton = (companyNo, depth, upperDeptNo) => {
+  /**
+   * 메뉴를 폴딩하는 버튼입니다.
+   * @param companyNo
+   * @param depth
+   * @param upperDeptNo
+   */
+  const foldingButton = (companyNo, depth, upperDeptNo) => {
     if (icon === "-") {
-      setSubArr([]);
+      setDepartment([]);
       setIcon("+");
     } else if (icon === "+") {
-      clickMore(companyNo, depth, upperDeptNo);
+      findUnderDepartment(companyNo, depth, upperDeptNo);
     }
   };
 
-  useEffect(() => {
-    /** 이 설정이 활성화되어 있으면 회사 클릭하면 하위 모든 부서를 한 번에 펼침 */
-    // if (button) {
-    //   button.click();
-    // }
-  }, []);
-
-  if (!arr) {
+  if (!topDepartment) {
     return (<></>);
   }
 
-
   return (
     <ul>
-      {arr.map((dept) => (
-        <li key={dept.deptNo}>
-          <div>
-            <button type="button" ref={buttonRef} onClick={() => clickButton(dept.companyNo, dept.depth + 1, dept.deptNo)}>{icon}</button>
-            <span onClick={() => handleSelectDepartment(dept.deptNo)} aria-hidden="true">{dept.deptNo} -- {dept.deptName}</span>
-          </div>
-
-          {subArr ? subArr.map((childDept) => (
+      {topDepartment.map((item) => (
+        <List key={item.deptNo}>
+          <Department>
+            <button type="button" ref={buttonRef} onClick={() => foldingButton(item.companyNo, item.depth + 1, item.deptNo)}>{icon}</button>
+            <span onClick={() => handleSelectDepartment(item.deptNo)}>{item.deptNo} -- {item.deptName}</span>
+          </Department>
+          {department ? department.map((childrenItem) => (
             <TreeItemComp
-              key={childDept.deptNo}
-              arr={[childDept]}
+              key={childrenItem.deptNo}
+              topDepartment={[childrenItem]}
               handleSelectDepartment={handleSelectDepartment}
             />
           )) : <></> }
-
-
-        </li>
+        </List>
       ))}
     </ul>
   );
 }
+
+const List = styled.li`
+  ${({})=>{
+    return css`
+      padding: 0.3rem;
+      border-bottom: 0.5px solid #666666;
+    `
+  }}
+`
+
+const Department = styled.div`
+  ${({})=>{
+  return css`
+      padding: 0.3rem;
+    `
+}}
+`
 
 export default TreeItemComp;
