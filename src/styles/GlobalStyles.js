@@ -24,6 +24,7 @@ const GlobalStyles = createGlobalStyle`
     transition: background-color 5000s ease-in-out 0s;
     -webkit-transition: background-color 9999s ease-out;
     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  }
 `;
 
 export default GlobalStyles;

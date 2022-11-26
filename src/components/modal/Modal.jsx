@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { darken } from "polished";
 import Cross from "@styles/assets/icon/Cross";
 import { BreakLine } from "@components/Util";
@@ -39,6 +39,15 @@ const Modal = ({
   );
 };
 
+const modalAnimation = keyframes`
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+`;
+
 const Layout = styled.div`
   ${() => {
     return css`
@@ -54,6 +63,7 @@ const Layout = styled.div`
       right: 0;
       background: rgba(0, 0, 0, 0.4);
       z-index: 9999;
+      animation: ${modalAnimation} 0.2s;
     `;
   }}
 `;

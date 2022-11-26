@@ -79,7 +79,9 @@ module.exports = {
     ],
   },
   plugins: [
-    new ReactRefreshWebpackPlugin(),
+    new ReactRefreshWebpackPlugin({
+      overlay: false,
+    }),
     new LoaderOptionsPlugin({ minimize: true }),
     new DefinePlugin({
       "process.env": JSON.stringify(process.env),
