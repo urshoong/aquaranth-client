@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import request from "@utils/axiosUtil";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import GnbMenuItem from "@components/layout/sidebar/gnb/GnbMenuItem";
+import { GET_ROUTES } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import { darken } from "polished";
 
 /**
  * GNB 사이드바 컴포넌트 입니다.
@@ -13,15 +14,25 @@ import GnbMenuItem from "@components/layout/sidebar/gnb/GnbMenuItem";
  */
 const GnbSidebar = () => {
   const [gnbMenuList, setGnbMenuList] = useState([]);
+  const [visible, setVisible] = useState(false);
+
+  // FIXME : 버블링
+  const handleOnEnter = () => {
+    setVisible(true);
+  };
+  const handleOnLeave = () => {
+    setVisible(false);
+  };
+
   useEffect(() => {
-    request.get("/menu").then(({ data }) => {
-      setGnbMenuList(data);
+    GET_ROUTES().then((res) => {
+      setGnbMenuList(res.data);
     });
   }, []);
 
   return (
-    <GnBSidebarWrapper>
-      {gnbMenuList.map((menu) => <GnbMenuItem key={menu.menuNo} menu={menu} />)}
+    <GnBSidebarWrapper onMouseEnter={handleOnEnter} onMouseLeave={handleOnLeave}>
+      {gnbMenuList.map((menu) => <GnbMenuItem key={menu.menuNo} menu={menu} visible={visible} />)}
     </GnBSidebarWrapper>
   );
 };
@@ -31,13 +42,26 @@ const GnbSidebar = () => {
  * @type {StyledComponent<"div", AnyIfEmpty<DefaultTheme>, {}, never>}
  */
 const GnBSidebarWrapper = styled.div`
-  ${({ theme }) => css`
-      background-color: ${theme.color.sidebar};
-      position: fixed;
-      width: ${theme.ui.gnbSidebar};
-      height: 100vh;
-      z-index: 9999;`}
-`;
+  ${({ theme }) => {
+    const { ui, color } = theme;
+    return css`
+    background-color: ${darken(0.05, color.sidebar)};
+    overflow: auto;
+    position: fixed;
+    width: ${ui.gnbSidebar};
+    height: 100vh;
+    z-index: 9999;
+    transition: 0.1s;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    &:hover{
+      transition: 0.2s;
+      width: calc(${ui.gnbSidebar} + ${ui.gnbSidebarOpen});
+    }
+  `;
+  }
+}`;
 
 
 export default GnbSidebar;

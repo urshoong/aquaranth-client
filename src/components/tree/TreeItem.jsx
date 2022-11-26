@@ -33,7 +33,7 @@ const TreeItem = ({ item, item: { depth }, itemColumn, initCollapsed, selectedIt
       <>
         <Items menu={item}>
           <Arrow color="black" size="1rem" isOpen={collapsed} />
-          <IconImage src="https://cdn-icons-png.flaticon.com/512/29/29495.png" />
+          <IconImage src={item.iconUrl} />
           {item[itemColumn]}
         </Items>
         <SubItem isOpen={collapsed}>
@@ -54,7 +54,7 @@ const TreeItem = ({ item, item: { depth }, itemColumn, initCollapsed, selectedIt
   }
   return (
     <Items menu={item}>
-      <IconImage src="https://cdn-icons-png.flaticon.com/512/29/29495.png" />
+      <IconImage src={item.iconUrl} />
       {item[itemColumn]}
     </Items>
   );
