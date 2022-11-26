@@ -4,7 +4,6 @@ import RoleGroupContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGro
 import UserListContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserListContent";
 
 const getCompanyList = async (orgaNo) => {
-  // const { data } = await request.get(`/userrole/companyList/${orgaNo}`);
   const { data } = await request.get("/userrole/companyList");
   return data;
 };
@@ -133,19 +132,17 @@ const UserRoleRoleGroupBasedPage = () => {
   const orgaBtnClickHandler = () => {
     // TODO : 공통 조직도 팝업에서 선택한 조직(회사/부서/사원)의 orgaNo를 전달받아 권한그룹을 부여하는 기능 구현해야됨
     if (ulSearch.orgaNo === 0 || ulSearch.roleGroupNo === 0) {
-      // TODO : sweetalert 작업해야됨
-      // alert("권한그룹이 선택되지 않았습니다.");
+      alert("권한그룹이 선택되지 않았습니다.");
       return;
     }
 
     const inputData = {};
-    const orgaNoList = [19, 20, 21];
+    const orgaNoList = [31, 40]; // emp05 하세진 정보 고정으로 테스트
     inputData.orgaNo = ulSearch.orgaNo;
     inputData.roleGroupNo = ulSearch.roleGroupNo;
     inputData.orgaNoList = orgaNoList;
 
     insertOrgaRole(inputData).then(() => {
-      // TODO : sweetalert 작업해야됨
       userSearchClickHandler();
     });
   };
@@ -171,30 +168,26 @@ const UserRoleRoleGroupBasedPage = () => {
   };
 
   const roleGroupSizeSelectChangeHandler = (e) => {
-    rgSearch.page = 1;
-    rgSearch.size = e.target.value;
+    changeRoleGroupSearchHandler("page", 1);
+    changeRoleGroupSearchHandler("size", e.target.value);
     e.target.defaultValue = e.target.value;
-    setRgSearch({ ...rgSearch });
     searchClickHandler();
   };
 
   const roleGroupPageClickHandler = (e) => {
-    rgSearch.page = e.target.dataset?.page;
-    setRgSearch({ ...rgSearch });
+    changeRoleGroupSearchHandler("page", e.target.dataset?.page);
     searchClickHandler();
   };
 
   const userListSizeSelectChangeHandler = (e) => {
-    ulSearch.page = 1;
-    ulSearch.size = e.target.value;
+    changeUserListSearchHandler("page", 1);
+    changeUserListSearchHandler("size", e.target.value);
     e.target.defaultValue = e.target.value;
-    setUlSearch({ ...ulSearch });
     userSearchClickHandler();
   };
 
   const userListPageClickHandler = (e) => {
-    ulSearch.page = e.target.dataset?.page;
-    setUlSearch({ ...ulSearch });
+    changeUserListSearchHandler("page", e.target.dataset?.page);
     userSearchClickHandler();
   };
 
@@ -228,6 +221,7 @@ const UserRoleRoleGroupBasedPage = () => {
             <span>{roleGroup.length}</span>
             <span>개</span>
           </div>
+          {/* TODO : 필터 넣을지 말지 차후 처리 */}
           {/* <div className="groupSortWrap">
             <select>
               <option>필터</option>

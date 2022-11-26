@@ -46,16 +46,24 @@ const UserRoleUserBasedPage = () => {
   const [rgSearch, setRgSearch] = useState(initRgSearch);
   const [rgResponse, setRgResponse] = useState({});
 
-  const searchClickHandler = () => {
+  const changeRoleGroupSearchHandler = (prop, value) => {
+    rgSearch[prop] = value;
+    setRgSearch({ ...rgSearch });
+  };
+
+  const changeUserListSearchHandler = (prop, value) => {
+    ulSearch[prop] = value;
+    setUlSearch({ ...ulSearch });
+  };
+
+  const userSearchClickHandler = () => {
     const orgaNo = document.querySelector(".companySelect");
     const keyword1 = document.querySelector(".keyword1");
     const keyword2 = document.querySelector(".keyword2");
 
-    ulSearch.orgaNo = orgaNo.value;
-    ulSearch.keyword1 = keyword1.value;
-    ulSearch.keyword2 = keyword2.value;
-
-    setUlSearch({ ...ulSearch });
+    changeUserListSearchHandler("orgaNo", orgaNo.value);
+    changeUserListSearchHandler("keyword1", keyword1.value);
+    changeUserListSearchHandler("keyword2", keyword2.value);
 
     getUserList(ulSearch).then((data) => {
       const { dtoList } = data;
@@ -70,7 +78,7 @@ const UserRoleUserBasedPage = () => {
     userListContainer.scrollTop = 0;
   };
 
-  const userSearchClickHandler = () => {
+  const roleSearchClickHandler = () => {
     getGroupList(rgSearch).then((data) => {
       const { dtoList } = data;
       setRoleGroup([]);
@@ -90,11 +98,9 @@ const UserRoleUserBasedPage = () => {
     document.querySelector(".contentRow.contentRow2.active")?.classList.remove("active");
     target.classList.add("active");
 
-    rgSearch.orgaNo = target.dataset?.orgaNo;
+    changeRoleGroupSearchHandler("orgaNo", target.dataset?.orgaNo);
 
-    setRgSearch({ ...rgSearch });
-
-    userSearchClickHandler();
+    roleSearchClickHandler();
   };
 
   const roleGroupClickHandler = (e) => {
@@ -126,7 +132,7 @@ const UserRoleUserBasedPage = () => {
       return {
         orgaNo: element.dataset?.orgaNo,
         roleGroupNo: element.dataset?.roleGroupNo,
-        targetOrgaNo: ulSearch.orgaNo,
+        targetOrgaNo: rgSearch.orgaNo,
       };
     });
 
@@ -136,44 +142,41 @@ const UserRoleUserBasedPage = () => {
     }
 
     removeUserRole(arr).then((data) => {
-      const { state, message } = data;
+      // TODO : state > fail or success
+      const { message } = data;
       alert(message);
+      roleSearchClickHandler();
     });
   };
 
   const userListSizeSelectChangeHandler = (e) => {
-    ulSearch.page = 1;
-    ulSearch.size = e.target.value;
+    changeUserListSearchHandler("page", 1);
+    changeUserListSearchHandler("size", e.target.value);
     e.target.defaultValue = e.target.value;
-    setUlSearch({ ...ulSearch });
-    searchClickHandler();
+    userSearchClickHandler();
   };
 
   const userListPageClickHandler = (e) => {
-    ulSearch.page = e.target.dataset?.page;
-    setUlSearch({ ...ulSearch });
-    searchClickHandler();
+    changeUserListSearchHandler("page", e.target.dataset?.page);
+    userSearchClickHandler();
   };
 
   const roleGroupSizeSelectChangeHandler = (e) => {
-    ulSearch.page = 1;
-    ulSearch.size = e.target.value;
+    changeRoleGroupSearchHandler("page", 1);
+    changeRoleGroupSearchHandler("size", e.target.value);
     e.target.defaultValue = e.target.value;
-    setUlSearch({ ...ulSearch });
-    userSearchClickHandler();
+    roleSearchClickHandler();
   };
 
   const roleGroupPageClickHandler = (e) => {
-    ulSearch.page = e.target.dataset?.page;
-    setUlSearch({ ...ulSearch });
-    userSearchClickHandler();
+    changeRoleGroupSearchHandler("page", e.target.dataset?.page);
+    roleSearchClickHandler();
   };
 
   useEffect(() => {
-    // TODO : 로그인한 사용자의 회사 코드로처리해야함
     getCompanyList().then((data) => {
       setCompany(data);
-      searchClickHandler();
+      userSearchClickHandler();
     });
   }, []);
 
@@ -205,7 +208,7 @@ const UserRoleUserBasedPage = () => {
         </div>
         <div className="searchWrap userList">
           <button type="button" className="btn" onClick={orgaRoleRemove}>&nbsp;권한삭제&nbsp;</button>
-          <button type="button" className="btn innerSearchBtn" onClick={searchClickHandler}>🔍</button>
+          <button type="button" className="btn innerSearchBtn" onClick={userSearchClickHandler}>🔍</button>
         </div>
       </div>
       <div className="innerContent userList">
@@ -268,6 +271,7 @@ const UserRoleUserBasedPage = () => {
               <span>{roleGroup.length}</span>
               <span>개</span>
             </div>
+            {/* TODO : 필터 넣을지 말지 차후 처리 */}
             {/* <div className="groupSortWrap">
               <select>
                 <option>필터</option>
