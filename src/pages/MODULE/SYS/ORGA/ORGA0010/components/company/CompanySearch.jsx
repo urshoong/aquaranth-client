@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getCompanySearch } from "../api/company";
+import { getCompanySearch } from "../../api/company";
 
 // 회사 검색 component
 function CompanySearch({ setList }) {

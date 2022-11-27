@@ -1,20 +1,18 @@
 import React from "react";
-import request from "../../../../../../utils/axiosUtil";
-import { validate } from "@babel/core/lib/config/validation/options";
+import request from "../../../../../../../utils/axiosUtil";
 
 // 해당 정렬에 맞는 회사 일부정보 리스트 요청
 const getSortCompany = async (companySort) => {
   const { data } = await request.get(`/company/sort/${companySort}`);
 
   return data;
-}
+};
 
 // 총 회사 건 수 component
 function CompanyCount({ list, setList }) {
-
   // 정렬한 회사 정보 리스트를 불러올 handler
   const changeCompanySort = (e) => {
-    const { value } = e.target
+    const { value } = e.target;
     console.log("정렬값 : ", value);
     getSortCompany(value).then((data) => {
       console.log("정렬된 회사 리스트 : ", data);
