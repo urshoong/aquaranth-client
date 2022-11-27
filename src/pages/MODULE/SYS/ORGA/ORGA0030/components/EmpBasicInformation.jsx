@@ -1,10 +1,10 @@
 import React from "react";
 
 function EmpBasicInformation({ clickEmpRegister, clickEmpModify,
-  empInformation, changeEmpInput }) {
+  empInformation, changeEmpInput, handleOnRegisterModal }) {
   return (
     <div>
-      <button type="button" onClick={() => { clickEmpRegister(); }}>추가</button>
+      <button type="button" onClick={() => { handleOnRegisterModal(); }}>추가</button>
       <button type="button" onClick={() => { clickEmpModify(); }}>수정</button>
 
       <div className="empBasicInformation">
