@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Arrow from "@styles/assets/icon/Arrow";
 
 
-const LinkTreeItem = ({ item, item: { depth }, itemColumn, initCollapsed }) => {
+const SidebarTreeItem = ({ item, item: { depth }, itemColumn, initCollapsed }) => {
   const [collapsed, setCollapsed] = useState(initCollapsed);
 
   const handleOnCollapsed = () => {
@@ -19,7 +19,7 @@ const LinkTreeItem = ({ item, item: { depth }, itemColumn, initCollapsed }) => {
         </Item>
         <SubItem isOpen={collapsed}>
           {item.childrens.map((child) => (
-            <LinkTreeItem
+            <SidebarTreeItem
               item={child}
               depth={depth}
               key={child[itemColumn]}
@@ -63,4 +63,4 @@ const SubItem = styled.div`
 export const SbLink = styled(Link)`
 `;
 
-export default LinkTreeItem;
+export default SidebarTreeItem;
