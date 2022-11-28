@@ -1,11 +1,6 @@
 import React, { useRef, useState } from "react";
-import request from "@utils/axiosUtil";
+import { getChildNode } from "@pages/MODULE/SYS/ORGA/ORGA0010/api/mygroup";
 
-const getChildNode = async (upperDeptNo, depth, companyNo) => {
-  const res = await request.get(`/orgatree/tree/${upperDeptNo}/${depth}/${companyNo}`);
-
-  return res.data;
-};
 
 function CommonTreeNode({ arr, changeTarget }) {
   const [subArr, setSubArr] = useState([]);

@@ -1,19 +1,6 @@
 import React, { useEffect, useState } from "react";
-import request from "@utils/axiosUtil";
+import { getChildNode, getOrgatreeEmpList } from "@pages/MODULE/SYS/ORGA/ORGA0010/api/mygroup";
 import CommonTreeNode from "./CommonTreeNode";
-
-const getChildNode = async (upperDeptNo, depth, companyNo) => {
-  const res = await request.get(`/orgatree/tree/${upperDeptNo}/${depth}/${companyNo}`);
-
-  return res.data;
-};
-
-// 해당 부서에 소속된 모든 사원 정보를 요청
-const getOrgatreeEmpList = async (orgaNo) => {
-  const { data } = await request.get(`/orgatree/list/${orgaNo}`);
-
-  return data;
-};
 
 
 function CommonTreeContainer({ deptNo = 1, depth = 0, companyNo, setEmpList }) {

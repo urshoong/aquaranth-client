@@ -1,5 +1,5 @@
 import React from "react";
-import CompanyInfoItem from "./CompanyInfoItem";
+import CompanyInfoItem from "@pages/MODULE/SYS/ORGA/ORGA0010/components/company/CompanyInfoItem";
 
 // 회사 기본정보 component
 function CompanyInformation({ information, setInformation, clickCompanyInfoShow,
@@ -38,7 +38,7 @@ function CompanyInformation({ information, setInformation, clickCompanyInfoShow,
         <span className="companyInfoSpan">ㆍ기본정보</span>
         <button className="companyInfoSaveBtn" type="submit" onClick={clickCompanySave}>저장</button>
         <button className="companyInfoDelBtn" type="submit" onClick={() => { clickCompanyRemove(companyNo); }}>삭제</button>
-        <button className="companyInfoShowBtn" onClick={clickCompanyInfoShow}>X</button>
+        <button className="companyInfoShowBtn" type="submit" onClick={clickCompanyInfoShow}>X</button>
       </div>
       {show
         && (

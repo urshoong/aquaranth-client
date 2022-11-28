@@ -4,8 +4,8 @@ import useModal from "../../../../../../../hooks/useModal";
 
 function OrgatreeEmpDetail({ empInfo }) {
   // 해당 사원 정보 구조분해
-  const { empName, empRank, username, path, empPhone, email } = empInfo;
-  const data = { menucode: "MyGroup", menuname: "마이그룹" };
+  const { orgaNo, empName, empRank, username, path, empPhone, email } = empInfo;
+  const data = { menucode: "MyGroup", menuname: "마이그룹", orgaNo };
   const { openModal } = useModal();
 
   // 조직도 모달창을 띄워줄 handler
@@ -60,6 +60,8 @@ const EmpDetail = styled.div`
   border-top: 2px solid #6c6c6c;
 `;
 const EmpProfilItem = styled.div`
+  text-align: center;
+  margin-top: 5em;
 `;
 const EmpDetailTitle = styled.div`
   font-size: 12px;

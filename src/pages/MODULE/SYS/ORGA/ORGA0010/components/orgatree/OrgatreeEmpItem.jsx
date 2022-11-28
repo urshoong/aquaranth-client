@@ -1,17 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import request from "../../../../../../../utils/axiosUtil";
+import { getEmpInformation } from "@pages/MODULE/SYS/ORGA/ORGA0010/api/mygroup";
 
-// 해당 사원의 정보를 요청
-const getEmpInformation = async (empNo) => {
-  const { data } = await request.get(`/orgatree/information/${empNo}`);
 
-  return data;
-};
-
-function OrgatreeEmpItem({ empInfo, setEmpInfo }) {
+function OrgatreeEmpItem({ empInfo, setEmpInfo, mygroupNo, clickFavoriteEmp }) {
   // 사원 정보를 구조분해
-  const { orgaNo, empName, empRank, username, path, empPhone } = empInfo;
+  const { empNo, orgaNo, empName, empRank, username, path, empPhone } = empInfo;
 
   // 사원 선택시 해당 사원에 대한 정보를 불러올 handler
   const clickEmpItem = () => {
@@ -22,8 +16,18 @@ function OrgatreeEmpItem({ empInfo, setEmpInfo }) {
     });
   };
 
+
   return (
     <EmpItemDiv onClick={() => { clickEmpItem(); }}>
+      {empNo ? <div /> : (
+        <EmpInfo
+          align="right"
+          fontSize="1.3"
+          color="#46a3fb"
+          onClick={() => { clickFavoriteEmp(mygroupNo, orgaNo); }}
+        >✖
+        </EmpInfo>
+      )}
       <EmpInfo paddingBtm="0.3" fontSize="1.3" fontWeight="bold">{empName} / {empRank} | {username}</EmpInfo>
       <EmpInfo>{path}</EmpInfo>
       <EmpInfo paddingTop="1">📞 {empPhone}</EmpInfo>
@@ -38,10 +42,12 @@ const EmpItemDiv = styled.div`
 `;
 
 const EmpInfo = styled.div`
+  text-align: ${(props) => props.align};
   padding-top: ${(props) => props.paddingTop}em;
   padding-bottom: ${(props) => props.paddingBtm}em;
   font-size: ${(props) => props.fontSize}em;
   font-weight: ${(props) => props.fontWeight};
+  color: ${(props) => props.color};
 `;
 
 export default OrgatreeEmpItem;

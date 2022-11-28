@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import CompanySearch from "./CompanySearch";
-import CompanyList from "./CompanyList";
+import CompanyInformation from "@pages/MODULE/SYS/ORGA/ORGA0010/components/company/CompanyInformation";
+import CompanySearch from "@pages/MODULE/SYS/ORGA/ORGA0010/components/company/CompanySearch";
+import CompanyList from "@pages/MODULE/SYS/ORGA/ORGA0010/components/company/CompanyList";
 import "../../Company.css";
-import CompanyInformation from "./CompanyInformation";
 import { getCompanyList, getCompanyInformation, registerCompanyInformation,
-  ModifyCompanyInformation, RemoveCompanyInformation } from '../../api/company.js';
+  ModifyCompanyInformation, RemoveCompanyInformation } from "@pages/MODULE/SYS/ORGA/ORGA0010/api/company";
 
 // 회사 기본정보 초기값
 const initState = {
@@ -78,7 +78,6 @@ function CompanyManagement({ list, setList }) {
         setList(data);
       });
     });
-    alert("회사를 미사용 처리하였습니다.");
   };
 
   return (
