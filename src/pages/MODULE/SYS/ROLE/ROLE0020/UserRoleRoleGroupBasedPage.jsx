@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import request from "@utils/axiosUtil";
 import RoleGroupContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGroupContent";
 import UserListContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserListContent";
+import useModal from "@hooks/useModal";
 
-const getCompanyList = async (orgaNo) => {
-  const { data } = await request.get("/userrole/companyList");
+const getCompanyList = async () => {
+  const { data } = await request.get("/userrole/companyListAll");
   return data;
 };
 
@@ -15,11 +16,6 @@ const getGroupList = async ({ page, size, orgaNo, keyword1 }) => {
 
 const getUserList = async ({ orgaNo, roleGroupNo, keyword1 }) => {
   const { data } = await request.get(`/userrole/roleGroupUserList?orgaNo=${orgaNo}&roleGroupNo=${roleGroupNo}&keyword1=${keyword1}`);
-  return data;
-};
-
-const insertOrgaRole = async (inputData) => {
-  const { data } = await request.post("/userrole/insertOrgaRole", inputData);
   return data;
 };
 
@@ -43,6 +39,13 @@ const initUlSearch = {
   keyword1: "",
 };
 
+const initUserRoleModal = {
+  menucode: "ROLE0020",
+  menuname: "회사 부서 사용자 선택",
+  companyNo: 0,
+  // changeOrgaList: null,
+};
+
 const UserRoleRoleGroupBasedPage = () => {
   const [company, setCompany] = useState([]);
   const [roleGroup, setRoleGroup] = useState([]);
@@ -51,6 +54,10 @@ const UserRoleRoleGroupBasedPage = () => {
   const [userList, setUserList] = useState([]);
   const [ulSearch, setUlSearch] = useState(initUlSearch);
   const [ulResponse, setUlResponse] = useState({});
+  // const [orgaList, setOrgaList] = useState([]);
+  const [userRoleModal, setUserRoleModal] = useState(initUserRoleModal);
+
+  const { openModal } = useModal();
 
   const changeRoleGroupSearchHandler = (prop, value) => {
     rgSearch[prop] = value;
@@ -107,6 +114,7 @@ const UserRoleRoleGroupBasedPage = () => {
 
     changeUserListSearchHandler("orgaNo", orgaNo);
     changeUserListSearchHandler("roleGroupNo", roleGroupNo);
+    setUserRoleModal({ ...userRoleModal, companyNo: orgaNo, orgaNo, roleGroupNo });
 
     userSearchClickHandler();
   };
@@ -129,26 +137,41 @@ const UserRoleRoleGroupBasedPage = () => {
     }
   };
 
-  const orgaBtnClickHandler = () => {
-    // TODO : 공통 조직도 팝업에서 선택한 조직(회사/부서/사원)의 orgaNo를 전달받아 권한그룹을 부여하는 기능 구현해야됨
+  const orgaBtnClickHandler = async () => {
     if (ulSearch.orgaNo === 0 || ulSearch.roleGroupNo === 0) {
       alert("권한그룹이 선택되지 않았습니다.");
       return;
     }
 
-    const inputData = {};
-    const orgaNoList = [31, 40]; // emp05 하세진 정보 고정으로 테스트
-    inputData.orgaNo = ulSearch.orgaNo;
-    inputData.roleGroupNo = ulSearch.roleGroupNo;
-    inputData.orgaNoList = orgaNoList;
+    await openModal({ type: "ROLE0020", props: userRoleModal });
 
-    insertOrgaRole(inputData).then(() => {
-      userSearchClickHandler();
-    });
+    console.log("모달 처리 완료");
+
+    userSearchClickHandler();
   };
 
+  // const changeOrgaList = (arr) => {
+  //   setOrgaList(arr);
+  //
+  //   const inputData = {};
+  //   inputData.orgaNo = ulSearch.orgaNo;
+  //   inputData.roleGroupNo = ulSearch.roleGroupNo;
+  //   inputData.orgaNoList = arr;
+  //
+  //   if (inputData.orgaNoList?.length < 1) return;
+  //
+  //   insertOrgaRole(inputData).then(() => {
+  //     userSearchClickHandler();
+  //   });
+  // };
+
   const orgaRoleRemove = () => {
-    const elements = document.querySelectorAll(".contentContainer>.contentRow:not(.header)");
+    if (ulSearch.orgaNo === 0 || ulSearch.roleGroupNo === 0) {
+      alert("권한그룹이 선택되지 않았습니다.");
+      return;
+    }
+
+    const elements = document.querySelectorAll(".contentContainer .contentRow:not(.header)");
     const arr = Array.prototype.filter.call(elements, (element) => {
       return element.querySelector("input[type='checkbox']:checked");
     }).map((element) => {
@@ -191,9 +214,13 @@ const UserRoleRoleGroupBasedPage = () => {
     userSearchClickHandler();
   };
 
+  const companySelectChangeHandler = (e) => {
+    searchClickHandler();
+  };
+
   useEffect(() => {
-    // TODO : 로그인한 사용자의 회사의 orga_no를 입력받아서 처리해야함
-    getCompanyList(1).then((data) => {
+    // setUserRoleModal({ ...userRoleModal, changeOrgaList });
+    getCompanyList().then((data) => {
       setCompany(data);
       searchClickHandler();
     });
@@ -204,7 +231,7 @@ const UserRoleRoleGroupBasedPage = () => {
       <div className="section roleGroup left">
         <div className="leftSection header">
           <div className="selectWrap">
-            <select className="companySelect">
+            <select className="companySelect" onChange={companySelectChangeHandler}>
               {company?.map(({
                 companyNo, companyName, orgaNo,
               }) => <option key={companyNo} value={orgaNo}>{ companyName }</option>)}

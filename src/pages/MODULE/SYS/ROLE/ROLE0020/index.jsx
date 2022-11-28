@@ -3,19 +3,19 @@ import "./userrole.css";
 
 import UserRoleRoleGroupBasedPage from "@pages/MODULE/SYS/ROLE/ROLE0020/UserRoleRoleGroupBasedPage";
 import UserRoleUserBasedPage from "@pages/MODULE/SYS/ROLE/ROLE0020/UserRoleUserBasedPage";
-import useModal from "@hooks/useModal";
-import Button from "@components/Button";
+// import useModal from "@hooks/useModal";
+// import Button from "@components/Button";
 
 const initPageChange = {
   pageName: "UserRoleRoleGroupBasedPage",
 };
 
 function Index() {
-  const { openModal } = useModal();
-  const data = { menucode: "ROLE0020", menuname: "사용자권한 설정" };
-  const handleOnModal = () => {
-    openModal({ type: "ROLE0020", props: data });
-  };
+  // const { openModal } = useModal();
+  // const data = { menucode: "ROLE0020", menuname: "사용자권한 설정" };
+  // const handleOnModal = () => {
+  //   openModal({ type: "ROLE0020", props: data });
+  // };
   const [pageChange, setPageChange] = useState(initPageChange);
 
   const userRolePageClickHandler = (e) => {
@@ -25,7 +25,7 @@ function Index() {
 
   return (
     <div className="userRoleWrap">
-      <Button type="button" onClick={handleOnModal}>ROLE0020 모달 띄우기</Button>
+      {/* <Button type="button" onClick={handleOnModal}>ROLE0020 모달 띄우기</Button> */}
       <div className="titleWrap">
         <span className="title">사용자권한설정</span>
         <div className="titleBtnDiv">

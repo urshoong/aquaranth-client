@@ -18,7 +18,7 @@ const initRgSearch = {
 };
 
 const getCompanyList = async () => {
-  const { data } = await request.get("/userrole/companyList");
+  const { data } = await request.get("/userrole/companyListAll");
   return data;
 };
 
@@ -123,7 +123,6 @@ const UserRoleUserBasedPage = () => {
   };
 
   const orgaRoleRemove = (e) => {
-    // TODO : 권한 삭제기능 구현해야됨. > 상위부서에 부여된 권한은 삭제 불가능하게 하고, 경고창 출력
     const elements = document.querySelectorAll(".groupContent.active");
 
     const arr = Array.prototype.filter.call(elements, (element) => {
@@ -173,6 +172,10 @@ const UserRoleUserBasedPage = () => {
     roleSearchClickHandler();
   };
 
+  const companySelectChangeHandler = (e) => {
+    userSearchClickHandler();
+  };
+
   useEffect(() => {
     getCompanyList().then((data) => {
       setCompany(data);
@@ -192,7 +195,7 @@ const UserRoleUserBasedPage = () => {
       <div className="innerSearchWrap userList">
         <div className="selectWrap userList">
           <span className="searchLabel">회사</span>
-          <select className="companySelect">
+          <select className="companySelect" onChange={companySelectChangeHandler}>
             {company?.map(({
               companyNo, companyName, orgaNo,
             }) => <option key={companyNo} value={orgaNo}>{ companyName }</option>)}
@@ -292,7 +295,8 @@ const UserRoleUserBasedPage = () => {
                 roleGroupNo={roleGroupNo}
                 roleGroupName={roleGroupName}
                 roleGroupClickHandler={roleGroupClickHandler}
-                displayChekcbox=""
+                // displayChekcbox={false}
+                template={document.querySelector(".contentRow2.header").style.gridTemplateColumns}
               />
             ))}
           </div>
