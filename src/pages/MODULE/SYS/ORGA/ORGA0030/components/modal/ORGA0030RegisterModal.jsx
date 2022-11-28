@@ -102,7 +102,10 @@ function Orga0030RegisterModal(props) {
   };
 
   return (
-    <Modal title="사원 추가">
+    <Modal
+      onClose={handleCloseModal}
+      title="사원 추가"
+    >
       <CenterGrid>
         <div>
           <div>
