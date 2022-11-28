@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import CompanyInformation from "@pages/MODULE/SYS/ORGA/ORGA0010/components/company/CompanyInformation";
 import CompanySearch from "@pages/MODULE/SYS/ORGA/ORGA0010/components/company/CompanySearch";
 import CompanyList from "@pages/MODULE/SYS/ORGA/ORGA0010/components/company/CompanyList";
-import "../../Company.css";
 import { getCompanyList, getCompanyInformation, registerCompanyInformation,
   ModifyCompanyInformation, RemoveCompanyInformation } from "@pages/MODULE/SYS/ORGA/ORGA0010/api/company";
+import styled from "styled-components";
 
 // 회사 기본정보 초기값
 const initState = {
@@ -81,9 +81,9 @@ function CompanyManagement({ list, setList }) {
   };
 
   return (
-    <div className="companyManagementDiv">
+    <CompanyManagementDiv>
       <CompanySearch setList={setList} />
-      <div className="companyListInfoDiv">
+      <CompanyListInfoDiv>
         <CompanyList
           list={list}
           setList={setList}
@@ -98,9 +98,22 @@ function CompanyManagement({ list, setList }) {
           clickCompanySave={clickCompanySave}
           clickCompanyRemove={clickCompanyRemove}
         />
-      </div>
-    </div>
+      </CompanyListInfoDiv>
+    </CompanyManagementDiv>
   );
 }
+
+const CompanyManagementDiv = styled.div`
+  color: black;
+  box-sizing: border-box;
+  height: 80vh;
+  width: 80vw;
+`;
+
+const CompanyListInfoDiv = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-gap: 1em;
+`;
 
 export default CompanyManagement;
