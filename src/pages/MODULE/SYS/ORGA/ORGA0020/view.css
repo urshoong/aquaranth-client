@@ -4,45 +4,153 @@
     border: 5px solid black;
 }
 
-.top{
+.firstOne{
     border: 1px solid black;
     margin: 5px;
     font-size: 1.5em;
     font-weight: bold;
+    display: flex;
+    justify-content: space-between;
 }
 
-.bottom{
+.firstTwo{
     border: 1px solid black;
     margin: 5px;
 }
 
-
-.middle{
-    position: relative;  /*요소 자기 자신을 기준으로 배치 즉, middle 요소 기준으로 잡음*/
-    width: 100%;
-    height: 500px;
-    box-sizing: border-box;   /*box sizing 기준을 border-box로 잡겠다.*/
-    border: 2px solid red;
+.secondOne{    /*회사별 조직도(부서) ~~ */
+    font-size: 1em;
+    font-weight: bold;
 }
 
-.stage{
+.secondTwo{
+    position: relative;  /*요소 자기 자신을 기준으로 배치 즉, middle 요소 기준으로 잡음*/
+    width: 100%;
+    height: 100px;
+    box-sizing: border-box;   /*box sizing 기준을 border-box로 잡겠다.*/
+    border: 2px solid red;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    justify-content: space-between;
+}
+
+.secondTwoContainer1{
     border: 1px solid black;
     background-color: gray;
     height: 50px;
-    position: absolute;
-    left: 5%;
-    width: 20%;
-    padding: 5px;
+    left: 0%;
+    width: 25%;
+    padding: 7px;
+
 }
 
-.detail{
-    position: absolute;
-    left: 80%;
-    width: 70%;
+.secondTwoSelect{
+    width: 20em;
+    margin: 5px;
 }
 
-.detail1{
+.secondTwoInput{
+    width: 17em;
+}
+
+.secondTwoContainer2 {
+    width: 1000px;
+
+}
+
+.selectTwoDetail{
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: flex-start;
+    justify-content: space-between;
+    padding: 7px;
+}
+
+.info{
+
+}
+
+.selectTwoDetail{
     font-size: 1.5em;
     font-weight: bold;
     width: 100%;
+    display: flex;
+    align-content: space-between;
+}
+
+.info{
+    /*display: flex;*/
+    /*align-content: space-between;*/
+}
+
+.infoBtn{
+    /*display: flex;*/
+    /*align-content: space-between;*/
+}
+
+.basicInfo {
+    padding: 7px;
+}
+
+
+.basicInfo1 {
+    font-size: 1em;
+    font-weight: bold;
+    color: #46a3fb;
+    padding: 7px;
+}
+
+
+.secondThree {
+    border: 3px solid rebeccapurple;
+    height: 800px;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    /*justify-content: flex-start;*/
+    justify-content: space-between;
+}
+
+.secondThreeLeft{
+    height: 700px;
+}
+
+.secondThreeContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.secondThreeContainer1{
+    border: 1px solid black;
+    height: 700px;
+    left: 0%;
+    width: 25%;
+
+}
+
+.secondThreeContainer2{
+    border: 1px solid black;
+    width: 750px;
+
+}
+
+.deptData{
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    /*justify-content: flex-start;*/
+    justify-content: space-between;
+    height: 680px;
+}
+
+.deptDataLeft{
+    display: grid;
+    justify-items: right;
+}
+
+.deptDataRight {
+    display: grid;
+    width: 650px;
+    border: 1px solid pink;
 }

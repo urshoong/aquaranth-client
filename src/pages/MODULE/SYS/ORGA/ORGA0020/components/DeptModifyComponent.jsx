@@ -1,150 +1,110 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-import { useParams } from "react-router";
+import React from "react";
 
-const modifyDept = async (deptDTO) => {
-  const { data } = await axios.put(`http://localhost:8080/api/dept2/${deptDTO.deptNo}`, deptDTO);
-  return data;
-};
-
-const deleteDept = async (deptNo) => {
-  const { data } = await axios.delete(`http://localhost:8080/api/dept2/${deptNo}`);
-  return data;
-};
-
-const getData = async (deptNo) => {
-  const { data } = await axios.get(`http://localhost:8080/api/dept2/${deptNo}`);
-  return data;
-};
-
-const initState = {
-  mainflag: false,
-  delflag: false,
-};
-
-function DeptModifyComponent({ dept, changeRefresh, gno, changeTarget, targetDept, good, refresh, deptDTO }) {
-  const [modData, setModData] = useState({});
-  const [checkBox, setCheckBox] = useState(initState);
-
-  const checkBoxHandler = (e) => {
-    // const {name, checked} = e.target;
-    // setCheckBox({
-    //   ...checkBox,
-    //   [name]:checked
-    // })
-    checkBox[e.target.name] = e.target.checked;
-    setCheckBox(checkBox);
-    console.log(checkBox);
-  };
-
-  useEffect(() => {
-    getData(good).then((result) => {
-      setCheckBox(checkBox);
-      // console.log(checkBox)
-    });
-  }, [good]);
-
-
-  // useEffect( () => {
-  //   modifyDept(good).then( result => {
-  //     console.log(result);
-  //   })
-  // }, [good])
-
-  const modClickHandler = (e) => {
-    const { value, name } = e.target;
-    modData[name] = value;
-    setModData(modData);
-    console.log(modData);
-  };
-
-  // const modClickCheckHandler = (e) => {
-  //   modData[e.target.name] = e.target.checked
-  //   setModData(modData)
-  //   console.log(modData);
-  // }
-
-  const clickHandlerModify = () => {
-    modifyDept({ ...modData, ...checkBox }).then(() => {
-      console.log("complete");
-    });
-  };
-
-  useEffect(() => {
-    getData(good).then((result) => {
-      console.log(result);
-      setModData(result);
-    });
-  }, [good]);
-
-  if (!good) {
-    return (
-      <></>
-    );
-  }
-
+function DeptModifyComponent() {
   return (
-    <div style={{ backgroundColor: "green", margin: "50px" }}>
-      <div style={{ backgroundColor: "pink" }}>
-        <h1> 기존 데이터 영역 </h1>
-        <h4> {modData.deptNo} </h4>
-        <h4> {modData.deptName} </h4>
-        <h4> {modData.deptDesc} </h4>
-        <h4> {modData.gno} </h4>
-        <h4> {modData.upperDeptNo} </h4>
-        <h4> {modData.depth} </h4>
+    <div>
+      <div className="all">
+        <div className="top">
+          <span>
+            부서관리
+            <button type="button">일괄 등록</button>
+            <button>추가</button>
+          </span>
+        </div>
+        <div className="firstTwo">
+          <div className="secondOne">
+            회사별 조직도(부서)를 등록할 수 있으며, '부서/팀/임시' 유형을 선택하여 등록할 수 있습니다.
+          </div>
+          <div className="secondTwo">
+            <div className="secondTwoContainer1">
+              <select name="company" className="secondTwoSelect">
+                <option>회사선택</option>
+                <option value="회사1">회사1</option>
+                <option value="회사1">회사2</option>
+                <option value="회사1">회사3</option>
+              </select>
+              <div>
+                <input className="secondTwoInput" placeholder="코드/사업장/부서명을 입력하세요." type="text" />
+                <button>㉾</button>
+              </div>
+            </div>
+            <div className="secondTwoContainer2">
+              <div className="selectTwoDetail">
+                <div className="info">
+                  상세정보
+                </div>
+                <div className="infoBtn">
+                  <button>저장</button>
+                  <button>삭제</button>
+                </div>
+              </div>
+              <div className="basicInfo">
+                <span className="basicInfo1">
+                  기본 정보
+                </span>
+                <span>
+                  | 부서 정보
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="secondThree">
+            <div className="secondThreeContainer1">
+              <div className="tree">
+                <p>조직도</p>
+              </div>
+            </div>
+            <div className="secondThreeContainer2">
+              <div className="deptData">
+                <div className="deptDataLeft">
+                  <div className="leftItem">회사</div>
+                  <div className="leftItem">상위부서번호</div>
+                  <div className="leftItem">부서코드</div>
+                  <div className="leftItem">부서명</div>
+                  <div className="leftItem">부서약칭</div>
+                  <div className="leftItem">부서주소</div>
+                  <div className="leftItem">사용여부</div>
+                  <div className="leftItem">삭제여부</div>
+                  <div className="leftItem">등록일</div>
+                  <div className="leftItem">수정일</div>
+                </div>
+                <div className="deptDataRight">
+                  <div className="rightItem">
+                    <input type="text" />
+                  </div>
+                  <div className="rightItem">
+                    <input type="text" />
+                  </div>
+                  <div className="rightItem">
+                    <input type="text" />
+                  </div>
+                  <div className="rightItem">
+                    <input type="text" />
+                  </div>
+                  <div className="rightItem">
+                    <input type="text" />
+                  </div>
+                  <div className="rightItem">
+                    <input type="email" />
+                  </div>
+                  <div className="rightItem">
+                    <input type="checkbox" />
+                  </div>
+                  <div className="rightItem">
+                    <input type="checkbox" />
+                  </div>
+                  <div className="rightItem">
+                    <input type="date" />
+                  </div>
+                  <div className="rightItem">
+                    <input type="date" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <hr />
-
-      <h1>수정 영역</h1>
-      <div>
-        <label>상위 부서번호</label>
-        <input type="text" value={modData.upperDeptNo === null ? "0" : modData.upperDeptNo} readOnly onChange={(e) => modClickHandler(e)} name="upperDeptNo" />
-      </div>
-      <div>
-        <label>부서번호</label>
-        <input type="text" value={modData.deptNo} onChange={(e) => modClickHandler(e)} name="deptNo" readOnly />
-      </div>
-      <div>
-        <label>부서이름</label>
-        {/* <input type="text"  onChange={ (e) => modClickHandler(e) } name="dname"/> */}
-        <select name="deptName" onChange={(e) => { modClickHandler(e); }}>
-          <option value="">-- 부서 선택 -- </option>
-          <option value="개발팀">개발팀</option>
-          <option value="인사팀">인사팀</option>
-          <option value="자원팀">자원팀</option>
-          <option value="철강팀">철강팀</option>
-          <option value="현장팀">현장팀</option>
-        </select>
-      </div>
-      <div>
-        <label>부서약칭</label>
-        <input type="text" onChange={(e) => modClickHandler(e)} name="deptDesc" />
-      </div>
-      <div>
-        <h4>주소 api 사용</h4>
-      </div>
-      <div>
-        <label>사용여부</label>
-        <input type="checkbox" onChange={(e) => checkBoxHandler(e)} name="mainflag" />
-      </div>
-      <div>
-        <label>삭제여부</label>
-        <input type="checkbox" onChange={(e) => checkBoxHandler(e)} name="delflag" />
-      </div>
-      <div>
-        <h4>조직도 표시 할까?</h4>
-      </div>
-      <div>
-        <label>부서정렬 (deptSort)</label>
-        <input type="text" onChange={(e) => modClickHandler(e)} name="deptSort" />
-      </div>
-      <div>
-        <label>부서정렬 (ord)</label>
-        <input type="text" value={modData.ord} onChange={(e) => modClickHandler(e)} name="ord" readOnly />
-      </div>
-      <button onClick={clickHandlerModify}>MODIFY</button>
     </div>
   );
 }
