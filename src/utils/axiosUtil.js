@@ -17,12 +17,14 @@ export const setToken = (response) => {
 };
 
 
-export const requestHandler = (config) => {
+export const requestHandler = (config, code) => {
   const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
   if (accessToken) {
     return {
       ...config,
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: { Authorization: `Bearer ${accessToken}`,
+        "Request-URI": `${code}`,
+      },
     };
   }
   return { ...config };
