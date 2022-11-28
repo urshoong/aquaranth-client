@@ -17,24 +17,26 @@ function RoleGroupContainer({ refresh, companyList, onClickRoleGroupItem }) {
   const [loginUserInfo, setLoginUserInfo] = useState([]);
   const { openModal } = useModal();
 
+  // 페이지 리랜더시 권한그룹목록 요청
   useEffect(() => {
     console.log("refresh 실행됨");
     fetchRoleGroupList().then((r) => setRoleGroupList(r));
   }, [refresh]);
-  useEffect(() => {
 
+  // 권한그룹 상태가 바뀌면 컴포넌트 리랜더링
+  useEffect(() => {
   }, [roleGroupList]);
 
-
+  // 권한그룹 추가버튼 클릭 이벤트
   const onClickAddBtn = () => {
     openModal({ type: "ROLE0010", props: { companyList } });
   };
 
+  // TODO : 권한그룹명으로 권한그룹 검색버튼 클릭 요청
   const onClickSearchBtn = (searchParams) => {
-    // TODO : search
     const { companyNo, roleGroupName } = searchParams;
     request.get(`/role-group?companyNo=${companyNo}&roleGroupName=${roleGroupName}`)
-      .then((r) => setRoleGroupList(r));
+      .then(({ data }) => console.log(data));
   };
 
   return (

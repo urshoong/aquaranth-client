@@ -12,6 +12,7 @@ const initState = {
 function RoleGroupSearchBox({ companyList, onClickSearchBtn }) {
   const [searchParams, setSearchParams] = useState({ ...initState });
 
+  // 검색박스 안에있는 회사정보, 권한그룹명 등 변경 이벤트
   const onChangeEvent = (e) => {
     const { name, value } = e.target;
     if (name === "roleGroupName" || name === "companyNo") {
