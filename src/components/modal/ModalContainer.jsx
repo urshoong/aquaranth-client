@@ -5,7 +5,9 @@ import { modalSelector } from "@reducer/modalSlice";
 
 import Spinner from "@components/Spinner";
 
+
 const ORGA0010Modal = lazy(() => import("@pages/MODULE/SYS/ORGA/ORGA0010/components/modal/ORGA0010Modal"));
+const mygroupModal = lazy(() => import("@pages/MODULE/SYS/ORGA/ORGA0010/components/modal/MygroupModal"));
 const ORGA0020Modal = lazy(() => import("@pages/MODULE/SYS/ORGA/ORGA0020/components/modal/ORGA0020Modal"));
 const ORGA0030Modal = lazy(() => import("@pages/MODULE/SYS/ORGA/ORGA0030/components/modal/ORGA0030Modal"));
 const ORGA0030RegisterModal = lazy(() => import("@pages/MODULE/SYS/ORGA/ORGA0030/components/modal/ORGA0030RegisterModal"));
@@ -17,6 +19,7 @@ const LoginModal = lazy(() => import("@components/modal/LoginModal"));
 
 const MODAL_COMPONENTS = {
   ORGA0010: ORGA0010Modal,
+  MyGroup: mygroupModal,
   ORGA0020: ORGA0020Modal,
   ORGA0030: ORGA0030Modal,
   ORGA0030Register: ORGA0030RegisterModal,
