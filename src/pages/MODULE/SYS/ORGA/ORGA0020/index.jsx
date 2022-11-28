@@ -3,7 +3,12 @@ import "./view.css";
 import useModal from "@hooks/useModal";
 import request from "@utils/axiosUtil";
 import DepartmentEditPage from "@pages/MODULE/SYS/ORGA/ORGA0020/pages/DepartmentEditPage";
-import { findCompanyList } from "@pages/MODULE/SYS/ORGA/ORGA0020/api/department";
+import {
+  deleteDept,
+  findCompanyList,
+  getTree,
+  modifyDept,
+} from "@pages/MODULE/SYS/ORGA/ORGA0020/api/department";
 
 
 function Index() {
@@ -18,11 +23,6 @@ function Index() {
    */
   const [refresh, setRefresh] = useState(false);
 
-  /**
-   * 조직도 트리에서 선택한 부서를
-   * 수정 컴포넌트와, 등록 컴포넌트에서 사용할 수 있는 상태입니다.
-   */
-  const [selectDepartment, setSelectDepartment] = useState({});
 
   /**
    * 컴포넌트가 로딩이 될때,
@@ -52,6 +52,72 @@ function Index() {
     setSelectDepartment(data);
   };
 
+  /**
+   * 조직도 트리에서 선택한 부서를
+   * 수정 컴포넌트와, 등록 컴포넌트에서 사용할 수 있는 상태입니다.
+   */
+  const [selectDepartment, setSelectDepartment] = useState({});
+  // ============================수정=============================================
+
+  /**
+   * 수정 버튼을 클릭하면 변경된 내용에 맞게 변경해줍니다.
+   * @param e
+   */
+  const inputChangeHandler = (e) => {
+    const { value, name } = e.target;
+    selectDepartment[name] = value;
+    setSelectDepartment({ ...selectDepartment });
+  };
+
+  /**
+   * 수정 버튼을 클릭하면 변경된 내용에 맞게 사용 여부를 변경해줍니다.
+   * @param e
+   */
+  const radioBtnHandler = (e) => {
+    const { checked, name } = e.target;
+    modRadioBtn[name] = checked;
+    setModRadioBtn(modRadioBtn);
+  };
+  /**
+   * 수정 버튼을 클릭하면 입력한 데이터에
+   * 맞게 수정기능을 수행합니다.
+   * @param deptNo
+   */
+  const modClickHandler = () => {
+    modifyDept({ ...selectDepartment, mainFlag: modRadioBtn }).then(() => {
+      console.log("complete");
+      alert("수정되었습니다.")
+    });
+  };
+
+  /**
+   * 수정된 radio 버튼의 데이터를 관리합니다.
+   */
+  const [modRadioBtn, setModRadioBtn] = useState(false);
+  // ============================수정=============================================
+
+  // ==========================등록========================================
+  // const registerComponent =
+
+  // ==========================등록========================================
+
+  // ==========================추가========================================
+  /**
+   * 1. 수정버튼을 보여줄지 등록버튼을 보여줄지를
+   * boolean타입으로 설정하고 상태관리를 합니다.
+   */
+  const [viewSelect, setViewSelect] = useState(true);
+
+  /**
+   * 2. 추가 버튼 onClick시 해당 값을 false로 (등록 화면),
+   * 등록 화면으로 되돌아가려면 해당 값을 true로 설정합니다.
+   */
+
+
+  // ==========================추가========================================
+
+
+
   return (
     <DepartmentEditPage
       selectDepartment={selectDepartment}
@@ -61,6 +127,11 @@ function Index() {
       companyList={companyList}
       setSelectCompany={setSelectCompany}
       selectCompany={selectCompany}
+      inputChangeHandler={inputChangeHandler}
+      radioBtnHandler={radioBtnHandler}
+      modClickHandler={modClickHandler}
+      viewSelect={viewSelect}
+      setViewSelect={setViewSelect}
     />
   );
 }

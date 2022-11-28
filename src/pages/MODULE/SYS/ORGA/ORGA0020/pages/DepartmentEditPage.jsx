@@ -1,5 +1,9 @@
 import React from "react";
 import DepartmentTreeComp from "@pages/MODULE/SYS/ORGA/ORGA0020/components/DepartmentTreeComp";
+import DepartmentRegisterComp
+  from "@pages/MODULE/SYS/ORGA/ORGA0020/components/DepartmentRegisterComp";
+import DeptRegisterComponent from "@components/dept/DeptRegisterComponent";
+import DepartmentComp from "@pages/MODULE/SYS/ORGA/ORGA0020/components/DepartmentComp";
 
 const DepartmentEditPage = ({
   selectDepartment,
@@ -8,6 +12,12 @@ const DepartmentEditPage = ({
   companyList,
   selectCompany,
   setSelectCompany,
+  inputChangeHandler,
+  radioBtnHandler,
+  modClickHandler,
+  clickAddBtn,
+  setViewSelect,
+  viewSelect,
 }) => {
   return (
     <div className="all">
@@ -72,23 +82,83 @@ const DepartmentEditPage = ({
         <div className="secondThree">
           <div className="secondThreeContainer1">
             <div className="tree">
-              <p>조직도</p>
               <DepartmentTreeComp
                 companyNo={selectCompany}
                 handleSelectDepartment={handleSelectDepartment}
               />
             </div>
+            <div className="register">
+              <DepartmentRegisterComp />
+            </div>
           </div>
           <div className="secondThreeContainer2">
             <div className="deptData">
               <div className="deptDataLeft">
-                <div className="leftItem">부서번호 --                   {selectDepartment.deptNo}</div>
-                <div className="leftItem">부서약칭 --                   {selectDepartment.deptDesc}</div>
-                <div className="leftItem">부서명 --                   {selectDepartment.deptName}</div>
-                <div className="leftItem">사용어부 --                   {selectDepartment.deptName ? "사용" : "사용안함"}</div>
+                <div className="leftItem">부서번호</div>
+                <div className="leftItem">부서명</div>
+                <div className="leftItem">부서 약칭</div>
+                <div className="leftItem">부서 주소 </div>
+                <div className="leftItem">사용 여부</div>
+                <div className="leftItem">부서 정렬</div>
               </div>
-              <div className="deptDataRight" />
+
+              <div className="deptDataRight">
+                <div className="rightItem">
+                  <input
+                    type="text"
+                    value={selectDepartment.deptNo}
+                    name="deptNo"
+                    onChange={(e) => inputChangeHandler(e)}
+                  />
+                </div>
+                <div className="rightItem">
+                  <input
+                    type="text"
+                    value={selectDepartment.deptName}
+                    name="deptName"
+                    onChange={(e) => inputChangeHandler(e)} />
+                </div>
+                <div className="rightItem">
+                  <input
+                    type="text"
+                    value={selectDepartment.deptDesc}
+                    name="deptDesc"
+                    onChange={(e) => inputChangeHandler(e)} />
+                </div>
+                <div className="rightItem">
+                  <input type="text" value={selectDepartment.deptNo} />
+                </div>
+                <div className="rightItem"> {selectDepartment.mainflag}
+                  사용<input type="radio" name="mainflag" />
+                  미사용<input type="radio" name="mainflag" />
+                </div>
+                <div className="rightItem">
+                  <input type="text" name="ord" />
+                </div>
+              </div>
             </div>
+            <div>
+              <button type="button" onClick={modClickHandler}>수정</button>
+              <button type="button">삭제</button>
+              <div className="btnWrapper">
+                <button type="button" onClick={() => { setViewSelect(false); }}>추가</button>
+                <button type="button" onClick={() => { setViewSelect(true); }}>돌아오기</button>
+                <div className="componentWrapper">
+                  { viewSelect ? <DepartmentComp /> : <DepartmentRegisterComp /> }
+                </div>
+              </div>
+            </div>
+
+            {/* 컴포넌트 갈아끼우기? */}
+            {/* <div> */}
+            {/*   <div className="btnWrapper"> */}
+            {/*     <button type="button" onClick={() => { setViewSelect(false); }}>추가</button> */}
+            {/*     <button type="button" onClick={() => { setViewSelect(true); }}>돌아오기</button> */}
+            {/*   </div> */}
+            {/*   <div className="componentWrapper"> */}
+            {/*     { viewSelect ? <DepartmentRegisterComp /> : <DepartmentComp /> } */}
+            {/*   </div> */}
+            {/* </div> */}
           </div>
         </div>
       </div>
