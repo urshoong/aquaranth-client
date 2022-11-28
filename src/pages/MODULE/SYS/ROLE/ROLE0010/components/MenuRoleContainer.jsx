@@ -27,7 +27,7 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
   const { roleGroupNo, roleGroupName } = selectedRoleGroup;
   const dispatch = useDispatch();
 
-  // 최초 랜더시 GNB메뉴리스트 불러오기
+  // 최초 랜더시 GNB 메뉴리스트 불러오기
   useEffect(() => {
     request.get("/menu/list?keyword=gnb")
       .then(({ data }) => setGnbList(data));
@@ -43,7 +43,7 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
     setSelectValue("default");
   }, [roleGroupNo]);
 
-  if (roleGroupNo === undefined) {
+  if (!roleGroupNo) {
     return <>메뉴권한을 부여할 권한그룹을 선택해주세요.</>;
   }
 
@@ -51,17 +51,17 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
   const onChangeSelectBox = (e) => {
     const selectMenuCode = e.target.value;
     menuRoleDTO.moduleCode = selectMenuCode;
-
+    // 권한그룹에 맞는 메뉴권한 요청
     fetchMenuRoles(selectMenuCode, roleGroupNo)
       .then((data) => {
-        // lnb 리스트 불러올때, 요청할 DTO에도 체크가 되어있도록 해주어야함.
+        // lnb 리스트 불러올때, 요청할 DTO 에도 체크가 되어있도록 해주어야함.
         data.map(({ menuNo, checked }) => { if (checked) { menuRoleDTO.menuRoles.push(menuNo); } });
         setMenuRoleDTO({ ...menuRoleDTO });
         setLnbList(data);
       });
   };
 
-  // 저장버튼 클릭이벤트
+  // 메뉴권한 저장요청
   const onClickMenuRoleSaveBtn = () => {
     if (menuRoleDTO.moduleCode === "") {
       alert("메뉴를 선택해주세요.");

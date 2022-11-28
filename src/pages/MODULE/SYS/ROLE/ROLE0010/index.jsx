@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import useModal from "@hooks/useModal";
 import styled from "styled-components";
 import RoleGroupContainer from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupContainer";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import request from "../../../../../utils/axiosUtil";
 import MenuRoleContainer from "./components/MenuRoleContainer";
 
@@ -12,11 +11,13 @@ const Index = () => {
   const [selectedRoleGroup, setSelectedRoleGroup] = useState({});
   const { refresh } = useSelector((state) => state.roleGroup);
 
+  // 최초 랜더시 모든 회사목록 가져오기
   useEffect(() => {
     request.get("/company/list")
       .then(({ data }) => setCompanyList(data));
   }, []);
 
+  // 권한그룹 클릭이벤트
   const onClickRoleGroupItem = (roleGroup) => {
     setSelectedRoleGroup(roleGroup);
   };
