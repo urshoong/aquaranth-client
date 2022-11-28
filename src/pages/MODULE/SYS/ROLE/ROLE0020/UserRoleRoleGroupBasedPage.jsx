@@ -19,6 +19,11 @@ const getUserList = async ({ orgaNo, roleGroupNo, keyword1 }) => {
   return data;
 };
 
+const insertOrgaRole = async (inputData) => {
+  const { data } = await request.post("/userrole/insertOrgaRole", inputData);
+  return data;
+};
+
 const removeOrgaRole = async (removeData) => {
   const { data } = await request.post("/userrole/removeOrgaRole", removeData);
   return data;
@@ -43,7 +48,7 @@ const initUserRoleModal = {
   menucode: "ROLE0020",
   menuname: "회사 부서 사용자 선택",
   companyNo: 0,
-  // changeOrgaList: null,
+  changeOrgaList: null,
 };
 
 const UserRoleRoleGroupBasedPage = () => {
@@ -54,7 +59,7 @@ const UserRoleRoleGroupBasedPage = () => {
   const [userList, setUserList] = useState([]);
   const [ulSearch, setUlSearch] = useState(initUlSearch);
   const [ulResponse, setUlResponse] = useState({});
-  // const [orgaList, setOrgaList] = useState([]);
+  const [orgaList, setOrgaList] = useState([]);
   const [userRoleModal, setUserRoleModal] = useState(initUserRoleModal);
 
   const { openModal } = useModal();
@@ -150,20 +155,20 @@ const UserRoleRoleGroupBasedPage = () => {
     userSearchClickHandler();
   };
 
-  // const changeOrgaList = (arr) => {
-  //   setOrgaList(arr);
-  //
-  //   const inputData = {};
-  //   inputData.orgaNo = ulSearch.orgaNo;
-  //   inputData.roleGroupNo = ulSearch.roleGroupNo;
-  //   inputData.orgaNoList = arr;
-  //
-  //   if (inputData.orgaNoList?.length < 1) return;
-  //
-  //   insertOrgaRole(inputData).then(() => {
-  //     userSearchClickHandler();
-  //   });
-  // };
+  const changeOrgaList = (arr) => {
+    setOrgaList(arr);
+
+    const inputData = {};
+    inputData.orgaNo = ulSearch.orgaNo;
+    inputData.roleGroupNo = ulSearch.roleGroupNo;
+    inputData.orgaNoList = arr;
+
+    if (inputData.orgaNoList?.length < 1) return;
+
+    insertOrgaRole(inputData).then(() => {
+      userSearchClickHandler();
+    });
+  };
 
   const orgaRoleRemove = () => {
     if (ulSearch.orgaNo === 0 || ulSearch.roleGroupNo === 0) {
@@ -219,7 +224,7 @@ const UserRoleRoleGroupBasedPage = () => {
   };
 
   useEffect(() => {
-    // setUserRoleModal({ ...userRoleModal, changeOrgaList });
+    setUserRoleModal({ ...userRoleModal, changeOrgaList });
     getCompanyList().then((data) => {
       setCompany(data);
       searchClickHandler();

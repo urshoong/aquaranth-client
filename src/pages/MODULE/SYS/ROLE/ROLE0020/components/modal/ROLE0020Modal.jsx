@@ -13,11 +13,6 @@ const getOrgaList = async ({ orgaNo, keyword, option, recursive }) => {
   return data;
 };
 
-const insertOrgaRole = async (inputData) => {
-  const { data } = await request.post("/userrole/insertOrgaRole", inputData);
-  return data;
-};
-
 const initOrgaSearchCondition = {
   option: "emp",
   keyword: "",
@@ -25,7 +20,7 @@ const initOrgaSearchCondition = {
   orgaNo: 0,
 };
 
-const ROLE0020Modal = ({ menuname, companyNo, orgaNo, roleGroupNo }) => {
+const ROLE0020Modal = ({ menuname, companyNo, changeOrgaList }) => {
   const [orgas, setOrgas] = useState([]);
   const [orgaSearch, setOrgaSearch] = useState(initOrgaSearchCondition);
 
@@ -33,20 +28,6 @@ const ROLE0020Modal = ({ menuname, companyNo, orgaNo, roleGroupNo }) => {
 
   const handleCloseModal = () => {
     closeModal();
-  };
-
-  const changeOrgaList = (arr) => {
-    const inputData = {};
-    inputData.orgaNo = orgaNo;
-    inputData.roleGroupNo = roleGroupNo;
-    inputData.orgaNoList = arr;
-
-    if (inputData.orgaNoList?.length < 1) return;
-
-    insertOrgaRole(inputData).then((result) => {
-      console.log("insertOrgaRole", result);
-      // userSearchClickHandler();
-    });
   };
 
   const changeOrgaSearchConditionHandler = (e) => {
