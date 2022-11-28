@@ -1,20 +1,34 @@
 import React from "react";
 
-function EmpOrgaInformation({ orga, handleOnClickOrgaRegister, orgaDisplay, company,
-  handleOnChangeCompany, department, handleOnClickOrgaRegisterSubmit,
-  handleOnClickOrgaRegisterReset, handleOnChangeOrgaRegisterInput, handleOnClickOrgaModify,
-  handleOnChangeOrgaInput, handleOnClickOrgaModifyDept }) {
+function EmpOrgaInformation({
+  orga,
+  handleOnClickOrgaRegister,
+  orgaDisplay,
+  company,
+  handleOnChangeCompany,
+  department,
+  handleOnClickOrgaRegisterSubmit,
+  handleOnClickOrgaRegisterReset,
+  handleOnChangeOrgaRegisterInput,
+  handleOnClickOrgaModify,
+  handleOnChangeOrgaInput,
+  handleOnClickOrgaModifyDept
+}) {
   return (
     <div>
-
-      <button type="button" onClick={() => { handleOnClickOrgaRegister(); }}>추가</button>
+      <button type="button" onClick={() => {
+        handleOnClickOrgaRegister();
+      }}>추가
+      </button>
 
       <div style={{ display: orgaDisplay }}>
         <form>
           <div>
             회사 :
-            <select name="companyNo" onChange={(e) => { handleOnChangeCompany(e); }}>
-              <option value="-" key="-">--회사 선택--</option>
+            <select name="companyNo" onChange={(e) => {
+              handleOnChangeCompany(e);
+            }}>
+              <option value="0" key="-">--회사 선택--</option>
               {company.map((com) => (
                 <option key={com.companyNo} value={com.companyNo}>
                   {com.companyName}
@@ -25,8 +39,10 @@ function EmpOrgaInformation({ orga, handleOnClickOrgaRegister, orgaDisplay, comp
 
           <div>
             부서 :
-            <select name="deptNo" onChange={(e) => { handleOnChangeOrgaRegisterInput(e); }}>
-              <option value="-" key="-">--부서 선택--</option>
+            <select name="deptNo" onChange={(e) => {
+              handleOnChangeOrgaRegisterInput(e);
+            }}>
+              <option value="0" key="-">--부서 선택--</option>
               {department.map((dept) => (
                 <option key={dept.deptNo} value={dept.deptNo}>
                   {dept.deptName}
@@ -37,7 +53,9 @@ function EmpOrgaInformation({ orga, handleOnClickOrgaRegister, orgaDisplay, comp
 
           <div>
             직급 :
-            <select name="empRank" onChange={(e) => { handleOnChangeOrgaRegisterInput(e); }}>
+            <select name="empRank" onChange={(e) => {
+              handleOnChangeOrgaRegisterInput(e);
+            }}>
               <option value="-">--직급 선택--</option>
               <option value="회장" key="회장">회장</option>
               <option value="사장" key="사장">사장</option>
@@ -54,35 +72,65 @@ function EmpOrgaInformation({ orga, handleOnClickOrgaRegister, orgaDisplay, comp
 
           <div>
             <span>권한</span>
-            <input name="empRole" type="radio" value="ROLE_USER" onChange={(e) => { handleOnChangeOrgaRegisterInput(e); }} />일반
-            <input name="empRole" type="radio" value="ROLE_ADMIN" onChange={(e) => { handleOnChangeOrgaRegisterInput(e); }} />관리자
+            <input name="empRole" type="radio" value="ROLE_USER" onChange={(e) => {
+              handleOnChangeOrgaRegisterInput(e);
+            }}/>일반
+            <input name="empRole" type="radio" value="ROLE_ADMIN" onChange={(e) => {
+              handleOnChangeOrgaRegisterInput(e);
+            }}/>관리자
           </div>
 
-          <button type="submit" onClick={() => { handleOnClickOrgaRegisterSubmit(); }}>추가하기</button>
-          <button type="reset" onClick={() => { handleOnClickOrgaRegisterReset(); }}>취소하기</button>
+          <button type="submit" onClick={() => {
+            handleOnClickOrgaRegisterSubmit();
+          }}>추가하기
+          </button>
+          <button type="button" onClick={() => {
+            handleOnClickOrgaRegisterReset();
+          }}>취소하기
+          </button>
         </form>
       </div>
 
-
       {orga?.map((target) => {
-        const { companyName, deptName, empRank, hiredDate, retiredDate,
-          companyTel, companyAddress, orgaNo, deptMain, empRole, companyNo, deptNo } = target;
+        const {
+          companyName,
+          deptName,
+          empRank,
+          hiredDate,
+          retiredDate,
+          companyTel,
+          companyAddress,
+          orgaNo,
+          deptMain,
+          empRole,
+          companyNo,
+          deptNo
+        } = target;
 
         return (
           <div key={orgaNo}>
 
-            {/* <button type="button" onClick={() => { handleOnClickOrgaModify({ orgaNo }); }}>수정</button> */}
+            <button
+              type="button"
+              onClick={() => {
+                handleOnClickOrgaModify({ orgaNo });
+              }}
+            >수정
+            </button>
 
             <div className="empBasicInformation">
               <div>회사/부서</div>
 
               <div>
-                <input className="unchangeable" value={companyName} readOnly />
-
+                <input className="unchangeable" value={companyName} readOnly/>
                 <select
                   name="deptNo"
-                  onMouseDown={() => { handleOnClickOrgaModifyDept(companyNo); }}
-                  onChange={(e) => { handleOnChangeOrgaInput(e, target); }}
+                  onMouseDown={() => {
+                    handleOnClickOrgaModifyDept(companyNo);
+                  }}
+                  onChange={(e) => {
+                    handleOnChangeOrgaInput(e, target);
+                  }}
                 >
                   <option value={deptNo}>{deptName}</option>
                   {department?.map((dept) => (
@@ -96,18 +144,22 @@ function EmpOrgaInformation({ orga, handleOnClickOrgaRegister, orgaDisplay, comp
 
               <div>사번</div>
               <div>
-                <input className="unchangeable" value={orgaNo} readOnly />
+                <input className="unchangeable" value={orgaNo} readOnly/>
               </div>
 
               <div>부서구분</div>
               <div readOnly className="unchangeable">
-                <input name={`deptMain${orgaNo}`} type="radio" value="true" checked={deptMain === true} readOnly />주부서
-                <input name={`deptMain${orgaNo}`} type="radio" value="false" checked={deptMain === false} readOnly />부부서
+                <input name={`deptMain${orgaNo}`} type="radio" value="true"
+                       checked={deptMain === true} readOnly/>주부서
+                <input name={`deptMain${orgaNo}`} type="radio" value="false"
+                       checked={deptMain === false} readOnly/>부부서
               </div>
 
               <div>직급</div>
 
-              <select className="essential" name="empRank" onChange={(e) => { handleOnChangeOrgaInput(e, target); }}>
+              <select className="essential" name="empRank" onChange={(e) => {
+                handleOnChangeOrgaInput(e, target);
+              }}>
                 <option value={empRank}>{empRank}</option>
                 <option value="회장" key="회장">회장</option>
                 <option value="사장" key="사장">사장</option>
@@ -121,26 +173,34 @@ function EmpOrgaInformation({ orga, handleOnClickOrgaRegister, orgaDisplay, comp
                 <option value="일용직" key="일용직">일용직</option>
               </select>
 
-
-              <div>입사일 <input className="unchangeable" type="date" value={hiredDate} readOnly /></div>
-              <div>퇴사일 <input type="date" value={retiredDate === null ? "" : retiredDate} name="retiredDate" onChange={(e) => { handleOnChangeOrgaInput(e, target); }} /></div>
+              <div>입사일 <input className="unchangeable" type="date" value={hiredDate} readOnly/>
+              </div>
+              <div>퇴사일 <input type="date" value={retiredDate === null ? "" : retiredDate}
+                              name="retiredDate" onChange={(e) => {
+                handleOnChangeOrgaInput(e, target);
+              }}/></div>
 
               <div>회사 전화번호</div>
-              <div><input value={companyTel} readOnly className="unchangeable" /></div>
+              <div><input value={companyTel} readOnly className="unchangeable"/></div>
 
               <div>회사 주소</div>
-              <div><input value={companyAddress} readOnly className="unchangeable" style={{ width: "300px" }} /></div>
+              <div><input value={companyAddress} readOnly className="unchangeable"
+                          style={{ width: "300px" }}/></div>
 
               <div>
                 <span>권한</span>
               </div>
               <div>
-                <input name={`empRole${orgaNo}`} type="radio" value="ROLE_USER" checked={empRole === "ROLE_USER"} onChange={(e) => { handleOnChangeOrgaInput(e, target); }} />일반
-                <input name={`empRole${orgaNo}`} type="radio" value="ROLE_ADMIN" checked={empRole === "ROLE_ADMIN"} onChange={(e) => { handleOnChangeOrgaInput(e, target); }} />관리자
+                <input name={`empRole${orgaNo}`} type="radio" value="ROLE_USER"
+                       checked={empRole === "ROLE_USER"} onChange={(e) => {
+                  handleOnChangeOrgaInput(e, target);
+                }}/>일반
+                <input name={`empRole${orgaNo}`} type="radio" value="ROLE_ADMIN"
+                       checked={empRole === "ROLE_ADMIN"} onChange={(e) => {
+                  handleOnChangeOrgaInput(e, target);
+                }}/>관리자
               </div>
             </div>
-
-
           </div>
         );
       })}
