@@ -4,7 +4,6 @@ import request from "@utils/axiosUtil";
 import EmpInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpInformation";
 import { companyList } from "@pages/MODULE/SYS/ORGA/ORGA0030/pages/Insert";
 
-
 const empList = async () => {
   const { data } = await request.get("/emp/information");
   return data;
@@ -21,7 +20,7 @@ const empModify = async (empInfo) => {
 };
 
 const deptList = async (companyNo) => { // TODO redux
-  const { data } = await request.get(`/dept/readName/${companyNo}`);
+  const { data } = await request.get(`/dept2/readName/${companyNo}`);
   return data;
 };
 
@@ -31,13 +30,16 @@ const empOrgaRegister = async (orga) => {
 };
 
 const empOrgaModify = async (orga) => {
-  console.log("orga", orga);
-
   const listData = {
     list: orga,
   };
 
   const { data } = await request.put("/emp/modifyOrga", listData);
+  return data;
+};
+
+const empOrgaList = async (empNo) => {
+  const { data } = await request.get(`/emp/readOrga/${empNo}`);
   return data;
 };
 
@@ -65,35 +67,21 @@ const orgaInitState = {
   retiredDate: "",
 };
 
-
-// -----------------조직 TEst----------------------------
-const empOrgaList = async (empNo) => {
-  const { data } = await request.get(`/emp/readOrga/${empNo}`);
-  return data;
-};
-
-//---------------------------------------------
-
 function Index() {
-  // -----------------페이징----------------------------
-
-
-  //---------------------------------------------
-
+  // 사원 리스트
   const [emps, setEmps] = useState([]);
 
+  // 사원 상세정보(selectOne)
   const [empInformation, setEmpInformation] = useState(initState);
 
-  const history = useHistory();
-
-  // -----------------조직 TEst----------------------------
-
+  // 조직 정보 수정
   const [orga, setOrga] = useState([]);
+
+  // 수정할 조직 번호
   const [orgaModifyNo, setOrgaModifyNo] = useState(0);
+
+  // 조직 추가될 때, input Change 받는 상태
   const [orgaChange, setOrgaChange] = useState(orgaInitState);
-
-  //---------------------------------------------
-
 
   // 조직 정보를 보기 위해 버튼 클릭 시 컴포넌트를 변경하기 위한 상태를 담은 변수 선언
   const [view, setVeiw] = useState(true);
@@ -103,6 +91,8 @@ function Index() {
   const [orgaColor, setOrgaColor] = useState("black");
 
   const [company, setCompany] = useState([]);
+
+  const history = useHistory();
 
   // 사원 정보가 담긴 컴포넌트를 부르기 위한 함수 선언
   const clickEmp = (empNo) => {
@@ -115,12 +105,6 @@ function Index() {
       setEmpInformation(data);
     });
   };
-
-  // const changeRole = (roleName) => {
-  //   if (orga) {
-  //     orga.empRole = roleName;
-  //   }
-  // };
 
   // 조직 정보가 담긴 컴포넌트를 부르기 위한 함수 선언
   const clickOrga = (empNo) => {
@@ -141,13 +125,16 @@ function Index() {
   // boolean값 들어오는 empUse는 String으로 변경해준다.
   const changeBoolean = (value) => {
     let booleanValue = true;
+
     if (value && typeof value === "string") {
       if (value.toLowerCase() === "false") {
         booleanValue = false;
       }
     }
+
     return booleanValue;
   };
+
   // 사원 정보 수정할 때, input의 onChange 이벤트 실행 함수
   const changeEmpInput = (e) => {
     const { name, value } = e.target;
@@ -157,8 +144,6 @@ function Index() {
     } else {
       empInformation[name] = value;
     }
-
-    console.log(empInformation);
 
     setEmpInformation({ ...empInformation });
   };
@@ -179,7 +164,6 @@ function Index() {
       setEmps(data);
     });
   }, []);
-
 
   // 조직 목록 출력하면 div display정보가 바뀌어야하기 때문에 그 상태 저장
   const [orgaDisplay, setOrgaDisplay] = useState("none");
@@ -202,25 +186,21 @@ function Index() {
       setDepartment(data);
     });
     setOrgaChange({ ...orgaChange, companyNo: value });
-    //    setEmployee({ ...employee, companyNo: value });
   };
 
   const handleOnChangeOrgaRegisterInput = (e) => {
     const { name, value } = e.target;
     setOrgaChange({ ...orgaChange, [name]: value });
-    console.log(orgaChange);
   };
 
   const handleOnClickOrgaRegisterSubmit = () => {
     empOrgaRegister(orgaChange).then(() => {
-
     });
   };
 
   const handleOnClickOrgaRegisterReset = () => {
     setOrgaDisplay("none");
   };
-
 
   // 수정할 때, 회사에 맞는 부서 불러오기 (Click아니고 MouseDown으로 함)
   const handleOnClickOrgaModifyDept = (companyNo) => {
@@ -243,6 +223,8 @@ function Index() {
     console.log(name, "변경 후 > ", replaceName);
     console.log(value);
 
+
+    // 라디오 버튼은 name 값이 고유하기때문에 구분하기위한 name 의 숫자를 잘라 넣는다.
     if (type === "radio") {
       targetOrga[replaceName] = value;
     } else {
@@ -260,16 +242,10 @@ function Index() {
   // 조직 정보 수정 버튼 클릭
   const handleOnClickOrgaModify = () => {
     console.log("clickOrga", orga);
-    empOrgaModify(orga, orgaModifyNo).then((data) => {
-      setOrga(data);
+    empOrgaModify(orga).then(() => {
+      console.log("complete");
     });
   };
-
-
-  //---------------------------------------------
-  // 페이징
-
-  //---------------------------------------------
 
   return (
     <EmpInformation

@@ -257,6 +257,9 @@
     border: 0;
     background-color: transparent;
     margin: 4px 5px;
+}
+
+.pageBtn.page.active{
     color: #46a3fb;
 }
 

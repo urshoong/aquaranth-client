@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoginForm from "@pages/login/component/LoginForm";
 import { useHistory, useLocation } from "react-router-dom";
 import request from "@utils/axiosUtil";
 import { setCookie } from "@utils/cookieUtil";
+import { ACCESS_TOKEN } from "@constants/common";
 
 const Index = () => {
   const history = useHistory();
@@ -11,12 +12,17 @@ const Index = () => {
       { method: "POST",
         url: "/login",
         data: loginFormData },
-    ).then((res) => {
-      setCookie("_at", res.data.access_token);
-      setCookie("_rt", res.data.refresh_token);
-      history.push("/");
-    });
+    )
+      .then(() => {
+        history.push("/");
+      });
   };
+
+  // useEffect(() => {
+  //   if (sessionStorage.getItem(ACCESS_TOKEN)) {
+  //     history.push("/");
+  //   }
+  // }, []);
 
   return (
     <LoginForm

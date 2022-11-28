@@ -2,19 +2,20 @@ import React, { useEffect, useState } from "react";
 import request from "@utils/axiosUtil";
 import RoleGroupContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGroupContent";
 import UserListContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserListContent";
+import useModal from "@hooks/useModal";
 
-const getCompanyList = async (orgaNo) => {
-  const { data } = await request.get(`/userrole/companyList/${orgaNo}`);
+const getCompanyList = async () => {
+  const { data } = await request.get("/userrole/companyListAll");
   return data;
 };
 
-const getGroupList = async (orgaNo, roleGroupSearch) => {
-  const { data } = await request.get(`/userrole/roleGroupList?orgaNo=${orgaNo}&roleGroupSearch=${roleGroupSearch}`);
+const getGroupList = async ({ page, size, orgaNo, keyword1 }) => {
+  const { data } = await request.get(`/userrole/roleGroupList?page=${page}&size=${size}&orgaNo=${orgaNo}&keyword1=${keyword1}`);
   return data;
 };
 
-const getUserList = async ({ companyNo, roleGroupNo, userListSearch }) => {
-  const { data } = await request.get(`/userrole/roleGroupUserList?companyNo=${companyNo}&roleGroupNo=${roleGroupNo}&userListSearch=${userListSearch}`);
+const getUserList = async ({ orgaNo, roleGroupNo, keyword1 }) => {
+  const { data } = await request.get(`/userrole/roleGroupUserList?orgaNo=${orgaNo}&roleGroupNo=${roleGroupNo}&keyword1=${keyword1}`);
   return data;
 };
 
@@ -28,42 +29,63 @@ const removeOrgaRole = async (removeData) => {
   return data;
 };
 
-const initSearchCondition = {
-  companyNo: 0,
-  roleGroupNo: 0,
-  userListSearch: "",
+const initRgSearch = {
+  page: 1,
+  size: 10,
+  orgaNo: 0,
+  keyword1: "",
 };
 
-const dummyCount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const initUlSearch = {
+  page: 1,
+  size: 10,
+  orgaNo: 0,
+  roleGroupNo: 0,
+  keyword1: "",
+};
 
-const userListDummy = [
-  { orgaNo: dummyCount[0], orgaInfo: `회사${dummyCount[0]}>부서${dummyCount[0]}`, empRank: "사원", empName: `사원${dummyCount[0]}`, username: `user${dummyCount[0]}` },
-  { orgaNo: dummyCount[1], orgaInfo: `회사${dummyCount[1]}>부서${dummyCount[1]}`, empRank: "사원", empName: `사원${dummyCount[1]}`, username: `user${dummyCount[1]}` },
-  { orgaNo: dummyCount[2], orgaInfo: `회사${dummyCount[2]}>부서${dummyCount[2]}`, empRank: "사원", empName: `사원${dummyCount[2]}`, username: `user${dummyCount[2]}` },
-  { orgaNo: dummyCount[3], orgaInfo: `회사${dummyCount[3]}>부서${dummyCount[3]}`, empRank: "사원", empName: `사원${dummyCount[3]}`, username: `user${dummyCount[3]}` },
-  { orgaNo: dummyCount[4], orgaInfo: `회사${dummyCount[4]}>부서${dummyCount[4]}`, empRank: "사원", empName: `사원${dummyCount[4]}`, username: `user${dummyCount[4]}` },
-  { orgaNo: dummyCount[5], orgaInfo: `회사${dummyCount[5]}>부서${dummyCount[5]}`, empRank: "사원", empName: `사원${dummyCount[5]}`, username: `user${dummyCount[5]}` },
-  { orgaNo: dummyCount[6], orgaInfo: `회사${dummyCount[6]}>부서${dummyCount[6]}`, empRank: "사원", empName: `사원${dummyCount[6]}`, username: `user${dummyCount[6]}` },
-  { orgaNo: dummyCount[7], orgaInfo: `회사${dummyCount[7]}>부서${dummyCount[7]}`, empRank: "사원", empName: `사원${dummyCount[7]}`, username: `user${dummyCount[7]}` },
-  { orgaNo: dummyCount[8], orgaInfo: `회사${dummyCount[8]}>부서${dummyCount[8]}`, empRank: "사원", empName: `사원${dummyCount[8]}`, username: `user${dummyCount[8]}` },
-  { orgaNo: dummyCount[9], orgaInfo: `회사${dummyCount[9]}>부서${dummyCount[9]}`, empRank: "사원", empName: `사원${dummyCount[9]}`, username: `user${dummyCount[9]}` },
-];
+const initUserRoleModal = {
+  menucode: "ROLE0020",
+  menuname: "회사 부서 사용자 선택",
+  companyNo: 0,
+  changeOrgaList: null,
+};
 
-const UserRoleRoleGroupBasedPage = (props) => {
+const UserRoleRoleGroupBasedPage = () => {
   const [company, setCompany] = useState([]);
   const [roleGroup, setRoleGroup] = useState([]);
-  const [searchCondition, setSearchCondition] = useState(initSearchCondition);
+  const [rgSearch, setRgSearch] = useState(initRgSearch);
+  const [rgResponse, setRgResponse] = useState({});
   const [userList, setUserList] = useState([]);
+  const [ulSearch, setUlSearch] = useState(initUlSearch);
+  const [ulResponse, setUlResponse] = useState({});
+  const [orgaList, setOrgaList] = useState([]);
+  const [userRoleModal, setUserRoleModal] = useState(initUserRoleModal);
+
+  const { openModal } = useModal();
+
+  const changeRoleGroupSearchHandler = (prop, value) => {
+    rgSearch[prop] = value;
+    setRgSearch({ ...rgSearch });
+  };
+
+  const changeUserListSearchHandler = (prop, value) => {
+    ulSearch[prop] = value;
+    setUlSearch({ ...ulSearch });
+  };
 
   const searchClickHandler = () => {
     const selectedCompany = document.querySelector(".companySelect");
     const searchInput = document.querySelector(".searchInput");
-    getGroupList(selectedCompany.value, searchInput.value).then((data) => {
-      // roleGroupList에서 active 해제해주기 위하여 처리
+
+    changeRoleGroupSearchHandler("orgaNo", selectedCompany.value);
+    changeRoleGroupSearchHandler("keyword1", searchInput.value);
+
+    getGroupList(rgSearch).then((data) => {
+      const { dtoList } = data;
       setRoleGroup([]);
-      setRoleGroup(data);
-      // 초기화
-      // setSearchCondition({ ...initSearchCondition });
+      setRoleGroup(dtoList);
+      setRgResponse(data);
       setUserList([]);
 
       const roleGroupContainer = document.querySelector(".leftSection.section2");
@@ -71,30 +93,19 @@ const UserRoleRoleGroupBasedPage = (props) => {
     });
   };
 
-  useEffect(() => {
-    // TODO : 로그인한 사용자의 회사의 orga_no를 입력받아서 처리해야함
-    getCompanyList(1).then((data) => {
-      setCompany(data);
-      searchClickHandler();
-    });
-  }, []);
-
   const userSearchClickHandler = () => {
-    getUserList(searchCondition).then((data) => {
+    getUserList(ulSearch).then((data) => {
+      const { dtoList } = data;
       setUserList([]);
-      setUserList(data);
+      setUserList(dtoList);
+      setUlResponse(data);
 
       const userListContainer = document.querySelector(".innerContentContainer");
       userListContainer.scrollTop = 0;
     });
   };
 
-  const changeSearchConditionHandler = (prop, value) => {
-    searchCondition[prop] = value;
-    setSearchCondition({ ...searchCondition });
-  };
-
-  const roleGroupClickHandler = (e, companyNo, roleGroupNo) => {
+  const roleGroupClickHandler = (e, orgaNo, roleGroupNo) => {
     e.stopPropagation();
     let { target } = e;
     // groupContent 하위의 모든 컨텐츠에서 클릭 이벤트가 발생할 경우 groupContent class를 찾을 때 까지 target을 부모 요소로 리턴한다
@@ -106,32 +117,66 @@ const UserRoleRoleGroupBasedPage = (props) => {
     groupContentList.forEach((groupContent) => groupContent.classList.remove("active"));
     target.classList.add("active");
 
-    changeSearchConditionHandler("companyNo", companyNo);
-    changeSearchConditionHandler("roleGroupNo", roleGroupNo);
+    changeUserListSearchHandler("orgaNo", orgaNo);
+    changeUserListSearchHandler("roleGroupNo", roleGroupNo);
+    setUserRoleModal({ ...userRoleModal, companyNo: orgaNo, orgaNo, roleGroupNo });
 
     userSearchClickHandler();
   };
 
-  const orgaBtnClickHandler = () => {
-    if (searchCondition.companyNo === 0 || searchCondition.roleGroupNo === 0) {
+  const userListClickHandler = (e) => {
+    let { target } = e;
+
+    while (!target.classList.contains("contentRow")) {
+      target = target.parentElement;
+    }
+
+    const checkbox = target.querySelector("input[type='checkbox']");
+
+    if (target.classList.contains("active")) {
+      target.classList.remove("active");
+      checkbox.checked = false;
+    } else {
+      target.classList.add("active");
+      checkbox.checked = true;
+    }
+  };
+
+  const orgaBtnClickHandler = async () => {
+    if (ulSearch.orgaNo === 0 || ulSearch.roleGroupNo === 0) {
       alert("권한그룹이 선택되지 않았습니다.");
       return;
     }
 
-    const inputData = {};
-    let orgaNoList = [];
-    inputData.companyNo = searchCondition.companyNo;
-    inputData.roleGroupNo = searchCondition.roleGroupNo;
-    orgaNoList = [19, 20, 21];
-    inputData.orgaNoList = orgaNoList;
+    await openModal({ type: "ROLE0020", props: userRoleModal });
 
-    insertOrgaRole(inputData).then((data) => {
+    console.log("모달 처리 완료");
+
+    userSearchClickHandler();
+  };
+
+  const changeOrgaList = (arr) => {
+    setOrgaList(arr);
+
+    const inputData = {};
+    inputData.orgaNo = ulSearch.orgaNo;
+    inputData.roleGroupNo = ulSearch.roleGroupNo;
+    inputData.orgaNoList = arr;
+
+    if (inputData.orgaNoList?.length < 1) return;
+
+    insertOrgaRole(inputData).then(() => {
       userSearchClickHandler();
     });
   };
 
   const orgaRoleRemove = () => {
-    const elements = document.querySelectorAll(".contentContainer>.contentRow:not(.header)");
+    if (ulSearch.orgaNo === 0 || ulSearch.roleGroupNo === 0) {
+      alert("권한그룹이 선택되지 않았습니다.");
+      return;
+    }
+
+    const elements = document.querySelectorAll(".contentContainer .contentRow:not(.header)");
     const arr = Array.prototype.filter.call(elements, (element) => {
       return element.querySelector("input[type='checkbox']:checked");
     }).map((element) => {
@@ -139,22 +184,59 @@ const UserRoleRoleGroupBasedPage = (props) => {
     });
 
     const removeData = {
-      companyNo: searchCondition.companyNo,
-      roleGroupNo: searchCondition.roleGroupNo,
+      orgaNo: ulSearch.orgaNo,
+      roleGroupNo: ulSearch.roleGroupNo,
       removeOrgaRoleList: arr,
     };
 
-    removeOrgaRole(removeData).then((data) => {
+    removeOrgaRole(removeData).then(() => {
+      // TODO : sweetalert 작업해야됨
       userSearchClickHandler();
     });
   };
+
+  const roleGroupSizeSelectChangeHandler = (e) => {
+    changeRoleGroupSearchHandler("page", 1);
+    changeRoleGroupSearchHandler("size", e.target.value);
+    e.target.defaultValue = e.target.value;
+    searchClickHandler();
+  };
+
+  const roleGroupPageClickHandler = (e) => {
+    changeRoleGroupSearchHandler("page", e.target.dataset?.page);
+    searchClickHandler();
+  };
+
+  const userListSizeSelectChangeHandler = (e) => {
+    changeUserListSearchHandler("page", 1);
+    changeUserListSearchHandler("size", e.target.value);
+    e.target.defaultValue = e.target.value;
+    userSearchClickHandler();
+  };
+
+  const userListPageClickHandler = (e) => {
+    changeUserListSearchHandler("page", e.target.dataset?.page);
+    userSearchClickHandler();
+  };
+
+  const companySelectChangeHandler = (e) => {
+    searchClickHandler();
+  };
+
+  useEffect(() => {
+    setUserRoleModal({ ...userRoleModal, changeOrgaList });
+    getCompanyList().then((data) => {
+      setCompany(data);
+      searchClickHandler();
+    });
+  }, []);
 
   return (
     <>
       <div className="section roleGroup left">
         <div className="leftSection header">
           <div className="selectWrap">
-            <select className="companySelect">
+            <select className="companySelect" onChange={companySelectChangeHandler}>
               {company?.map(({
                 companyNo, companyName, orgaNo,
               }) => <option key={companyNo} value={orgaNo}>{ companyName }</option>)}
@@ -171,22 +253,23 @@ const UserRoleRoleGroupBasedPage = (props) => {
             <span>{roleGroup.length}</span>
             <span>개</span>
           </div>
-          <div className="groupSortWrap">
+          {/* TODO : 필터 넣을지 말지 차후 처리 */}
+          {/* <div className="groupSortWrap">
             <select>
               <option>필터</option>
               <option>필터2</option>
               <option>필터3</option>
             </select>
-          </div>
+          </div> */}
         </div>
         <div className="leftSection section2">
           {roleGroup?.map(({
-            roleGroupNo, roleGroupName, companyName, companyNo,
+            roleGroupNo, roleGroupName, companyName, orgaNo,
           }) => (
             <RoleGroupContent
               className="groupContent"
               key={roleGroupNo}
-              companyNo={companyNo}
+              orgaNo={orgaNo}
               companyName={companyName}
               roleGroupNo={roleGroupNo}
               roleGroupName={roleGroupName}
@@ -196,15 +279,20 @@ const UserRoleRoleGroupBasedPage = (props) => {
           ))}
         </div>
         <div className="leftSection footer">
-          {/* TODO : paging 처리해야됨 */}
           <div className="paginationWrap">
             <ul className="pagination">
-              <li className="pageBtn prev">«</li>
-              <li className="pageBtn prev">‹</li>
-              <li className="pageBtn page">1</li>
-              <li className="pageBtn next">›</li>
-              <li className="pageBtn next">»</li>
-              <select className="pageBtn pageSizeSelect">
+              <li className="pageBtn prev first" onClick={roleGroupPageClickHandler} aria-hidden="true" data-page={rgResponse.first}>«</li>
+              <li className="pageBtn prev" onClick={roleGroupPageClickHandler} aria-hidden="true" data-page={rgResponse.prev}>‹</li>
+              {
+                rgResponse.start > 0
+                && [...new Array((rgResponse.end - rgResponse.start + 1) < rgResponse.pageLimit
+                  ? rgResponse.end - rgResponse.start + 1 : rgResponse.pageLimit)]
+                  .map((i, idx) => (rgResponse.start + idx))
+                  .map((num) => <li key={num} className={`pageBtn page ${rgResponse.pageRequestDTO?.page === num ? "active" : ""}`} onClick={roleGroupPageClickHandler} aria-hidden="true" data-page={num}>{num}</li>)
+              }
+              <li className="pageBtn next" onClick={roleGroupPageClickHandler} aria-hidden="true" data-page={rgResponse.next}>›</li>
+              <li className="pageBtn next last" onClick={roleGroupPageClickHandler} aria-hidden="true" data-page={rgResponse.last}>»</li>
+              <select value={rgResponse.size} className="pageBtn pageSizeSelect" onChange={roleGroupSizeSelectChangeHandler}>
                 <option>10</option>
                 <option>20</option>
                 <option>30</option>
@@ -217,8 +305,8 @@ const UserRoleRoleGroupBasedPage = (props) => {
         <div className="innerTitleWrap">
           <span className="innerTitle">사용자 선택</span>
           <div>
-            <button type="button" className="btn" onClick={() => { orgaRoleRemove(); }}>&nbsp;권한삭제&nbsp;</button>
-            <button type="button" className="btn orgaBtn" onClick={() => { orgaBtnClickHandler(); }}>👨‍👨‍👦</button>
+            <button type="button" className="btn" onClick={orgaRoleRemove}>&nbsp;권한삭제&nbsp;</button>
+            <button type="button" className="btn orgaBtn" onClick={orgaBtnClickHandler}>👨‍👨‍👦</button>
           </div>
         </div>
         <div className="innerInformationWrap">
@@ -226,7 +314,7 @@ const UserRoleRoleGroupBasedPage = (props) => {
           <span>선택한 권한을 사용할 사용자를 선택하세요.</span>
         </div>
         <div className="innerSearchWrap">
-          <input type="text" className="innerSearchInput" name="userListSearch" onChange={(e) => { changeSearchConditionHandler(e.target.name, e.target.value); }} placeholder="부서 / 직급 / 이름 / ID 를 검색 하세요" />
+          <input type="text" className="innerSearchInput" name="keyword1" onChange={(e) => { changeUserListSearchHandler(e.target.name, e.target.value); }} placeholder="부서 / 직급 / 이름 / ID 를 검색 하세요" />
           <button type="button" className="btn innerSearchBtn" onClick={() => { userSearchClickHandler(); }}>🔍</button>
         </div>
         <div className="innerContent">
@@ -238,23 +326,36 @@ const UserRoleRoleGroupBasedPage = (props) => {
               <div><span>이름(ID)</span></div>
             </div>
             <div className="innerContentContainer">
-              {/* {userListDummy?.map(({ orgaNo, orgaInfo, empRank, empName, username }) => ( */}
               {userList?.map(({ orgaNo, orgaInfo, empRank, empName, username }) => (
-                <UserListContent className="contentRow" key={orgaNo} orgaNo={orgaNo} orgaInfo={orgaInfo} empRank={empRank} empName={empName} username={username} />
+                <UserListContent
+                  className="contentRow"
+                  key={orgaNo}
+                  orgaNo={orgaNo}
+                  orgaInfo={orgaInfo}
+                  empRank={empRank}
+                  empName={empName}
+                  username={username}
+                  onclickHandler={userListClickHandler}
+                />
               ))}
             </div>
           </div>
         </div>
         <div className="innerPaginationWrap">
-          {/* TODO : 페이징 처리해야됨 */}
           <div className="paginationWrap">
             <ul className="pagination">
-              <li className="pageBtn prev">«</li>
-              <li className="pageBtn prev">‹</li>
-              <li className="pageBtn page">1</li>
-              <li className="pageBtn next">›</li>
-              <li className="pageBtn next">»</li>
-              <select className="pageBtn pageSizeSelect">
+              <li className="pageBtn prev first" onClick={userListPageClickHandler} aria-hidden="true" data-page={ulResponse.first}>«</li>
+              <li className="pageBtn prev" onClick={userListPageClickHandler} aria-hidden="true" data-page={ulResponse.prev}>‹</li>
+              {
+                ulResponse.start > 0
+                && [...new Array((ulResponse.end - ulResponse.start + 1) < ulResponse.pageLimit
+                  ? ulResponse.end - ulResponse.start + 1 : ulResponse.pageLimit)]
+                  .map((i, idx) => (ulResponse.start + idx))
+                  .map((num) => <li key={num} className={`pageBtn page ${ulResponse.pageRequestDTO?.page === num ? "active" : ""}`} onClick={userListPageClickHandler} aria-hidden="true" data-page={num}>{num}</li>)
+              }
+              <li className="pageBtn next" onClick={userListPageClickHandler} aria-hidden="true" data-page={ulResponse.next}>›</li>
+              <li className="pageBtn next last" onClick={userListPageClickHandler} aria-hidden="true" data-page={ulResponse.last}>»</li>
+              <select value={ulResponse.size} className="pageBtn pageSizeSelect" onChange={userListSizeSelectChangeHandler}>
                 <option>10</option>
                 <option>20</option>
                 <option>30</option>

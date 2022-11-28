@@ -1,5 +1,5 @@
 import React from "react";
-import LinkTreeItem from "@components/linktree/LinkTreeItem";
+import SidebarTreeItem from "@components/layout/sidebar/lnb/sidebartree/SidebarTreeItem";
 import styled from "styled-components";
 
 /**
@@ -14,7 +14,7 @@ import styled from "styled-components";
  * @constructor
  * @author 김민준
  */
-const LinkTreeLayout = ({ apiList, rootValue, upperColumn, matchColumn, columnName, initCollapsed }) => {
+const SidebarTreeLayout = ({ apiList, rootValue, upperColumn, matchColumn, columnName, initCollapsed }) => {
   /**
    * JSON 데이터를 트리구조로 반환합니다.
    * @param list
@@ -34,7 +34,7 @@ const LinkTreeLayout = ({ apiList, rootValue, upperColumn, matchColumn, columnNa
   return (
     <LinkTreeWrapper>
       {convertTreeList(apiList).map((item) => (
-        <LinkTreeItem
+        <SidebarTreeItem
           item={item}
           key={item[matchColumn]}
           itemColumn={columnName}
@@ -50,4 +50,4 @@ const LinkTreeWrapper = styled.div`
 `;
 
 
-export default LinkTreeLayout;
+export default SidebarTreeLayout;
