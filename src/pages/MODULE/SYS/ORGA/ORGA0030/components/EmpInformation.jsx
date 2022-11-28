@@ -17,6 +17,11 @@ function EmpInformation({ emps, empInformation, clickEmpRegister,
   const handleOnModal = () => {
     openModal({ type: "ORGA0030", props: data });
   };
+
+  const handleOnRegisterModal = () => {
+    openModal({ type: "ORGA0030Register" });
+  };
+
   return (
 
     <div className="pageLine" style={{ height: "600px" }}>
@@ -61,6 +66,7 @@ function EmpInformation({ emps, empInformation, clickEmpRegister,
               clickEmpRemove={clickEmpRemove}
               empInformation={empInformation}
               changeEmpInput={changeEmpInput}
+              handleOnRegisterModal={handleOnRegisterModal}
             />
           ) : (
             <EmpOrgaInformation
