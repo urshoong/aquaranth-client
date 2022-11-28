@@ -12,12 +12,14 @@ const UseAxiosInterceptor = () => {
     (error) => {
       return rejectedHandler(error).catch(() => {
         openModal({ type: "Login", props: "good" });
-        history.push("/login")
+        history.push("/login");
       });
     },
   );
 
-  const requestInterceptor = request.interceptors.request.use(requestHandler);
+  const requestInterceptor = request.interceptors.request.use(
+    (config) => requestHandler(config, history.location.pathname),
+  );
 
   useEffect(() => {
     return () => {
