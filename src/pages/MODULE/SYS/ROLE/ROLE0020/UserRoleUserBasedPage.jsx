@@ -1,83 +1,185 @@
 import React, { useEffect, useState } from "react";
 import request from "@utils/axiosUtil";
-import UserListContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserListContent";
 import RoleGroupContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGroupContent";
 import UserListContent2 from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserListContent2";
 
-const initSearchCondition = {
+const initUlSearch = {
+  page: 1,
+  size: 10,
   orgaNo: 0,
-  searchEmp: "",
-  searchRole: "",
+  keyword1: "",
+  keyword2: "",
 };
 
-const getCompanyList = async (companyNo) => {
-  const { data } = await request.get(`/userrole/companyList/${companyNo}`);
+const initRgSearch = {
+  page: 1,
+  size: 10,
+  orgaNo: 0,
+};
+
+const getCompanyList = async () => {
+  const { data } = await request.get("/userrole/companyListAll");
   return data;
 };
 
-const getUserList = async ({ orgaNo, searchEmp, searchRole }) => {
-  const { data } = await request.get(`/userrole/findUserListByOrgaNo?orgaNo=${orgaNo}&searchEmp=${searchEmp}&searchRole=${searchRole}`);
+const getUserList = async ({ page, size, orgaNo, keyword1, keyword2 }) => {
+  const { data } = await request.get(`/userrole/findUserListByOrgaNo?page=${page}&size=${size}&orgaNo=${orgaNo}&keyword1=${keyword1}&keyword2=${keyword2}`);
   return data;
 };
 
-const getGroupList = async (orgaNo) => {
-  const { data } = await request.get(`/userrole/findByRoleGroupByUser/${orgaNo}`);
+const getGroupList = async ({ page, size, orgaNo }) => {
+  const { data } = await request.get(`/userrole/findRoleGroupByUser?page=${page}&size=${size}&orgaNo=${orgaNo}`);
   return data;
 };
 
-const UserRoleUserBasedPage = (props) => {
+const removeUserRole = async (removeData) => {
+  const { data } = await request.post("/userrole/removeOrgaRoleByAllRole", removeData);
+  return data;
+};
+
+const UserRoleUserBasedPage = () => {
   const [company, setCompany] = useState([]);
   const [userList, setUserList] = useState([]);
+  const [ulSearch, setUlSearch] = useState(initUlSearch);
+  const [ulResponse, setUlResponse] = useState({});
   const [roleGroup, setRoleGroup] = useState([]);
-  const [searchCondition, setSearchCondition] = useState(initSearchCondition);
+  const [rgSearch, setRgSearch] = useState(initRgSearch);
+  const [rgResponse, setRgResponse] = useState({});
 
-  const searchClickHandler = () => {
-    const selectedCompany = document.querySelector(".companySelect");
-    const searchEmp = document.querySelector(".searchEmp");
-    const searchRole = document.querySelector(".searchRole");
+  const changeRoleGroupSearchHandler = (prop, value) => {
+    rgSearch[prop] = value;
+    setRgSearch({ ...rgSearch });
+  };
 
-    searchCondition.orgaNo = selectedCompany.value;
-    searchCondition.searchEmp = searchEmp.value;
-    searchCondition.searchRole = searchRole.value;
+  const changeUserListSearchHandler = (prop, value) => {
+    ulSearch[prop] = value;
+    setUlSearch({ ...ulSearch });
+  };
 
-    setSearchCondition({ ...searchCondition });
+  const userSearchClickHandler = () => {
+    const orgaNo = document.querySelector(".companySelect");
+    const keyword1 = document.querySelector(".keyword1");
+    const keyword2 = document.querySelector(".keyword2");
 
-    getUserList(searchCondition).then((data) => {
+    changeUserListSearchHandler("orgaNo", orgaNo.value);
+    changeUserListSearchHandler("keyword1", keyword1.value);
+    changeUserListSearchHandler("keyword2", keyword2.value);
+
+    getUserList(ulSearch).then((data) => {
+      const { dtoList } = data;
       setUserList([]);
-      setUserList(data);
+      setUlResponse(data);
+      setUserList(dtoList); // 페이징 적용하여 RoleGroupList 받아오는 방식
+
+      setUlSearch({ ...ulSearch });
     });
 
     const userListContainer = document.querySelector(".innerContentContainer");
     userListContainer.scrollTop = 0;
   };
 
-  const userListClickHandler = (e) => {
-    e.stopPropagation();
-    let { target } = e;
-    while (!target.classList.contains("contentRow2")) {
-      target = target.parentElement;
-    }
-    document.querySelector(".contentRow.contentRow2.active")?.classList.remove("active");
-    target.classList.add("active");
-
-    const orgaNo = target.dataset?.orgaNo;
-    console.log("orgaNo", orgaNo);
-
-    getGroupList(orgaNo).then((data) => {
-      console.log("Data", data);
-      setRoleGroup(data);
+  const roleSearchClickHandler = () => {
+    getGroupList(rgSearch).then((data) => {
+      const { dtoList } = data;
+      setRoleGroup([]);
+      setRoleGroup(dtoList);
+      setRgResponse(data);
     });
   };
 
+  const userListClickHandler = (e) => {
+    e.stopPropagation();
+    let { target } = e;
+
+    while (!target.classList.contains("contentRow2")) {
+      target = target.parentElement;
+    }
+
+    document.querySelector(".contentRow.contentRow2.active")?.classList.remove("active");
+    target.classList.add("active");
+
+    changeRoleGroupSearchHandler("orgaNo", target.dataset?.orgaNo);
+
+    roleSearchClickHandler();
+  };
+
   const roleGroupClickHandler = (e) => {
-    console.log("roleGroupClickHandler");
+    e.stopPropagation();
+    let { target } = e;
+    // groupContent 하위의 모든 컨텐츠에서 클릭 이벤트가 발생할 경우 groupContent class를 찾을 때 까지 target을 부모 요소로 리턴한다
+    while (!target.classList.contains("groupContent")) {
+      target = target.parentElement;
+    }
+
+    const checkbox = target.querySelector("input[type='checkbox']");
+
+    if (target.classList.contains("active")) {
+      target.classList.remove("active");
+      checkbox.checked = false;
+    } else {
+      target.classList.add("active");
+      checkbox.checked = true;
+    }
+  };
+
+  const orgaRoleRemove = (e) => {
+    const elements = document.querySelectorAll(".groupContent.active");
+
+    const arr = Array.prototype.filter.call(elements, (element) => {
+      return element.querySelector("input[type='checkbox']:checked");
+    }).map((element) => {
+      return {
+        orgaNo: element.dataset?.orgaNo,
+        roleGroupNo: element.dataset?.roleGroupNo,
+        targetOrgaNo: rgSearch.orgaNo,
+      };
+    });
+
+    if (!arr || arr.length === 0) {
+      alert("선택된 권한그룹이 없습니다.");
+      return;
+    }
+
+    removeUserRole(arr).then((data) => {
+      // TODO : state > fail or success
+      const { message } = data;
+      alert(message);
+      roleSearchClickHandler();
+    });
+  };
+
+  const userListSizeSelectChangeHandler = (e) => {
+    changeUserListSearchHandler("page", 1);
+    changeUserListSearchHandler("size", e.target.value);
+    e.target.defaultValue = e.target.value;
+    userSearchClickHandler();
+  };
+
+  const userListPageClickHandler = (e) => {
+    changeUserListSearchHandler("page", e.target.dataset?.page);
+    userSearchClickHandler();
+  };
+
+  const roleGroupSizeSelectChangeHandler = (e) => {
+    changeRoleGroupSearchHandler("page", 1);
+    changeRoleGroupSearchHandler("size", e.target.value);
+    e.target.defaultValue = e.target.value;
+    roleSearchClickHandler();
+  };
+
+  const roleGroupPageClickHandler = (e) => {
+    changeRoleGroupSearchHandler("page", e.target.dataset?.page);
+    roleSearchClickHandler();
+  };
+
+  const companySelectChangeHandler = (e) => {
+    userSearchClickHandler();
   };
 
   useEffect(() => {
-    // 로그인한 사용자의 회사 코드를 입력받아서 처리해야함
-    getCompanyList(1).then((data) => {
+    getCompanyList().then((data) => {
       setCompany(data);
-      searchClickHandler();
+      userSearchClickHandler();
     });
   }, []);
 
@@ -91,9 +193,9 @@ const UserRoleUserBasedPage = (props) => {
         </div>
       </div>
       <div className="innerSearchWrap userList">
-        <div className="selectWrap userList" name="selectWrap">
+        <div className="selectWrap userList">
           <span className="searchLabel">회사</span>
-          <select className="companySelect">
+          <select className="companySelect" onChange={companySelectChangeHandler}>
             {company?.map(({
               companyNo, companyName, orgaNo,
             }) => <option key={companyNo} value={orgaNo}>{ companyName }</option>)}
@@ -101,14 +203,15 @@ const UserRoleUserBasedPage = (props) => {
         </div>
         <div>
           <span className="searchLabel">이름/ID</span>
-          <input type="text" className="innerSearchInput searchEmp" />
+          <input type="text" className="innerSearchInput keyword1" />
         </div>
         <div>
           <span className="searchLabel">권한명</span>
-          <input type="text" className="innerSearchInput searchRole" />
+          <input type="text" className="innerSearchInput keyword2" />
         </div>
         <div className="searchWrap userList">
-          <button type="button" className="btn innerSearchBtn" onClick={() => { searchClickHandler(); }}>🔍</button>
+          <button type="button" className="btn" onClick={orgaRoleRemove}>&nbsp;권한삭제&nbsp;</button>
+          <button type="button" className="btn innerSearchBtn" onClick={userSearchClickHandler}>🔍</button>
         </div>
       </div>
       <div className="innerContent userList">
@@ -137,22 +240,27 @@ const UserRoleUserBasedPage = (props) => {
             </div>
           </div>
           <div className="innerPaginationWrap">
-            {/* TODO : 페이징 처리해야됨 */}
             <div className="paginationWrap">
               <ul className="pagination">
-                <li className="pageBtn prev">«</li>
-                <li className="pageBtn prev">‹</li>
-                <li className="pageBtn page">1</li>
-                <li className="pageBtn next">›</li>
-                <li className="pageBtn next">»</li>
-                <select className="pageBtn pageSizeSelect">
+                <li className="pageBtn prev first" onClick={userListPageClickHandler} aria-hidden="true" data-page={ulResponse.first}>«</li>
+                <li className="pageBtn prev" onClick={userListPageClickHandler} aria-hidden="true" data-page={ulResponse.prev}>‹</li>
+                {
+                  ulResponse.start > 0
+                  && [...new Array((ulResponse.end - ulResponse.start + 1) < ulResponse.pageLimit
+                    ? ulResponse.end - ulResponse.start + 1 : ulResponse.pageLimit)]
+                    .map((i, idx) => (ulResponse.start + idx))
+                    .map((num) => <li key={num} className={`pageBtn page ${ulResponse.pageRequestDTO?.page === num ? "active" : ""}`} onClick={userListPageClickHandler} aria-hidden="true" data-page={num}>{num}</li>)
+                }
+                <li className="pageBtn next" onClick={userListPageClickHandler} aria-hidden="true" data-page={ulResponse.next}>›</li>
+                <li className="pageBtn next last" onClick={userListPageClickHandler} aria-hidden="true" data-page={ulResponse.last}>»</li>
+                <select value={ulSearch.size} className="pageBtn pageSizeSelect" onChange={userListSizeSelectChangeHandler}>
                   <option>10</option>
                   <option>20</option>
                   <option>30</option>
                 </select>
                 <div className="pageSummary">
                   <span>총</span>
-                  <span>{userList?.length}</span>
+                  <span>{ulResponse?.total}</span>
                   <span>개</span>
                 </div>
               </ul>
@@ -166,27 +274,29 @@ const UserRoleUserBasedPage = (props) => {
               <span>{roleGroup.length}</span>
               <span>개</span>
             </div>
-            <div className="groupSortWrap">
+            {/* TODO : 필터 넣을지 말지 차후 처리 */}
+            {/* <div className="groupSortWrap">
               <select>
                 <option>필터</option>
                 <option>필터2</option>
                 <option>필터3</option>
               </select>
-            </div>
+            </div> */}
           </div>
           <div className="leftSection userList section2">
             {roleGroup?.map(({
-              roleGroupNo, roleGroupName, companyName, companyNo,
+              roleGroupNo, roleGroupName, companyName, orgaNo,
             }) => (
               <RoleGroupContent
                 className="groupContent"
                 key={roleGroupNo}
-                companyNo={companyNo}
+                orgaNo={orgaNo}
                 companyName={companyName}
                 roleGroupNo={roleGroupNo}
                 roleGroupName={roleGroupName}
                 roleGroupClickHandler={roleGroupClickHandler}
-                displayChekcbox=""
+                // displayChekcbox={false}
+                template={document.querySelector(".contentRow2.header").style.gridTemplateColumns}
               />
             ))}
           </div>
@@ -194,12 +304,18 @@ const UserRoleUserBasedPage = (props) => {
             {/* TODO : paging 처리해야됨 */}
             <div className="paginationWrap">
               <ul className="pagination">
-                <li className="pageBtn prev">«</li>
-                <li className="pageBtn prev">‹</li>
-                <li className="pageBtn page">1</li>
-                <li className="pageBtn next">›</li>
-                <li className="pageBtn next">»</li>
-                <select className="pageBtn pageSizeSelect">
+                <li className="pageBtn prev first" onClick={roleGroupPageClickHandler} aria-hidden="true" data-page={rgResponse.first}>«</li>
+                <li className="pageBtn prev" onClick={roleGroupPageClickHandler} aria-hidden="true" data-page={rgResponse.prev}>‹</li>
+                {
+                  rgResponse.start > 0
+                  && [...new Array((rgResponse.end - rgResponse.start + 1) < rgResponse.pageLimit
+                    ? rgResponse.end - rgResponse.start + 1 : rgResponse.pageLimit)]
+                    .map((i, idx) => (rgResponse.start + idx))
+                    .map((num) => <li key={num} className={`pageBtn page ${rgResponse.pageRequestDTO?.page === num ? "active" : ""}`} onClick={roleGroupPageClickHandler} aria-hidden="true" data-page={num}>{num}</li>)
+                }
+                <li className="pageBtn next" onClick={roleGroupPageClickHandler} aria-hidden="true" data-page={rgResponse.next}>›</li>
+                <li className="pageBtn next last" onClick={roleGroupPageClickHandler} aria-hidden="true" data-page={rgResponse.last}>»</li>
+                <select value={rgResponse.size} className="pageBtn pageSizeSelect" onChange={roleGroupSizeSelectChangeHandler}>
                   <option>10</option>
                   <option>20</option>
                   <option>30</option>
