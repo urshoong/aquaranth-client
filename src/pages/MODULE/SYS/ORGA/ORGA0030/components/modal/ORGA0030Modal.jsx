@@ -44,22 +44,22 @@ const ORGA0030Modal = (props) => {
   };
 
   // 라디오 버튼 변경
-  // const handleOnChangeRadio = (e) => {
-  //   const { value } = e.target;
-  //
-  //   console.log("라디오 변경 시, 선택된 company값", value);
-  //
-  //   // 선택된 부서의 번호 가져오기.
-  //   if (e.target.name === "loginDeptNo") {
-  //     const deptName = e.target.name;
-  //   } // 아니면  select인 dept로 해야하나..?
-  //   // const deptNo = deptName.options[deptName.selectedIndex].value;
-  //
-  //
-  //   // 내가 짠 회사 번호 넣는 코드
-  //   setSelectLogin({ ...selectLogin, loginCompanyNo: value });
-  //   console.log(selectLogin);
-  // };
+  const handleOnChangeRadio = (e) => {
+    const { value } = e.target;
+
+    console.log("라디오 변경 시, 선택된 company값", value);
+
+    // 선택된 부서의 번호 가져오기.
+    if (e.target.name === "loginDeptNo") {
+      const deptName = e.target.name;
+    } // 아니면  select인 dept로 해야하나..?
+    // const deptNo = deptName.options[deptName.selectedIndex].value;
+
+
+    // 내가 짠 회사 번호 넣는 코드
+    setSelectLogin({ ...selectLogin, loginCompanyNo: value });
+    console.log(selectLogin);
+  };
   //
   // // select 변경
   // const handleOnChangeSelect = (e) => {
@@ -85,6 +85,8 @@ const ORGA0030Modal = (props) => {
   //
   //   console.log(selectLogin);
   // };
+
+  const onClickHandler = () => {};
 
 
   // 회사 변경 확인 클릭 버튼
@@ -129,6 +131,7 @@ const ORGA0030Modal = (props) => {
           {employeeState.map((info) => {
             return (
               <div key={info.empNo}>
+                실험용dept:<div>{info.loginDept}</div>
                 <div>{info.empName}</div>
                 <div>최근 접속 IP : {info.lastLoginIp}</div>
                 <div>최근 로그인 시간 : {info.lastLoginTime}</div>
@@ -141,11 +144,13 @@ const ORGA0030Modal = (props) => {
                         name="loginCompanyNo"
                         type="radio"
                         value={company.companyNo}
-                        // onChange={(e) => { handleOnChangeRadio(e); }}
+                        onChange={(e) => { handleOnChangeRadio(e); }}
+                        // onChange={() => { onClickHandler(); }}
+                        checked={info.loginCompanyNo}
                         readOnly
                       />
                       {company.companyName}
-                      <select name="dept">
+                      <select name="dept" value={info.loginDept || ""}>
                         {company.deptList.map((dept) => {
                           return (
                             <option key={dept.deptNo} value={dept.deptNo} name="loginDeptNo">

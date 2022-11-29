@@ -25,7 +25,7 @@ function EmpInformation({ emps, empInformation, clickEmpRegister,
   return (
 
     <div className="pageLine" style={{ height: "600px" }}>
-      <Button type="button" onClick={handleOnModal}>ORGA0030 모달 띄우기</Button>
+      {/* <Button type="button" onClick={handleOnModal}>ORGA0030 모달 띄우기</Button> */}
       <div className="empList" style={{ overflow: "auto", height: "600px" }}>
         <span>사용자 : {emps.length} 명</span> <span>정렬▼</span>
         {emps.map(({ empNo, username, empName, firstHiredDate }) => (
