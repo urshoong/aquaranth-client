@@ -5,6 +5,7 @@ import CompanyList from "@pages/MODULE/SYS/ORGA/ORGA0010/components/company/Comp
 import { getCompanyList, getCompanyInformation, registerCompanyInformation,
   ModifyCompanyInformation, RemoveCompanyInformation } from "@pages/MODULE/SYS/ORGA/ORGA0010/api/company";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 // 회사 기본정보 초기값
 const initState = {
@@ -17,6 +18,16 @@ const initState = {
   foundingDate: "",
   companyUse: true,
 };
+
+const initStateName = {
+  companyName: "회사명",
+  companyAddress: "회사주소",
+  companyTel: "대표전화",
+  ownerName: "대표자명",
+  businessNumber: "사업자번호",
+  foundingDate: "설립일",
+};
+
 
 // 회사관리 component
 function CompanyManagement({ list, setList }) {
@@ -44,14 +55,49 @@ function CompanyManagement({ list, setList }) {
     setShow(true);
   };
 
+  const checkArr = []; // 빈 문자인 기본정보의 값을 저장할 배열
+
+  // 회사 기본정보에 빈 문자가 있는지 체크하는 함수
+  const isEmpty = () => {
+    const infoValueArr = Object.entries(information); // 회사 기본정보 객체의 value 값만 배열로 변경
+    let checkNum = 0; // 기본정보 안에 빈 문자가 존재하는지 체크하는 숫자
+    infoValueArr.forEach((item) => {
+      if (item[1] === "") {
+        checkNum += 1; // value 값이 빈 문자가 존재할 때마다 +1
+        checkArr.push(item[0]); // 빈 문조가 존재하는 item 을 배열에 추가
+      }
+    });
+    return checkNum === 0;
+  };
+
   // 회사 기본정보를 등록 및 수정할 handler
   const clickCompanySave = () => {
-    console.log(information);
+    console.log(checkArr);
+    const printName = [];
+    const checkName = Object.entries(initStateName);
+    isEmpty();
+    checkArr.map((name) => {
+      checkName.map((item) => {
+        if (name === item[0]) {
+          printName.push(item[1]);
+        }
+        return 0;
+      });
+      return printName;
+    });
+    console.log(printName);
+    Swal.fire({
+      title: "기본정보 미입력",
+      text: `[${printName}]을 입력하지않았습니다.`,
+    }).then();
+
     if (information.companyNo === 0) {
       console.log("회사 기본정보 등록");
       registerCompanyInformation(information).then(() => {
-        getCompanyList().then((data) => {
-          setList(data);
+        Swal.fire("", "회사 등록이 완료되었습니다.").then(() => {
+          getCompanyList().then((data) => {
+            setList(data);
+          });
         });
       });
     } else {
