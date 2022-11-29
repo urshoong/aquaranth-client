@@ -89,7 +89,7 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
       </Header>
       <Content>
         <MenuRoleDiv>
-          <MenuRoleSearchBox onClickSearchBtn={onClickSearchBtn} gnbList={gnbList} onChangeSelectBox={onChangeSelectBox} selectValue={selectValue} setSelectValue={setSelectValue} />
+          <MenuRoleSearchBox gnbList={gnbList} onChangeSelectBox={onChangeSelectBox} selectValue={selectValue} setSelectValue={setSelectValue} />
           <MenuRoleList lnbList={lnbList} setMenuRoleDTO={setMenuRoleDTO} menuRoleDTO={menuRoleDTO} />
         </MenuRoleDiv>
       </Content>
