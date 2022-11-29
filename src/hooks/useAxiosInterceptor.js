@@ -1,24 +1,43 @@
-import React, { useEffect } from "react";
-import request, { rejectedHandler, requestHandler, successHandler } from "@utils/axiosUtil";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
+import request, {
+  requestHandler,
+  successHandler,
+  tokenRefreshHandler,
+} from "@utils/axiosUtil";
+import { useHistory } from "react-router-dom";
+import { ACCESS_TOKEN_EXPIRED, REDIS_USER_NOT_FOUND, REFRESH_TOKEN_EXPIRED } from "@constants/errorcode";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "@constants/common";
+import { removeCookie } from "@utils/cookieUtil";
 import useModal from "@hooks/useModal";
+
 
 const UseAxiosInterceptor = () => {
   const history = useHistory();
-  const { openModal } = useModal();
 
   const responseInterceptor = request.interceptors.response.use(
     (response) => successHandler(response),
     (error) => {
-      return rejectedHandler(error).catch(() => {
-        openModal({ type: "Login", props: "good" });
-        history.push("/login");
-      });
+      const { detailErrorCode } = error.response.data;
+      if (detailErrorCode === ACCESS_TOKEN_EXPIRED.detailErrorCode) {
+        return tokenRefreshHandler(error)
+          .catch((err) => {
+            const tokenRefreshError = err.response.data;
+            if (tokenRefreshError.detailErrorCode === REFRESH_TOKEN_EXPIRED.detailErrorCode) {
+              sessionStorage.removeItem(ACCESS_TOKEN);
+              removeCookie(REFRESH_TOKEN);
+              history.push("/");
+              location.reload();
+            }
+          });
+      }
+      return Promise.reject(error);
     },
   );
 
+
   const requestInterceptor = request.interceptors.request.use(
     (config) => requestHandler(config, history.location.pathname),
+    (error) => Promise.reject(error),
   );
 
   useEffect(() => {

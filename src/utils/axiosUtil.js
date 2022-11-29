@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ACCESS_TOKEN, API_URL, REFRESH_TOKEN, TOKEN_REFRESH_PATH } from "@constants/common";
-import { getCookie, setCookie } from "@utils/cookieUtil";
+import { getCookie, removeCookie, setCookie } from "@utils/cookieUtil";
+
 
 const request = axios.create({
   baseURL: API_URL,
@@ -9,11 +10,13 @@ const request = axios.create({
 
 
 export const setToken = (response) => {
-  sessionStorage.setItem(ACCESS_TOKEN, response.data.access_token);
-  setCookie(REFRESH_TOKEN, response.data.refresh_token, {
-    path: "/",
-    maxAge: 8640000,
-  });
+  if (response.data) {
+    sessionStorage.setItem(ACCESS_TOKEN, response.data.access_token);
+    setCookie(REFRESH_TOKEN, response.data.refresh_token, {
+      path: "/",
+      maxAge: 8640000,
+    });
+  }
 };
 
 
@@ -39,22 +42,33 @@ export const successHandler = (response) => {
 };
 
 export const rejectedHandler = async (error) => {
-  if (error.response.status === 401) {
-    const originalRequest = error.config;
-    const getRefreshTokenFromCookies = getCookie(REFRESH_TOKEN);
-    await axios
-      .get(`${API_URL}${TOKEN_REFRESH_PATH}`, {
-        headers: { Authorization: `Bearer ${getRefreshTokenFromCookies}` },
-      })
-      .then((res) => {
-        setToken(res);
-      });
-    return axios({
-      ...originalRequest,
-      headers: { Authorization: `Bearer ${sessionStorage.getItem(ACCESS_TOKEN)}` },
+  const originalRequest = error.config;
+  return axios({
+    ...originalRequest,
+    headers: { Authorization: `Bearer ${sessionStorage.getItem(ACCESS_TOKEN)}`,
+    }
+    ,
+  })
+    .then((response) => response);
+};
+
+
+export const tokenRefreshHandler = async (error) => {
+  const originalRequest = error.config;
+  const getRefreshTokenFromCookies = getCookie(REFRESH_TOKEN);
+  await axios
+    .get(`${API_URL}${TOKEN_REFRESH_PATH}`, {
+      headers: { Authorization: `Bearer ${getRefreshTokenFromCookies}` },
     })
-      .then((response) => response);
-  }
+    .then((res) => {
+      setToken(res);
+    });
+
+  return axios({
+    ...originalRequest,
+    headers: { Authorization: `Bearer ${sessionStorage.getItem(ACCESS_TOKEN)}` },
+  })
+    .then((response) => response);
 };
 
 export default request;

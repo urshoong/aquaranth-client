@@ -16,7 +16,7 @@ const GnbSidebar = () => {
   const [gnbMenuList, setGnbMenuList] = useState([]);
   const [visible, setVisible] = useState(false);
 
-  // FIXME : 버블링
+
   const handleOnEnter = () => {
     setVisible(true);
   };

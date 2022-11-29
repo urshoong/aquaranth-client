@@ -4,7 +4,7 @@ import useModal from "@hooks/useModal";
 import { CenterGrid, Divider } from "@components/Grid";
 
 
-const LoginModal = ({ selectedMenu }) => {
+const LoginModal = ({ body }) => {
   const { closeModal } = useModal();
 
   const handleCloseModal = () => {
@@ -18,7 +18,11 @@ const LoginModal = ({ selectedMenu }) => {
     >
       <CenterGrid>
         <Divider span="12">
-          다시 로그인해 주세요.
+          {body.code}
+          {body.detailErrorCode}
+          {body.error}
+          {body.message}
+          {body.status}
         </Divider>
       </CenterGrid>
     </Modal>

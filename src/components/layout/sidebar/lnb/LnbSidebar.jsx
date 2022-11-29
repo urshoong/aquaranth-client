@@ -15,11 +15,11 @@ const LnbSidebar = () => {
   const [menuList, setMenuList] = useState([]);
 
 
-  useEffect(() => {
-    GET_MENU_LIST("ORGA", "lnb").then((res) => {
-      setMenuList(res.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   GET_MENU_LIST("ORGA", "lnb").then((res) => {
+  //     setMenuList(res.data);
+  //   });
+  // }, []);
 
   return (
     <LnbSidebarWrapper>
