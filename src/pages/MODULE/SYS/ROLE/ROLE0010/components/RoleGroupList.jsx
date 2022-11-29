@@ -3,10 +3,12 @@ import styled from "styled-components";
 import RoleGroupItem from "./RoleGroupItem";
 import { RoleGroupListWrapper } from "./RoleGroupContainer";
 
-function RoleGroupList({ roleGroupList, companyList, onClickRoleGroupItem }) {
+function RoleGroupList({ roleGroupResponse, companyList, onClickRoleGroupItem }) {
+  // TODO: 페이징관련 필드 여기에서 꺼낸다음 처리해주세요.
+  const { dtoList } = roleGroupResponse;
   return (
     <RoleGroupListWrapper>
-      {roleGroupList.map((roleGroup) => <RoleGroupItem onClickRoleGroupItem={onClickRoleGroupItem} companyList={companyList} key={roleGroup.roleGroupNo} roleGroup={roleGroup} />)}
+      {dtoList?.map((roleGroup) => <RoleGroupItem onClickRoleGroupItem={onClickRoleGroupItem} companyList={companyList} key={roleGroup.roleGroupNo} roleGroup={roleGroup} />)}
     </RoleGroupListWrapper>
   );
 }
