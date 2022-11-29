@@ -91,7 +91,7 @@ function CompanyManagement({ list, setList }) {
       text: `[${printName}]을 입력하지않았습니다.`,
     }).then();
 
-    if (information.companyNo === 0) {
+    /* if (information.companyNo === 0) {
       console.log("회사 기본정보 등록");
       registerCompanyInformation(information).then(() => {
         Swal.fire("", "회사 등록이 완료되었습니다.").then(() => {
@@ -110,7 +110,7 @@ function CompanyManagement({ list, setList }) {
           setList(data);
         });
       });
-    }
+    } */
   };
 
   // 회사 기본정보 삭제(사용여부를 '미사용'으로 변경)할 handler

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import request from "@utils/axiosUtil";
 import SidebarTreeLayout from "@components/layout/sidebar/lnb/sidebartree/SidebarTreeLayout";
-import { GET_MENU_LIST, GET_ROUTES } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import { GET_MENU_LIST, GET_ROUTES } from "@pages/MODULE/SYS/ROLE/ROLE0031/api/menu";
 
 /**
  * LNB 사이드바 컴포넌트 입니다. GNB 메뉴를 선택하면,
