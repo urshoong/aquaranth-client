@@ -32,7 +32,6 @@ function RoleGroupContainer({ refresh, companyList, onClickRoleGroupItem }) {
     openModal({ type: "ROLE0010", props: { companyList } });
   };
 
-  // TODO : 권한그룹명으로 권한그룹 검색버튼 클릭 요청
   const onClickSearchBtn = (searchParams) => {
     const { companyNo, roleGroupName } = searchParams;
     request.get(`/role-group?companyNo=${companyNo}&roleGroupName=${roleGroupName}`)

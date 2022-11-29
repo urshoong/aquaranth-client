@@ -75,6 +75,11 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
       });
   };
 
+  // TODO: 메뉴단건 검색이 트리구조와 얽혀서 생기는 문제가 꽤나 복잡해 보이므로, 메뉴검색기능은 삭제할 예정.
+  // const onClickSearchBtn = (searchMenuName) => {
+  //   console.log(searchMenuName);
+  // };
+
   return (
     <MenuRoleWrapper>
       <Header>
@@ -84,7 +89,7 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
       </Header>
       <Content>
         <MenuRoleDiv>
-          <MenuRoleSearchBox gnbList={gnbList} onChangeSelectBox={onChangeSelectBox} selectValue={selectValue} setSelectValue={setSelectValue} />
+          <MenuRoleSearchBox onClickSearchBtn={onClickSearchBtn} gnbList={gnbList} onChangeSelectBox={onChangeSelectBox} selectValue={selectValue} setSelectValue={setSelectValue} />
           <MenuRoleList lnbList={lnbList} setMenuRoleDTO={setMenuRoleDTO} menuRoleDTO={menuRoleDTO} />
         </MenuRoleDiv>
       </Content>

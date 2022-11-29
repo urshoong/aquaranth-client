@@ -9,6 +9,7 @@ const request = axios.create({
 
 
 export const setToken = (response) => {
+  console.log(response);
   sessionStorage.setItem(ACCESS_TOKEN, response.data.access_token);
   setCookie(REFRESH_TOKEN, response.data.refresh_token, {
     path: "/",

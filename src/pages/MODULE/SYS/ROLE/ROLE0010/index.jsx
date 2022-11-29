@@ -17,7 +17,7 @@ const Index = () => {
       .then(({ data }) => setCompanyList(data));
   }, []);
 
-  // 권한그룹  클릭이벤트
+  // 권한그룹 아이템 클릭이벤트
   const onClickRoleGroupItem = (roleGroup) => {
     setSelectedRoleGroup(roleGroup);
   };
