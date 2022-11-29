@@ -4,7 +4,7 @@ import useModal from "../../../../../../../hooks/useModal";
 
 function OrgatreeEmpDetail({ empInfo }) {
   // 해당 사원 정보 구조분해
-  const { orgaNo, empName, empRank, username, path, empPhone, email } = empInfo;
+  const { orgaNo, empName, empRank, username, path, empPhone, email, profileUrl } = empInfo;
   const data = { menucode: "MyGroup", menuname: "마이그룹", orgaNo };
   const { openModal } = useModal();
 
@@ -17,6 +17,11 @@ function OrgatreeEmpDetail({ empInfo }) {
     <EmpInformationDiv>
       <EmpProfil>
         <MygroupBtn type="button" onClick={handleOnModal}>MY</MygroupBtn>
+        <EmpProilImg
+          src={profileUrl}
+          alt="프로필 이미지"
+          size="150"
+        />
         <EmpProfilItem>{empName} {empRank}</EmpProfilItem>
         <EmpProfilItem>{username}</EmpProfilItem>
       </EmpProfil>
@@ -51,24 +56,35 @@ const EmpInformationDiv = styled.div`
 `;
 
 const EmpProfil = styled.div`
+  text-align: center;
   border: 1px solid darkgray;
   border-radius: 0.2rem;
-  height: 13rem;
-  text-align: center;
+  height: 15rem;
 `;
+
 const EmpDetail = styled.div`
   border-top: 2px solid #6c6c6c;
 `;
+
 const EmpProfilItem = styled.div`
-  text-align: center;
-  margin-top: 5em;
+  margin-top: 0.5em;
 `;
+
+const EmpProilImg = styled.img`
+  border-radius: 70%;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
+  margin-left: 3em;
+  margin-top: 2em;
+`;
+
 const EmpDetailTitle = styled.div`
   font-size: 12px;
   border-right: 1px solid darkgray;
   text-align: center;
   padding-right: 0.5em;
 `;
+
 const EmpDetailItem = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr;

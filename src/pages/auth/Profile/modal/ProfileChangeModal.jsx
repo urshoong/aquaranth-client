@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
 import { CenterGrid, Divider, Span } from "@components/Grid";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
-import request from "../../../../../../../utils/axiosUtil";
+import request from "@utils/axiosUtil";
 
 const empInfo = async () => {
   const { data } = await request.get("/emp/loginlist");
@@ -22,7 +21,7 @@ const initState = {
 };
 
 
-const ORGA0030Modal = (props) => {
+const ProfileChangeModal = (props) => {
   const [employeeState, setEmployeeState] = useState([]);
   const [selectLogin, setSelectLogin] = useState(initState);
   const history = useHistory();
@@ -44,22 +43,22 @@ const ORGA0030Modal = (props) => {
   };
 
   // 라디오 버튼 변경
-  const handleOnChangeRadio = (e) => {
-    const { value } = e.target;
-
-    console.log("라디오 변경 시, 선택된 company값", value);
-
-    // 선택된 부서의 번호 가져오기.
-    if (e.target.name === "loginDeptNo") {
-      const deptName = e.target.name;
-    } // 아니면  select인 dept로 해야하나..?
-    // const deptNo = deptName.options[deptName.selectedIndex].value;
-
-
-    // 내가 짠 회사 번호 넣는 코드
-    setSelectLogin({ ...selectLogin, loginCompanyNo: value });
-    console.log(selectLogin);
-  };
+  // const handleOnChangeRadio = (e) => {
+  //   const { value } = e.target;
+  //
+  //   console.log("라디오 변경 시, 선택된 company값", value);
+  //
+  //   // 선택된 부서의 번호 가져오기.
+  //   if (e.target.name === "loginDeptNo") {
+  //     const deptName = e.target.name;
+  //   } // 아니면  select인 dept로 해야하나..?
+  //   // const deptNo = deptName.options[deptName.selectedIndex].value;
+  //
+  //
+  //   // 내가 짠 회사 번호 넣는 코드
+  //   setSelectLogin({ ...selectLogin, loginCompanyNo: value });
+  //   console.log(selectLogin);
+  // };
   //
   // // select 변경
   // const handleOnChangeSelect = (e) => {
@@ -86,8 +85,6 @@ const ORGA0030Modal = (props) => {
   //   console.log(selectLogin);
   // };
 
-  const onClickHandler = () => {};
-
 
   // 회사 변경 확인 클릭 버튼
   const handleOnClickChangeDeptSubmit = (e) => {
@@ -113,14 +110,16 @@ const ORGA0030Modal = (props) => {
         selectLogin.loginDeptNo = select.value;
         setSelectLogin({ ...selectLogin });
       }
+
       console.log("selectLogin", selectLogin);
     });
 
     registerLoginUser(selectLogin).then(() => {
       // TODO 모달말고 컴포넌트로 바꾸기(?)
-      history.replace("/");
-      closeModal();
     });
+
+    history.replace("/");
+    closeModal();
   };
 
   return (
@@ -133,7 +132,6 @@ const ORGA0030Modal = (props) => {
           {employeeState.map((info) => {
             return (
               <div key={info.empNo}>
-                실험용dept:<div>{info.loginDept}</div>
                 <div>{info.empName}</div>
                 <div>최근 접속 IP : {info.lastLoginIp}</div>
                 <div>최근 로그인 시간 : {info.lastLoginTime}</div>
@@ -146,13 +144,11 @@ const ORGA0030Modal = (props) => {
                         name="loginCompanyNo"
                         type="radio"
                         value={company.companyNo}
-                        onChange={(e) => { handleOnChangeRadio(e); }}
-                        // onChange={() => { onClickHandler(); }}
-                        checked={info.loginCompanyNo}
+                        // onChange={(e) => { handleOnChangeRadio(e); }}
                         readOnly
                       />
                       {company.companyName}
-                      <select name="dept" value={info.loginDept || ""}>
+                      <select name="dept">
                         {company.deptList.map((dept) => {
                           return (
                             <option key={dept.deptNo} value={dept.deptNo} name="loginDeptNo">
@@ -170,9 +166,10 @@ const ORGA0030Modal = (props) => {
           <button type="submit" onClick={() => { handleOnClickChangeDeptSubmit(); }}>확인</button>
           {/* <button type="reset" onClick={() => { handleCloseModal(); }}>취소</button> */}
         </div>
+
       </CenterGrid>
     </Modal>
   );
 };
 
-export default ORGA0030Modal;
+export default ProfileChangeModal;

@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import request from "../../../../../../../utils/axiosUtil";
 
 // 해당 정렬에 맞는 회사 일부정보 리스트 요청
@@ -21,10 +22,10 @@ function CompanyCount({ list, setList }) {
   };
 
   return (
-    <div className="CompanySortDiv">
+    <CompanySortDiv>
       <div>
         <span>회사</span>
-        <span className="companyCountSpan">{list.length}</span>
+        <CompanyCountSpan>{list.length}</CompanyCountSpan>
         <span>건</span>
       </div>
       <div>
@@ -36,8 +37,19 @@ function CompanyCount({ list, setList }) {
           <option value="companyUse">사용여부</option>
         </select>
       </div>
-    </div>
+    </CompanySortDiv>
   );
 }
+
+const CompanySortDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-right: 0.5em;
+`;
+
+const CompanyCountSpan = styled.span`
+  margin-left: 0.5em;
+  color: #46a3fb;
+`;
 
 export default CompanyCount;
