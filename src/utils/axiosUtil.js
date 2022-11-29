@@ -38,6 +38,11 @@ export const successHandler = (response) => {
   return response;
 };
 
+/**
+ * 1. 홈으로가면 api한테 요청을 3개를 보내서 3번 응답이와서 모달이 3개가뜬다
+ * 2. rejectedHandler가 401응답을 받으면 무조건 쿠키에서 토큰 꺼내서달고 /api/refresh 로 보낸다.
+ * 3.
+ */
 export const rejectedHandler = async (error) => {
   if (error.response.status === 401) {
     const originalRequest = error.config;

@@ -13,19 +13,19 @@ const fetchRoleGroupList = async () => {
 };
 
 function RoleGroupContainer({ refresh, companyList, onClickRoleGroupItem }) {
-  const [roleGroupList, setRoleGroupList] = useState([]);
+  const [roleGroupResponse, setRoleGroupResponse] = useState([]);
   const [loginUserInfo, setLoginUserInfo] = useState([]);
   const { openModal } = useModal();
 
   // 페이지 리랜더시 권한그룹목록 요청
   useEffect(() => {
     console.log("refresh 실행됨");
-    fetchRoleGroupList().then((r) => setRoleGroupList(r));
+    fetchRoleGroupList().then((r) => setRoleGroupResponse(r));
   }, [refresh]);
 
   // 권한그룹 상태가 바뀌면 컴포넌트 리랜더링
   useEffect(() => {
-  }, [roleGroupList]);
+  }, [roleGroupResponse]);
 
   // 권한그룹 추가버튼 클릭 이벤트
   const onClickAddBtn = () => {
@@ -36,13 +36,13 @@ function RoleGroupContainer({ refresh, companyList, onClickRoleGroupItem }) {
   const onClickSearchBtn = (searchParams) => {
     const { companyNo, roleGroupName } = searchParams;
     request.get(`/role-group?companyNo=${companyNo}&roleGroupName=${roleGroupName}`)
-      .then(({ data }) => console.log(data));
+      .then(({ data }) => setRoleGroupResponse(data));
   };
 
   return (
     <RoleGroupWrapper>
       <RoleGroupSearchBox companyList={companyList} onClickSearchBtn={onClickSearchBtn} />
-      <RoleGroupList companyList={companyList} roleGroupList={roleGroupList} onClickRoleGroupItem={onClickRoleGroupItem} />
+      <RoleGroupList companyList={companyList} roleGroupResponse={roleGroupResponse} onClickRoleGroupItem={onClickRoleGroupItem} />
       <RoleGroupAddBtn onClick={onClickAddBtn}>+ 추가</RoleGroupAddBtn>
       <RoleGroupPageWrapper>page</RoleGroupPageWrapper>
     </RoleGroupWrapper>
