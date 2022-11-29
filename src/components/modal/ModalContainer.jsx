@@ -15,7 +15,7 @@ const ORGA0030RegisterModal = loadable(() => import("@pages/MODULE/SYS/ORGA/ORGA
 const ROLE0010Modal = loadable(() => import("@pages/MODULE/SYS/ROLE/ROLE0010/components/modal/ROLE0010Modal"));
 const ROLE0010ModModal = loadable(() => import("@pages/MODULE/SYS/ROLE/ROLE0010/components/modal/ROLE0010ModModal"));
 const ROLE0020Modal = loadable(() => import("@pages/MODULE/SYS/ROLE/ROLE0020/components/modal/ROLE0020Modal"));
-const ROLE0030Modal = loadable(() => import("@pages/MODULE/SYS/ROLE/ROLE0030/components/modal/ROLE0030Modal"));
+const ROLE0030Modal = loadable(() => import("@pages/MODULE/SYS/ROLE/ROLE0031/components/modal/ROLE0030Modal"));
 const ProfileChangeModal = loadable(() => import("@pages/auth/Profile/modal/ProfileChangeModal"));
 
 const MODAL_COMPONENTS = {

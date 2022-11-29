@@ -37,7 +37,7 @@ const Client = () => {
 
   if (getCookie(REFRESH_TOKEN)) {
     GET_CHECK_REFRESH().then(() => {
-      GET_REDIS_CHECK().catch((e) => {
+      GET_REDIS_CHECK().catch(() => {
         return <Auth />;
       });
     }).catch(() => <Auth />);

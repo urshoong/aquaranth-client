@@ -6,7 +6,6 @@ import { ThemeProvider } from "styled-components";
 import theme from "@styles/theme";
 import ModalProvider from "@components/modal/ModalProvider";
 import ModalContainer from "@components/modal/ModalContainer";
-import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
 import GlobalStyles from "./styles/GlobalStyles";
 
@@ -28,7 +27,6 @@ const root = (
           <Provider store={store}>
             <Client />
             <ModalContainer />
-            {/*<ReactQueryDevtools initialIsOpen />*/}
           </Provider>
         </ThemeProvider>
       </ModalProvider>

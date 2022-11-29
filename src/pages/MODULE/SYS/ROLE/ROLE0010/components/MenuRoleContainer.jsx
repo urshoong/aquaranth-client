@@ -5,7 +5,7 @@ import MenuRoleSearchBox from "./MenuRoleSearchBox";
 import MenuRoleList from "./MenuRoleList";
 import request from "../../../../../../utils/axiosUtil";
 import Button from "../../../../../../components/Button";
-import {GET_ROUTES} from "../../ROLE0030/api/menu";
+import {GET_ROUTES} from "../../ROLE0031/api/menu";
 
 function MenuRoleContainer({ selectedRoleGroup }) {
   const [gnbList, setGnbList] = useState([]);

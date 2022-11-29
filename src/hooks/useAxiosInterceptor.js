@@ -5,7 +5,7 @@ import request, {
   tokenRefreshHandler,
 } from "@utils/axiosUtil";
 import { useHistory } from "react-router-dom";
-import { ACCESS_TOKEN_EXPIRED, REDIS_USER_NOT_FOUND, REFRESH_TOKEN_EXPIRED } from "@constants/errorcode";
+import { ACCESS_TOKEN_EXPIRED, REFRESH_TOKEN_EXPIRED } from "@constants/errorcode";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "@constants/common";
 import { removeCookie } from "@utils/cookieUtil";
 import useModal from "@hooks/useModal";
@@ -17,7 +17,8 @@ const UseAxiosInterceptor = () => {
   const responseInterceptor = request.interceptors.response.use(
     (response) => successHandler(response),
     (error) => {
-      const { detailErrorCode } = error.response.data;
+      const { detailErrorCode } = error.response.data.body;
+      console.log(detailErrorCode);
       if (detailErrorCode === ACCESS_TOKEN_EXPIRED.detailErrorCode) {
         return tokenRefreshHandler(error)
           .catch((err) => {
