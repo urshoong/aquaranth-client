@@ -3,6 +3,7 @@ import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
 import styled from "styled-components";
 import { getMygroupList, registerFavorite } from "@pages/MODULE/SYS/ORGA/ORGA0010/api/mygroup";
+import Swal from "sweetalert2";
 
 
 const MygroupModal = ({ orgaNo }) => {
@@ -36,6 +37,7 @@ const MygroupModal = ({ orgaNo }) => {
     registerFavorite(favoriteInfo).then(() => {
       getMygroupList().then((list) => {
         setMyList(list);
+        handleCloseModal();
       });
     });
   };

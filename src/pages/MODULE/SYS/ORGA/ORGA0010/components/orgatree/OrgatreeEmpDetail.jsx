@@ -17,12 +17,15 @@ function OrgatreeEmpDetail({ empInfo }) {
     <EmpInformationDiv>
       <EmpProfil>
         <MygroupBtn type="button" onClick={handleOnModal}>MY</MygroupBtn>
-        <EmpProilImg
-          src={profileUrl}
-          alt="프로필 이미지"
-          size="150"
-        />
-        <EmpProfilItem>{empName} {empRank}</EmpProfilItem>
+        {orgaNo
+          && (
+            <EmpProilImg
+              src={profileUrl}
+              alt="프로필 이미지"
+              size="150"
+            />
+          )}
+        { orgaNo && <EmpProfilItem>{empName}/{empRank}</EmpProfilItem> }
         <EmpProfilItem>{username}</EmpProfilItem>
       </EmpProfil>
       <EmpDetail>

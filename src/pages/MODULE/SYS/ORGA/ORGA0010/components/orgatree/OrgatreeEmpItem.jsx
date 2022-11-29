@@ -16,18 +16,17 @@ function OrgatreeEmpItem({ empInfo, setEmpInfo, mygroupNo, clickFavoriteEmp }) {
     });
   };
 
-
   return (
     <EmpItemDiv onClick={() => { clickEmpItem(); }}>
-      {empNo ? <div /> : (
+      {empNo ? (
         <EmpInfo
           align="right"
           fontSize="1.3"
           color="#46a3fb"
-          onClick={() => { clickFavoriteEmp(mygroupNo, orgaNo); }}
+          onClick={(e) => { clickFavoriteEmp(e, mygroupNo, orgaNo); }}
         >✖
         </EmpInfo>
-      )}
+      ) : <div />}
       <EmpInfo paddingBtm="0.3" fontSize="1.3" fontWeight="bold">{empName} / {empRank} | {username}</EmpInfo>
       <EmpInfo>{path}</EmpInfo>
       <EmpInfo paddingTop="1">📞 {empPhone}</EmpInfo>

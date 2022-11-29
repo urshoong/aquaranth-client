@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
 import styled from "styled-components";
@@ -23,6 +23,9 @@ const ORGA0010Modal = () => {
   const [modifyMy, setModifyMy] = useState({}); // 수정할 마이그룹 정보를 담을 상태값
   const [modifyShow, setModifyShow] = useState(false); // 마이그룹 이름 수정칸 보여줄 상태값
 
+  const allRef = useRef();
+  const myRef = useRef();
+
 
   const handleCloseModal = () => {
     closeModal();
@@ -32,6 +35,15 @@ const ORGA0010Modal = () => {
   const clickGroup = (e) => {
     const { value } = e.target;
     setShow(value);
+
+    allRef.current.classList.remove("active");
+    myRef.current.classList.remove("active");
+
+    if (value === "my") {
+      myRef.current.classList.add("active");
+    } else {
+      allRef.current.classList.add("active");
+    }
   };
 
   useEffect(() => {
@@ -60,10 +72,12 @@ const ORGA0010Modal = () => {
   };
 
   // 해당 마이그룹에 즐겨찾기된 사원 삭제할 handler
-  const clickFavoriteEmp = (mygroupNo, orgaNo) => {
+  const clickFavoriteEmp = (e, mygroupNo, orgaNo) => {
+    e.stopPropagation();
     deleteFavoriteEmp(mygroupNo, orgaNo).then(() => {
-      getFavoriteEmpList(mygroupNo).then((list) => {
-        setFavoriteEmpList(list);
+      getMygroupList().then((list) => {
+        setMyList(list);
+        setFavoriteEmpList([]);
         setFavoriteEmpInfo({});
       });
     });
@@ -125,8 +139,8 @@ const ORGA0010Modal = () => {
       title="조직도"
     >
       <GroupChoose>
-        <GroupChooseBtn value="all" rightBorder="1" onClick={(e) => { clickGroup(e); }}>전체그룹</GroupChooseBtn>
-        <GroupChooseBtn value="my" onClick={clickGroup}>MY그룹</GroupChooseBtn>
+        <GroupChooseBtn ref={allRef} className="active" value="all" rightBorder="1" onClick={(e) => { clickGroup(e); }}>전체그룹</GroupChooseBtn>
+        <GroupChooseBtn ref={myRef} value="my" onClick={clickGroup}>MY그룹</GroupChooseBtn>
       </GroupChoose>
       {show === "my"
         ? (
@@ -138,7 +152,7 @@ const ORGA0010Modal = () => {
               </div>
               <OrgatreeItem over="auto" borderSize="1">
                 {myList.map(({ mygroupNo, mygroupName, countEmp }) => (
-                  <MygroupUpperDiv>
+                  <MygroupUpperDiv key={mygroupNo}>
                     <MygroupItem key={mygroupNo} onClick={() => { clickMygroup(mygroupNo); }}>
                       { mygroupName }({ countEmp })
                     </MygroupItem>
@@ -204,6 +218,9 @@ const GroupChooseBtn = styled.button`
   padding-right: 1em;
   padding-left: 1em;
   border-right: ${(props) => props.rightBorder}px solid darkgray;
+  &.active{
+    color: #46a3fb;
+  }
 `;
 
 const Orgatree = styled.div`
