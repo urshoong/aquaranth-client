@@ -1,5 +1,4 @@
 import React from "react";
-import "../../Company.css";
 import styled from "styled-components";
 
 // 회사 리스트 아이템 component
@@ -9,7 +8,6 @@ function CompanyListItem({ item, clickCompanyListItem }) {
   return (
     <CompanyListItemDiv
       onClick={() => { clickCompanyListItem(companyNo); }}
-      onKeyDown={companyNo}
     >
       <div>{companyNo}</div>
       <div>{ownerName}</div>

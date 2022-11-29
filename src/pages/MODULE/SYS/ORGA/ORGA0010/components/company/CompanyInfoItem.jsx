@@ -10,14 +10,16 @@ function CompanyInfoItem({ tagName, name, value, changeCompanyInformation }) {
         <CompanyInfoNameSpan>{tagName}</CompanyInfoNameSpan>
       </CompanyInfoNameDiv>
       <CompanyInfoInputDiv>
-        {tagName === "사용여부"
-          ? (
-            <div>
-              <CompanyUseInput type="radio" name={name} value="true" checked={value === true} onChange={(e) => { changeCompanyInformation(e); }} />사용
-              <CompanyUseInput type="radio" name={name} value="false" checked={value === false} onChange={(e) => { changeCompanyInformation(e); }} />미사용
-            </div>
-          )
-          : <CompanyInfoInput type="text" name={name} value={value} onChange={(e) => { changeCompanyInformation(e); }} />}
+        {tagName === "사용여부" && (
+          <div>
+            <CompanyUseInput type="radio" name={name} value="true" checked={value === true} onChange={(e) => { changeCompanyInformation(e); }} />사용
+            <CompanyUseInput type="radio" name={name} value="false" checked={value === false} onChange={(e) => { changeCompanyInformation(e); }} />미사용
+          </div>
+        )}
+        {tagName === "설립일" && <CompanyInfoInput type="date" name={name} value={value || ""} onChange={(e) => { changeCompanyInformation(e); }} />}
+        {tagName === "회사코드" && <CompanyInfoInput type="text" name={name} value={value || ""} readOnly onChange={(e) => { changeCompanyInformation(e); }} />}
+        {(tagName !== "사용여부" && tagName !== "설립일" && tagName !== "회사코드")
+          && <CompanyInfoInput type="text" name={name} value={value || ""} onChange={(e) => { changeCompanyInformation(e); }} />}
       </CompanyInfoInputDiv>
     </CompanyInfoItemDiv>
   );
