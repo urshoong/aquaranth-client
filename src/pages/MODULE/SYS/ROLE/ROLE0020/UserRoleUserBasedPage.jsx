@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
-import request from "@utils/axiosUtil";
 import RoleGroupContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGroupContent";
 import UserListContent2 from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserListContent2";
+import {
+  getCompanyList,
+  getGroupListByUser,
+  getUserListByUser,
+  removeUserRole,
+} from "./api/UserRole";
+import Swal from "sweetalert2";
 
 const initUlSearch = {
   page: 1,
@@ -17,25 +23,6 @@ const initRgSearch = {
   orgaNo: 0,
 };
 
-const getCompanyList = async () => {
-  const { data } = await request.get("/userrole/companyListAll");
-  return data;
-};
-
-const getUserList = async ({ page, size, orgaNo, keyword1, keyword2 }) => {
-  const { data } = await request.get(`/userrole/findUserListByOrgaNo?page=${page}&size=${size}&orgaNo=${orgaNo}&keyword1=${keyword1}&keyword2=${keyword2}`);
-  return data;
-};
-
-const getGroupList = async ({ page, size, orgaNo }) => {
-  const { data } = await request.get(`/userrole/findRoleGroupByUser?page=${page}&size=${size}&orgaNo=${orgaNo}`);
-  return data;
-};
-
-const removeUserRole = async (removeData) => {
-  const { data } = await request.post("/userrole/removeOrgaRoleByAllRole", removeData);
-  return data;
-};
 
 const UserRoleUserBasedPage = () => {
   const [company, setCompany] = useState([]);
@@ -65,7 +52,14 @@ const UserRoleUserBasedPage = () => {
     changeUserListSearchHandler("keyword1", keyword1.value);
     changeUserListSearchHandler("keyword2", keyword2.value);
 
-    getUserList(ulSearch).then((data) => {
+    if (orgaNo === 0) {
+      Swal.fire({ title: "회사가 선택되지 않았습니다.", icon: "error" }).then((r) => r);
+      return;
+    }
+
+    console.log("사용자기준 - 사용자 목록 조회 조건", ulSearch);
+
+    getUserListByUser(ulSearch).then((data) => {
       const { dtoList } = data;
       setUserList([]);
       setUlResponse(data);
@@ -79,7 +73,14 @@ const UserRoleUserBasedPage = () => {
   };
 
   const roleSearchClickHandler = () => {
-    getGroupList(rgSearch).then((data) => {
+    if (rgSearch.orgaNo === 0) {
+      Swal.fire({ title: "사용자가 선택되지 않았습니다.", icon: "error" }).then((r) => r);
+      return;
+    }
+
+    console.log("사용자기준 - 권한그룹 목록 조회 조건", rgSearch);
+
+    getGroupListByUser(rgSearch).then((data) => {
       const { dtoList } = data;
       setRoleGroup([]);
       setRoleGroup(dtoList);
@@ -136,14 +137,14 @@ const UserRoleUserBasedPage = () => {
     });
 
     if (!arr || arr.length === 0) {
-      alert("선택된 권한그룹이 없습니다.");
+      Swal.fire({ title: "선택된 권한그룹이 없습니다.", icon: "error" }).then((r) => r);
       return;
     }
 
     removeUserRole(arr).then((data) => {
       // TODO : state > fail or success
-      const { message } = data;
-      alert(message);
+      const { state, message } = data;
+      Swal.fire({ title: message, icon: state }).then((r) => r);
       roleSearchClickHandler();
     });
   };

@@ -1,11 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import request from "@utils/axiosUtil";
-
-const getChildNode = async (upperDeptNo, depth, companyNo) => {
-  const { data } = await request.get(`/orgaTree/list/${upperDeptNo}/${depth}/${companyNo}`);
-
-  return data;
-};
+import { getChildNode } from "../../api/OrgaTree";
 
 function CommonTreeNode({ arr, changeTarget }) {
   const [subArr, setSubArr] = useState([]);
@@ -49,9 +43,10 @@ function CommonTreeNode({ arr, changeTarget }) {
       {arr.map((dept) => (
         <li key={dept.deptNo}>
           <div style={{ height: "2em" }}>
-            <button type="button" style={{ fontSize: "1.3em", height: "1em", width: `${dept.depth * 1 + 2}em`, paddingLeft: `${dept.depth * 15}px` }} ref={buttonRef} onClick={() => clickButton(dept.deptNo, dept.depth + 1, dept.companyNo)}>{dept.lowerDeptCnt > 0 ? icon : ""}</button>
-            <img src="" alt="" style={{ width: "2em", height: "2em" }} />
-            <span style={{ fontSize: "1.5em" }} onClick={() => changeTarget(dept.orgaNo)} aria-hidden="true">{dept.deptNo}. {dept.deptName}</span>
+            <button type="button" style={{ height: "2em", width: `${dept.depth * 1 + 1}em`, paddingLeft: `${dept.depth * 15}px`, verticalAlign: "text-bottom" }} ref={buttonRef} onClick={() => clickButton(dept.deptNo, dept.depth + 1, dept.companyNo)}>{dept.lowerDeptCnt > 0 ? icon : ""}</button>
+            {dept.depth === 0 && <img src="/images/icon-tree-comp.png" alt="" style={{ width: "2em", height: "2em", padding: "0px 10px", display: "inline-block" }} />}
+            {dept.depth > 0 && <img src={icon === ">" ? "/images/icon-tree-folder-close.png" : "/images/icon-tree-folder-open.png"} alt="" style={{ width: "2em", height: "2em", padding: "0px 10px", display: "inline-block" }} />}
+            <span style={{ fontSize: "1.5em", verticalAlign: "0.1em" }} onClick={() => changeTarget(dept.orgaNo)} aria-hidden="true">{dept.deptNo}. {dept.deptName}</span>
           </div>
 
           {subArr ? subArr.map((childDept) => (

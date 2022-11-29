@@ -5,13 +5,8 @@ import { CenterGrid, Divider } from "@components/Grid";
 import styled, { css } from "styled-components";
 import CommonTreeContainer from "@pages/MODULE/SYS/ROLE/ROLE0020/pages/tree/CommonTreeContainer";
 import UserListContent2 from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserListContent2";
-import request from "@utils/axiosUtil";
 import Button from "@components/Button";
-
-const getOrgaList = async ({ orgaNo, keyword, option, recursive }) => {
-  const { data } = await request.get(`/orgaTree/orgaList?orgaNo=${orgaNo}&keyword=${keyword}&option=${option}&recursive=${recursive}`);
-  return data;
-};
+import { getOrgaList } from "../../api/OrgaTree";
 
 const initOrgaSearchCondition = {
   option: "emp",
@@ -27,6 +22,7 @@ const ROLE0020Modal = ({ menuname, companyNo, changeOrgaList }) => {
   const { closeModal } = useModal();
 
   const handleCloseModal = () => {
+    setOrgaSearch(initOrgaSearchCondition);
     closeModal();
   };
 
@@ -37,7 +33,7 @@ const ROLE0020Modal = ({ menuname, companyNo, changeOrgaList }) => {
     setOrgaSearch({ ...orgaSearch });
   };
 
-  const orgaSearchSubmitClickHandler = (e) => {
+  const orgaSearchSubmitClickHandler = () => {
     const elements = document.querySelectorAll(".contentContainer.orgaList .contentRow:not(.header)");
     const arr = Array.prototype.filter.call(elements, (element) => {
       return element.querySelector("input[type='checkbox']:checked");
@@ -70,6 +66,7 @@ const ROLE0020Modal = ({ menuname, companyNo, changeOrgaList }) => {
   };
 
   const searchOrgaList = () => {
+    if (orgaSearch.orgaNo === 0) return;
     getOrgaList(orgaSearch).then((result) => {
       setOrgas(result);
     });
@@ -91,13 +88,13 @@ const ROLE0020Modal = ({ menuname, companyNo, changeOrgaList }) => {
         <OuterDivider span="12">
           <InnerGridWrapper className="orgaSearchCondition">
             <InnerDivider gCol="2" gRow="2">
-              <select className="orgaSearchOption" name="option" onChange={changeOrgaSearchConditionHandler} style={{ width: "100%", height: "100%", border: "1px solid #e6e6e6" }}>
+              <SearchOrderConditionSelect className="orgaSearchOption" name="option" onChange={changeOrgaSearchConditionHandler} width="100%" height="100%" border="1px solid #e6e6e6">
                 <option value="emp">사원명(ID)</option>
                 <option value="dept">부서명</option>
-              </select>
+              </SearchOrderConditionSelect>
             </InnerDivider>
             <InnerDivider gCol="7" gRow="2">
-              <input type="text" className="orgaSearchKeyword" name="keyword" onChange={changeOrgaSearchConditionHandler} style={{ width: "100%", height: "100%", border: "1px solid #e6e6e6", paddingLeft: "10px", boxSizing: "border-box" }} placeholder="검색어를 입력하세요." />
+              <input type="text" className="orgaSearchKeyword" name="keyword" value={orgaSearch.keyword} onChange={changeOrgaSearchConditionHandler} style={{ width: "100%", height: "100%", border: "1px solid #e6e6e6", paddingLeft: "10px", boxSizing: "border-box" }} placeholder="검색어를 입력하세요." />
             </InnerDivider>
             <InnerDivider gCol="3" gRow="2">
               <span>
@@ -156,7 +153,6 @@ const ROLE0020Modal = ({ menuname, companyNo, changeOrgaList }) => {
         <OuterDivider span="12">
           <InnerGridWrapper>
             <InnerDivider gCol="12" gRow="2">
-              {/* <button type="button" className="btn searchBtn orgaSearchSubmit" onClick={orgaSearchSubmitClickHandler}>확인</button> */}
               <Button type="button" className="btn searchBtn orgaSearchSubmit" onClick={orgaSearchSubmitClickHandler}>확인</Button>
             </InnerDivider>
           </InnerGridWrapper>
@@ -221,4 +217,10 @@ export const InnerGridWrapper = styled.div`
     padding-left: 10px;
     text-align: right;
   }
+`;
+
+export const SearchOrderConditionSelect = styled.select`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  border: ${(props) => props.border};
 `;

@@ -1,34 +1,18 @@
 import React, { useEffect, useState } from "react";
-import request from "@utils/axiosUtil";
 import RoleGroupContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGroupContent";
 import UserListContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserListContent";
 import useModal from "@hooks/useModal";
+import Swal from "sweetalert2";
 
-const getCompanyList = async () => {
-  const { data } = await request.get("/userrole/companyListAll");
-  return data;
-};
+import {
+  getCompanyList,
+  getGroupListByRole,
+  getUserListByRole,
+  insertOrgaRole,
+  removeOrgaRole,
+} from "./api/UserRole";
 
-const getGroupList = async ({ page, size, orgaNo, keyword1 }) => {
-  const { data } = await request.get(`/userrole/roleGroupList?page=${page}&size=${size}&orgaNo=${orgaNo}&keyword1=${keyword1}`);
-  return data;
-};
-
-const getUserList = async ({ orgaNo, roleGroupNo, keyword1 }) => {
-  const { data } = await request.get(`/userrole/roleGroupUserList?orgaNo=${orgaNo}&roleGroupNo=${roleGroupNo}&keyword1=${keyword1}`);
-  return data;
-};
-
-const insertOrgaRole = async (inputData) => {
-  const { data } = await request.post("/userrole/insertOrgaRole", inputData);
-  return data;
-};
-
-const removeOrgaRole = async (removeData) => {
-  const { data } = await request.post("/userrole/removeOrgaRole", removeData);
-  return data;
-};
-
+// 권한그룹기준 - 권한그룹 조회 조건
 const initRgSearch = {
   page: 1,
   size: 10,
@@ -36,6 +20,7 @@ const initRgSearch = {
   keyword1: "",
 };
 
+// 권한그룹기준 - 조직 조회 조건
 const initUlSearch = {
   page: 1,
   size: 10,
@@ -44,6 +29,7 @@ const initUlSearch = {
   keyword1: "",
 };
 
+// 권한그룹기준 - 회사 부서 사용자 선택 팝업 기본 정보 조건
 const initUserRoleModal = {
   menucode: "ROLE0020",
   menuname: "회사 부서 사용자 선택",
@@ -81,7 +67,14 @@ const UserRoleRoleGroupBasedPage = () => {
     changeRoleGroupSearchHandler("orgaNo", selectedCompany.value);
     changeRoleGroupSearchHandler("keyword1", searchInput.value);
 
-    getGroupList(rgSearch).then((data) => {
+    console.log("권한그룹기준 -권한그룹 목록 조회 조건", rgSearch);
+
+    if (rgSearch.orgaNo === 0) {
+      Swal.fire({ title: "회사를 선택해주세요.", icon: "error" }).then((r) => r);
+      return;
+    }
+
+    getGroupListByRole(rgSearch).then((data) => {
       const { dtoList } = data;
       setRoleGroup([]);
       setRoleGroup(dtoList);
@@ -94,7 +87,9 @@ const UserRoleRoleGroupBasedPage = () => {
   };
 
   const userSearchClickHandler = () => {
-    getUserList(ulSearch).then((data) => {
+    console.log("권한그룹기준 -조직 목록 조회 조건", ulSearch);
+
+    getUserListByRole(ulSearch).then((data) => {
       const { dtoList } = data;
       setUserList([]);
       setUserList(dtoList);
@@ -142,15 +137,14 @@ const UserRoleRoleGroupBasedPage = () => {
     }
   };
 
-  const orgaBtnClickHandler = async () => {
+  // 회사 부서 사원 선택 팝업 버튼 클릭 핸들러
+  const orgaBtnClickHandler = () => {
     if (ulSearch.orgaNo === 0 || ulSearch.roleGroupNo === 0) {
-      alert("권한그룹이 선택되지 않았습니다.");
+      Swal.fire({ title: "권한그룹을 선택해주세요", icon: "error" }).then((r) => r);
       return;
     }
 
-    await openModal({ type: "ROLE0020", props: userRoleModal });
-
-    console.log("모달 처리 완료");
+    openModal({ type: "ROLE0020", props: userRoleModal });
 
     userSearchClickHandler();
   };
@@ -172,7 +166,7 @@ const UserRoleRoleGroupBasedPage = () => {
 
   const orgaRoleRemove = () => {
     if (ulSearch.orgaNo === 0 || ulSearch.roleGroupNo === 0) {
-      alert("권한그룹이 선택되지 않았습니다.");
+      Swal.fire({ title: "권한그룹을 선택해주세요.", icon: "error" }).then((r) => r);
       return;
     }
 
@@ -183,6 +177,11 @@ const UserRoleRoleGroupBasedPage = () => {
       return element.dataset?.orgaNo;
     });
 
+    if (arr.length === 0) {
+      Swal.fire({ title: "선택된 조직정보가 없습니다.", icon: "error" }).then((r) => r);
+      return;
+    }
+
     const removeData = {
       orgaNo: ulSearch.orgaNo,
       roleGroupNo: ulSearch.roleGroupNo,
@@ -190,7 +189,7 @@ const UserRoleRoleGroupBasedPage = () => {
     };
 
     removeOrgaRole(removeData).then(() => {
-      // TODO : sweetalert 작업해야됨
+      Swal.fire({ title: "권한그룹이 삭제되었습니다.", icon: "success" }).then((r) => r);
       userSearchClickHandler();
     });
   };
