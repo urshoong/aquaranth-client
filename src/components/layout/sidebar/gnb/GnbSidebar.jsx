@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import GnbMenuItem from "@components/layout/sidebar/gnb/GnbMenuItem";
-import { GET_ROUTES } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import { GET_ROUTES } from "@pages/MODULE/SYS/ROLE/ROLE0031/api/menu";
 import { darken } from "polished";
 
 /**
@@ -16,7 +16,7 @@ const GnbSidebar = () => {
   const [gnbMenuList, setGnbMenuList] = useState([]);
   const [visible, setVisible] = useState(false);
 
-  // FIXME : 버블링
+
   const handleOnEnter = () => {
     setVisible(true);
   };

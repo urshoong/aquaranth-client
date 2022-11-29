@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
 import { CenterGrid, Divider, Span } from "@components/Grid";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
-import request from "../../../../../../../utils/axiosUtil";
+import request from "@utils/axiosUtil";
 
 const empInfo = async () => {
   const { data } = await request.get("/emp/loginlist");
@@ -22,7 +21,7 @@ const initState = {
 };
 
 
-const ORGA0030Modal = (props) => {
+const ProfileChangeModal = (props) => {
   const [employeeState, setEmployeeState] = useState([]);
   const [selectLogin, setSelectLogin] = useState(initState);
   const history = useHistory();
@@ -173,4 +172,4 @@ const ORGA0030Modal = (props) => {
   );
 };
 
-export default ORGA0030Modal;
+export default ProfileChangeModal;

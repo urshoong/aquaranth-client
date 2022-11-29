@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import {darken, lighten} from "polished";
+import { darken, lighten } from "polished";
 import { Link } from "react-router-dom";
 
 /**
@@ -53,7 +53,7 @@ const Icon = styled.img.attrs({
 `;
 
 const Menuname = styled.div`
-  ${({ theme,visible }) => {
+  ${({ theme, visible }) => {
     return css`
       padding-left: 0.5rem;
       ${theme.typo.subtitle1}

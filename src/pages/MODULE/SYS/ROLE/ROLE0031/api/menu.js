@@ -1,6 +1,4 @@
-import request, { setToken } from "@utils/axiosUtil";
-import { REFRESH_TOKEN, TOKEN_REFRESH_PATH } from "@constants/common";
-import { getCookie, removeCookie } from "@utils/cookieUtil";
+import request from "@utils/axiosUtil";
 
 export const GET_ROUTES = async () => {
   return request.get("/menu/list");
@@ -30,18 +28,4 @@ export const PUT_UPDATE_MENU = async (updateMenuDto) => {
 
 export const PUT_UPDATE_MENUICON = async (updateMenuDto) => {
   return request.put("/menu/updateicon", updateMenuDto);
-};
-
-export const CHECK_LOGIN = async () => {
-  await request.get(TOKEN_REFRESH_PATH, { headers: {
-    Authorization: `Bearer ${getCookie(REFRESH_TOKEN)}`,
-  } }).then((res) => {
-    setToken(res.data);
-  }).catch(() => {
-    removeCookie(REFRESH_TOKEN);
-  });
-};
-
-export const POST_LOGIN = async (loginFormData) => {
-  return request.post("/login", loginFormData);
 };
