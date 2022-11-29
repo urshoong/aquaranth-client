@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { getCompanySearch } from "../../api/company";
+import Swal from "sweetalert2";
 
 // 회사 검색 component
 function CompanySearch({ setList }) {
@@ -24,8 +25,10 @@ function CompanySearch({ setList }) {
   // 검색결과를 받아올 handler
   const clickCompanySearch = () => {
     getCompanySearch(companyUse, companySearch).then((data) => {
-      console.log("검색결과 : ", data);
-      setList(data);
+      Swal.fire("검색완료",`${data.length}건`,"success").then(() => {
+        console.log("검색결과 : ", data);
+        setList(data);
+      });
     });
   };
 
