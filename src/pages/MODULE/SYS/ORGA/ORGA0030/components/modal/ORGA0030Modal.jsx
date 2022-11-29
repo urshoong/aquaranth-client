@@ -133,7 +133,7 @@ const ORGA0030Modal = (props) => {
           {employeeState.map((info) => {
             return (
               <div key={info.empNo}>
-                실험용dept:<div>{info.loginDept}</div>
+                {/* 실험용dept:<div>{info.loginDept}</div> */}
                 <div>{info.empName}</div>
                 <div>최근 접속 IP : {info.lastLoginIp}</div>
                 <div>최근 로그인 시간 : {info.lastLoginTime}</div>
@@ -148,11 +148,11 @@ const ORGA0030Modal = (props) => {
                         value={company.companyNo}
                         onChange={(e) => { handleOnChangeRadio(e); }}
                         // onChange={() => { onClickHandler(); }}
-                        checked={info.loginCompanyNo}
+                        // checked={info.loginCompanyNo}
                         readOnly
                       />
                       {company.companyName}
-                      <select name="dept" value={info.loginDept || ""}>
+                      <select name="dept">
                         {company.deptList.map((dept) => {
                           return (
                             <option key={dept.deptNo} value={dept.deptNo} name="loginDeptNo">
