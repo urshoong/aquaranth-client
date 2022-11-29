@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { RoleGroupItemWrapper } from "./RoleGroupList";
-import Button from "../../../../../../components/Button";
 import useModal from "../../../../../../hooks/useModal";
 
 function RoleGroupItem({ roleGroup, companyList, onClickRoleGroupItem }) {
   const { roleGroupName, companyNo, companyName } = roleGroup;
   const { openModal } = useModal();
 
+  // 권한그룹 수정/삭제 버튼 클릭시 모달 오픈
   const handleOnRoleGroupMocModal = () => {
     openModal({ type: "ROLE0010Mod", props: { roleGroup, companyList } });
   };
