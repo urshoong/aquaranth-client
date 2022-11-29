@@ -42,7 +42,7 @@ function DepartmentRegisterComp(props) {
    */
   const regClickHandler = () => {
     registerDept(regDept).then((reuslt) => {
-      setRegDept(reuslt)
+      setRegDept(reuslt);
       console.log("등록되었습니다.");
       alert("등록되었습니다.");
     });
@@ -81,8 +81,6 @@ function DepartmentRegisterComp(props) {
       <button type="button" onClick={regClickHandler}>저장</button>
 
     </div>
-    // <div>
-    // </div>
   );
 }
 

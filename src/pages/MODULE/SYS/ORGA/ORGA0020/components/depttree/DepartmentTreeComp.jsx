@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import TreeItemComp from "@pages/MODULE/SYS/ORGA/ORGA0020/components/TreeItemComp";
+import TreeItemComp from "@pages/MODULE/SYS/ORGA/ORGA0020/components/depttree/TreeItemComp";
 import { getTree } from "@pages/MODULE/SYS/ORGA/ORGA0020/api/department";
 
 
@@ -23,7 +23,8 @@ function DepartmentTreeComp({ companyNo,
   return (
     <TreeItemComp
       topDepartment={topDepartment}
-      handleSelectDepartment={handleSelectDepartment}/>
+      handleSelectDepartment={handleSelectDepartment}
+    />
   );
 }
 

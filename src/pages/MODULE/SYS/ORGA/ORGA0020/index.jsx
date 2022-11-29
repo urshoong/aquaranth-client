@@ -12,17 +12,23 @@ import {
 
 
 function Index() {
-  // const { openModal } = useModal();
-  // const data = { menucode: "ORGA0020", menuname: "부서 관리" };
-  // const handleOnModal = () => {
-  //   openModal({ type: "ORGA0020", props: data });
-  // };
+  const { openModal } = useModal();
+  const data = { menucode: "ORGA0020", menuname: "부서 관리" };
+
+  /**
+   * 모달창을 띄워 줄 핸들러 입니다.
+   */
+  const handleOnModal = () => {
+    openModal({
+      type: "ORGA0020",
+      props: data,
+    });
+  };
 
   /**
    * 화면 재랜더링용 상태입니다.
    */
   const [refresh, setRefresh] = useState(false);
-
 
   /**
    * 컴포넌트가 로딩이 될때,
@@ -60,6 +66,11 @@ function Index() {
   // ============================수정=============================================
 
   /**
+   * 수정된 radio 버튼의 데이터를 관리합니다.
+   */
+  const [modRadioBtn, setModRadioBtn] = useState(true);
+
+  /**
    * 수정 버튼을 클릭하면 변경된 내용에 맞게 변경해줍니다.
    * @param e
    */
@@ -74,9 +85,12 @@ function Index() {
    * @param e
    */
   const radioBtnHandler = (e) => {
-    const { checked, name } = e.target;
-    modRadioBtn[name] = checked;
-    setModRadioBtn(modRadioBtn);
+    // const { checked, name } = e.target;
+    // modRadioBtn[name] = checked;
+    // setModRadioBtn(modRadioBtn);
+    const { value } = e.target;
+    setModRadioBtn(value);
+    console.log("사용여부가 바뀌었습니다", modRadioBtn);
   };
   /**
    * 수정 버튼을 클릭하면 입력한 데이터에
@@ -86,18 +100,15 @@ function Index() {
   const modClickHandler = () => {
     modifyDept({ ...selectDepartment, mainFlag: modRadioBtn }).then(() => {
       console.log("complete");
-      alert("수정되었습니다.")
+      alert("수정되었습니다.");
     });
   };
 
-  /**
-   * 수정된 radio 버튼의 데이터를 관리합니다.
-   */
-  const [modRadioBtn, setModRadioBtn] = useState(false);
+
   // ============================수정=============================================
 
   // ==========================등록========================================
-  // const registerComponent =
+
 
   // ==========================등록========================================
 
@@ -117,7 +128,6 @@ function Index() {
   // ==========================추가========================================
 
 
-
   return (
     <DepartmentEditPage
       selectDepartment={selectDepartment}
@@ -132,6 +142,7 @@ function Index() {
       modClickHandler={modClickHandler}
       viewSelect={viewSelect}
       setViewSelect={setViewSelect}
+      handleOnModal={handleOnModal}
     />
   );
 }
