@@ -1,17 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
+import request from "../../../../../../utils/axiosUtil";
 
-function EmpBasicInformation({ clickEmpRegister, clickEmpModify,
+const modifyProfile = async (profile) => {
+  const { data } = await request.put("/emp/updateprofile", profile);
+  return data;
+};
+
+function EmpBasicInformation({ clickEmpModify,
   empInformation, changeEmpInput, handleOnRegisterModal }) {
+  const [file, setFile] = useState();
+  // 미리보기
+  const [preview, setPreview] = useState(null);
+
+  const onSaveFile = (e) => {
+    const fileReader = new FileReader();
+    // 파일 저장
+    const onloadFile = e.target.files[0];
+    setFile(onloadFile);
+
+    fileReader.readAsDataURL(onloadFile);
+    fileReader.onloadend = () => {
+      setPreview(fileReader.result);
+    };
+  };
+
+  const onUpload = (empNo) => {
+    const formData = new FormData();
+    formData.append("multipartFile", file);
+    formData.append("key", empNo);
+    modifyProfile(formData).then(() => {
+      // alert("프로필이 변경되었습니다.");
+    });
+  };
+
   return (
     <div>
       <button type="button" onClick={() => { handleOnRegisterModal(); }}>추가</button>
       <button type="button" onClick={() => { clickEmpModify(); }}>수정</button>
 
       <div className="empBasicInformation">
-        <div className="category" />
-        <div className="info">
-          <input type="file" />
+
+        <div>
+          이미지 {preview && <img src={preview} alt="미리보기" />}
         </div>
+        <div><img src={empInformation.profileUrl} alt="프로필 이미지" /></div>
+
+        <input
+          type="file"
+          onChange={(e) => { onSaveFile(e); }}
+        />
+        <button type="button" onClick={() => { onUpload(empInformation.empNo); }}>프로필 등록</button>
+
 
         <div>이름</div>
         <input

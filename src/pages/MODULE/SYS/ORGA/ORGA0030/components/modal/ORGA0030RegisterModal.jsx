@@ -36,7 +36,7 @@ const initState = {
 };
 
 
-function Orga0030RegisterModal(props) {
+function Orga0030RegisterModal() {
   // 모달 close
   const { closeModal } = useModal();
 

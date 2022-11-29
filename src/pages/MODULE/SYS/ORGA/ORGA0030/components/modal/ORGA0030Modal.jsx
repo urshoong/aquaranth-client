@@ -109,16 +109,14 @@ const ORGA0030Modal = (props) => {
         selectLogin.loginDeptNo = select.value;
         setSelectLogin({ ...selectLogin });
       }
-
       console.log("selectLogin", selectLogin);
     });
 
     registerLoginUser(selectLogin).then(() => {
       // TODO 모달말고 컴포넌트로 바꾸기(?)
+      history.replace("/");
+      closeModal();
     });
-
-    history.replace("/");
-    closeModal();
   };
 
   return (
@@ -165,7 +163,6 @@ const ORGA0030Modal = (props) => {
           <button type="submit" onClick={() => { handleOnClickChangeDeptSubmit(); }}>확인</button>
           {/* <button type="reset" onClick={() => { handleCloseModal(); }}>취소</button> */}
         </div>
-
       </CenterGrid>
     </Modal>
   );
