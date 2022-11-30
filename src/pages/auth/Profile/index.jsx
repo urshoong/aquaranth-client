@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CenterGrid } from "@components/Grid";
-import { useHistory } from "react-router-dom";
 import { empInfo, registerLoginUser } from "@pages/auth/Profile/api/profile";
+import Swal from "sweetalert2";
 
 const Index = () => {
   const initState = {
@@ -11,49 +11,71 @@ const Index = () => {
 
   const [employeeState, setEmployeeState] = useState([]);
   const [selectLogin, setSelectLogin] = useState(initState);
-  const history = useHistory();
-
 
   // 회사, 부서 set
   useEffect(() => {
-    empInfo().then((data) => {
-      setEmployeeState(data);
-    });
+    empInfo()
+      .then((data) => {
+        setEmployeeState(data);
+      });
   }, []);
 
   // 회사 변경 확인 클릭 버튼
-  const handleOnClickChangeDeptSubmit = (e) => {
+  const handleOnClickChangeDeptSubmit = () => {
+    // radio 타입의 result 가 들어갈 새로운 배열 생성
+    const radioArr = [];
+
+    let radio = "";
+    let select = "";
     // 클래스 companyDiv 내의 모든 요소를 가져온다.
     const companyDivs = document.querySelectorAll(".companyDiv");
-
     // 유사 배열
     // 배열 내의 모든 요소 각각에 대하여 주어진 함수를 호출한 결과를 모아 새로운 배열을 반환
     // 가져온 요소들을 각 각 새로운 배열로 만들어 반환한다.
     Array.prototype.map.call(companyDivs, (companyDiv) => {
-      console.log(companyDiv);
       // 타입이 라디오인 요소 선택
-      const radio = companyDiv.querySelector("input[type='radio']");
+      radio = companyDiv.querySelector("input[type='radio']");
       // 타입이 셀렉인 요소 선택
-      const select = companyDiv.querySelector("select");
+      select = companyDiv.querySelector("select");
 
-
-      console.log(radio);
-      console.log(radio.checked);
-      // 라디오 체크된 부분의 radio값과 select값을 입력해준다.
-      if (radio.checked) {
-        selectLogin.loginCompanyNo = radio.value;
-        selectLogin.loginDeptNo = select.value;
-        setSelectLogin({ ...selectLogin });
+      // 선택된 radio 타입이 있다면, 값을 넣기 위한 배열에 선택된 값을 넣는다.
+      if (radio.checked === true) {
+        radioArr.push(radio.value);
+        radioArr.push(select.value);
       }
-
-      console.log("selectLogin", selectLogin);
     });
 
-    registerLoginUser(selectLogin).then(() => {
-      location.href = "/";
-      location.reload();
-      // TODO 모달말고 컴포넌트로 바꾸기(?)
-    });
+    // 배열이 비어있다면 체크 여부 알람을 띄운다.
+    if (radioArr.length === 0) {
+      Swal.fire("체크 여부 없음", "접속할 회사를 선택해주세요", "warning").then();
+    // 배열의 값이 있다면, 배열의 0번째 값 ( 체크 값 ), 1번째 값을 각각 해당하는 state 로 설정한다.
+    } else {
+      selectLogin.loginCompanyNo = Number(radioArr[0]);
+      selectLogin.loginDeptNo = Number(radioArr[1]);
+      setSelectLogin({ ...selectLogin });
+      registerLoginUser(selectLogin)
+        .then(() => {
+          location.href = "/";
+          location.reload();
+        });
+    }
+    /* if (radioCheckNum > 0) {
+      selectLogin.loginCompanyNo = radio.value;
+      selectLogin.loginDeptNo = select.value;
+      setSelectLogin({ ...selectLogin });
+      console.log("성공");
+      registerLoginUser(selectLogin)
+        .then(() => {
+          location.href = "/";
+          location.reload();
+        });
+    } else {
+      Swal.fire("체크 여부 없음", "접속할 회사를 선택해주세요", "warning")
+        .then();
+    } */
+
+    console.log(radioArr);
+    console.log("selectLogin", selectLogin);
   };
 
   return (
@@ -62,6 +84,7 @@ const Index = () => {
         {employeeState.map((info) => {
           return (
             <div key={info.empNo}>
+
               <div>{info.empName}</div>
               <div>최근 접속 IP : {info.lastLoginIp}</div>
               <div>최근 로그인 시간 : {info.lastLoginTime}</div>
@@ -93,8 +116,13 @@ const Index = () => {
             </div>
           );
         })}
-        <button type="submit" onClick={() => { handleOnClickChangeDeptSubmit(); }}>확인</button>
-        {/* <button type="reset" onClick={() => { handleCloseModal(); }}>취소</button> */}
+        <button
+          type="submit"
+          onClick={() => {
+            handleOnClickChangeDeptSubmit();
+          }}
+        >확인
+        </button>
       </div>
 
     </CenterGrid>
