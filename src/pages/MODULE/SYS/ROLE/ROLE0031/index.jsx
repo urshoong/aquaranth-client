@@ -1,76 +1,28 @@
 import React, { useMemo, useState } from "react";
 import { useQuery } from "react-query";
-import request from "@utils/axiosUtil";
 import { ReactQueryDevtools } from "react-query/devtools";
-import TreeLayout from "@components/tree/TreeLayout";
 import styled, { css } from "styled-components";
 import { Span } from "@components/Grid";
-import {GET_ROUTES} from "@pages/MODULE/SYS/ROLE/ROLE0031/api/menu";
+import { GET_MENU_LIST } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
 
 const Index = () => {
   const [menuList, setMenuList] = useState([]);
   const [selectedMenu, setSelectedMenu] = useState({});
 
-  const { state, data, error, isFetching, isLoading } = useQuery("menu", GET_ROUTES);
+  const { state, data, error, isFetching, isLoading } = useQuery("menu", GET_MENU_LIST);
 
-  if (isLoading){
-    return <>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-      <div className="">LOADING</div>
-    </>
-  }
-
-  if (isFetching){
-    return <>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-      <div className="">FETCHDING</div>
-    </>
+  if (isLoading) {
+    return <>Loading</>;
   }
 
   return (
     <div>
       <MenuFormWrapper>
-        <TreeLayout
-          apiList={menuList}
-          rootValue={null}
-          selectedItem={selectedMenu}
-          setSelectedItem={setSelectedMenu}
-          upperColumn="upperMenuNo"
-          matchColumn="menuNo"
-          columnName="menuName"
-          initCollapsed
-        />
+        {data.data.map((item) => {
+          return (<div>{item.menuCode}</div>);
+        })}
       </MenuFormWrapper>
+
       <ReactQueryDevtools initialIsOpen />
     </div>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { darken, lighten } from "polished";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 /**
  * GNB 사이드바에 사용되는 메뉴 컴포넌트 입니다.
@@ -13,19 +13,23 @@ import { Link } from "react-router-dom";
  * @author 김민준
  */
 const GnbMenuItem = ({ menu: { menuName, menuPath, iconUrl }, visible }) => {
+  const history = useHistory();
+
+  const module = (pathname) => {
+    history.push(pathname);
+  };
+
   return (
-    <Link to={`${menuPath}`}>
-      <GnbMenuItemWrapper>
-        <Icon src={iconUrl} />
-        <Menuname visible={visible}>
-          {menuName}
-        </Menuname>
-      </GnbMenuItemWrapper>
-    </Link>
+    <GnbMenuItemWrapper onClick={() => {module(menuPath);}}>
+      <Icon src={iconUrl} />
+      <Menuname visible={visible}>
+        {menuName}
+      </Menuname>
+    </GnbMenuItemWrapper>
   );
 };
 
-const GnbMenuItemWrapper = styled.div`
+const GnbMenuItemWrapper = styled.li`
   ${({ theme }) => {
     const { color: { sidebar, white }, ui } = theme;
     return css`

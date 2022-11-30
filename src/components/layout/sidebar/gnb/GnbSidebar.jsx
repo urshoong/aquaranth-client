@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import GnbMenuItem from "@components/layout/sidebar/gnb/GnbMenuItem";
-import { GET_ROUTES } from "@pages/MODULE/SYS/ROLE/ROLE0031/api/menu";
+import { GET_MENU_LIST } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
 import { darken } from "polished";
 
 /**
@@ -25,7 +25,7 @@ const GnbSidebar = () => {
   };
 
   useEffect(() => {
-    GET_ROUTES().then((res) => {
+    GET_MENU_LIST().then((res) => {
       setGnbMenuList(res.data);
     });
   }, []);
@@ -41,7 +41,7 @@ const GnbSidebar = () => {
  * GnB 사이드바 레이아웃 입니다.
  * @type {StyledComponent<"div", AnyIfEmpty<DefaultTheme>, {}, never>}
  */
-const GnBSidebarWrapper = styled.div`
+const GnBSidebarWrapper = styled.ul`
   ${({ theme }) => {
     const { ui, color } = theme;
     return css`
