@@ -8,6 +8,7 @@ import {
 import MenuRoleSearchBox from "./MenuRoleSearchBox";
 import MenuRoleList from "./MenuRoleList";
 import request from "../../../../../../utils/axiosUtil";
+import Swal from "sweetalert2";
 
 const initState = {
   roleGroupNo: 0,
@@ -55,8 +56,8 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
     // 권한그룹에 맞는 메뉴권한 요청
     fetchMenuRoles(selectMenuCode, roleGroupNo)
       .then((data) => {
+        menuRoleDTO.menuRoles = []; // 대메뉴 선택이 바뀌었을때 이전에 선택했던 대메뉴의 체크정보가 초기화 되어야 한다.
         // lnb 리스트 불러올때, 요청할 DTO 에도 체크가 되어있도록 해주어야함.
-        menuRoleDTO.menuRoles = [];
         data.map(({ menuNo, checked }) => { if (checked) { menuRoleDTO.menuRoles.push(menuNo); } });
         setMenuRoleDTO({ ...menuRoleDTO });
         setLnbList(data);
@@ -66,12 +67,13 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
   // 메뉴권한 저장요청
   const onClickMenuRoleSaveBtn = () => {
     if (menuRoleDTO.moduleCode === "") {
-      alert("메뉴를 선택해주세요.");
+      Swal.fire("미선택", "메뉴를 선택해주세요.", "warning").then();
       return;
     }
     console.log("post 요청발송 DTO->", menuRoleDTO.menuRoles);
     request.post("/menu-role", menuRoleDTO)
       .then(() => {
+        Swal.fire("메뉴권한이 저장되었습니다.", "", "success").then();
         dispatch(changeRefresh());
         setSelectedRoleGroup({});
       });
