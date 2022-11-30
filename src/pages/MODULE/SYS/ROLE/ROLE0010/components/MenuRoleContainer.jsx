@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { changeRefresh } from "@reducer/roleGroupSlice";
-import { MenuRoleWrapper } from "../index";
+import {
+  Section,
+} from "@pages/MODULE/SYS/ROLE/ROLE0010/uicontainer/rolegroup";
 import MenuRoleSearchBox from "./MenuRoleSearchBox";
 import MenuRoleList from "./MenuRoleList";
 import request from "../../../../../../utils/axiosUtil";
-import Button from "../../../../../../components/Button";
 
 const initState = {
   roleGroupNo: 0,
@@ -55,6 +56,7 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
     fetchMenuRoles(selectMenuCode, roleGroupNo)
       .then((data) => {
         // lnb 리스트 불러올때, 요청할 DTO 에도 체크가 되어있도록 해주어야함.
+        menuRoleDTO.menuRoles = [];
         data.map(({ menuNo, checked }) => { if (checked) { menuRoleDTO.menuRoles.push(menuNo); } });
         setMenuRoleDTO({ ...menuRoleDTO });
         setLnbList(data);
@@ -67,7 +69,7 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
       alert("메뉴를 선택해주세요.");
       return;
     }
-    console.log("post 요청발송 DTO->", menuRoleDTO);
+    console.log("post 요청발송 DTO->", menuRoleDTO.menuRoles);
     request.post("/menu-role", menuRoleDTO)
       .then(() => {
         dispatch(changeRefresh());
@@ -75,61 +77,33 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
       });
   };
 
-  // TODO: 메뉴단건 검색이 트리구조와 얽혀서 생기는 문제가 꽤나 복잡해 보이므로, 메뉴검색기능은 삭제할 예정.
-  // const onClickSearchBtn = (searchMenuName) => {
-  //   console.log(searchMenuName);
-  // };
-
   return (
-    <MenuRoleWrapper>
-      <Header>
-        {roleGroupNo}번 권한그룹이 선택되었습니다.<br />
-        사용자메뉴 / 담당자메뉴<br />
-        <Button onClick={onClickMenuRoleSaveBtn}>저장버튼</Button>
-      </Header>
-      <Content>
-        <MenuRoleDiv>
-          <MenuRoleSearchBox gnbList={gnbList} onChangeSelectBox={onChangeSelectBox} selectValue={selectValue} setSelectValue={setSelectValue} />
-          <MenuRoleList lnbList={lnbList} setMenuRoleDTO={setMenuRoleDTO} menuRoleDTO={menuRoleDTO} />
-        </MenuRoleDiv>
-      </Content>
-    </MenuRoleWrapper>
+    <Section className="roleGroup right">
+      {/* TODO: 사용자/담당자 메뉴 구분 안할거면 지우자 */}
+      {/* <InnerTabWrapper> */}
+      {/*   <InnerTabSpan>사용자메뉴</InnerTabSpan> */}
+      {/*   <InnerTabSpan>담당자메뉴</InnerTabSpan> */}
+      {/*   <Button onClick={onClickMenuRoleSaveBtn}>저장버튼</Button> */}
+      {/* </InnerTabWrapper> */}
+      <div>
+        <div>
+          <div>[{roleGroupName}({roleGroupNo})] 권한그룹의 메뉴권한 정보입니다.</div>
+          <MenuRoleSearchBox
+            gnbList={gnbList}
+            onChangeSelectBox={onChangeSelectBox}
+            selectValue={selectValue}
+            setSelectValue={setSelectValue}
+            onClickMenuRoleSaveBtn={onClickMenuRoleSaveBtn}
+          />
+          <MenuRoleList
+            lnbList={lnbList}
+            setMenuRoleDTO={setMenuRoleDTO}
+            menuRoleDTO={menuRoleDTO}
+          />
+        </div>
+      </div>
+    </Section>
   );
 }
 
 export default MenuRoleContainer;
-
-const Header = styled.div`
-  border: black solid 1px;
-  width: 100%;
-  height: 10%;
-`;
-
-const Content = styled.div`
-  border: black solid 1px;
-  display: flex;
-  width: 100%;
-  height: 90%;
-`;
-
-const MenuRoleDiv = styled.div`
-  border: black 1px solid;
-  width: 100%;
-  height: 100%
-`;
-
-export const MenuRoleSearchBoxDiv = styled.div`
-  border: black solid 1px;
-  width: 100%;
-  height: 20%;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const MenuRoleListDiv = styled.div`
-  border: black solid 1px;
-  width: 100%;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-`;
