@@ -23,6 +23,29 @@ export const GET_CACHED_ROUTES = async () => {
 };
 
 /**
+ * 권한이 있는 유저가 들어갈 수 있는 메뉴 리스트
+ * @return {Promise<AxiosResponse<any>>}
+ * @constructor
+ */
+export const GET_USER_MENULIST = async (menu, keyword) => {
+  let url = `${NORMAL_URL}/list?`;
+
+  if (typeof menu === "number") {
+    url += (`menuNo=${menu}`);
+  }
+
+  if (typeof menu === "string") {
+    url += (`menuCode=${menu}`);
+  }
+
+  if (keyword) {
+    url += (`&keyword=${keyword}`);
+  }
+  return request.get(`${url}`);
+};
+
+
+/**
  * 한건 이상 메뉴 조회
  * @return {Promise<AxiosResponse<any>>}
  * @constructor

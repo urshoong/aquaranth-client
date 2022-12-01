@@ -20,6 +20,7 @@ const ProfileChangeModal = loadable(() => import("@pages/auth/Profile/modal/Prof
 const MenuIconUpdateModal = loadable(() => import("@pages/MODULE/SYS/ROLE/ROLE0030/components/modal/MenuIconUpdateModal"));
 const MenuInsertModal = loadable(() => import("@pages/MODULE/SYS/ROLE/ROLE0030/components/modal/MenuInsertModal"));
 const MenuDeleteConfirmModal = loadable(() => import("@pages/MODULE/SYS/ROLE/ROLE0030/components/modal/MenuDeleteConfirmModal"));
+const MenuSearchModal = loadable(() => import("@pages/MODULE/SYS/ROLE/ROLE0030/components/modal/MenuSearchModal"));
 
 const MODAL_COMPONENTS = {
   ORGA0010: ORGA0010Modal,
@@ -35,6 +36,7 @@ const MODAL_COMPONENTS = {
   MenuIconUpdate: MenuIconUpdateModal,
   MenuInsert: MenuInsertModal,
   MenuDeleteConfirm: MenuDeleteConfirmModal,
+  MenuSearch: MenuSearchModal,
 };
 
 

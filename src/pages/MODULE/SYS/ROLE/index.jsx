@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 const Index = () => {
-  return (
-    <div>
+  const history = useHistory();
 
-    </div>
-  )
-}
+  useEffect(() => {
+    history.push("/SYS/ROLE/ROLE0030");
+  }, []);
+
+  return (
+    <></>
+  );
+};
 
 export default Index;

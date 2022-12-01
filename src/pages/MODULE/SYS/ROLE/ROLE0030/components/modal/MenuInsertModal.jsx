@@ -1,32 +1,37 @@
 import React, { useRef, useState } from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
+import styled from "styled-components";
 import { PUT_UPDATE_MENU, PUT_UPDATE_MENUICON } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
 import FormInput from "@components/form/FormInput";
 import {
-  ColumnName, FileInput,
+  ColumnName,
   FormItemWrapper, Image, InputWrapper,
   Layout, MenuButton,
   MenuFormWrapper,
   Text,
+  TitleWrapper,
 } from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Style";
 import { useForm } from "react-hook-form";
 import Button from "@components/Button";
+import {Input} from "@components/Input";
 
 
 const MenuInsertModal = ({ selectedMenu }) => {
   const [file, setFile] = useState();
   const [image, setImage] = useState(null);
-  const { closeModal } = useModal();
+  const [menu, setMenu] = useState();
+  const { openModal, closeModal } = useModal();
+
+  const handleOnMenuSearchModal = () => {
+    openModal({ type: "MenuSearch", props: "" });
+  };
 
   const handleCloseModal = () => {
     closeModal();
   };
 
-
   const imageInput = useRef();
-
-  const { handleSubmit, control, formState: { errors } } = useForm();
 
   const handleOnGetFile = () => {
     imageInput.current?.click();
@@ -57,13 +62,29 @@ const MenuInsertModal = ({ selectedMenu }) => {
     });
   };
 
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    const origin = { ...menu };
+    origin[name] = value;
+    setMenu(origin);
+    console.log(menu)
+  };
+
+  const handleOnCheckbox = (e) => {
+    const { name, checked } = e.target;
+    const origin = { ...menu };
+    origin[name] = checked;
+    setMenu(origin);
+  };
+
 
   return (
     <Modal
       onClose={handleCloseModal}
       title="메뉴 등록"
     >
-      <MenuFormWrapper onSubmit={handleSubmit(menuInsertHandler)}>
+
+      <MenuFormWrapper>
         <Layout>
           <FormItemWrapper>
             <ColumnName>
@@ -72,11 +93,13 @@ const MenuInsertModal = ({ selectedMenu }) => {
               </Text>
             </ColumnName>
             <InputWrapper>
-              <FormInput
+              <Input
                 name="upperMenuNo"
-                control={control}
-                defaultValue=""
+                value={menu?.upperMenuNo}
+                hidden
               />
+              {menu?.upperMenuName}
+              <button type="button" onClick={handleOnMenuSearchModal}>검색하기</button>
             </InputWrapper>
           </FormItemWrapper>
           <FormItemWrapper>
@@ -86,10 +109,13 @@ const MenuInsertModal = ({ selectedMenu }) => {
               </Text>
             </ColumnName>
             <InputWrapper>
-              <FormInput
+              <Input
                 name="menuName"
-                control={control}
-                defaultValue=""
+                value={menu?.menuName}
+                onKeyPress={(e) => {
+                  e.preventDefault();
+                  handleOnChange(e)
+                }}
               />
             </InputWrapper>
           </FormItemWrapper>
@@ -100,10 +126,12 @@ const MenuInsertModal = ({ selectedMenu }) => {
               </Text>
             </ColumnName>
             <InputWrapper>
-              <FormInput
+              <Input
+                type="checkbox"
                 name="mainFlag"
-                control={control}
-                defaultValue=""
+                value={menu?.mainFlag}
+                checked={menu?.mainFlag}
+                onChange={handleOnCheckbox}
               />
             </InputWrapper>
           </FormItemWrapper>
@@ -114,10 +142,13 @@ const MenuInsertModal = ({ selectedMenu }) => {
               </Text>
             </ColumnName>
             <InputWrapper>
-              <FormInput
+              <Input
                 name="menuOrder"
-                control={control}
-                defaultValue=""
+                value={menu?.menuOrder}
+                onKeyPress={(e) => {
+                  e.preventDefault();
+                  handleOnChange(e)
+                }}
               />
             </InputWrapper>
           </FormItemWrapper>
@@ -141,5 +172,12 @@ const MenuInsertModal = ({ selectedMenu }) => {
     </Modal>
   );
 };
+
+
+const FileInput = styled.input.attrs({
+  type: "file",
+})`
+  display: none;
+`;
 
 export default MenuInsertModal;

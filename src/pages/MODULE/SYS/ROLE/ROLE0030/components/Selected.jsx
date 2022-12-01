@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Button from "@components/Button";
 import SelectMenuContext from "@pages/MODULE/SYS/ROLE/ROLE0030/context/SelectMenuContext";
 import {
@@ -27,6 +27,13 @@ const Selected = ({ handleOnIconUpdateModal, handleOnMenuInsertModal, handleOnMe
     const { name, value } = e.target;
     const origin = { ...queryMenu };
     origin[name] = value;
+    setQueryMenu(origin);
+  };
+
+  const handleOnCheckbox = (e) => {
+    const { name, checked } = e.target;
+    const origin = { ...queryMenu };
+    origin[name] = checked;
     setQueryMenu(origin);
   };
 
@@ -71,9 +78,10 @@ const Selected = ({ handleOnIconUpdateModal, handleOnMenuInsertModal, handleOnMe
           </ColumnName>
           <InputWrapper>
             <Input
+              type="checkbox"
               name="mainFlag"
-              value={queryMenu?.mainFlag || ""}
-              onChange={handleOnChange}
+              checked={queryMenu?.mainFlag || false}
+              onChange={handleOnCheckbox}
             />
           </InputWrapper>
         </FormItemWrapper>
@@ -104,7 +112,6 @@ const Selected = ({ handleOnIconUpdateModal, handleOnMenuInsertModal, handleOnMe
         <MenuButton onClick={() => { handleOnUpdateMenu(queryMenu); }}>메뉴 수정</MenuButton>
         <MenuButton onClick={handleOnMenuDeleteConfirmModal}>메뉴 삭제</MenuButton>
       </Layout>
-
     </MenuFormWrapper>
   );
 };
