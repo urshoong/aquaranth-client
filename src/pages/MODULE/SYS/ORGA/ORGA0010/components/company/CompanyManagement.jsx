@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import CompanyInformation from "@pages/MODULE/SYS/ORGA/ORGA0010/components/company/CompanyInformation";
 import CompanySearch from "@pages/MODULE/SYS/ORGA/ORGA0010/components/company/CompanySearch";
 import CompanyList from "@pages/MODULE/SYS/ORGA/ORGA0010/components/company/CompanyList";

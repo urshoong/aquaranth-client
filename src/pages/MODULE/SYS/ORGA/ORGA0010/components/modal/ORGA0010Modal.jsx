@@ -81,14 +81,33 @@ const ORGA0010Modal = () => {
 
   // 해당 마이그룹에 즐겨찾기된 사원 삭제할 handler
   const clickFavoriteEmp = (e, mygroupNo, orgaNo) => {
+    // 부모로의 이벤트에 적용되지 않고 자신에게만 이벤트가 적용되도록 도와주기 위해 사용
     e.stopPropagation();
     deleteFavoriteEmp(mygroupNo, orgaNo).then(() => {
-      getMygroupList().then((list) => {
-        setMyList(list);
-        getFavoriteEmpList(mygroupNo).then((data) => {
-          setFavoriteEmpList(data);
-          setFavoriteEmpInfo({});
-        });
+      Swal.fire({
+        title: "삭제",
+        text: "즐겨찾기를 해제하시겠습니까?",
+        icon: "warning",
+
+        showCancelButton: true, // cancel 버튼 보이기. 기본은 원래 없음
+        confirmButtonColor: "#3085d6", // confrim 버튼 색깔 지정
+        cancelButtonColor: "#d33", // cancel 버튼 색깔 지정
+        confirmButtonText: "삭제", // confirm 버튼 텍스트 지정
+        cancelButtonText: "취소", // cancel 버튼 텍스트 지정
+      }).then((result) => {
+        // 만약 Promise리턴을 받으면,
+        if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
+          Swal.fire("완료", "즐겨찾기에세 해제되었습니다.", "success")
+            .then(() => {
+              getMygroupList().then((list) => {
+                setMyList(list);
+                getFavoriteEmpList(mygroupNo).then((data) => {
+                  setFavoriteEmpList(data);
+                  setFavoriteEmpInfo({});
+                });
+              });
+            });
+        }
       });
     });
   };
@@ -111,7 +130,7 @@ const ORGA0010Modal = () => {
       text: "해당 그룹을 삭제하시겠습니까?",
       icon: "warning",
 
-      showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+      showCancelButton: true, // cancel 버튼 보이기. 기본은 원래 없음
       confirmButtonColor: "#3085d6", // confrim 버튼 색깔 지정
       cancelButtonColor: "#d33", // cancel 버튼 색깔 지정
       confirmButtonText: "삭제", // confirm 버튼 텍스트 지정
@@ -307,8 +326,4 @@ const MyRegisterBtn = styled.button`
   float: ${(props) => props.float};
 `;
 
-const ModifyMygroup = styled.div`
-  margin-left: 1em;
-  margin-top: 5em;
-`;
 
