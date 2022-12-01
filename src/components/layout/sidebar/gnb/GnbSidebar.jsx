@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import GnbMenuItem from "@components/layout/sidebar/gnb/GnbMenuItem";
-import { GET_MENU_LIST } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import { GET_MENULIST } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
 import { darken } from "polished";
 
 /**
@@ -25,7 +25,7 @@ const GnbSidebar = () => {
   };
 
   useEffect(() => {
-    GET_MENU_LIST().then((res) => {
+    GET_MENULIST().then((res) => {
       setGnbMenuList(res.data);
     });
   }, []);

@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import FormInput from "@components/form/FormInput";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "@components/Button";
 import SelectMenuContext from "@pages/MODULE/SYS/ROLE/ROLE0030/context/SelectMenuContext";
 import {
@@ -9,13 +8,30 @@ import {
   MenuFormWrapper,
   Text,
   TitleWrapper,
-} from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Style";
-import { DevTool } from "@hookform/devtools";
+} from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Style.jsx";
+import styled from "styled-components";
+import { GET_MENU_DETAIL } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
 
-const Selected = ({ control, handleOnIconUpdateModal, handleOnMenuInsertModal, menuUpdateHandler, handleSubmit, handleOnMenuDeleteConfirmModal }) => {
-  const { selectedMenu, setSelectedMenu } = useContext(SelectMenuContext);
+
+const Selected = ({ handleOnIconUpdateModal, handleOnMenuInsertModal, handleOnMenuDeleteConfirmModal, handleOnUpdateMenu }) => {
+  const { selectedMenu, setSelectedMenu, queryMenu, setQueryMenu } = useContext(SelectMenuContext);
+
+  useEffect(() => {
+    GET_MENU_DETAIL(selectedMenu).then((res) => {
+      setQueryMenu(res.data);
+    });
+  }, [selectedMenu]);
+
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    const origin = { ...queryMenu };
+    origin[name] = value;
+    setQueryMenu(origin);
+  };
+
   return (
-    <MenuFormWrapper onSubmit={handleSubmit(menuUpdateHandler)}>
+    <MenuFormWrapper>
       <Layout>
         <TitleWrapper>
           <Text>
@@ -30,12 +46,7 @@ const Selected = ({ control, handleOnIconUpdateModal, handleOnMenuInsertModal, m
             </Text>
           </ColumnName>
           <InputWrapper>
-            <FormInput
-              name="upperMenuNo"
-              control={control}
-              placeholder={selectedMenu.upperMenuNo ? selectedMenu.upperMenuNo : "대메뉴"}
-              defaultValue={selectedMenu.upperMenuNo ? selectedMenu.upperMenuNo : null}
-            />
+            <div className="">{queryMenu?.upperMenuName || "GNB"}</div>
           </InputWrapper>
         </FormItemWrapper>
         <FormItemWrapper>
@@ -45,11 +56,10 @@ const Selected = ({ control, handleOnIconUpdateModal, handleOnMenuInsertModal, m
             </Text>
           </ColumnName>
           <InputWrapper>
-            <FormInput
+            <Input
               name="menuName"
-              control={control}
-              placeholder={selectedMenu.menuName}
-              defaultValue={selectedMenu.menuName}
+              value={queryMenu?.menuName || ""}
+              onChange={handleOnChange}
             />
           </InputWrapper>
         </FormItemWrapper>
@@ -60,11 +70,10 @@ const Selected = ({ control, handleOnIconUpdateModal, handleOnMenuInsertModal, m
             </Text>
           </ColumnName>
           <InputWrapper>
-            <FormInput
+            <Input
               name="mainFlag"
-              control={control}
-              placeholder={selectedMenu.mainFlag ? "사용" : "사용안함"}
-              defaultValue=""
+              value={queryMenu?.mainFlag || ""}
+              onChange={handleOnChange}
             />
           </InputWrapper>
         </FormItemWrapper>
@@ -75,12 +84,12 @@ const Selected = ({ control, handleOnIconUpdateModal, handleOnMenuInsertModal, m
             </Text>
           </ColumnName>
           <InputWrapper>
-            <FormInput
+            <Input
               name="menuOrder"
-              control={control}
-              placeholder={selectedMenu.menuOrder}
-              defaultValue={selectedMenu.menuOrder}
+              value={queryMenu?.menuOrder || ""}
+              onChange={handleOnChange}
             />
+            <input value={queryMenu?.menuCode || ""} hidden />
           </InputWrapper>
         </FormItemWrapper>
         <FormItemWrapper>
@@ -89,15 +98,19 @@ const Selected = ({ control, handleOnIconUpdateModal, handleOnMenuInsertModal, m
               아이콘
             </Text>
           </ColumnName>
-          <Image src={selectedMenu.iconUrl} />
-          <Button type="button" onClick={handleOnIconUpdateModal}>사진 수정하기</Button>
+          <Image src={queryMenu?.iconUrl || ""} />
+          <Button type="button" onClick={handleOnIconUpdateModal}>아이콘 수정하기</Button>
         </FormItemWrapper>
-        <MenuButton>메뉴 수정</MenuButton>
+        <MenuButton onClick={() => { handleOnUpdateMenu(queryMenu); }}>메뉴 수정</MenuButton>
         <MenuButton onClick={handleOnMenuDeleteConfirmModal}>메뉴 삭제</MenuButton>
-        <DevTool control={control} />
       </Layout>
+
     </MenuFormWrapper>
   );
 };
+
+const Input = styled.input`
+`;
+
 
 export default Selected;

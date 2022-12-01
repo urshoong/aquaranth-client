@@ -3,13 +3,13 @@ import { useQuery } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import styled, { css } from "styled-components";
 import { Span } from "@components/Grid";
-import { GET_MENU_LIST } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import { GET_MENULIST } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
 
 const Index = () => {
   const [menuList, setMenuList] = useState([]);
   const [selectedMenu, setSelectedMenu] = useState({});
 
-  const { state, data, error, isFetching, isLoading } = useQuery("menu", GET_MENU_LIST);
+  const { state, data, error, isFetching, isLoading } = useQuery("menu", GET_MENULIST);
 
   if (isLoading) {
     return <>Loading</>;

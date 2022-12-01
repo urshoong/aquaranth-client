@@ -2,14 +2,13 @@ import styled, { css } from "styled-components";
 import { Span } from "@components/Grid";
 import { lighten } from "polished";
 
-export const MenuButton = styled.button.attrs({ type: "submit" })`
+export const MenuButton = styled.button`
   ${({ theme }) => {
     return css`
-      margin-top: 10px;
+      margin: 10px 0;
       padding: 1rem;
       width: 100%;
       border: 1px solid ${theme.color.grayA100};;
-      
     }
     `;
   }}
@@ -64,7 +63,7 @@ export const Text = styled.div`
   `}`;
 
 
-export const MenuFormWrapper = styled.form`
+export const MenuFormWrapper = styled.div`
   ${({ theme }) => {
     return css`
       ${Span}

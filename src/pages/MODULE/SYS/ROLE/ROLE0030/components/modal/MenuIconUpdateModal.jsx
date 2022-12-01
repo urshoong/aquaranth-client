@@ -1,15 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, {useRef, useState} from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
-import { CenterGrid } from "@components/Grid";
 import styled, {css} from "styled-components";
-import { PUT_UPDATE_MENUICON } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
-import { FileInput, Image, Layout, MenuButton } from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Style";
+import {PUT_UPDATE_MENUICON} from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import {FileInput, Image, Layout, MenuButton} from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Style";
 
-const MenuIconUpdateModal = ({ selectedMenu }) => {
+const MenuIconUpdateModal = ({queryMenu}) => {
   const [file, setFile] = useState();
   const [image, setImage] = useState(null);
-  const { closeModal } = useModal();
+  const {closeModal} = useModal();
 
   const handleCloseModal = () => {
     closeModal();
@@ -34,9 +33,9 @@ const MenuIconUpdateModal = ({ selectedMenu }) => {
   const handleOnUpload = async () => {
     const formData = new FormData();
     formData.append("multipartFile", file);
-    formData.append("key", selectedMenu?.menuCode);
+    formData.append("key", queryMenu?.menuCode);
     await PUT_UPDATE_MENUICON(formData).then((res) => {
-      console.log(res);
+      handleCloseModal()
     });
   };
 
@@ -44,17 +43,17 @@ const MenuIconUpdateModal = ({ selectedMenu }) => {
   return (
     <Modal
       onClose={handleCloseModal}
-      title={`${selectedMenu?.menuName} 메뉴 아이콘 수정`}
+      title={`${queryMenu?.menuName} 메뉴 아이콘 수정`}
     >
       <Layout>
-        <IconUploadLayout className="">
-          <IconWrapper className="">
-            <div className="">현재 아이콘</div>
-            <Image src={selectedMenu?.iconUrl} alt="이전 메뉴 아이콘" />
+        <IconUploadLayout>
+          <IconWrapper>
+            <div>현재 아이콘</div>
+            <Image src={queryMenu?.iconUrl} alt="이전 메뉴 아이콘"/>
           </IconWrapper>
-          <IconWrapper className="">
-            <div className="">수정할 아이콘</div>
-            <Image src={image} alt="수정할 메뉴 아이콘" />
+          <IconWrapper>
+            <div>수정할 아이콘</div>
+            {image && <Image src={image} alt="수정할 메뉴 아이콘"/>}
           </IconWrapper>
         </IconUploadLayout>
         <FileInput
@@ -62,11 +61,10 @@ const MenuIconUpdateModal = ({ selectedMenu }) => {
           onChange={onSaveFile}
           ref={imageInput}
         />
-        <IconUploadLayout className="">
-          <MenuButton type="button" onClick={handleOnGetFile}>파일 가져오기</MenuButton>
+        <IconUploadLayout>
+          <MenuButton type="button" onClick={handleOnGetFile}>아이콘 가져오기</MenuButton>
         </IconUploadLayout>
-        <button type="button" onClick={handleOnUpload}>아이콘 등록하기</button>
-        <MenuButton>수정하기</MenuButton>
+        <MenuButton onClick={handleOnUpload}>수정하기</MenuButton>
       </Layout>
     </Modal>
   );

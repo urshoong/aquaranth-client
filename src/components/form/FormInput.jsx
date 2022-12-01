@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { useController } from "react-hook-form";
+import {Input} from "@components/Input";
 
 const FormInput = ({ type, placeholder, autoComplete, control, name, rules, defaultValue, values }) => {
   const { field: { onChange, value, ref } } = useController({ name, control, rules, defaultValue });
@@ -25,16 +26,6 @@ const InputWrapper = styled.div`
       padding: inherit;
       place-items: center;
       font-size: inherit;
-    `;
-  }}
-`;
-
-const Input = styled.input`
-  ${({ theme }) => {
-    return css`
-      width: 100%;
-      font-size: inherit;
-      border-bottom: 0.5px solid ${theme.color.grayA100};
     `;
   }}
 `;

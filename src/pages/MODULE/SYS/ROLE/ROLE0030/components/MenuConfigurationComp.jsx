@@ -1,21 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Span } from "@components/Grid";
-import TreeLayout from "@components/tree/TreeLayout";
 import styled, { css } from "styled-components";
-import { useForm } from "react-hook-form";
 import { lighten } from "polished";
 import Unselected from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Unselected";
 import Selected from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Selected";
 import useModal from "@hooks/useModal";
-import { GET_MENU_LIST, PUT_UPDATE_MENU } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import { GET_MENU, GET_MENULIST, GET_TREE_MENULIST, PUT_UPDATE_MENU } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
 import SelectMenuContext from "@pages/MODULE/SYS/ROLE/ROLE0030/context/SelectMenuContext";
+import MenuTreeComp from "@pages/MODULE/SYS/ROLE/ROLE0030/components/tree/MenuTreeComp";
 
 const MenuConfigurationComp = () => {
-  const [menuList, setMenuList] = useState([]);
-  const { selectedMenu, setSelectedMenu } = useContext(SelectMenuContext);
+  const { selectedMenu, setMenuList, setSelectedMenu, setQueryMenu, queryMenu } = useContext(SelectMenuContext);
 
   const { openModal } = useModal();
-  const data = { selectedMenu };
+  const data = { queryMenu };
 
   const handleOnIconUpdateModal = () => {
     openModal({ type: "MenuIconUpdate", props: data });
@@ -26,22 +24,18 @@ const MenuConfigurationComp = () => {
   };
 
   const handleOnMenuDeleteConfirmModal = () => {
-    openModal({ type: "MenuDeleteConfirm", props: "" });
+    openModal({ type: "MenuDeleteConfirm", props: data });
   };
 
   useEffect(() => {
-    GET_MENU_LIST().then((res) => {
+    GET_TREE_MENULIST("gnb").then((res) => {
       setMenuList(res.data);
     });
   }, []);
 
-  const menuUpdateHandler = async (menuUpdateDto) => {
-    PUT_UPDATE_MENU(menuUpdateDto).then(() => {
-      console.log("test");
-    });
+  const handleOnUpdateMenu = async (menuUpdateDto) => {
+    PUT_UPDATE_MENU(menuUpdateDto);
   };
-
-  const { handleSubmit, control, formState: { errors } } = useForm();
 
   return (
     <Layout>
@@ -50,16 +44,7 @@ const MenuConfigurationComp = () => {
           <div className="">
             메뉴 리스트
           </div>
-          <TreeLayout
-            apiList={menuList}
-            rootValue={null}
-            selectedItem={selectedMenu}
-            setSelectedItem={setSelectedMenu}
-            upperColumn="upperMenuNo"
-            matchColumn="menuNo"
-            columnName="menuName"
-            initCollapsed
-          />
+          <MenuTreeComp />
         </MenuTreeWrapper>
       </MenuTreeLayout>
       <MenuEditLayout>
@@ -68,9 +53,7 @@ const MenuConfigurationComp = () => {
             handleOnMenuInsertModal={handleOnMenuInsertModal}
             handleOnIconUpdateModal={handleOnIconUpdateModal}
             handleOnMenuDeleteConfirmModal={handleOnMenuDeleteConfirmModal}
-            menuUpdateHandler={menuUpdateHandler}
-            handleSubmit={handleSubmit}
-            control={control}
+            handleOnUpdateMenu={handleOnUpdateMenu}
           />
         )}
       </MenuEditLayout>
