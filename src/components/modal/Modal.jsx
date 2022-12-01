@@ -62,7 +62,7 @@ const Layout = styled.div`
       left: 0;
       right: 0;
       background: rgba(0, 0, 0, 0.4);
-      z-index: 9999;
+      z-index: 999;
       animation: ${modalAnimation} 0.2s;
     `;
   }}

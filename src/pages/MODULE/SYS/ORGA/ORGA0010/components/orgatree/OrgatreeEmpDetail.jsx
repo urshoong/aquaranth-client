@@ -33,19 +33,25 @@ function OrgatreeEmpDetail({ empInfo }) {
           <EmpDetailTitle>
             소속부서
           </EmpDetailTitle>
-          {path}
+          <EmpItemSpan>
+            {path}
+          </EmpItemSpan>
         </EmpDetailItem>
         <EmpDetailItem>
           <EmpDetailTitle>
             전화번호
           </EmpDetailTitle>
-          {empPhone}
+          <EmpItemSpan>
+            {empPhone}
+          </EmpItemSpan>
         </EmpDetailItem>
         <EmpDetailItem>
           <EmpDetailTitle>
             이메일
           </EmpDetailTitle>
-          {email}
+          <EmpItemSpan>
+            {email}
+          </EmpItemSpan>
         </EmpDetailItem>
       </EmpDetail>
     </EmpInformationDiv>
@@ -96,6 +102,12 @@ const EmpDetailItem = styled.div`
   font-size: 12px;
   height: 2rem;
   line-height: 2rem;
+`;
+
+const EmpItemSpan = styled.span`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const MygroupBtn = styled.button`
