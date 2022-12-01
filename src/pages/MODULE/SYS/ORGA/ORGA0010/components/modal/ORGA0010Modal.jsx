@@ -157,6 +157,7 @@ const ORGA0010Modal = () => {
     // readonly 가 true면 false로 바꾸고 focus
     if (modifyRef.current[index].readOnly) {
       modifyRef.current[index].readOnly = "";
+      modifyRef.current[index].classList.add("active");
       modifyRef.current[index].focus();
       getMygroupInformation(mygroupNo).then((info) => {
         setModifyMy(info);
@@ -170,6 +171,7 @@ const ORGA0010Modal = () => {
             setFavoriteEmpList([]);
             setFavoriteEmpInfo({});
             modifyRef.current[index].readOnly = "true";
+            modifyRef.current[index].classList.remove("active");
           });
         });
       });
@@ -210,8 +212,7 @@ const ORGA0010Modal = () => {
                 {myList.map(({ mygroupNo, mygroupName, countEmp }, index) => (
                   <MygroupUpperDiv key={mygroupNo}>
                     <MygroupItem key={mygroupNo} onClick={() => { clickMygroup(mygroupNo); }}>
-                      <input
-                        style={{ minWidth: "50px", maxWidth: "100px" }}
+                      <MygroupInput
                         ref={(el) => { modifyRef.current[index] = el; }}
                         readOnly
                         className="modify"
@@ -305,7 +306,7 @@ const MygroupList = styled.div`
 const MygroupUpperDiv = styled.div`
   display: flex;
   line-height: 2em;
-  margin-top: 0.3em;
+  margin-top: 0.5em;
 `;
 
 const MygroupItem = styled.div`
@@ -326,4 +327,13 @@ const MyRegisterBtn = styled.button`
   float: ${(props) => props.float};
 `;
 
+const MygroupInput = styled.input`
+  margin-right: 10px;
+  width: 100px;
+  outline: none;
+  &.active{
+    border: 1px solid darkgray;
+    border-radius: 3px;
+  }
+`;
 
