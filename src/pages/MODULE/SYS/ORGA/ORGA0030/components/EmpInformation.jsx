@@ -11,7 +11,8 @@ function EmpInformation({ emps, empInformation, clickEmpRegister,
   basicColor, orgaColor, orga, handleOnClickOrgaRegister, orgaDisplay, company,
   handleOnChangeCompany, department, handleOnClickOrgaRegisterSubmit,
   handleOnClickOrgaRegisterReset, handleOnChangeOrgaRegisterInput,
-  handleOnClickOrgaModify, handleOnChangeOrgaInput, handleOnClickOrgaModifyDept }) {
+  handleOnClickOrgaModify, handleOnChangeOrgaInput, handleOnClickOrgaModifyDept,
+  setRefresh, refresh }) {
   const { openModal } = useModal();
   const data = { menucode: "ORGA0030", menuname: "사원 관리" };
   const handleOnModal = () => {
@@ -28,9 +29,11 @@ function EmpInformation({ emps, empInformation, clickEmpRegister,
       {/* <Button type="button" onClick={handleOnModal}>ORGA0030 모달 띄우기</Button> */}
       <div className="empList" style={{ overflow: "auto", height: "600px" }}>
         <span>사용자 : {emps.length} 명</span> <span>정렬▼</span>
-        {emps.map(({ empNo, username, empName, firstHiredDate }) => (
+        {emps.map(({ empNo, username, empName, firstHiredDate, profileUrl, empUse }) => (
           <div className="empItem" key={empNo} onClick={() => clickEmp(empNo)} aria-hidden="true">
-            <div className="empItemImg">사진 </div>
+            <div className="empItemImg">
+              {profileUrl ? <img src={profileUrl} alt="프로필 이미지" style={{ width: "50px" }} /> : <div />}
+            </div>
             <div className="empIdName">
               <div>
                 {username}
@@ -40,7 +43,8 @@ function EmpInformation({ emps, empInformation, clickEmpRegister,
               </div>
             </div>
             <div>
-              {firstHiredDate}
+              <div>{firstHiredDate}</div>
+              <div>{empUse === true ? <span>사용</span> : <span>미사용</span>}</div>
             </div>
           </div>
         ))}
@@ -67,6 +71,8 @@ function EmpInformation({ emps, empInformation, clickEmpRegister,
               empInformation={empInformation}
               changeEmpInput={changeEmpInput}
               handleOnRegisterModal={handleOnRegisterModal}
+              setRefresh={setRefresh}
+              refresh={refresh}
             />
           ) : (
             <EmpOrgaInformation

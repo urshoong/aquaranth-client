@@ -20,8 +20,7 @@ const initState = {
   loginDeptNo: 0,
 };
 
-
-const ProfileChangeModal = (props) => {
+const ProfileChangeModal = () => {
   const [employeeState, setEmployeeState] = useState([]);
   const [selectLogin, setSelectLogin] = useState(initState);
   const history = useHistory();
@@ -30,7 +29,6 @@ const ProfileChangeModal = (props) => {
   // 회사, 부서 set
   useEffect(() => {
     empInfo().then((data) => {
-      console.log(data);
       setEmployeeState(data);
     });
   }, []);
@@ -41,50 +39,6 @@ const ProfileChangeModal = (props) => {
   const handleCloseModal = () => {
     closeModal();
   };
-
-  // 라디오 버튼 변경
-  // const handleOnChangeRadio = (e) => {
-  //   const { value } = e.target;
-  //
-  //   console.log("라디오 변경 시, 선택된 company값", value);
-  //
-  //   // 선택된 부서의 번호 가져오기.
-  //   if (e.target.name === "loginDeptNo") {
-  //     const deptName = e.target.name;
-  //   } // 아니면  select인 dept로 해야하나..?
-  //   // const deptNo = deptName.options[deptName.selectedIndex].value;
-  //
-  //
-  //   // 내가 짠 회사 번호 넣는 코드
-  //   setSelectLogin({ ...selectLogin, loginCompanyNo: value });
-  //   console.log(selectLogin);
-  // };
-  //
-  // // select 변경
-  // const handleOnChangeSelect = (e) => {
-  //   // target 지정
-  //   const { target } = e;
-  //
-  //   // 선택한 값
-  //   console.log(target);
-  //
-  //   // select 변경하면 회사 번호 알아오기.
-  //   // select에 회사 번호를 type을 만들어서 좀 좋은 방법은 아니지만.. 알아온다.
-  //   const companyNo = target.getAttribute("data-com");
-  //
-  //   // 선택된 부서의 번호 알아오기.
-  //   const deptNo = target.options[target.selectedIndex].value;
-  //
-  //   // 선택된 회사 번호와 부서 번호 알아낸다.
-  //   console.log("COMPANY---", companyNo, deptNo);
-  //
-  //
-  //   // 이건 일단. deptno넣는거. 예전에 ㅐㄴㅐ가 만들어놓은 코드
-  //   setSelectLogin({ ...selectLogin, loginDeptNo: target.value });
-  //
-  //   console.log(selectLogin);
-  // };
-
 
   // 회사 변경 확인 클릭 버튼
   const handleOnClickChangeDeptSubmit = (e) => {
@@ -101,7 +55,6 @@ const ProfileChangeModal = (props) => {
       // 타입이 셀렉인 요소 선택
       const select = companyDiv.querySelector("select");
 
-
       console.log(radio);
       console.log(radio.checked);
       // 라디오 체크된 부분의 radio값과 select값을 입력해준다.
@@ -110,12 +63,9 @@ const ProfileChangeModal = (props) => {
         selectLogin.loginDeptNo = select.value;
         setSelectLogin({ ...selectLogin });
       }
-
-      console.log("selectLogin", selectLogin);
     });
 
     registerLoginUser(selectLogin).then(() => {
-      // TODO 모달말고 컴포넌트로 바꾸기(?)
     });
 
     history.replace("/");
@@ -144,7 +94,6 @@ const ProfileChangeModal = (props) => {
                         name="loginCompanyNo"
                         type="radio"
                         value={company.companyNo}
-                        // onChange={(e) => { handleOnChangeRadio(e); }}
                         readOnly
                       />
                       {company.companyName}
@@ -164,7 +113,6 @@ const ProfileChangeModal = (props) => {
             );
           })}
           <button type="submit" onClick={() => { handleOnClickChangeDeptSubmit(); }}>확인</button>
-          {/* <button type="reset" onClick={() => { handleCloseModal(); }}>취소</button> */}
         </div>
 
       </CenterGrid>

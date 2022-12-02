@@ -79,53 +79,53 @@ const Index = () => {
   };
 
   return (
-    <CenterGrid>
-      <div>
-        {employeeState.map((info) => {
-          return (
-            <div key={info.empNo}>
+    // <CenterGrid>
+    <div>
+      {employeeState.map((info) => {
+        return (
+          <div key={info.empNo}>
+            {/* <img src={info.profileUrl} alt="프로필 이미지" style={{ width: "200px" }} /> */}
+            <div>{info.empName}</div>
+            <div>최근 접속 IP : {info.lastLoginIp}</div>
+            <div>최근 로그인 시간 : {info.lastLoginTime}</div>
+            <div>현재 접속 IP : {info.loginIp}</div>
 
-              <div>{info.empName}</div>
-              <div>최근 접속 IP : {info.lastLoginIp}</div>
-              <div>최근 로그인 시간 : {info.lastLoginTime}</div>
-              <div>현재 접속 IP : {info.loginIp}</div>
+            {info.companyList.map((company) => {
+              return (
+                <div key={company.companyNo} className="companyDiv">
+                  <input
+                    name="loginCompanyNo"
+                    type="radio"
+                    value={company.companyNo}
+                    // onChange={(e) => { handleOnChangeRadio(e); }}
+                    readOnly
+                  />
+                  {company.companyName}
+                  <select name="dept">
+                    {company.deptList.map((dept) => {
+                      return (
+                        <option key={dept.deptNo} value={dept.deptNo} name="loginDeptNo">
+                          {dept.deptName}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
+      <button
+        type="submit"
+        onClick={() => {
+          handleOnClickChangeDeptSubmit();
+        }}
+      >확인
+      </button>
+    </div>
 
-              {info.companyList.map((company) => {
-                return (
-                  <div key={company.companyNo} className="companyDiv">
-                    <input
-                      name="loginCompanyNo"
-                      type="radio"
-                      value={company.companyNo}
-                      // onChange={(e) => { handleOnChangeRadio(e); }}
-                      readOnly
-                    />
-                    {company.companyName}
-                    <select name="dept">
-                      {company.deptList.map((dept) => {
-                        return (
-                          <option key={dept.deptNo} value={dept.deptNo} name="loginDeptNo">
-                            {dept.deptName}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
-        <button
-          type="submit"
-          onClick={() => {
-            handleOnClickChangeDeptSubmit();
-          }}
-        >확인
-        </button>
-      </div>
-
-    </CenterGrid>
+  // </CenterGrid>
   );
 };
 

@@ -142,7 +142,8 @@ const ORGA0030Modal = () => {
         {employeeState.map((info) => {
           return (
             <div key={info.empNo}>
-              <div>{info.empName} / {redisState.loginEmpRank}</div>
+              <div>{info.empName}</div>
+              <div>{redisState.hierarchy} / {redisState.loginEmpRank}</div>
               <div>최근 접속 IP : {info.lastLoginIp}</div>
               <div>최근 로그인 시간 : {info.lastLoginTime}</div>
               <div>현재 접속 IP : {info.loginIp}</div>
@@ -180,7 +181,7 @@ const ORGA0030Modal = () => {
           );
         })}
         <button type="submit" onClick={() => { handleOnClickChangeDeptSubmit(); }}>확인</button>
-        {/* <button type="reset" onClick={() => { handleCloseModal(); }}>취소</button> */}
+        <button type="button" onClick={() => { handleCloseModal(); }}>취소</button>
       </div>
 
     </Modal>
