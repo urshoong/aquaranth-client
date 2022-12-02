@@ -19,14 +19,16 @@ function OrgatreeEmpDetail({ empInfo }) {
         <MygroupBtn type="button" onClick={handleOnModal}>MY</MygroupBtn>
         {orgaNo
           && (
-            <EmpProilImg
-              src={profileUrl}
-              alt="프로필 이미지"
-              size="150"
-            />
+            <EmpProfilItem>
+              <EmpProilImg
+                src={profileUrl.indexOf("null") > -1 ? "" : profileUrl}
+                alt="프로필 이미지"
+                size="150"
+              />
+              <p style={{ marginTop: "1em" }}>{empName}/{empRank}</p>
+              <p style={{ marginTop: "1em" }}>{username}</p>
+            </EmpProfilItem>
           )}
-        { orgaNo && <EmpProfilItem>{empName}/{empRank}</EmpProfilItem> }
-        <EmpProfilItem>{username}</EmpProfilItem>
       </EmpProfil>
       <EmpDetail>
         <EmpDetailItem>
@@ -69,6 +71,7 @@ const EmpProfil = styled.div`
   border: 1px solid darkgray;
   border-radius: 0.2rem;
   height: 15rem;
+  position: relative;
 `;
 
 const EmpDetail = styled.div`
@@ -76,15 +79,18 @@ const EmpDetail = styled.div`
 `;
 
 const EmpProfilItem = styled.div`
-  margin-top: 0.5em;
+  width: 100%;
+  height: 100%;
 `;
 
-const EmpProilImg = styled.img`
+const EmpProilImg = styled.div`
   border-radius: 70%;
+  margin: 1.5em auto 0em auto;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
-  margin-left: 3em;
-  margin-top: 2em;
+  background-image: url(${(props) => props.src});
+  background-size: cover;
+  background-color: ${(props) => props.src || "#46A3FB"};
 `;
 
 const EmpDetailTitle = styled.div`
@@ -111,11 +117,13 @@ const EmpItemSpan = styled.span`
 `;
 
 const MygroupBtn = styled.button`
-  float: right;
   margin-right: 0.5em;
   margin-top: 0.5em;
   border: 1px solid darkgray;
   padding: 0.5em 0.5em 0.5em 0.5em;
+  position: absolute;
+  right: 0;
+  top: 0;
 `;
 
 export default OrgatreeEmpDetail;
