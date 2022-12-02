@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import RoleGroupContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGroupContent";
-import UserListContent2 from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserListContent2";
+import React, { useEffect, useRef, useState } from "react";
+import UserListContent2 from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserContent2";
 import Swal from "sweetalert2";
 import {
   getCompanyList,
@@ -9,6 +8,7 @@ import {
   removeUserRole,
 } from "./api/UserRole";
 import PaginationContent from "./components/PaginationContent";
+import RoleGroupListContent from "./components/RoleGroupListContent";
 
 const initUlSearch = {
   page: 1,
@@ -34,6 +34,12 @@ const UserRoleUserBasedPage = () => {
   const [userRgSearch, setUserRgSearch] = useState(initRgSearch);
   const [userRgResponse, setUserRgResponse] = useState({});
 
+  const refCompanySelect = useRef();
+  const refUserKeyword1 = useRef();
+  const refUserKeyword2 = useRef();
+  const refuserList = useRef();
+  const refRoleGroupList = useRef();
+
   const changeRoleGroupSearchHandler = (prop, value) => {
     userRgSearch[prop] = value;
     setUserRgSearch({ ...userRgSearch });
@@ -45,16 +51,16 @@ const UserRoleUserBasedPage = () => {
   };
 
   const userSearchClickHandler = () => {
-    const orgaNo = document.querySelector(".companySelect");
-    const keyword1 = document.querySelector(".keyword1");
-    const keyword2 = document.querySelector(".keyword2");
+    const orgaNo = refCompanySelect.current;
+    const keyword1 = refUserKeyword1.current;
+    const keyword2 = refUserKeyword2.current;
 
     changeUserListSearchHandler("orgaNo", orgaNo.value);
     changeUserListSearchHandler("keyword1", keyword1.value);
     changeUserListSearchHandler("keyword2", keyword2.value);
 
     if (orgaNo.value === 0) {
-      Swal.fire({ title: "회사가 선택되지 않았습니다.", icon: "error" }).then((r) => r);
+      Swal.fire({ title: "필수 정보 누락", html: "회사가 선택되지 않았습니다.", icon: "error" }).then((r) => r);
       return;
     }
 
@@ -69,13 +75,13 @@ const UserRoleUserBasedPage = () => {
       setUserUlSearch({ ...userUlSearch });
     });
 
-    const userListContainer = document.querySelector(".innerContentContainer");
+    const userListContainer = refuserList.current;
     userListContainer.scrollTop = 0;
   };
 
   const roleSearchClickHandler = () => {
     if (userRgSearch.orgaNo === 0) {
-      Swal.fire({ title: "사용자가 선택되지 않았습니다.", icon: "error" }).then((r) => r);
+      Swal.fire({ title: "필수 정보 누락", html: "사용자가 선택되지 않았습니다.", icon: "error" }).then((r) => r);
       return;
     }
 
@@ -124,7 +130,7 @@ const UserRoleUserBasedPage = () => {
     }
   };
 
-  const orgaRoleRemove = (e) => {
+  const orgaRoleRemove = () => {
     const elements = document.querySelectorAll(".groupContent.active");
 
     const arr = Array.prototype.filter.call(elements, (element) => {
@@ -138,14 +144,13 @@ const UserRoleUserBasedPage = () => {
     });
 
     if (!arr || arr.length === 0) {
-      Swal.fire({ title: "선택된 권한그룹이 없습니다.", icon: "error" }).then((r) => r);
+      Swal.fire({ title: "필수 정보 누락", html: "선택된 권한그룹이 없습니다.", icon: "error" }).then((r) => r);
       return;
     }
 
     removeUserRole(arr).then((data) => {
-      // TODO : state > fail or success
-      const { state, message } = data;
-      Swal.fire({ title: message, icon: state }).then((r) => r);
+      const { state, title, message } = data;
+      Swal.fire({ title, html: message, icon: state }).then((r) => r);
       roleSearchClickHandler();
     });
   };
@@ -174,7 +179,7 @@ const UserRoleUserBasedPage = () => {
     roleSearchClickHandler();
   };
 
-  const companySelectChangeHandler = (e) => {
+  const companySelectChangeHandler = () => {
     userSearchClickHandler();
   };
 
@@ -190,14 +195,14 @@ const UserRoleUserBasedPage = () => {
       <div className="innerInformationWrap">
         <span>௹</span>
         <div>
-          <span>선택한 사용자에 권한 해제 할 권한 그룹을 선택하세요.</span>
+          <span>선택한 사용자에 권한해제 할 권한그룹을 선택하세요.</span>
           <span>회사/부서 권한이 부여되어 있는 권한그룹은 권한해제가 불가합니다.</span>
         </div>
       </div>
       <div className="innerSearchWrap userList">
         <div className="selectWrap userList">
           <span className="searchLabel">회사</span>
-          <select className="companySelect" onChange={companySelectChangeHandler}>
+          <select className="companySelect" ref={refCompanySelect} onChange={companySelectChangeHandler}>
             {userCompany?.map(({
               companyNo, companyName, orgaNo,
             }) => <option key={companyNo} value={orgaNo}>{ companyName }</option>)}
@@ -205,11 +210,11 @@ const UserRoleUserBasedPage = () => {
         </div>
         <div>
           <span className="searchLabel">이름/ID</span>
-          <input type="text" className="innerSearchInput keyword1" />
+          <input type="text" className="innerSearchInput keyword1" ref={refUserKeyword1} />
         </div>
         <div>
           <span className="searchLabel">권한명</span>
-          <input type="text" className="innerSearchInput keyword2" />
+          <input type="text" className="innerSearchInput keyword2" ref={refUserKeyword2} />
         </div>
         <div className="searchWrap userList">
           <button type="button" className="btn" onClick={orgaRoleRemove}>&nbsp;권한삭제&nbsp;</button>
@@ -225,7 +230,7 @@ const UserRoleUserBasedPage = () => {
               <div><span>직급</span></div>
               <div><span>이름(ID)</span></div>
             </div>
-            <div className="innerContentContainer">
+            <div className="innerContentContainer" ref={refuserList}>
               {userUserList?.map(({
                 orgaNo,
                 companyName,
@@ -257,45 +262,14 @@ const UserRoleUserBasedPage = () => {
           </div>
         </div>
         <div className="section userList right">
-          <div className="leftSection section1">
-            <div className="groupCountWrap">
-              <span>그룹 : </span>
-              <span>{userRoleGroup.length}</span>
-              <span>개</span>
-            </div>
-            {/* TODO : 필터 넣을지 말지 차후 처리 */}
-            {/* <div className="groupSortWrap">
-              <select>
-                <option>필터</option>
-                <option>필터2</option>
-                <option>필터3</option>
-              </select>
-            </div> */}
-          </div>
-          <div className="leftSection userList section2">
-            {userRoleGroup?.map(({
-              roleGroupNo, roleGroupName, companyName, orgaNo,
-            }) => (
-              <RoleGroupContent
-                className="groupContent"
-                key={roleGroupNo}
-                orgaNo={orgaNo}
-                companyName={companyName}
-                roleGroupNo={roleGroupNo}
-                roleGroupName={roleGroupName}
-                roleGroupClickHandler={roleGroupClickHandler}
-                // displayChekcbox={false}
-                template={document.querySelector(".contentRow2.header").style.gridTemplateColumns}
-              />
-            ))}
-          </div>
-          <div className="leftSection footer">
-            <PaginationContent
-              response={userRgResponse}
-              pageClickHandler={roleGroupPageClickHandler}
-              selectChangeHandler={roleGroupSizeSelectChangeHandler}
-            />
-          </div>
+          <RoleGroupListContent
+            roleGroupList={userRoleGroup}
+            roleGroupClickHandler={roleGroupClickHandler}
+            roleGroupResponse={userRgResponse}
+            roleGroupPageClickHandler={roleGroupPageClickHandler}
+            roleGroupSizeSelectChangeHandler={roleGroupSizeSelectChangeHandler}
+            refRoleGroupList={refRoleGroupList}
+          />
         </div>
       </div>
     </div>

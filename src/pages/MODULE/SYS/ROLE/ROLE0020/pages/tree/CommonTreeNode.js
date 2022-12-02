@@ -1,5 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 import { getChildNode } from "../../api/OrgaTree";
+import { Span } from "../../components/RoleGroupStyledCommon";
 
 function CommonTreeNode({ arr, changeTarget }) {
   const [subArr, setSubArr] = useState([]);
@@ -28,16 +30,15 @@ function CommonTreeNode({ arr, changeTarget }) {
   }
 
   return (
-    <ul>
+    <TreeUl>
       {arr.map((dept) => (
-        <li key={dept.deptNo}>
-          <div style={{ height: "2em" }}>
-            <button type="button" style={{ height: "2em", width: `${dept.depth * 1 + 1}em`, paddingLeft: `${dept.depth * 15}px`, verticalAlign: "text-bottom" }} onClick={() => clickButton(dept.deptNo, dept.depth + 1, dept.companyNo)}>{dept.lowerDeptCnt > 0 ? icon : ""}</button>
-            {dept.depth === 0 && <img src="/images/icon-tree-comp.png" alt="" style={{ width: "2em", height: "2em", padding: "0px 10px", display: "inline-block" }} />}
-            {dept.depth > 0 && <img src={icon === ">" ? "/images/icon-tree-folder-close.png" : "/images/icon-tree-folder-open.png"} alt="" style={{ width: "2em", height: "2em", padding: "0px 10px", display: "inline-block" }} />}
-            <span style={{ fontSize: "1.5em", verticalAlign: "0.1em" }} onClick={() => changeTarget(dept.orgaNo)} aria-hidden="true">{dept.deptNo}. {dept.deptName}</span>
-          </div>
-
+        <TreeLi key={dept.deptNo}>
+          <TreeInnerWrap>
+            <TreeButton type="button" depth={dept.depth} onClick={() => clickButton(dept.deptNo, dept.depth + 1, dept.companyNo)}>{dept.lowerDeptCnt > 0 ? icon : ""}</TreeButton>
+            {dept.depth === 0 && <TreeImage src="/images/icon-tree-comp.png" alt="" />}
+            {dept.depth > 0 && <TreeImage src={(icon === ">" && dept.lowerDeptCnt > 0) ? "/images/icon-tree-folder-close.png" : "/images/icon-tree-folder-open.png"} alt="" />}
+            <TreeSpan onClick={() => changeTarget(dept.orgaNo)} aria-hidden="true">{dept.deptNo}. {dept.deptName}</TreeSpan>
+          </TreeInnerWrap>
           {subArr ? subArr.map((childDept) => (
             <CommonTreeNode
               key={childDept.deptNo}
@@ -45,12 +46,37 @@ function CommonTreeNode({ arr, changeTarget }) {
               changeTarget={changeTarget}
             />
           )) : <></> }
-
-        </li>
+        </TreeLi>
       ))}
-
-    </ul>
+    </TreeUl>
   );
 }
 
 export default CommonTreeNode;
+
+export const TreeUl = styled.ul``;
+
+export const TreeLi = styled.li``;
+
+export const TreeInnerWrap = styled.div`
+  height: 2em;
+`;
+
+export const TreeButton = styled.button`
+  height: 2em;
+  width: ${(props) => props.depth * 1 + 1}em;
+  padding-left: ${(props) => props.depth}em;
+  vertical-align: text-bottom;
+`;
+
+export const TreeImage = styled.img`
+  width: 2em;
+  height: 2em;
+  padding: 0 10px;
+  display: inline-block
+`;
+
+export const TreeSpan = styled(Span)`
+  font-size: 1.5em;
+  vertical-align: 0.1em;
+`;

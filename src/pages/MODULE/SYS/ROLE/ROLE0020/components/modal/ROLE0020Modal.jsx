@@ -4,7 +4,7 @@ import useModal from "@hooks/useModal";
 import { CenterGrid, Divider } from "@components/Grid";
 import styled, { css } from "styled-components";
 import CommonTreeContainer from "@pages/MODULE/SYS/ROLE/ROLE0020/pages/tree/CommonTreeContainer";
-import UserListContent2 from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserListContent2";
+import UserListContent2 from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserContent2";
 import Button from "@components/Button";
 import { getOrgaList } from "../../api/OrgaTree";
 

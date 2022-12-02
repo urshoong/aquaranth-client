@@ -1,5 +1,6 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import { Option, Select } from "./RoleGroupStyledCommon";
 
 const PaginationContent = ({ response, pageClickHandler, selectChangeHandler }) => {
   return (
@@ -17,9 +18,9 @@ const PaginationContent = ({ response, pageClickHandler, selectChangeHandler }) 
         <PageBtn className="pageBtn next" data-page={response.next}><PageImage src="/images/btn-arrow-next.png" alt="" onClick={pageClickHandler} aria-hidden="true" /></PageBtn>
         <PageBtn className="pageBtn next last" data-page={response.last}><PageImage src="/images/btn-arrow-last.png" alt="" onClick={pageClickHandler} aria-hidden="true" /></PageBtn>
         <PageSizeSelect value={response.size} onChange={selectChangeHandler}>
-          <option>10</option>
-          <option>20</option>
-          <option>30</option>
+          <Option>10</Option>
+          <Option>20</Option>
+          <Option>30</Option>
         </PageSizeSelect>
       </Pagination>
     </PaginationWrap>
@@ -62,8 +63,6 @@ export const PageBtn = styled.li`
   }
   &.pageBtn.page.active{
     color: #46a3fb;
-    
-    
   }
 `;
 
@@ -71,14 +70,12 @@ export const PageImage = styled.img`
   padding: 0.5em;
 `;
 
-export const PageSizeSelect = styled.select`
+export const PageSizeSelect = styled(Select)`
   height: 28px;
   width: 60px;
   line-height: 20px;
   padding: 0 5px;
-  border: 2px solid #e6e6e6;
   background-color: white;
-  font-size: 1.3em;
   font-weight: bold;
   margin: 2px;
   display: flex;

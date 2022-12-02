@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserListContent2 = ({
+const UserContent2 = ({
   className,
   orgaNo,
   companyName,
@@ -23,4 +23,4 @@ const UserListContent2 = ({
   );
 };
 
-export default UserListContent2;
+export default UserContent2;
