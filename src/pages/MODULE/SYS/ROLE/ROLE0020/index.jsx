@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import "./userrole.css";
-
 import UserRoleRoleGroupBasedPage from "@pages/MODULE/SYS/ROLE/ROLE0020/UserRoleRoleGroupBasedPage";
 import UserRoleUserBasedPage from "@pages/MODULE/SYS/ROLE/ROLE0020/UserRoleUserBasedPage";
+import {
+  UserRoleInnerTab,
+  UserRoleInnerTabWrapper,
+  UserRoleMainContent,
+  UserRoleMainContentWrapper,
+  UserRoleTitle,
+  UserRoleTitleWrapper,
+  UserRoleWrapper,
+} from "./components/RoleGroupStyledCommon";
 // import useModal from "@hooks/useModal";
 // import Button from "@components/Button";
 
@@ -24,26 +32,22 @@ function Index() {
   };
 
   return (
-    <div className="userRoleWrap">
+    <UserRoleWrapper>
       {/* <Button type="button" onClick={handleOnModal}>ROLE0020 모달 띄우기</Button> */}
-      <div className="titleWrap">
-        <span className="title">사용자권한설정</span>
-        <div className="titleBtnDiv">
-          {/* <button type="button" className="btn">마스터권한설정</button> */}
-        </div>
-      </div>
-      <div className="contentWrap">
-        <div className="innerTabWrap">
-          <span className={`innerTab ${pageChange?.pageName === "UserRoleRoleGroupBasedPage" ? "active" : ""}`} data-name="UserRoleRoleGroupBasedPage" onClick={userRolePageClickHandler} aria-hidden="true">권한그룹기준</span>
-          <span className={`innerTab ${pageChange?.pageName === "UserRoleUserBasedPage" ? "active" : ""}`} data-name="UserRoleUserBasedPage" onClick={userRolePageClickHandler} aria-hidden="true">사용자 기준</span>
-        </div>
-        <div className="content">
+      <UserRoleTitleWrapper>
+        <UserRoleTitle>사용자권한설정</UserRoleTitle>
+      </UserRoleTitleWrapper>
+      <UserRoleMainContentWrapper>
+        <UserRoleInnerTabWrapper>
+          <UserRoleInnerTab className={`${pageChange?.pageName === "UserRoleRoleGroupBasedPage" ? "active" : ""}`} data-name="UserRoleRoleGroupBasedPage" onClick={userRolePageClickHandler} aria-hidden="true">권한그룹기준</UserRoleInnerTab>
+          <UserRoleInnerTab className={`${pageChange?.pageName === "UserRoleUserBasedPage" ? "active" : ""}`} data-name="UserRoleUserBasedPage" onClick={userRolePageClickHandler} aria-hidden="true">사용자 기준</UserRoleInnerTab>
+        </UserRoleInnerTabWrapper>
+        <UserRoleMainContent>
           {pageChange?.pageName === "UserRoleRoleGroupBasedPage" && <UserRoleRoleGroupBasedPage />}
           {pageChange?.pageName === "UserRoleUserBasedPage" && <UserRoleUserBasedPage />}
-        </div>
-      </div>
-    </div>
-
+        </UserRoleMainContent>
+      </UserRoleMainContentWrapper>
+    </UserRoleWrapper>
   );
 }
 

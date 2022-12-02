@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserListContent = ({
+const UserContent = ({
   className, orgaNo, orgaInfo, empRank, empName, username, onclickHandler,
 }) => {
   return (
@@ -13,4 +13,4 @@ const UserListContent = ({
   );
 };
 
-export default UserListContent;
+export default UserContent;

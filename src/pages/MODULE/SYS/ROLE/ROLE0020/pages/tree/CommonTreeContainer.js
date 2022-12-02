@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
-import request from "@utils/axiosUtil";
+import styled from "styled-components";
 import CommonTreeNode from "./CommonTreeNode";
-
-const getChildNode = async (upperDeptNo, depth, companyNo) => {
-  const { data } = await request.get(`/orgaTree/list/${upperDeptNo}/${depth}/${companyNo}`);
-
-  return data;
-};
+import { getChildNode } from "../../api/OrgaTree";
 
 function CommonTreeContainer({ deptNo = 1, depth = 0, companyNo = 1, changeTarget }) {
   const [arr, setArr] = useState([]);
@@ -20,10 +15,15 @@ function CommonTreeContainer({ deptNo = 1, depth = 0, companyNo = 1, changeTarge
   }, [deptNo, depth, companyNo]);
 
   return (
-    <div>
+    <TreeContainerWrap>
       <CommonTreeNode arr={arr} changeTarget={changeTarget} />
-    </div>
+    </TreeContainerWrap>
   );
 }
 
 export default CommonTreeContainer;
+
+export const TreeContainerWrap = styled.div`
+  max-height: 100%;
+  overflow-y: auto;
+`;
