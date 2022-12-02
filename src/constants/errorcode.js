@@ -1,5 +1,5 @@
 export const ERROR_CODE = {
-  UNAUTHORIZED: 401, NOT_FOUND: 404,
+  UNAUTHORIZED: 401, NOT_FOUND: 404, INTERNAL_SERVER_ERROR: 500,
 };
 
 export const MENU_NOT_FOUND = {
@@ -28,4 +28,8 @@ export const REFRESH_TOKEN_EXPIRED = {
 
 export const REDIS_USER_NOT_FOUND = {
   status: ERROR_CODE.NOT_FOUND, code: "REDIS_USER_NOT_FOUND", detailErrorCode: 400,
+};
+
+export const FOREIGN_KEY_ERROR = {
+  status: ERROR_CODE.INTERNAL_SERVER_ERROR, code: "FOREIGN_KEY_ERROR", detailErrorCode: 500,
 };

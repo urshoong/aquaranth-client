@@ -3,7 +3,7 @@ import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
 import { CenterGrid } from "@components/Grid";
 import styled from "styled-components";
-import { PUT_UPDATE_MENUICON } from "@pages/MODULE/SYS/ROLE/ROLE0031/api/menu";
+import { PUT_UPDATE_MENUICON } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
 import axios from "axios";
 
 

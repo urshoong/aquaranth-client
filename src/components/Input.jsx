@@ -4,11 +4,9 @@ import { Span } from "@components/Grid";
 export const Input = styled.input`
   ${({ theme }) => {
     return css`
-      ${Span};
-      border : 1px solid ${theme.color.gray500};
-      &:focus {
-        border: 1px solid ${theme.color.douzone500};
-      }
+      width: 100%;
+      font-size: inherit;
+      border-bottom: 0.5px solid ${theme.color.grayA100};
     `;
   }}
 `;

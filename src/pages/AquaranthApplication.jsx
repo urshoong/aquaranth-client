@@ -3,14 +3,14 @@ import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import Main from "@pages/main";
 import { lazy } from "@loadable/component";
 import DefaultLayout from "@components/layout/DefaultLayout";
-import { GET_ROUTES } from "@pages/MODULE/SYS/ROLE/ROLE0031/api/menu";
+import { GET_INIT_ROUTES } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
 
 const AquaranthApplication = () => {
   const [routes, setRoutes] = useState([]);
   const history = useHistory();
   const location = useLocation();
   useEffect(() => {
-    GET_ROUTES().then((res) => {
+    GET_INIT_ROUTES().then((res) => {
       setRoutes(res.data);
     });
   }, []);

@@ -61,6 +61,7 @@ const ButtonWrapper = styled.div`
 const InputWrapper = styled(ButtonWrapper)`
   ${({ theme }) => {
     return css`
+      padding: ${theme.typo.xxl};
     border: 1px solid ${theme.color.grayA100};;
     border-radius: 0.3rem;
   `;
