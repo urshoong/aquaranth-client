@@ -1,26 +1,39 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import RoleGroupList from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupList";
-import { RoleGroupWrapper } from "@pages/MODULE/SYS/ROLE/ROLE0010";
 import request from "@utils/axiosUtil";
+import {
+  LeftSectionFooter,
+  PaginationLi,
+  PaginationUl,
+  PaginationWrapper,
+  Section,
+} from "@pages/MODULE/SYS/ROLE/ROLE0010/uicontainer/rolegroup";
 import RoleGroupSearchBox from "./RoleGroupSearchBox";
 import useModal from "../../../../../../hooks/useModal";
 
 
-const fetchRoleGroupList = async () => {
-  const { data } = await request.get("/role-group");
+const fetchRoleGroupList = async (searchParams) => {
+  const { companyNo, roleGroupName, page } = searchParams;
+  const { data } = await request.get(`/role-group?companyNo=${companyNo}&roleGroupName=${roleGroupName}&page=${page}`);
   return data;
+};
+
+const initState = {
+  page: 1,
+  companyNo: 0,
+  roleGroupName: "",
 };
 
 function RoleGroupContainer({ refresh, companyList, onClickRoleGroupItem }) {
   const [roleGroupResponse, setRoleGroupResponse] = useState([]);
-  const [loginUserInfo, setLoginUserInfo] = useState([]);
+  const [searchParams, setSearchParams] = useState({ ...initState });
   const { openModal } = useModal();
+  const { start, end, prevFlag, first, last, prev, next, nextFlag } = roleGroupResponse;
 
   // 페이지 리랜더시 권한그룹목록 요청
   useEffect(() => {
     console.log("refresh 실행됨");
-    fetchRoleGroupList().then((r) => setRoleGroupResponse(r));
+    fetchRoleGroupList(searchParams).then((res) => setRoleGroupResponse(res));
   }, [refresh]);
 
   // 권한그룹 상태가 바뀌면 컴포넌트 리랜더링
@@ -32,49 +45,69 @@ function RoleGroupContainer({ refresh, companyList, onClickRoleGroupItem }) {
     openModal({ type: "ROLE0010", props: { companyList } });
   };
 
-  const onClickSearchBtn = (searchParams) => {
-    const { companyNo, roleGroupName } = searchParams;
-    request.get(`/role-group?companyNo=${companyNo}&roleGroupName=${roleGroupName}`)
-      .then(({ data }) => setRoleGroupResponse(data));
+  const onClickSearchBtn = () => {
+    searchParams.page = 1;
+    setSearchParams({ ...searchParams });
+    fetchRoleGroupList(searchParams)
+      .then((res) => setRoleGroupResponse(res));
   };
 
+  const onClickPageLi = (e) => {
+    searchParams.page = e.target.value;
+    setSearchParams({ ...searchParams });
+    fetchRoleGroupList(searchParams)
+      .then((res) => setRoleGroupResponse(res));
+  };
+
+  const pageRender = () => {
+    const result = [];
+    for (let i = start; i <= end; i++) {
+      result.push(<PaginationLi onClick={(e) => onClickPageLi(e)} value={i} key={i} className="page">{i}</PaginationLi>);
+    }
+    return result;
+  };
+
+
   return (
-    <RoleGroupWrapper>
-      <RoleGroupSearchBox companyList={companyList} onClickSearchBtn={onClickSearchBtn} />
-      <RoleGroupList companyList={companyList} roleGroupResponse={roleGroupResponse} onClickRoleGroupItem={onClickRoleGroupItem} />
-      <RoleGroupAddBtn onClick={onClickAddBtn}>+ 추가</RoleGroupAddBtn>
-      <RoleGroupPageWrapper>page</RoleGroupPageWrapper>
-    </RoleGroupWrapper>
+    <Section className="roleGroup left">
+      <RoleGroupSearchBox
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
+        companyList={companyList}
+        onClickSearchBtn={onClickSearchBtn}
+      />
+      <RoleGroupList
+        onClickAddBtn={onClickAddBtn}
+        companyList={companyList}
+        roleGroupResponse={roleGroupResponse}
+        onClickRoleGroupItem={onClickRoleGroupItem}
+      />
+      <LeftSectionFooter>
+        <PaginationWrapper>
+          <PaginationUl>
+            {prevFlag && (
+              <><PaginationLi onClick={(e) => onClickPageLi(e)} value={first} className="prev first">«</PaginationLi>
+                <PaginationLi onClick={(e) => onClickPageLi(e)} value={prev} className="prev">‹</PaginationLi>
+              </>
+            )}
+            {pageRender()}
+            {nextFlag && (
+              <><PaginationLi onClick={(e) => onClickPageLi(e)} value={next} className="next">›</PaginationLi>
+                <PaginationLi onClick={(e) => onClickPageLi(e)} value={last} className="next last">»</PaginationLi>
+              </>
+            )}
+
+            {/* TODO: 페이지 사이즈 값이 나타나지 않음. */}
+            {/* <PageSizeSelect value={10}> */}
+            {/*   <option>10</option> */}
+            {/*   <option>20</option> */}
+            {/*   <option>30</option> */}
+            {/* </PageSizeSelect> */}
+          </PaginationUl>
+        </PaginationWrapper>
+      </LeftSectionFooter>
+    </Section>
   );
 }
 
 export default RoleGroupContainer;
-
-export const RoleGroupSearchBoxDiv = styled.div`
-  border: black solid 1px;
-  padding: 20px;
-  width: 100%;
-  height: 20%;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const RoleGroupListWrapper = styled.div`
-  border: black solid 1px;
-  overflow: auto;
-  width: 100%;
-  height: 60%;
-  
-`;
-
-const RoleGroupAddBtn = styled.button`
-  border: black solid 1px;
-  width: 100%;
-  height: 10%;
-`;
-
-export const RoleGroupPageWrapper = styled.div`
-  border: black solid 1px;
-  width: 100%;
-  height: 10%;
-`;

@@ -2,9 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { getTree } from "@pages/MODULE/SYS/ORGA/ORGA0020/api/department";
 import styled, { css } from "styled-components";
 
-function TreeItemComp({ topDepartment, handleSelectDepartment }) {
-
-  console.log("트리 아이템을 조회합니다.", topDepartment);
+function TreeItemComp({ topDepartment, clickDept }) {
+  // console.log("트리 아이템을 조회합니다.", topDepartment);
   /**
    * 조직도에서 1depth밑의 부서들의 상태를 관리합니다.
    */
@@ -13,6 +12,8 @@ function TreeItemComp({ topDepartment, handleSelectDepartment }) {
    * 조직도에서 조직도를 열고 닫고 할 때 사용하는 아이콘을 관리합니다.
    */
   const [icon, setIcon] = useState("+");
+
+
   /**
    * HTML 태그 선택자
    * @type {React.MutableRefObject<undefined>}
@@ -56,16 +57,24 @@ function TreeItemComp({ topDepartment, handleSelectDepartment }) {
       {topDepartment.map((item) => (
         <List key={item.deptNo}>
           <Department>
-            <button type="button" ref={buttonRef} onClick={() => foldingButton(item.companyNo, item.depth + 1, item.deptNo)}>{icon}</button>
-            <span onClick={() => handleSelectDepartment(item.deptNo)}>{item.deptNo} -- {item.deptName}</span>
+            <button
+              type="button"
+              ref={buttonRef}
+              onClick={() => foldingButton(item.companyNo, item.depth + 1, item.deptNo)}
+            >{icon}
+            </button>
+            <span
+              onClick={() => { clickDept(item.companyNo, item.deptNo); }}
+            >{item.deptNo} -- {item.deptName}
+            </span>
           </Department>
           {department ? department.map((childrenItem) => (
             <TreeItemComp
               key={childrenItem.deptNo}
               topDepartment={[childrenItem]}
-              handleSelectDepartment={handleSelectDepartment}
+              clickDept={clickDept}
             />
-          )) : <></> }
+          )) : <div /> }
         </List>
       ))}
     </ul>
@@ -73,20 +82,20 @@ function TreeItemComp({ topDepartment, handleSelectDepartment }) {
 }
 
 const List = styled.li`
-  ${({})=>{
+  ${({}) => {
     return css`
       padding: 0.3rem;
       border-bottom: 0.5px solid #666666;
-    `
+    `;
   }}
-`
+`;
 
 const Department = styled.div`
-  ${({})=>{
-  return css`
+  ${({}) => {
+    return css`
       padding: 0.3rem;
-    `
-}}
-`
+    `;
+  }}
+`;
 
 export default TreeItemComp;

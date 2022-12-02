@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import useModal from "../../../../../../../hooks/useModal";
 import request from "../../../../../../../utils/axiosUtil";
 import { changeRefresh } from "../../../../../../../store/reducer/roleGroupSlice";
+import Swal from "sweetalert2";
 
 
 const initDTO = {
@@ -42,20 +43,20 @@ function Role0010ModModal({ roleGroup, companyList }) {
   const onClickDelBtn = () => {
     request.delete(`/role-group/${roleGroupNo}`)
       .then((r) => {
+        Swal.fire("권한그룹 삭제가 완료되었습니다.", "", "success").then();
         dispatch(changeRefresh());
         setUpdateDTO({ ...initDTO });
         closeModal();
-        console.log("권한그룹 삭제가 완료되었습니다.");
       });
   };
 
   const onClickModBtn = () => {
     request.put("/role-group", updateDTO)
       .then((r) => {
+        Swal.fire("권한그룹 수정이 완료되었습니다.", "", "success").then();
         setUpdateDTO({ ...initDTO });
         closeModal();
         dispatch(changeRefresh());
-        console.log("권한그룹 수정이 완료되었습니다.");
       });
   };
 

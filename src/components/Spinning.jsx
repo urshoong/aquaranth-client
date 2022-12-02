@@ -18,7 +18,7 @@ const Spinning = () => {
 
 const Overlay = styled(FullLayout)`
   background: rgba(0, 0, 0, 0.4);
-  z-index: 9999;
+  z-index: 999;
 `;
 
 const LoadingDivider = styled(Divider)`

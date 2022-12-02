@@ -50,7 +50,7 @@ const GnBSidebarWrapper = styled.ul`
     position: fixed;
     width: ${ui.gnbSidebar};
     height: 100vh;
-    z-index: 9999;
+    z-index: 999;
     transition: 0.1s;
     ::-webkit-scrollbar {
       display: none;

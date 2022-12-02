@@ -6,6 +6,7 @@ import request from "@utils/axiosUtil";
 import { useDispatch } from "react-redux";
 import { changeRefresh } from "../../../../../../../store/reducer/roleGroupSlice";
 import insert from "../../../../ORGA/ORGA0030/pages/Insert";
+import Swal from "sweetalert2";
 
 const initDTO = {
   companyNo: 0,
@@ -31,10 +32,11 @@ const ROLE0010Modal = ({ companyList }) => {
 
     await request.post("/role-group", insertDTO)
       .then(({ data }) => {
+        Swal.fire("권한그룹 추가가 완료되었습니다.", "", "success").then();
+        console.log("추가된 권한그룹", data);
         dispatch(changeRefresh());
         setInsertDTO({ ...initDTO });
         closeModal();
-        console.log("권한그룹 추가가 완료되었습니다. 추가된 권한그룹 -> ", data);
       });
   };
 

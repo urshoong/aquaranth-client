@@ -23,9 +23,9 @@ function MenuRoleList({ lnbList, menuRoleDTO, setMenuRoleDTO }) {
   };
 
   return (
-    <MenuRoleListDiv>
+    <div>
       {lnbList.map((menu) => <MenuRoleItem key={menu.menuNo} menu={menu} onChangeCheckBox={onChangeCheckBox} />)}
-    </MenuRoleListDiv>
+    </div>
   );
 }
 
