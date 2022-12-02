@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import request from "@utils/axiosUtil";
 import EmpInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpInformation";
 import { companyList } from "@pages/MODULE/SYS/ORGA/ORGA0030/pages/Insert";
+import Swal from "sweetalert2";
 
 const empList = async () => {
   const { data } = await request.get("/emp/information");
@@ -55,6 +56,7 @@ const initState = {
   lastRetiredDate: "",
   empUse: "",
   modDate: "",
+  preview: null,
 };
 
 const orgaInitState = {
@@ -91,6 +93,8 @@ function Index() {
   const [orgaColor, setOrgaColor] = useState("black");
 
   const [company, setCompany] = useState([]);
+
+  const [refresh, setRefresh] = useState(true);
 
   const history = useHistory();
 
@@ -150,10 +154,15 @@ function Index() {
 
   // 사원 정보 입력 후, 수정 버튼 클릭 실행 함수
   const clickEmpModify = () => {
-    alert("사원 정보 수정 완료");
     empModify(empInformation).then(() => {
       empList().then((data) => {
         setEmps(data);
+        Swal.fire("수정 완료", "사원 정보가 변경되었습니다.", "success").then(() => {
+          // 다시 정보를 부르고 그 정보를 set해준다.
+          empRead(empInformation.empNo).then((info) => {
+            setEmpInformation(info);
+          });
+        });
       });
     });
   };
@@ -163,7 +172,7 @@ function Index() {
     empList().then((data) => {
       setEmps(data);
     });
-  }, []);
+  }, [refresh]);
 
   // 조직 목록 출력하면 div display정보가 바뀌어야하기 때문에 그 상태 저장
   const [orgaDisplay, setOrgaDisplay] = useState("none");
@@ -213,16 +222,7 @@ function Index() {
   const handleOnChangeOrgaInput = (e, targetOrga) => {
     const { type, value, name, checked } = e.target;
 
-    console.log("--------------------");
-    console.log("type", type);
-    console.log("value", value);
-    console.log("name", name);
-    console.log("checked", checked);
-
     const replaceName = name.replace(/[0-9]/g, "");
-    console.log(name, "변경 후 > ", replaceName);
-    console.log(value);
-
 
     // 라디오 버튼은 name 값이 고유하기때문에 구분하기위한 name 의 숫자를 잘라 넣는다.
     if (type === "radio") {
@@ -234,7 +234,6 @@ function Index() {
     setOrgaModifyNo(targetOrga.orgaNo);
 
     console.log(targetOrga);
-    console.log("--------------------");
     console.log(orga);
     setOrga([...orga]);
   };
@@ -243,7 +242,7 @@ function Index() {
   const handleOnClickOrgaModify = () => {
     console.log("clickOrga", orga);
     empOrgaModify(orga).then(() => {
-      console.log("complete");
+      Swal.fire("수정 완료", "조직 정보가 변경되었습니다.", "success").then();
     });
   };
 
@@ -271,6 +270,8 @@ function Index() {
       handleOnClickOrgaModify={handleOnClickOrgaModify}
       handleOnChangeOrgaInput={handleOnChangeOrgaInput}
       handleOnClickOrgaModifyDept={handleOnClickOrgaModifyDept}
+      setRefresh={setRefresh}
+      refresh={refresh}
     />
   );
 }
