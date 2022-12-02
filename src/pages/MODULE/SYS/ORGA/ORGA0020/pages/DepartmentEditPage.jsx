@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import DepartmentTreeComp from "@pages/MODULE/SYS/ORGA/ORGA0020/components/depttree/DepartmentTreeComp";
 
 const DepartmentEditPage = ({
   selectDepartment,
+  setSelectDepartment,
   setRefresh,
-  handleSelectDepartment,
   companyList,
   selectCompany,
   setSelectCompany,
@@ -15,7 +15,14 @@ const DepartmentEditPage = ({
   setViewSelect,
   viewSelect,
   handleOnModal,
+  clickDept,
+  handleSelectDepartment,
 }) => {
+  /**
+   * 부서 정보 데이터 상태를 관리합니다.
+   */
+  const [deptInfo, setDeptInfo] = useState({});
+
   return (
     <div className="all">
       <div className="top">
@@ -81,7 +88,10 @@ const DepartmentEditPage = ({
             <div className="tree">
               <DepartmentTreeComp
                 companyNo={selectCompany}
-                handleSelectDepartment={handleSelectDepartment}
+                clickDept={clickDept}
+                setDeptInfo={setDeptInfo}
+                selectDepartment={selectDepartment}
+                setSelectDepartment={setSelectDepartment}
               />
             </div>
             {/* <div className="register"> */}
@@ -94,9 +104,10 @@ const DepartmentEditPage = ({
                 <div className="leftItem">부서번호</div>
                 <div className="leftItem">부서명</div>
                 <div className="leftItem">부서 약칭</div>
-                <div className="leftItem">부서 주소 </div>
                 <div className="leftItem">사용 여부</div>
-                <div className="leftItem">부서 정렬</div>
+                <div className="leftItem">부서내 정렬</div>
+                {/* <div className="leftItem">등록자명</div> */}
+
               </div>
 
               <div className="deptDataRight">
@@ -124,9 +135,6 @@ const DepartmentEditPage = ({
                     onChange={(e) => inputChangeHandler(e)}
                   />
                 </div>
-                <div className="rightItem">
-                  <input type="text" value={selectDepartment.deptNo} />
-                </div>
                 <div className="rightItem"> {selectDepartment.mainflag}
                   <input
                     type="radio"
@@ -151,6 +159,14 @@ const DepartmentEditPage = ({
                     readOnly
                   />
                 </div>
+                {/* <div className="rightItem"> */}
+                {/*   <input */}
+                {/*     type="text" */}
+                {/*     value={selectDepartment.regUser} */}
+                {/*     name="regUser" */}
+                {/*     readOnly */}
+                {/*   /> */}
+                {/* </div> */}
               </div>
             </div>
             <div>

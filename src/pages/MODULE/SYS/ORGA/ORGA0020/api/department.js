@@ -1,6 +1,16 @@
 import request from "@utils/axiosUtil";
 
 /**
+ * 트리구조에서 부서를 클릭할때마다
+ * 해당 부서의 상세 정보를 조회합니다.
+ */
+export const handleSelectDepartment = async (deptNo) => {
+  console.log("클릭한 해당 부서를 상세 조회합니다");
+  const { data } = await request.get(`/dept2/${deptNo}`);
+  return data;
+};
+
+/**
  * 바로 밑의 하위 부서를 조회합니다.
  * @param companyNo
  * @param depth
@@ -8,6 +18,9 @@ import request from "@utils/axiosUtil";
  * @returns {Promise<any>}
  */
 export const getTree = async (companyNo, depth, upperDeptNo) => {
+  console.log("get Tree inner params");
+  console.log("companyNo", companyNo);
+  if (companyNo === "회사선택") return [];
   const { data } = await request.get(`/dept2/findTree/${companyNo}/${depth}/${upperDeptNo}`);
   return data;
 };
@@ -27,7 +40,6 @@ export const findCompanyList = async () => {
  * @returns {Promise<any>}
  */
 export const modifyDept = async (deptDTO) => {
-  console.dir(deptDTO);
   const { data } = await request.put(`/dept2/${deptDTO.deptNo}`, deptDTO);
   return data;
 };
