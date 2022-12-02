@@ -5,11 +5,9 @@ import CommonTreeNode from "./CommonTreeNode";
 
 function CommonTreeContainer({ deptNo = 1, depth = 0, companyNo, setEmpList }) {
   const [arr, setArr] = useState([]);
-  const [target, setTarget] = useState(0); // 조직번호를 가져올 상태값
 
   const changeTarget = (currentTarget) => {
-    setTarget(currentTarget);
-    getOrgatreeEmpList(target).then((data) => {
+    getOrgatreeEmpList(currentTarget).then((data) => {
       console.log(data);
       setEmpList(data);
     });

@@ -7,21 +7,21 @@ function CommonTreeNode({ arr, changeTarget }) {
 
   const buttonRef = useRef();
 
-  const [icon, setIcon] = useState("+");
+  const [icon, setIcon] = useState("▶");
 
   const clickMore = (upperDeptNo, depth, companyNo) => {
     getChildNode(upperDeptNo, depth, companyNo).then((result) => {
       // console.log(result)
       setSubArr(result);
-      setIcon("-");
+      setIcon("▼");
     });
   };
 
   const clickButton = (upperDeptNo, depth, companyNo) => {
-    if (icon === "-") {
+    if (icon === "▼") {
       setSubArr([]);
-      setIcon("+");
-    } else if (icon === "+") {
+      setIcon("▶");
+    } else if (icon === "▶") {
       clickMore(upperDeptNo, depth, companyNo);
     }
   };
@@ -36,8 +36,8 @@ function CommonTreeNode({ arr, changeTarget }) {
         <li key={dept.deptNo}>
           <div style={{ padding: "5px" }}>
             <button type="button" style={{ paddingLeft: `${dept.depth * 15}px`, fontSize: "1em" }} ref={buttonRef} onClick={() => clickButton(dept.deptNo, dept.depth + 1, dept.companyNo)}>{icon}</button>
-            <span style={{ fontSize: "1em" }} onClick={() => changeTarget(dept.orgaNo)} aria-hidden="true">
-              {dept.depth === 0 ? dept.companyNo : dept.deptNo} -- {dept.deptName}
+            <span style={{ fontSize: "1em", fontWeight: "bold", paddingRight: "0.5em" }} onClick={() => changeTarget(dept.orgaNo)} aria-hidden="true">
+              {/* {dept.depth === 0 ? dept.companyNo : dept.deptNo} */} {dept.deptName}
             </span>
           </div>
 
