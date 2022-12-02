@@ -7,22 +7,67 @@ import {
   deleteDept,
   findCompanyList,
   getTree,
+  handleSelectDepartment,
   modifyDept,
 } from "@pages/MODULE/SYS/ORGA/ORGA0020/api/department";
 
+// /**
+//  * 조직도에 있는 부서들을 클릭할 때 마다,
+//  * DeptNo로 부서의 상세정보를 조회합니다.
+//  * @param deptNo
+//  */
+// const handleSelectDepartment = async (deptNo) => {
+//   const { data } = await request.get(`/dept2/${deptNo}`);
+//   console.log("부서 정보를 조회합니다.", data);
+//   return data;
+// };
+
+
+
 
 function Index() {
-  // const { openModal } = useModal();
-  // const data = { menucode: "ORGA0020", menuname: "부서 관리" };
-  // const handleOnModal = () => {
-  //   openModal({ type: "ORGA0020", props: data });
-  // };
+  const { openModal } = useModal();
+
+  // 조회
+  /**
+   * 조직도 트리에서 선택한 부서를
+   * 수정 컴포넌트와, 등록 컴포넌트에서 사용할 수 있는 상태입니다.
+   */
+  const [selectDepartment, setSelectDepartment] = useState({});
+
+  /**
+   *
+   */
+  // const [selectNo, setSetSelectNo] = useState({});
+
+  /**
+   * 모달창에서 트리구조를 선택할 때
+   * 해당 부서의 필요한 정보를 조회합니다.
+   * @param cNo
+   * @param upperDNo
+   */
+  const clickDept = (companyNo, deptNo) => {
+    console.log("edit page dept click");
+    handleSelectDepartment(deptNo).then((result) => {
+      console.log("index select dept : ", result);
+      console.log("클릭한 부서번호 : ", deptNo);
+      // console.log("selectNo", selectNo);
+      // setSetSelectNo(deptNo);
+      setSelectDepartment(result);
+    });
+  };
+
+  // ============================수정=============================================
+
+  const data = { menucode: "ORGA0020"
+    , menuname: "부서 관리",
+  };
+
 
   /**
    * 화면 재랜더링용 상태입니다.
    */
   const [refresh, setRefresh] = useState(false);
-
 
   /**
    * 컴포넌트가 로딩이 될때,
@@ -41,23 +86,27 @@ function Index() {
       console.log("회사 목록을 가져옵니다.", response);
     });
   }, []);
-  /**
-   * 조직도에 있는 부서들을 클릭할 때 마다,
-   * DeptNo로 부서의 상세정보를 조회합니다.
-   * @param deptNo
-   */
-  const handleSelectDepartment = async (deptNo) => {
-    const { data } = await request.get(`/dept2/${deptNo}`);
-    console.log("부서 정보를 조회합니다.", data);
-    setSelectDepartment(data);
-  };
+
 
   /**
-   * 조직도 트리에서 선택한 부서를
-   * 수정 컴포넌트와, 등록 컴포넌트에서 사용할 수 있는 상태입니다.
+   * 모달창을 띄워 줄 핸들러 입니다.
    */
-  const [selectDepartment, setSelectDepartment] = useState({});
-  // ============================수정=============================================
+  const handleOnModal = () => {
+    openModal({
+      type: "ORGA0020",
+      props: data,
+    });
+  };
+
+  // /**
+  //  * 부서 정보 데이터 상태를 관리합니다.
+  //  */
+  // const [deptInfo, setDeptInfo] = useState({});
+
+  /**
+   * 수정된 radio 버튼의 데이터를 관리합니다.
+   */
+  const [modRadioBtn, setModRadioBtn] = useState(true);
 
   /**
    * 수정 버튼을 클릭하면 변경된 내용에 맞게 변경해줍니다.
@@ -74,9 +123,12 @@ function Index() {
    * @param e
    */
   const radioBtnHandler = (e) => {
-    const { checked, name } = e.target;
-    modRadioBtn[name] = checked;
-    setModRadioBtn(modRadioBtn);
+    // const { checked, name } = e.target;
+    // modRadioBtn[name] = checked;
+    // setModRadioBtn(modRadioBtn);
+    const { value } = e.target;
+    setModRadioBtn(value);
+    console.log("사용여부가 바뀌었습니다", modRadioBtn);
   };
   /**
    * 수정 버튼을 클릭하면 입력한 데이터에
@@ -86,22 +138,10 @@ function Index() {
   const modClickHandler = () => {
     modifyDept({ ...selectDepartment, mainFlag: modRadioBtn }).then(() => {
       console.log("complete");
-      alert("수정되었습니다.")
+      alert("수정되었습니다.");
     });
   };
 
-  /**
-   * 수정된 radio 버튼의 데이터를 관리합니다.
-   */
-  const [modRadioBtn, setModRadioBtn] = useState(false);
-  // ============================수정=============================================
-
-  // ==========================등록========================================
-  // const registerComponent =
-
-  // ==========================등록========================================
-
-  // ==========================추가========================================
   /**
    * 1. 수정버튼을 보여줄지 등록버튼을 보여줄지를
    * boolean타입으로 설정하고 상태관리를 합니다.
@@ -117,22 +157,25 @@ function Index() {
   // ==========================추가========================================
 
 
-
   return (
-    <DepartmentEditPage
-      selectDepartment={selectDepartment}
-      setSelectDepartment={setSelectDepartment}
-      setRefresh={setRefresh}
-      handleSelectDepartment={handleSelectDepartment}
-      companyList={companyList}
-      setSelectCompany={setSelectCompany}
-      selectCompany={selectCompany}
-      inputChangeHandler={inputChangeHandler}
-      radioBtnHandler={radioBtnHandler}
-      modClickHandler={modClickHandler}
-      viewSelect={viewSelect}
-      setViewSelect={setViewSelect}
-    />
+    <>
+      <DepartmentEditPage
+        selectDepartment={selectDepartment}
+        setSelectDepartment={setSelectDepartment}
+        setRefresh={setRefresh}
+        handleSelectDepartment={handleSelectDepartment}
+        companyList={companyList}
+        setSelectCompany={setSelectCompany}
+        selectCompany={selectCompany}
+        inputChangeHandler={inputChangeHandler}
+        radioBtnHandler={radioBtnHandler}
+        modClickHandler={modClickHandler}
+        viewSelect={viewSelect}
+        setViewSelect={setViewSelect}
+        handleOnModal={handleOnModal}
+        clickDept={clickDept}
+      />
+    </>
   );
 }
 
