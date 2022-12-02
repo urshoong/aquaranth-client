@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { changeRefresh } from "@reducer/roleGroupSlice";
 import {
   Section,
 } from "@pages/MODULE/SYS/ROLE/ROLE0010/uicontainer/rolegroup";
+import Swal from "sweetalert2";
 import MenuRoleSearchBox from "./MenuRoleSearchBox";
+// eslint-disable-next-line import/no-cycle
 import MenuRoleList from "./MenuRoleList";
 import request from "../../../../../../utils/axiosUtil";
-import Swal from "sweetalert2";
 
 const initState = {
   roleGroupNo: 0,
@@ -70,7 +70,7 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
       Swal.fire("미선택", "메뉴를 선택해주세요.", "warning").then();
       return;
     }
-    console.log("post 요청발송 DTO->", menuRoleDTO.menuRoles);
+    console.log("메뉴권한 저장 요청발송 DTO->", menuRoleDTO.menuRoles);
     request.post("/menu-role", menuRoleDTO)
       .then(() => {
         Swal.fire("메뉴권한이 저장되었습니다.", "", "success").then();
