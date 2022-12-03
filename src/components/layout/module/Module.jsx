@@ -1,8 +1,6 @@
 import React, { Children, cloneElement, isValidElement } from "react";
 import styled, { css } from "styled-components";
 import ModuleTitle from "@components/layout/module/ModuleTitle";
-import Helmet from "react-helmet";
-import LnbSidebar from "@components/layout/sidebar/lnb/LnbSidebar";
 
 /**
  * 모듈 레이아웃 입니다.
@@ -10,14 +8,11 @@ import LnbSidebar from "@components/layout/sidebar/lnb/LnbSidebar";
  * @return {JSX.Element}
  * @constructor
  */
-const Module = ({ children, moduleTitle, setModuleTitle }) => {
+const Module = ({ children }) => {
   return (
     <ModuleWrapper>
-      <Helmet title="Aquaranth 10">
-        <meta name="description" content="아쿠아란스" />
-      </Helmet>
-      <ModuleTitle moduleTitle={moduleTitle} setModuleTitle={setModuleTitle} />
-      <ModuleLayout setModuleTitle={setModuleTitle}>
+      <ModuleTitle />
+      <ModuleLayout>
         {children}
       </ModuleLayout>
     </ModuleWrapper>

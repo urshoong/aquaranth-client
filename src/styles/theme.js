@@ -85,8 +85,9 @@ const theme = {
   ui: {
     gnbSidebar: "50px",
     gnbSidebarOpen: "150px",
-    lnbSidebar: "150px",
+    lnbSidebar: "200px",
     header: "100px",
+    subHeader: "50px",
     moduleTitle: "40px",
   },
 

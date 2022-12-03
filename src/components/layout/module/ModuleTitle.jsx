@@ -8,10 +8,10 @@ import styled, { css } from "styled-components";
  * @return {JSX.Element}
  * @constructor
  */
-const ModuleTitle = ({ moduleTitle, setModuleTitle }) => {
+const ModuleTitle = () => {
   return (
     <ModuleTitleWrapper>
-      {moduleTitle || "Module Title"}
+      {"Module Title"}
     </ModuleTitleWrapper>
   );
 };

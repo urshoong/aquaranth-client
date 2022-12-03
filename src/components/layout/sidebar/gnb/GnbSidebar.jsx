@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import GnbMenuItem from "@components/layout/sidebar/gnb/GnbMenuItem";
 import { darken } from "polished";
 import { GET_MENULIST } from "@api/commonApi";
@@ -15,7 +15,6 @@ import { GET_MENULIST } from "@api/commonApi";
 const GnbSidebar = () => {
   const [gnbMenuList, setGnbMenuList] = useState([]);
   const [visible, setVisible] = useState(false);
-
 
   const handleOnEnter = () => {
     setVisible(true);
@@ -45,21 +44,23 @@ const GnBSidebarWrapper = styled.ul`
   ${({ theme }) => {
     const { ui, color } = theme;
     return css`
-    background-color: ${darken(0.05, color.sidebar)};
-    overflow: auto;
-    position: fixed;
-    width: ${ui.gnbSidebar};
-    height: 100vh;
-    z-index: 999;
-    transition: 0.1s;
-    ::-webkit-scrollbar {
-      display: none;
-    }
-    &:hover{
-      transition: 0.2s;
-      width: calc(${ui.gnbSidebar} + ${ui.gnbSidebarOpen});
-    }
-  `;
+      background-color: ${darken(0.05, color.sidebar)};
+      overflow: auto;
+      position: fixed;
+      width: ${ui.gnbSidebar};
+      height: 100vh;
+      z-index: 999;
+      transition: 0.1s;
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      &:hover {
+        transition: 0.2s;
+        width: calc(${ui.gnbSidebar} + ${ui.gnbSidebarOpen});
+      }
+    `;
   }
 }`;
 

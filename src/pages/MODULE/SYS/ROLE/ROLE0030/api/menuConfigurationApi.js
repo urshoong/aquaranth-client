@@ -1,6 +1,6 @@
 import request from "@utils/axiosUtil";
+import { MENU_CONFIGURATION_PATH } from "@constants/common";
 
-const CONFIGURATION_URL = "/menu/config";
 
 /**
  * 메뉴 공통 쿼리스트링을 반환합니다.
@@ -34,7 +34,7 @@ export const menuQueryString = (url, query, keyword) => {
  * @constructor
  */
 export const GET_CONFIG_MENU = async (menu, keyword) => {
-  const queryUrl = `${CONFIGURATION_URL}?`;
+  const queryUrl = `${MENU_CONFIGURATION_PATH}?`;
 
   const query = menuQueryString(queryUrl, menu, keyword);
 
@@ -47,7 +47,7 @@ export const GET_CONFIG_MENU = async (menu, keyword) => {
  * @constructor
  */
 export const GET_CONFIG_MENULIST = async (menu, keyword) => {
-  const queryUrl = `${CONFIGURATION_URL}/list?`;
+  const queryUrl = `${MENU_CONFIGURATION_PATH}/list?`;
 
   const query = menuQueryString(queryUrl, menu, keyword);
 
@@ -56,7 +56,7 @@ export const GET_CONFIG_MENULIST = async (menu, keyword) => {
 
 
 export const GET_CONFIG_TREE_MENULIST = async (menu, keyword) => {
-  const queryUrl = `${CONFIGURATION_URL}/list/under?`;
+  const queryUrl = `${MENU_CONFIGURATION_PATH}/list/under?`;
 
   const query = menuQueryString(queryUrl, menu, keyword);
 
@@ -70,7 +70,7 @@ export const GET_CONFIG_TREE_MENULIST = async (menu, keyword) => {
  * @constructor
  */
 export const GET_CONFIG_MENUDETAIL = async (query) => {
-  let url = `${CONFIGURATION_URL}/detail?`;
+  let url = `${MENU_CONFIGURATION_PATH}/detail?`;
 
   if (typeof query === "number") {
     url += (`menuNo=${query}`);
@@ -89,7 +89,7 @@ export const GET_CONFIG_MENUDETAIL = async (query) => {
  * @constructor
  */
 export const PUT_CONFIG_MENU = async (updateMenuDto) => {
-  return request.put(`${CONFIGURATION_URL}/update`, updateMenuDto);
+  return request.put(`${MENU_CONFIGURATION_PATH}/update`, updateMenuDto);
 };
 
 /**
@@ -99,7 +99,7 @@ export const PUT_CONFIG_MENU = async (updateMenuDto) => {
  * @constructor
  */
 export const PUT_CONFIG_MENUICON = async (updateMenuDto) => {
-  return request.put(`${CONFIGURATION_URL}/update/icon`, updateMenuDto);
+  return request.put(`${MENU_CONFIGURATION_PATH}/update/icon`, updateMenuDto);
 };
 
 /**
@@ -109,7 +109,7 @@ export const PUT_CONFIG_MENUICON = async (updateMenuDto) => {
  * @constructor
  */
 export const DELETE_CONFIG_MENU = async (query) => {
-  let url = `${CONFIGURATION_URL}/delete?`;
+  let url = `${MENU_CONFIGURATION_PATH}/delete?`;
 
   if (typeof query === "number") {
     url += (`menuNo=${query}`);

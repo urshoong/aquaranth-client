@@ -2,6 +2,8 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { darken } from "polished";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { applicationSelector, SET_GNB } from "@reducer/applicationSlice";
 
 /**
  * GNB 사이드바에 사용되는 메뉴 컴포넌트 입니다.
@@ -12,10 +14,12 @@ import { useHistory } from "react-router-dom";
  * @constructor
  * @author 김민준
  */
-const GnbMenuItem = ({ menu: { menuName, menuPath, iconUrl }, visible }) => {
+const GnbMenuItem = ({ menu: { menuName, menuPath, iconUrl, menuNo }, visible }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const module = (pathname) => {
+    dispatch(SET_GNB(menuNo));
     history.push(pathname);
   };
 

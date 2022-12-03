@@ -13,16 +13,15 @@ import { FullLayout } from "@components/Util";
  * @constructor
  */
 const DefaultLayout = ({ children }) => {
-  const [pageTitle, setPageTitle] = useState("");
-  const [moduleTitle, setModuleTitle] = useState("");
+
   return (
     <FullLayout>
       <GnbSidebar />
       <ContentWrapper>
-        <Header pageTitle={pageTitle} setPageTitle={setPageTitle} />
+        <Header />
         <Wrapper>
           <LnbSidebar />
-          <Module moduleTitle={moduleTitle} setModuleTitle={setModuleTitle}>
+          <Module>
             {children}
           </Module>
         </Wrapper>

@@ -11,14 +11,10 @@ import useModal from "@hooks/useModal";
  */
 const MainHeader = () => {
   const { openModal } = useModal();
-  const data = {
-    menucode: "ORGA0030",
-    menuname: "사원 관리",
-  };
   const handleOnModal = () => {
     openModal({
       type: "ORGA0030",
-      props: data,
+      props: "",
     });
   };
 
@@ -26,14 +22,17 @@ const MainHeader = () => {
     <MainHeaderWrapper>
       <Link to="/">Aquaranth10</Link>
       <button type="button" onClick={handleOnModal}>🐹🐹🐹회사 변경🐹🐹🐹</button>
+      <Link to="/">로그아웃</Link>
     </MainHeaderWrapper>
   );
 };
 
 const MainHeaderWrapper = styled.div`
   ${({ theme }) => css`
+    display: flex;
+    justify-content: space-between;
     background-color: ${theme.color.white};
-    padding: 10px;
+    height: 50px;
   `}
 `;
 

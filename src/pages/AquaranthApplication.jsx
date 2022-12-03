@@ -3,30 +3,35 @@ import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import Main from "@pages/main";
 import { lazy } from "@loadable/component";
 import DefaultLayout from "@components/layout/DefaultLayout";
-import { GET_INIT_ROUTES } from "@api/commonApi";
+import { useDispatch, useSelector } from "react-redux";
+import { applicationSelector, GET_INIT_ROUTES, SET_PAGES, SET_TITLE } from "@reducer/applicationSlice";
 
 const AquaranthApplication = () => {
-  const [routes, setRoutes] = useState([]);
+  const application = useSelector(applicationSelector);
+  const dispatch = useDispatch();
+
   const history = useHistory();
   const location = useLocation();
+
   useEffect(() => {
-    GET_INIT_ROUTES().then((res) => {
-      setRoutes(res.data);
-    });
-  }, []);
+    dispatch(GET_INIT_ROUTES());
+  }, [dispatch]);
   return (
     <DefaultLayout>
       <Route path="/" exact render={() => <Main />} />
       <Switch location={location}>
-        {routes.map(({ menuNo, menuPath }) => {
+        {application.routes.map(({ menuNo, menuPath, menuName }) => {
           return (
             <Route
               exact
               path={menuPath}
-              component={lazy(() => import(`@pages/MODULE${menuPath}`)
-                .catch(() => {
-                  return history.push("/");
-                }))}
+              component={lazy(() => {
+                dispatch(SET_TITLE(menuName));
+                dispatch(SET_PAGES(menuNo));
+                return (import(`@pages/MODULE${menuPath}`).catch(() => {
+                  return (history.push("/"));
+                }));
+              })}
               key={menuNo}
             />
           );
