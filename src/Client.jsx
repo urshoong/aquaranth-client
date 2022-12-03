@@ -44,7 +44,6 @@ const Client = () => {
   }
   return (
     <Suspense fallback={<Spinner />}>
-      <Route exact component={Profile} path="/profile-popup" />
       <Route component={lazy(() => import("@pages/AquaranthApplication"))} />
     </Suspense>
   );

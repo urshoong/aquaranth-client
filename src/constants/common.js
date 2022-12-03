@@ -1,3 +1,9 @@
+/**
+ * 앱 전역 상수입니다.
+ *
+ * @author 김민준
+ */
+
 export const { API_URL } = process.env;
 
 export const ACCESS_TOKEN = "_at";

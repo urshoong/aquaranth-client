@@ -5,8 +5,10 @@ export const ModalSetterContext = createContext();
 
 
 /**
- * 모달을 전역적으로 선언하고, Provider를 제공함으로써
+ * 모달 Provider 입니다.
+ * Provider를 감싼 컴포넌트 내에서
  * 전역적으로 모달을 사용할 수 있습니다.
+ *
  * @param children
  * @return {JSX.Element}
  * @constructor
@@ -14,8 +16,7 @@ export const ModalSetterContext = createContext();
  */
 const ModalProvider = ({ children }) => {
   const [state, setState] = useState({
-    type: null,
-    title: null,
+    type: null, title: null,
   });
 
   return (

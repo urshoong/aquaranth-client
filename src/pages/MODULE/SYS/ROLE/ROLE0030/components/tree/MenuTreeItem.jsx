@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import { GET_TREE_MENULIST } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
 import styled, { css } from "styled-components";
 import Arrow from "@styles/assets/icon/Arrow";
+import { GET_MENULIST } from "@api/commonApi";
 
 const MenuTreeItem = ({ subMenuItem, menuList, setSelectedMenu }) => {
   const [subMenu, setSubMenu] = useState([]);
@@ -14,7 +14,7 @@ const MenuTreeItem = ({ subMenuItem, menuList, setSelectedMenu }) => {
     }
     if (!collapse) {
       setCollapse(true);
-      GET_TREE_MENULIST(menuNo).then((res) => {
+      GET_MENULIST(menuNo).then((res) => {
         setSubMenu(res.data);
       });
     }

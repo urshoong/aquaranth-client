@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import GnbMenuItem from "@components/layout/sidebar/gnb/GnbMenuItem";
-import { GET_MENULIST, GET_USER_MENULIST } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
 import { darken } from "polished";
+import { GET_MENULIST } from "@api/commonApi";
 
 /**
  * GNB 사이드바 컴포넌트 입니다.
@@ -25,7 +25,7 @@ const GnbSidebar = () => {
   };
 
   useEffect(() => {
-    GET_USER_MENULIST("ORGA", "lnb").then((res) => {
+    GET_MENULIST(false, "gnb").then((res) => {
       setGnbMenuList(res.data);
     });
   }, []);

@@ -1,3 +1,9 @@
+/**
+ * 에러코드 전역 상수입니다.
+ *
+ * @author 김민준
+ */
+
 export const ERROR_CODE = {
   UNAUTHORIZED: 401, NOT_FOUND: 404, INTERNAL_SERVER_ERROR: 500,
 };

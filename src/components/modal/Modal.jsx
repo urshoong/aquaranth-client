@@ -5,6 +5,13 @@ import Cross from "@styles/assets/icon/Cross";
 import { BreakLine } from "@components/Util";
 
 
+/**
+ * 모달 컴포넌트 입니다.
+ *
+ * @return {}
+ * @constructor
+ * @author 김민준
+ */
 const Modal = ({
   onClose,
   children,
@@ -40,10 +47,10 @@ const Modal = ({
 };
 
 const modalAnimation = keyframes`
-  0%{
+  0% {
     opacity: 0;
   }
-  100%{
+  100% {
     opacity: 1;
   }
 `;
@@ -95,7 +102,7 @@ const ModalWrapper = styled.div`
 const CloseButton = styled.div`
   ${() => {
     return css`
-      
+
     `;
   }}
 `;

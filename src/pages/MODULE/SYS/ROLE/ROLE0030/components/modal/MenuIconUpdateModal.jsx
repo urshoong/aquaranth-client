@@ -2,7 +2,7 @@ import React, {useRef, useState} from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
 import styled, {css} from "styled-components";
-import {PUT_UPDATE_MENUICON} from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import {PUT_CONFIG_MENUICON} from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menuConfigurationApi";
 import {FileInput, Image, Layout, MenuButton} from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Style";
 
 const MenuIconUpdateModal = ({queryMenu}) => {
@@ -34,7 +34,7 @@ const MenuIconUpdateModal = ({queryMenu}) => {
     const formData = new FormData();
     formData.append("multipartFile", file);
     formData.append("key", queryMenu?.menuCode);
-    await PUT_UPDATE_MENUICON(formData).then((res) => {
+    await PUT_CONFIG_MENUICON(formData).then((res) => {
       handleCloseModal()
     });
   };

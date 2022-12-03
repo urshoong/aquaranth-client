@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
 import styled from "styled-components";
-import { PUT_UPDATE_MENU, PUT_UPDATE_MENUICON } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import { PUT_CONFIG_MENU, PUT_CONFIG_MENUICON } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menuConfigurationApi";
 import FormInput from "@components/form/FormInput";
 import {
   ColumnName,
@@ -51,13 +51,13 @@ const MenuInsertModal = ({ selectedMenu }) => {
     const formData = new FormData();
     formData.append("multipartFile", file);
     formData.append("key", selectedMenu.menuCode);
-    await PUT_UPDATE_MENUICON(formData).then((res) => {
+    await PUT_CONFIG_MENUICON(formData).then((res) => {
       console.log(res);
     });
   };
 
   const menuInsertHandler = async (menuUpdateDto) => {
-    PUT_UPDATE_MENU(menuUpdateDto).then(() => {
+    PUT_CONFIG_MENU(menuUpdateDto).then(() => {
       console.log("test");
     });
   };

@@ -2,7 +2,7 @@ import React, {useRef, useState} from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
 import styled, {css} from "styled-components";
-import {DELETE_MENU, PUT_UPDATE_MENUICON} from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import {DELETE_CONFIG_MENU, PUT_CONFIG_MENUICON} from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menuConfigurationApi";
 import {FileInput, Image, Layout, MenuButton, Text} from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Style";
 import {CenterGrid, Divider} from "@components/Grid";
 
@@ -15,7 +15,7 @@ const MenuDeleteConfirmModal = ({queryMenu}) => {
 
 
   const handleOnDelete = async () => {
-    await DELETE_MENU(queryMenu.menuCode).then((res) => {
+    await DELETE_CONFIG_MENU(queryMenu.menuCode).then((res) => {
       handleCloseModal()
     });
   };

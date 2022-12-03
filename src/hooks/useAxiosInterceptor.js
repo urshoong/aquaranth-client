@@ -13,16 +13,25 @@ import {
 } from "@constants/errorcode";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "@constants/common";
 import { removeCookie } from "@utils/cookieUtil";
-import useModal from "@hooks/useModal";
 import Swal from "sweetalert2";
 
-
+/**
+ * Axios 인터셉터 Hooks 입니다.
+ *
+ * 앱 내 공통 HTTP Client의 모든 요청과 응답을 가로채고,
+ * 요청에 따른 응답을 분기로 나누어 처리 할 수 있습니다.
+ *
+ * @constructor
+ * @author 김민준
+ */
 const UseAxiosInterceptor = () => {
   const history = useHistory();
 
   const responseInterceptor = request.interceptors.response.use(
     (response) => successHandler(response),
     (error) => {
+
+      // FIXME
       const { detailErrorCode, message } = error.response.data?.body ? error.response.data.body : error.response.data;
 
       if (detailErrorCode === FOREIGN_KEY_ERROR.detailErrorCode) {

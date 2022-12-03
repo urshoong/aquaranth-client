@@ -10,14 +10,14 @@ import {
   TitleWrapper,
 } from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Style.jsx";
 import styled from "styled-components";
-import { GET_MENU_DETAIL } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import { GET_CONFIG_MENUDETAIL } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menuConfigurationApi";
 
 
 const Selected = ({ handleOnIconUpdateModal, handleOnMenuInsertModal, handleOnMenuDeleteConfirmModal, handleOnUpdateMenu }) => {
   const { selectedMenu, setSelectedMenu, queryMenu, setQueryMenu } = useContext(SelectMenuContext);
 
   useEffect(() => {
-    GET_MENU_DETAIL(selectedMenu).then((res) => {
+    GET_CONFIG_MENUDETAIL(selectedMenu).then((res) => {
       setQueryMenu(res.data);
     });
   }, [selectedMenu]);

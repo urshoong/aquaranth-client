@@ -5,7 +5,7 @@ import { lighten } from "polished";
 import Unselected from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Unselected";
 import Selected from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Selected";
 import useModal from "@hooks/useModal";
-import { GET_MENU, GET_MENULIST, GET_TREE_MENULIST, PUT_UPDATE_MENU } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menu";
+import { GET_CONFIG_TREE_MENULIST, PUT_CONFIG_MENU } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menuConfigurationApi";
 import SelectMenuContext from "@pages/MODULE/SYS/ROLE/ROLE0030/context/SelectMenuContext";
 import MenuTreeComp from "@pages/MODULE/SYS/ROLE/ROLE0030/components/tree/MenuTreeComp";
 
@@ -28,13 +28,13 @@ const MenuConfigurationComp = () => {
   };
 
   useEffect(() => {
-    GET_TREE_MENULIST("gnb").then((res) => {
+    GET_CONFIG_TREE_MENULIST(false, "gnb").then((res) => {
       setMenuList(res.data);
     });
   }, []);
 
   const handleOnUpdateMenu = async (menuUpdateDto) => {
-    PUT_UPDATE_MENU(menuUpdateDto);
+    PUT_CONFIG_MENU(menuUpdateDto);
   };
 
   return (
