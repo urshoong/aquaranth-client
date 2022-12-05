@@ -4,6 +4,7 @@ import { CenterGrid } from "@components/Grid";
 import useModal from "@hooks/useModal";
 import request from "@utils/axiosUtil";
 import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const empRegister = async (emp) => {
   const { data } = await request.post("/emp/register", emp);
@@ -31,10 +32,9 @@ const initState = {
   email: "",
   empPhone: "",
   empAddress: "",
-  empRole: "",
   empUse: 1,
+  passwordCheck: "",
 };
-
 
 function Orga0030RegisterModal() {
   // 모달 close
@@ -70,35 +70,65 @@ function Orga0030RegisterModal() {
       });
   };
 
+  const [usernameError, setUsernameError] = useState(false);
+
+
   // 사원 정보 입력값 변경 시 실행되는 함수
   const handleOnChangeEmployee = (e) => {
     const {
       name,
       value,
     } = e.target;
+
     setEmployee({
       ...employee,
       [name]: value,
     });
   };
 
-  /// //////////////
-  const idCheck = () => {
+  // 사원 username 유효성 실행
+  const handleOnChangeUsername = (e) => {
+    const { name, value } = e.target;
 
+    const usernameRegex = /^[a-z0-9]{3,12}$/;
+
+    if ((!value || (usernameRegex.test(value)))) {
+      setUsernameError(false);
+      setEmployee({
+        ...employee,
+        [name]: value,
+      });
+    } else {
+      setUsernameError(true);
+    }
   };
-  /// //////////////
+
+
+  const handleOnClickPasswordCheck = () => {
+    if (employee.password === employee.passwordCheck) {
+      Swal.fire("비밀번호 확인", "동일한 비밀번호입니다.", "success").then();
+    }
+    if (employee.password !== employee.passwordCheck) {
+      Swal.fire("비밀번호 불일치", "비밀번호를 확인해주세요.", "warning").then();
+    }
+  };
+
 
   const clickEmpAdd = () => {
-    empRegister(employee)
-      .then(() => {
-        setEmployee(employee);
-        closeModal();
-        history.replace("/SYS/ORGA/ORGA0030");
-      });
-  };
-
-  const clickMoveEmpListPage = () => {
-    history.replace("/SYS/ORGA/ORGA0030");
+    if (employee.companyNo === 0 || employee.deptNo === 0 || employee.empRank === ""
+        || employee.empName === "" || employee.username === "" || employee.password === ""
+        || employee.gender === "") {
+      Swal.fire("미입력 항목 존재", "필수값을 모두 입력해주세요.", "warning").then();
+    } else if (employee.password !== employee.passwordCheck) {
+      Swal.fire("비밀번호 불일치", "비밀번호를 확인해주세요.", "warning").then();
+    } else {
+      empRegister(employee)
+        .then(() => {
+          setEmployee(employee);
+          closeModal();
+          history.replace("/SYS/ORGA/ORGA0030");
+        });
+    }
   };
 
   return (
@@ -180,13 +210,12 @@ function Orga0030RegisterModal() {
             <input
               type="text"
               name="username"
+              placeholder="3글자 이상 소문자, 숫자"
               onChange={(e) => {
-                handleOnChangeEmployee(e);
-              }}
-              onBlur={(e) => {
-                idCheck(e);
+                handleOnChangeUsername(e);
               }}
             />
+            {usernameError && <span>3글자 이상 소문자 또는 숫자만 입력 가능합니다.</span>}
           </div>
 
           <div>
@@ -198,6 +227,19 @@ function Orga0030RegisterModal() {
                 handleOnChangeEmployee(e);
               }}
             />
+          </div>
+
+          <div>
+            <span> 비밀번호 확인 </span>
+            <input
+              type="password"
+              name="passwordCheck"
+              onChange={(e) => {
+                handleOnChangeEmployee(e);
+              }}
+            />
+
+            <button type="button" onClick={() => { handleOnClickPasswordCheck(); }}>확인</button>
           </div>
 
           <div>
@@ -223,13 +265,12 @@ function Orga0030RegisterModal() {
                 handleOnChangeEmployee(e);
               }}
             />
-            {/* {...register("email", { required: true })} */}
           </div>
 
           <div>
             <span> 휴대전화 </span>
             <input
-              type="text"
+              type="number"
               name="empPhone"
               onChange={(e) => {
                 handleOnChangeEmployee(e);
@@ -247,27 +288,6 @@ function Orga0030RegisterModal() {
               }}
             />
           </div>
-
-          <div>
-            <span>권한</span>
-            <input
-              name="empRole"
-              type="radio"
-              value="ROLE_USER"
-              onChange={(e) => {
-                handleOnChangeEmployee(e);
-              }}
-            />일반
-            <input
-              name="empRole"
-              type="radio"
-              value="ROLE_ADMIN"
-              onChange={(e) => {
-                handleOnChangeEmployee(e);
-              }}
-            />관리자
-          </div>
-
 
           <button
             type="submit"

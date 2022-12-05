@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
-import { CenterGrid, Divider, Span } from "@components/Grid";
 import { useHistory } from "react-router-dom";
 import request from "../../../../../../../utils/axiosUtil";
 
@@ -53,48 +52,6 @@ const ORGA0030Modal = () => {
     closeModal();
   };
 
-  // 라디오 버튼 변경
-  // const handleOnChangeRadio = (e) => {
-  //   const { value } = e.target;
-  //
-  //   console.log("라디오 변경 시, 선택된 company값", value);
-  //
-  //   // 선택된 부서의 번호 가져오기.
-  //   if (e.target.name === "loginDeptNo") {
-  //     const deptName = e.target.name;
-  //   } // 아니면  select인 dept로 해야하나..?
-  //   // const deptNo = deptName.options[deptName.selectedIndex].value;
-  //
-  //
-  //   // 내가 짠 회사 번호 넣는 코드
-  //   setSelectLogin({ ...selectLogin, loginCompanyNo: value });
-  //   console.log(selectLogin);
-  // };
-  //
-  // // select 변경
-  // const handleOnChangeSelect = (e) => {
-  //   // target 지정
-  //   const { target } = e;
-  //
-  //   // 선택한 값
-  //   console.log(target);
-  //
-  //   // select 변경하면 회사 번호 알아오기.
-  //   // select에 회사 번호를 type을 만들어서 좀 좋은 방법은 아니지만.. 알아온다.
-  //   const companyNo = target.getAttribute("data-com");
-  //
-  //   // 선택된 부서의 번호 알아오기.
-  //   const deptNo = target.options[target.selectedIndex].value;
-  //
-  //   // 선택된 회사 번호와 부서 번호 알아낸다.
-  //   console.log("COMPANY---", companyNo, deptNo);
-  //
-  //
-  //   // 이건 일단. deptno넣는거. 예전에 ㅐㄴㅐ가 만들어놓은 코드
-  //   setSelectLogin({ ...selectLogin, loginDeptNo: target.value });
-  //
-  //   console.log(selectLogin);
-  // };
 
   const onClickHandlerSelectBtn = (e) => {
     const { name, value } = e.target;

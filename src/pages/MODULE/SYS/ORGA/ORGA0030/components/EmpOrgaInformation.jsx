@@ -82,26 +82,6 @@ function EmpOrgaInformation({
             </select>
           </div>
 
-          <div>
-            <span>권한</span>
-            <input
-              name="empRole"
-              type="radio"
-              value="ROLE_USER"
-              onChange={(e) => {
-                handleOnChangeOrgaRegisterInput(e);
-              }}
-            />일반
-            <input
-              name="empRole"
-              type="radio"
-              value="ROLE_ADMIN"
-              onChange={(e) => {
-                handleOnChangeOrgaRegisterInput(e);
-              }}
-            />관리자
-          </div>
-
           <button
             type="submit"
             onClick={() => {
@@ -130,7 +110,7 @@ function EmpOrgaInformation({
           companyAddress,
           orgaNo,
           deptMain,
-          empRole,
+          // empRole,
           companyNo,
           deptNo,
         } = target;
@@ -239,29 +219,7 @@ function EmpOrgaInformation({
               />
               </div>
 
-              <div>
-                <span>권한</span>
-              </div>
-              <div>
-                <input
-                  name={`empRole${orgaNo}`}
-                  type="radio"
-                  value="ROLE_USER"
-                  checked={empRole === "ROLE_USER"}
-                  onChange={(e) => {
-                    handleOnChangeOrgaInput(e, target);
-                  }}
-                />일반
-                <input
-                  name={`empRole${orgaNo}`}
-                  type="radio"
-                  value="ROLE_ADMIN"
-                  checked={empRole === "ROLE_ADMIN"}
-                  onChange={(e) => {
-                    handleOnChangeOrgaInput(e, target);
-                  }}
-                />관리자
-              </div>
+
             </div>
           </div>
         );
