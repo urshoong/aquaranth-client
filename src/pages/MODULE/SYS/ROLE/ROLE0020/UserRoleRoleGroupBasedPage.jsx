@@ -245,11 +245,10 @@ const UserRoleRoleGroupBasedPage = () => {
   };
 
   useEffect(() => {
-    setUserRoleModal({ ...userRoleModal, changeOrgaList });
     getCompanyList().then((data) => {
       setRoleCompany(data);
       const selectedCompany = refCompanySelect.current?.value;
-      setUserRoleModal({ ...userRoleModal, companyNo: selectedCompany });
+      setUserRoleModal({ ...userRoleModal, changeOrgaList, companyNo: selectedCompany });
       searchClickHandler();
     });
   }, []);
