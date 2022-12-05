@@ -74,20 +74,7 @@ function DepartmentRegisterComp({ deptInfo }) {
         <label>상위부서번호</label>
         <input type="text" value={regDept.upperDeptNo} onChange={(e) => regiterChange(e)} name="upperDeptNo" readOnly="true" />
       </div>
-      {/* <div>
-        <label>등록자명</label>
-        <input type="text" onChange={(e) => regiterChange(e)} name="regUser" />
-      </div> */}
-      {/* <div>
-        <label>사용 여부</label>
-        <input type="checkbox" checked={regDept.mainflag} onChange={(e) => registerRadioChange(e)} name="mainFlag" />
-      </div> */}
-      {/* <div>
-        <label>뎁스</label>
-        <input type="text" onChange={(e) => regiterChange(e)} name="depth" />
-      </div> */}
       <button type="button" onClick={regClickHandler}>저장</button>
-
     </div>
   );
 }
