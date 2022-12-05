@@ -1,6 +1,5 @@
 import React from "react";
 import MenuRoleItem from "@pages/MODULE/SYS/ROLE/ROLE0010/components/MenuRoleItem";
-import { MenuRoleListDiv } from "./MenuRoleContainer";
 
 function MenuRoleList({ lnbList, menuRoleDTO, setMenuRoleDTO }) {
 

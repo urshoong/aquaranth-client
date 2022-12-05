@@ -31,7 +31,7 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
 
   // 최초 랜더시 GNB 메뉴리스트 불러오기
   useEffect(() => {
-    request.get("/menu/list?keyword=gnb")
+    request.get("/menu?keyword=gnb")
       .then(({ data }) => setGnbList(data));
   }, []);
 
