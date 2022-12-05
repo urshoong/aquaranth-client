@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import request from "@utils/axiosUtil";
 import EmpInsert from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpInsert";
 import { useHistory } from "react-router-dom";
-// eslint-disable-next-line import/no-extraneous-dependencies
-import _ from "lodash";
 
 const empRegister = async (emp) => {
   const { data } = await request.post("/emp/register", emp);

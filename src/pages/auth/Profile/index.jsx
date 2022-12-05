@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { CenterGrid } from "@components/Grid";
 import { empInfo, registerLoginUser } from "@pages/auth/Profile/api/profile";
 import Swal from "sweetalert2";
 
@@ -48,7 +47,7 @@ const Index = () => {
     // 배열이 비어있다면 체크 여부 알람을 띄운다.
     if (radioArr.length === 0) {
       Swal.fire("체크 여부 없음", "접속할 회사를 선택해주세요", "warning").then();
-    // 배열의 값이 있다면, 배열의 0번째 값 ( 체크 값 ), 1번째 값을 각각 해당하는 state 로 설정한다.
+      // 배열의 값이 있다면, 배열의 0번째 값 ( 체크 값 ), 1번째 값을 각각 해당하는 state 로 설정한다.
     } else {
       selectLogin.loginCompanyNo = Number(radioArr[0]);
       selectLogin.loginDeptNo = Number(radioArr[1]);
@@ -59,27 +58,9 @@ const Index = () => {
           location.reload();
         });
     }
-    /* if (radioCheckNum > 0) {
-      selectLogin.loginCompanyNo = radio.value;
-      selectLogin.loginDeptNo = select.value;
-      setSelectLogin({ ...selectLogin });
-      console.log("성공");
-      registerLoginUser(selectLogin)
-        .then(() => {
-          location.href = "/";
-          location.reload();
-        });
-    } else {
-      Swal.fire("체크 여부 없음", "접속할 회사를 선택해주세요", "warning")
-        .then();
-    } */
-
-    console.log(radioArr);
-    console.log("selectLogin", selectLogin);
   };
 
   return (
-    // <CenterGrid>
     <div>
       {employeeState.map((info) => {
         return (
@@ -97,7 +78,6 @@ const Index = () => {
                     name="loginCompanyNo"
                     type="radio"
                     value={company.companyNo}
-                    // onChange={(e) => { handleOnChangeRadio(e); }}
                     readOnly
                   />
                   {company.companyName}
@@ -124,8 +104,6 @@ const Index = () => {
       >확인
       </button>
     </div>
-
-  // </CenterGrid>
   );
 };
 

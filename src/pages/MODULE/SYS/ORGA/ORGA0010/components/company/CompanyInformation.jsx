@@ -38,7 +38,7 @@ function CompanyInformation({ information, setInformation, clickCompanyInfoShow,
       <CompanyInfoBtnDiv>
         <CompanyInfoSpan>ㆍ기본정보</CompanyInfoSpan>
         <CompanyInfoBtn type="submit" onClick={clickCompanySave}>저장</CompanyInfoBtn>
-        <CompanyInfoBtn type="submit" onClick={() => { clickCompanyRemove(companyNo); }}>삭제</CompanyInfoBtn>
+        <CompanyInfoBtn type="submit" onClick={() => { clickCompanyRemove(companyNo, companyUse); }}>삭제</CompanyInfoBtn>
         <CompanyInfoShowBtn type="submit" onClick={clickCompanyInfoShow}>X</CompanyInfoShowBtn>
       </CompanyInfoBtnDiv>
       {show
