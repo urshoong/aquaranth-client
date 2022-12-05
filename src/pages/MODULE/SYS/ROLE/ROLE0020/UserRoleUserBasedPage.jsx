@@ -2,6 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import UserListContent2 from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserContent2";
 import Swal from "sweetalert2";
 import {
+  Button,
+  UserRoleSection,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGroupStyledCommon";
+import {
   getCompanyList,
   getGroupListByUser,
   getUserListByUser,
@@ -38,7 +42,7 @@ const UserRoleUserBasedPage = () => {
   const refUserKeyword1 = useRef();
   const refUserKeyword2 = useRef();
   const refuserList = useRef();
-  const refRoleGroupList = useRef();
+  const refRoleGroupListContainer = useRef();
 
   const changeRoleGroupSearchHandler = (prop, value) => {
     userRgSearch[prop] = value;
@@ -181,6 +185,7 @@ const UserRoleUserBasedPage = () => {
 
   const companySelectChangeHandler = () => {
     userSearchClickHandler();
+    setUserRoleGroup([]);
   };
 
   useEffect(() => {
@@ -217,12 +222,12 @@ const UserRoleUserBasedPage = () => {
           <input type="text" className="innerSearchInput keyword2" ref={refUserKeyword2} />
         </div>
         <div className="searchWrap userList">
-          <button type="button" className="btn" onClick={orgaRoleRemove}>&nbsp;권한삭제&nbsp;</button>
-          <button type="button" className="btn innerSearchBtn" onClick={userSearchClickHandler}>🔍</button>
+          <Button type="button" className="btn" onClick={orgaRoleRemove}>&nbsp;권한삭제&nbsp;</Button>
+          <Button type="button" className="btn innerSearchBtn" onClick={userSearchClickHandler}>🔍</Button>
         </div>
       </div>
       <div className="innerContent userList">
-        <div className="section userList left">
+        <UserRoleSection width="calc(100% - 400px)" paddingRight="20px">
           <div className="contentContainer userList">
             <div className="contentRow contentRow2 header">
               <div><span>회사명</span></div>
@@ -260,17 +265,17 @@ const UserRoleUserBasedPage = () => {
               selectChangeHandler={userListSizeSelectChangeHandler}
             />
           </div>
-        </div>
-        <div className="section userList right">
+        </UserRoleSection>
+        <UserRoleSection width="400px" border="2">
           <RoleGroupListContent
             roleGroupList={userRoleGroup}
             roleGroupClickHandler={roleGroupClickHandler}
             roleGroupResponse={userRgResponse}
             roleGroupPageClickHandler={roleGroupPageClickHandler}
             roleGroupSizeSelectChangeHandler={roleGroupSizeSelectChangeHandler}
-            refRoleGroupList={refRoleGroupList}
+            refRoleGroupListContainer={refRoleGroupListContainer}
           />
-        </div>
+        </UserRoleSection>
       </div>
     </div>
   );

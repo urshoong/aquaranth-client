@@ -8,20 +8,20 @@ function CommonTreeNode({ arr, changeTarget }) {
 
   const [icon, setIcon] = useState(">");
 
-  const clickMore = (upperDeptNo, depth, companyNo) => {
-    getChildNode(upperDeptNo, depth, companyNo).then((result) => {
+  const clickMore = (upperDeptNo, depth, orgaNo) => {
+    getChildNode(upperDeptNo, depth, orgaNo).then((result) => {
       setSubArr(result);
       setIcon("∨");
     });
   };
 
 
-  const clickButton = (upperDeptNo, depth, companyNo) => {
+  const clickButton = (upperDeptNo, depth, orgaNo) => {
     if (icon === "∨") {
       setSubArr([]);
       setIcon(">");
     } else if (icon === ">") {
-      clickMore(upperDeptNo, depth, companyNo);
+      clickMore(upperDeptNo, depth, orgaNo);
     }
   };
 
@@ -34,7 +34,7 @@ function CommonTreeNode({ arr, changeTarget }) {
       {arr.map((dept) => (
         <TreeLi key={dept.deptNo}>
           <TreeInnerWrap>
-            <TreeButton type="button" depth={dept.depth} onClick={() => clickButton(dept.deptNo, dept.depth + 1, dept.companyNo)}>{dept.lowerDeptCnt > 0 ? icon : ""}</TreeButton>
+            <TreeButton type="button" depth={dept.depth} onClick={() => clickButton(dept.deptNo, dept.depth + 1, dept.orgaNo)}>{dept.lowerDeptCnt > 0 ? icon : ""}</TreeButton>
             {dept.depth === 0 && <TreeImage src="/images/icon-tree-comp.png" alt="" />}
             {dept.depth > 0 && <TreeImage src={(icon === ">" && dept.lowerDeptCnt > 0) ? "/images/icon-tree-folder-close.png" : "/images/icon-tree-folder-open.png"} alt="" />}
             <TreeSpan onClick={() => changeTarget(dept.orgaNo)} aria-hidden="true">{dept.deptNo}. {dept.deptName}</TreeSpan>

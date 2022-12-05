@@ -15,7 +15,8 @@ const initOrgaSearchCondition = {
   orgaNo: 0,
 };
 
-const ROLE0020Modal = ({ menuname, companyNo, changeOrgaList }) => {
+
+const ROLE0020Modal = ({ menuname, companyNo, roleUlSearch, changeOrgaList }) => {
   const [orgas, setOrgas] = useState([]);
   const [orgaSearch, setOrgaSearch] = useState(initOrgaSearchCondition);
 
@@ -41,7 +42,7 @@ const ROLE0020Modal = ({ menuname, companyNo, changeOrgaList }) => {
       return element.dataset?.orgaNo;
     });
 
-    changeOrgaList(arr);
+    changeOrgaList(arr, roleUlSearch);
     closeModal();
   };
 
@@ -75,6 +76,7 @@ const ROLE0020Modal = ({ menuname, companyNo, changeOrgaList }) => {
   const changeTarget = (currentTarget) => {
     if (currentTarget === 0) return;
     orgaSearch.orgaNo = currentTarget;
+
     setOrgaSearch({ ...orgaSearch });
     searchOrgaList();
   };
