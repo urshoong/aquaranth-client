@@ -97,6 +97,8 @@ function CompanyManagement({ list, setList }) {
           Swal.fire("", "등록이 완료되었습니다.", "success").then(() => {
             getCompanyList().then((data) => {
               setList(data);
+              setInformation({});
+              setShow(false);
             });
           });
         });
@@ -123,18 +125,23 @@ function CompanyManagement({ list, setList }) {
   };
 
   // 회사 기본정보 삭제(사용여부를 '미사용'으로 변경)할 handler
-  const clickCompanyRemove = (companyNo) => {
+  const clickCompanyRemove = (companyNo, companyUse) => {
     console.log(companyNo);
-    RemoveCompanyInformation(companyNo).then(() => {
-      Swal.fire("", "미사용처리 되었습니다.", "success").then(() => {
-        getCompanyInformation(companyNo).then((data) => {
-          setInformation(data);
-        });
-        getCompanyList().then((data) => {
-          setList(data);
+    console.log(companyUse);
+    if (companyUse === true) {
+      RemoveCompanyInformation(companyNo).then(() => {
+        Swal.fire("", "미사용처리 되었습니다.", "success").then(() => {
+          getCompanyInformation(companyNo).then((data) => {
+            setInformation(data);
+          });
+          getCompanyList().then((data) => {
+            setList(data);
+          });
         });
       });
-    });
+    } else {
+      Swal.fire("", "이미 미사용처리 되었습니다.", "warning").then();
+    }
   };
 
   return (
