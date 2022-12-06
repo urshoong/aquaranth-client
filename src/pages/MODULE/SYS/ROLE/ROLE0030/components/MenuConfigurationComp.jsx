@@ -8,6 +8,7 @@ import useModal from "@hooks/useModal";
 import { GET_CONFIG_TREE_MENULIST, PUT_CONFIG_MENU } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menuConfigurationApi";
 import SelectMenuContext from "@pages/MODULE/SYS/ROLE/ROLE0030/context/SelectMenuContext";
 import MenuTreeComp from "@pages/MODULE/SYS/ROLE/ROLE0030/components/tree/MenuTreeComp";
+import Swal from "sweetalert2";
 
 const MenuConfigurationComp = () => {
   const { selectedMenu, setMenuList, setSelectedMenu, setQueryMenu, queryMenu } = useContext(SelectMenuContext);
@@ -34,7 +35,10 @@ const MenuConfigurationComp = () => {
   }, []);
 
   const handleOnUpdateMenu = async (menuUpdateDto) => {
-    PUT_CONFIG_MENU(menuUpdateDto);
+    PUT_CONFIG_MENU(menuUpdateDto)
+      .then(() => {
+        Swal.fire("수정되었습니다.");
+      });
   };
 
   return (
@@ -48,7 +52,8 @@ const MenuConfigurationComp = () => {
         </MenuTreeWrapper>
       </MenuTreeLayout>
       <MenuEditLayout>
-        {!selectedMenu ? <Unselected /> : (
+        {!selectedMenu ? <Unselected
+          handleOnMenuInsertModal={handleOnMenuInsertModal}/> : (
           <Selected
             handleOnMenuInsertModal={handleOnMenuInsertModal}
             handleOnIconUpdateModal={handleOnIconUpdateModal}

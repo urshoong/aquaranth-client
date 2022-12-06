@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
-import SelectMenuContext from "@pages/MODULE/SYS/ROLE/ROLE0030/context/SelectMenuContext";
-import {CenterGrid, Divider} from "@components/Grid";
+import { CenterGrid, Divider } from "@components/Grid";
 
-const Unselected = () => {
+const Unselected = ({ handleOnMenuInsertModal }) => {
   return (
     <CenterGrid>
       <Divider span="12">
         메뉴를 선택하세요
+      </Divider>
+      <Divider span="12">
+        <button type="button" onClick={handleOnMenuInsertModal}>메뉴 추가하기</button>
       </Divider>
     </CenterGrid>
   );

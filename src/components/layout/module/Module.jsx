@@ -1,6 +1,5 @@
-import React, { Children, cloneElement, isValidElement } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
-import ModuleTitle from "@components/layout/module/ModuleTitle";
 
 /**
  * 모듈 레이아웃 입니다.
@@ -11,7 +10,6 @@ import ModuleTitle from "@components/layout/module/ModuleTitle";
 const Module = ({ children }) => {
   return (
     <ModuleWrapper>
-      <ModuleTitle />
       <ModuleLayout>
         {children}
       </ModuleLayout>
@@ -22,7 +20,7 @@ const Module = ({ children }) => {
 const ModuleLayout = styled.div`
   ${({ theme }) => css`
       width: 100%;
-      height: calc(100% - ${theme.ui.moduleTitle});
+      height: 100%;
       left: ${theme.ui.lnbSidebar};
       overflow: scroll;
     `}

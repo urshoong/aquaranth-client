@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { useController } from "react-hook-form";
-import {Input} from "@components/Input";
+import { Input } from "@components/Input";
 
 const FormInput = ({ type, placeholder, autoComplete, control, name, rules, defaultValue, values }) => {
   const { field: { onChange, value, ref } } = useController({ name, control, rules, defaultValue });

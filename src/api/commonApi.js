@@ -1,6 +1,7 @@
 import request from "@utils/axiosUtil";
 import { menuQueryString } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menuConfigurationApi";
-import { MENU_API_PATH } from "@constants/common";
+import { ACCESS_TOKEN, MENU_API_PATH, REFRESH_TOKEN } from "@constants/common";
+import { getCookie } from "@utils/cookieUtil";
 
 /**
  * 메뉴를 복수건 조회합니다.
@@ -15,3 +16,4 @@ export const GET_MENULIST = async (query, keyword) => {
 
   return request.get(`${queryString}`);
 };
+

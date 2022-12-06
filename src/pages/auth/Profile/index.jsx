@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { CenterGrid } from "@components/Grid";
 import { empInfo, registerLoginUser } from "@pages/auth/Profile/api/profile";
 import Swal from "sweetalert2";
+import {useHistory} from "react-router-dom";
 
 const Index = () => {
+
+  const history = useHistory();
   const initState = {
     loginCompanyNo: 0,
     loginDeptNo: 0,
@@ -55,7 +58,7 @@ const Index = () => {
       setSelectLogin({ ...selectLogin });
       registerLoginUser(selectLogin)
         .then(() => {
-          location.href = "/";
+          history.push("/");
           location.reload();
         });
     }

@@ -9,9 +9,8 @@ import {
   MenuTreeWrapper,
   Wrapper,
 } from "@components/tree/TreeItem";
-import {GET_CONFIG_TREE_MENULIST} from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menuConfigurationApi";
 
-const MenuTreeItem = ({ subMenuItem, menuList, setSelectedMenu }) => {
+const LnbTreeItem = ({ subMenuItem, menuList, setSelectedMenu }) => {
   const [subMenu, setSubMenu] = useState([]);
   const [collapse, setCollapse] = useState(false);
 
@@ -22,7 +21,7 @@ const MenuTreeItem = ({ subMenuItem, menuList, setSelectedMenu }) => {
     }
     if (!collapse) {
       setCollapse(true);
-      GET_CONFIG_TREE_MENULIST(menuNo).then((res) => {
+      GET_MENULIST(menuNo).then((res) => {
         setSubMenu(res.data);
       });
     }
@@ -47,15 +46,14 @@ const MenuTreeItem = ({ subMenuItem, menuList, setSelectedMenu }) => {
             ) : ""}
             <Wrapper>
               <IconWrapper>
-                <Icon src={subMenuItem.iconUrl} alt="" />
+                <Icon src={subMenuItem.iconUrl} alt="메뉴 아이콘" />
               </IconWrapper>
-              <MenuName onClick={() => setSelectedMenu(subMenuItem.menuCode)}>{subMenuItem.menuName}</MenuName>
+              <MenuName onClick={() => setSelectedMenu(subMenuItem)}>{subMenuItem.menuName}</MenuName>
             </Wrapper>
           </MenuItem>
 
-
-          { subMenu ? subMenu.map((menu) => (
-            <MenuTreeItem
+          {subMenu ? subMenu.map((menu) => (
+            <LnbTreeItem
               subMenuItem={menu}
               key={menu.menuNo}
               menuList={[subMenuItem]}
@@ -67,4 +65,6 @@ const MenuTreeItem = ({ subMenuItem, menuList, setSelectedMenu }) => {
     </MenuTreeWrapper>
   );
 };
-export default MenuTreeItem;
+
+
+export default LnbTreeItem;

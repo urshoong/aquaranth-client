@@ -9,7 +9,7 @@ export const SelectMenuContextProvider = ({ children }) => {
   const [queryMenu, setQueryMenu] = useState();
 
   return (
-    <SelectMenuContext.Provider value={{ setQueryMenu, setSelectedMenu, selectedMenu, queryMenu, menuList, setMenuList }}>
+    <SelectMenuContext.Provider value={{ menuList, selectedMenu, queryMenu, setMenuList, setSelectedMenu, setQueryMenu }}>
       {children}
     </SelectMenuContext.Provider>
   );

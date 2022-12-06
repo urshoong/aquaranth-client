@@ -3,8 +3,8 @@ import styled, { css } from "styled-components";
 import { GET_MENULIST } from "@api/commonApi";
 import { useDispatch, useSelector } from "react-redux";
 import { applicationSelector, SET_LNBSIDEBAR } from "@reducer/applicationSlice";
-import LnbTreeItem from "@components/layout/sidebar/lnb/lnbtree/LnbTreeItem";
 import { useHistory } from "react-router-dom";
+import LnbTreeItem from "@components/layout/sidebar/lnb/LnbTreeItem";
 
 /**
  * LNB 사이드바 컴포넌트 입니다. GNB 메뉴를 선택하면,
@@ -62,7 +62,6 @@ const LnbSidebarWrapper = styled.div`
     return css`
       background-color: ${white};
       border: 1px solid ${gray300};
-      margin: 10px;
       height: 100%;
       width : ${application.lnbSidebar ? theme.ui.lnbSidebar : "0"};
       display : ${application.lnbSidebar ? "border-box" : "none"}

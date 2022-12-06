@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import SelectMenuContext from "@pages/MODULE/SYS/ROLE/ROLE0030/context/SelectMenuContext";
 import MenuTreeItem from "./MenuTreeItem";
 
 
 const MenuTreeComp = () => {
-  const { setSelectedMenu, menuList, setMenuList } = useContext(SelectMenuContext);
+  const { setSelectedMenu, menuList } = useContext(SelectMenuContext);
   return (
     <>
       {menuList.map((menu) => {

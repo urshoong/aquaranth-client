@@ -120,3 +120,7 @@ export const DELETE_CONFIG_MENU = async (query) => {
   }
   return request.delete(`${url}`);
 };
+
+export const POST_CONFIG_MENU = async (menuInsertDto) => {
+  return request.post(`${MENU_CONFIGURATION_PATH}/insert`, menuInsertDto);
+};
