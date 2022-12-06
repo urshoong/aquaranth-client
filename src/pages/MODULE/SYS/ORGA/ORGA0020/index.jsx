@@ -11,20 +11,6 @@ import {
   modifyDept,
 } from "@pages/MODULE/SYS/ORGA/ORGA0020/api/department";
 
-// /**
-//  * 조직도에 있는 부서들을 클릭할 때 마다,
-//  * DeptNo로 부서의 상세정보를 조회합니다.
-//  * @param deptNo
-//  */
-// const handleSelectDepartment = async (deptNo) => {
-//   const { data } = await request.get(`/dept2/${deptNo}`);
-//   console.log("부서 정보를 조회합니다.", data);
-//   return data;
-// };
-
-
-
-
 function Index() {
   const { openModal } = useModal();
 
@@ -34,11 +20,6 @@ function Index() {
    * 수정 컴포넌트와, 등록 컴포넌트에서 사용할 수 있는 상태입니다.
    */
   const [selectDepartment, setSelectDepartment] = useState({});
-
-  /**
-   *
-   */
-  // const [selectNo, setSetSelectNo] = useState({});
 
   /**
    * 모달창에서 트리구조를 선택할 때
@@ -51,16 +32,14 @@ function Index() {
     handleSelectDepartment(deptNo).then((result) => {
       console.log("index select dept : ", result);
       console.log("클릭한 부서번호 : ", deptNo);
-      // console.log("selectNo", selectNo);
-      // setSetSelectNo(deptNo);
       setSelectDepartment(result);
     });
   };
 
   // ============================수정=============================================
 
-  const data = { menucode: "ORGA0020"
-    , menuname: "부서 관리",
+  const data = { menucode: "ORGA0020",
+    menuname: "부서 관리",
   };
 
 
@@ -98,11 +77,6 @@ function Index() {
     });
   };
 
-  // /**
-  //  * 부서 정보 데이터 상태를 관리합니다.
-  //  */
-  // const [deptInfo, setDeptInfo] = useState({});
-
   /**
    * 수정된 radio 버튼의 데이터를 관리합니다.
    */
@@ -123,9 +97,6 @@ function Index() {
    * @param e
    */
   const radioBtnHandler = (e) => {
-    // const { checked, name } = e.target;
-    // modRadioBtn[name] = checked;
-    // setModRadioBtn(modRadioBtn);
     const { value } = e.target;
     setModRadioBtn(value);
     console.log("사용여부가 바뀌었습니다", modRadioBtn);
@@ -158,24 +129,22 @@ function Index() {
 
 
   return (
-    <>
-      <DepartmentEditPage
-        selectDepartment={selectDepartment}
-        setSelectDepartment={setSelectDepartment}
-        setRefresh={setRefresh}
-        handleSelectDepartment={handleSelectDepartment}
-        companyList={companyList}
-        setSelectCompany={setSelectCompany}
-        selectCompany={selectCompany}
-        inputChangeHandler={inputChangeHandler}
-        radioBtnHandler={radioBtnHandler}
-        modClickHandler={modClickHandler}
-        viewSelect={viewSelect}
-        setViewSelect={setViewSelect}
-        handleOnModal={handleOnModal}
-        clickDept={clickDept}
-      />
-    </>
+    <DepartmentEditPage
+      selectDepartment={selectDepartment}
+      setSelectDepartment={setSelectDepartment}
+      setRefresh={setRefresh}
+      handleSelectDepartment={handleSelectDepartment}
+      companyList={companyList}
+      setSelectCompany={setSelectCompany}
+      selectCompany={selectCompany}
+      inputChangeHandler={inputChangeHandler}
+      radioBtnHandler={radioBtnHandler}
+      modClickHandler={modClickHandler}
+      viewSelect={viewSelect}
+      setViewSelect={setViewSelect}
+      handleOnModal={handleOnModal}
+      clickDept={clickDept}
+    />
   );
 }
 

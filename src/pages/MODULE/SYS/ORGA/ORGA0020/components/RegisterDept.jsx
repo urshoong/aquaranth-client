@@ -1,7 +1,6 @@
 import React from "react";
 
 function RegisterDept({ deptInfo }) {
-
   // 부서 정보 컬럼명 구조분해
   // 회사번호, 부서번호, 부서명, 상위부서번호, 등록자명, 사용여부, depth.
   const { companyNo, deptNo, deptName, upperDeptNo, regUser, mainFlag, depth } = deptInfo;
@@ -17,6 +16,6 @@ function RegisterDept({ deptInfo }) {
       <div>깊이 : {depth}</div>
     </div>
   );
-};
+}
 
 export default RegisterDept;
