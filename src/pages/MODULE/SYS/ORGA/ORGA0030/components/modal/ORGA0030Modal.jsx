@@ -15,7 +15,7 @@ const registerLoginUser = async (user) => {
 };
 
 const loginRedisValue = async () => {
-  const { data } = await request.get("/emp/loginRedisValue");
+  const { data } = await request.get("/loginRedisValue");
   return data;
 };
 
