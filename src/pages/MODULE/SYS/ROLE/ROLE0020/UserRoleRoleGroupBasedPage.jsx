@@ -3,6 +3,10 @@ import UserListContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserCont
 import useModal from "@hooks/useModal";
 import Swal from "sweetalert2";
 import {
+  Button,
+  UserRoleSection,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGroupStyledCommon";
+import {
   getCompanyList,
   getGroupListByRole,
   getUserListByRole,
@@ -34,6 +38,7 @@ const initUserRoleModal = {
   menucode: "ROLE0020",
   menuname: "회사 부서 사용자 선택",
   companyNo: 0,
+  roleUlSearch: null,
   changeOrgaList: null,
 };
 
@@ -49,7 +54,7 @@ const UserRoleRoleGroupBasedPage = () => {
 
   const refCompanySelect = useRef();
   const refSearchInput = useRef();
-  const refRoleGroupList = useRef();
+  const refRoleGroupListContainer = useRef();
   const refUserList = useRef();
 
   const { openModal } = useModal();
@@ -85,7 +90,7 @@ const UserRoleRoleGroupBasedPage = () => {
       setRoleRgResponse(data);
       setRoleUserList([]);
 
-      const roleGroupContainer = refRoleGroupList.current;
+      const roleGroupContainer = refRoleGroupListContainer.current;
       roleGroupContainer.scrollTop = 0;
     });
   };
@@ -118,7 +123,7 @@ const UserRoleRoleGroupBasedPage = () => {
 
     changeUserListSearchHandler("orgaNo", orgaNo);
     changeUserListSearchHandler("roleGroupNo", roleGroupNo);
-    setUserRoleModal({ ...userRoleModal, companyNo: orgaNo, orgaNo, roleGroupNo });
+    setUserRoleModal({ ...userRoleModal, companyNo: orgaNo, roleUlSearch });
 
     userSearchClickHandler();
   };
@@ -158,15 +163,19 @@ const UserRoleRoleGroupBasedPage = () => {
     userSearchClickHandler();
   };
 
-  const changeOrgaList = (arr) => {
+  const changeOrgaList = (arr, userListSearch) => {
     const inputData = {};
-    inputData.orgaNo = roleUlSearch.orgaNo;
-    inputData.roleGroupNo = roleUlSearch.roleGroupNo;
+    const searchData = { ...userListSearch };
+    inputData.orgaNo = searchData.orgaNo;
+    inputData.roleGroupNo = searchData.roleGroupNo;
     inputData.orgaNoList = arr;
 
-    if (inputData.orgaNoList?.length < 1) return;
+    setRoleUlSearch({ ...userListSearch });
 
-    insertOrgaRole(inputData).then(() => {
+    // if (inputData.orgaNoList?.length < 1) return;
+
+    insertOrgaRole(inputData).then((result) => {
+      Swal.fire({ title: result.title, html: result.message, icon: result.state }).then((r) => r);
       userSearchClickHandler();
     });
   };
@@ -195,8 +204,9 @@ const UserRoleRoleGroupBasedPage = () => {
       removeOrgaRoleList: arr,
     };
 
-    removeOrgaRole(removeData).then(() => {
-      Swal.fire({ title: "권한그룹 삭제 완료", html: "권한그룹이 삭제되었습니다.", icon: "success" }).then((r) => r);
+    removeOrgaRole(removeData).then((result) => {
+      const { state, title, message } = result;
+      Swal.fire({ title, html: message, icon: state }).then((r) => r);
       userSearchClickHandler();
     });
   };
@@ -235,16 +245,17 @@ const UserRoleRoleGroupBasedPage = () => {
   };
 
   useEffect(() => {
-    setUserRoleModal({ ...userRoleModal, changeOrgaList });
     getCompanyList().then((data) => {
       setRoleCompany(data);
+      const selectedCompany = refCompanySelect.current?.value;
+      setUserRoleModal({ ...userRoleModal, changeOrgaList, companyNo: selectedCompany });
       searchClickHandler();
     });
   }, []);
 
   return (
     <>
-      <div className="section roleGroup left">
+      <UserRoleSection width="400px" border="2">
         <RoleGroupListContent
           /* header props */
           company={roleCompany}
@@ -258,16 +269,16 @@ const UserRoleRoleGroupBasedPage = () => {
           roleGroupResponse={roleRgResponse}
           roleGroupPageClickHandler={roleGroupPageClickHandler}
           roleGroupSizeSelectChangeHandler={roleGroupSizeSelectChangeHandler}
-          refRoleGroupList={refRoleGroupList}
+          refRoleGroupListContainer={refRoleGroupListContainer}
           displayChekcbox="none"
         />
-      </div>
-      <div className="section roleGroup right">
+      </UserRoleSection>
+      <UserRoleSection width="calc(100% - 400px)" paddingLeft="20px">
         <div className="innerTitleWrap">
           <span className="innerTitle">사용자 선택</span>
           <div>
-            <button type="button" className="btn" onClick={orgaRoleRemove}>&nbsp;권한삭제&nbsp;</button>
-            <button type="button" className="btn orgaBtn" onClick={orgaBtnClickHandler}>👨‍👨‍👦</button>
+            <Button type="button" className="btn" onClick={orgaRoleRemove}>&nbsp;권한삭제&nbsp;</Button>
+            <Button type="button" className="btn orgaBtn" onClick={orgaBtnClickHandler}>👨‍👨‍👦</Button>
           </div>
         </div>
         <div className="innerInformationWrap">
@@ -276,7 +287,7 @@ const UserRoleRoleGroupBasedPage = () => {
         </div>
         <div className="innerSearchWrap">
           <input type="text" className="innerSearchInput" name="keyword1" onChange={(e) => { changeUserListSearchHandler(e.target.name, e.target.value); }} placeholder="부서 / 직급 / 이름 / ID 를 검색 하세요" />
-          <button type="button" className="btn innerSearchBtn" onClick={() => { userSearchClickHandler(); }}>🔍</button>
+          <Button type="button" className="btn innerSearchBtn" onClick={() => { userSearchClickHandler(); }}>🔍</Button>
         </div>
         <div className="innerContent">
           <div className="contentContainer">
@@ -309,7 +320,7 @@ const UserRoleRoleGroupBasedPage = () => {
             selectChangeHandler={userListSizeSelectChangeHandler}
           />
         </div>
-      </div>
+      </UserRoleSection>
     </>
   );
 };

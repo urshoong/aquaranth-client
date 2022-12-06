@@ -108,5 +108,13 @@ export const UserRoleMainContent = styled.div`
 `;
 
 /**
- *
+ * RoleGroup based Page Styled Components
  * */
+
+export const UserRoleSection = styled.div`
+  height: 100%;
+  width: ${(props) => props.width};
+  border: ${(props) => (props.border ? `${props.border}px solid #e6e6e6` : "")};
+  padding-left: ${(props) => props.paddingLeft};
+  padding-right: ${(props) => props.paddingRight};
+`;
