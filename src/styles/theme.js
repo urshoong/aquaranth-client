@@ -14,10 +14,13 @@ const theme = {
     gray700: "#868686",
     gray600: "#999999",
     gray500: "#C3C3C3",
+    gray450: "#C8C8C8",
     gray400: "#D8D8D8",
+    gray350: "#E6E6E6",
     gray300: "#ECECEC",
     gray200: "#F2F4F6",
     gray100: "#F5F5F5",
+    gray50: "#FAFAFA",
 
     grayA100: "#D8D8D8FF",
     grayA050: "#D8D8D850",
@@ -48,6 +51,8 @@ const theme = {
     icon: "#666666",
     hoverIcon: "#858891",
     activeIcon: "#FFFFFF",
+
+    activeBlue: "#46A3FB",
   },
 
   typo: {

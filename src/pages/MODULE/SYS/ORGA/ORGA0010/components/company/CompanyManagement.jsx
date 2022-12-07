@@ -4,8 +4,11 @@ import CompanySearch from "@pages/MODULE/SYS/ORGA/ORGA0010/components/company/Co
 import CompanyList from "@pages/MODULE/SYS/ORGA/ORGA0010/components/company/CompanyList";
 import { getCompanyList, getCompanyInformation, registerCompanyInformation,
   ModifyCompanyInformation, RemoveCompanyInformation } from "@pages/MODULE/SYS/ORGA/ORGA0010/api/company";
-import styled from "styled-components";
 import Swal from "sweetalert2";
+import {
+  CompanyManagementDiv,
+  CompanyListInfoDiv,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 
 // 회사 기본정보 초기값
@@ -43,7 +46,15 @@ function CompanyManagement({ list, setList }) {
 
 
   // 회사 정보 리스트 중 하나를 선택했을 때 해당 회사 정보를 받아올 handler
-  const clickCompanyListItem = (companyNo) => {
+  const clickCompanyListItem = (e, companyNo) => {
+    let { target } = e;
+    if (!target.classList.contains("companyListItemDiv")) {
+      target = target.parentElement;
+    }
+    const companyListItemDivs = document.querySelectorAll(".companyListItemDiv");
+    companyListItemDivs.forEach((companyListItemDiv) => companyListItemDiv.classList.remove("active"));
+    target.classList.add("active");
+
     getCompanyInformation(companyNo).then((data) => {
       console.log(data);
       setInformation(data);
@@ -166,18 +177,5 @@ function CompanyManagement({ list, setList }) {
     </CompanyManagementDiv>
   );
 }
-
-const CompanyManagementDiv = styled.div`
-  color: black;
-  box-sizing: border-box;
-  height: 80vh;
-  width: 80vw;
-`;
-
-const CompanyListInfoDiv = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-gap: 1em;
-`;
 
 export default CompanyManagement;

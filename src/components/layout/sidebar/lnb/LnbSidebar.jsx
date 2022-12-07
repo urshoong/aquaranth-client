@@ -64,7 +64,7 @@ const LnbSidebarWrapper = styled.div`
       border: 1px solid ${gray300};
       height: 100%;
       width : ${application.lnbSidebar ? theme.ui.lnbSidebar : "0"};
-      display : ${application.lnbSidebar ? "border-box" : "none"}
+      display : ${application.lnbSidebar ? "" : "none"};
     `;
   }}
 `;

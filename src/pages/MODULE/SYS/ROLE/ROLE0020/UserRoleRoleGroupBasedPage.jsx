@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import {
   Button,
   UserRoleSection,
-} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGroupStyledCommon";
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 import {
   getCompanyList,
   getGroupListByRole,

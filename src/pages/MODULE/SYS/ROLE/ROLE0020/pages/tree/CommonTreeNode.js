@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { getChildNode } from "../../api/OrgaTree";
-import { Span } from "../../components/RoleGroupStyledCommon";
+import { Span } from "../../components/StyledCommon";
 
 function CommonTreeNode({ arr, changeTarget }) {
   const [subArr, setSubArr] = useState([]);

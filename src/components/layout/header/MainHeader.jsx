@@ -1,11 +1,9 @@
 import React from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled, { css } from "styled-components";
 import useModal from "@hooks/useModal";
 import { removeCookie } from "@utils/cookieUtil";
 import { ACCESS_TOKEN, API_URL, REFRESH_TOKEN } from "@constants/common";
-import Swal from "sweetalert2";
-import request from "@utils/axiosUtil";
 import axios from "axios";
 
 /**
@@ -16,10 +14,19 @@ import axios from "axios";
  */
 const MainHeader = () => {
   const { openModal } = useModal();
-  const handleOnModal = () => {
+  const handleOnChangeCompanyModal = () => {
     openModal({
       type: "ORGA0030",
       props: "",
+    });
+  };
+  const handleOnOrganizationChartModal = () => {
+    openModal({
+      type: "ORGA0010",
+      props: {
+        menucode: "ORGA0010",
+        menuname: "회사 관리",
+      },
     });
   };
 
@@ -39,8 +46,11 @@ const MainHeader = () => {
   return (
     <MainHeaderWrapper>
       <Link to="/">Aquaranth10</Link>
-      <button type="button" onClick={handleOnModal}>🐹🐹🐹회사 변경🐹🐹🐹</button>
-      <button type="button" onClick={handleLogout}>로그아웃</button>
+      <div>
+        <button type="button" onClick={handleOnChangeCompanyModal}>🐹</button>
+        <button type="button" onClick={handleOnOrganizationChartModal}>🏰</button>
+        <button type="button" onClick={handleLogout}>로그아웃</button>
+      </div>
     </MainHeaderWrapper>
   );
 };

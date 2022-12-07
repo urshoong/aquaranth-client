@@ -22,7 +22,8 @@ const ModuleLayout = styled.div`
       width: 100%;
       height: 100%;
       left: ${theme.ui.lnbSidebar};
-      overflow: scroll;
+      //overflow: scroll;
+      overflow: auto;
     `}
 `;
 
