@@ -16,9 +16,9 @@ const Index = () => {
   const [selectedRoleGroup, setSelectedRoleGroup] = useState({});
   const { refresh } = useSelector((state) => state.roleGroup);
 
-  // 최초 랜더시 모든 회사목록 가져오기
+  // 최초 랜더시 모든 회사목록 가져오기(사용여부 true인 회사만)
   useEffect(() => {
-    request.get("/company/list")
+    request.get("/role-group/companyListAll")
       .then(({ data }) => setCompanyList(data));
   }, []);
 
