@@ -37,7 +37,11 @@ const MenuConfigurationComp = () => {
   const handleOnUpdateMenu = async (menuUpdateDto) => {
     PUT_CONFIG_MENU(menuUpdateDto)
       .then(() => {
-        Swal.fire("수정되었습니다.");
+        Swal.fire({
+          title: "메뉴 수정",
+          html: "메뉴가 수정되었습니다.",
+          icon: "success",
+        });
       });
   };
 

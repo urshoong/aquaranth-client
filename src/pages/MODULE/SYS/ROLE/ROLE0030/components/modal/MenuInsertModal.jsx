@@ -69,7 +69,11 @@ const MenuInsertModal = () => {
     formData.append("menuOrder", menu.menuOrder);
     formData.append("multipartFile", file || "none");
     await POST_CONFIG_MENU(formData).then((res) => {
-      Swal.fire("메뉴가 정상적으로 추가되었습니다.");
+      Swal.fire({
+        title: "메뉴 등록",
+        html: "메뉴가 추가되었습니다.",
+        icon: "success",
+      });
       closeModal();
     });
   };
