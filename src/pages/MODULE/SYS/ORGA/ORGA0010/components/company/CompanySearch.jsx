@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 // 회사 검색 component
 function CompanySearch({ setList }) {
   const [companySearch, setCompanySearch] = useState(""); // 검색어를 담을 상태값
-  const [companyUse, setCompanyUse] = useState(true); // 사용여부를 담을 상태값
+  const [companyUse, setCompanyUse] = useState("all"); // 사용여부를 담을 상태값
 
   // 회사코드 및 회사명을 받아올 handler
   const changeCompanySearch = (e) => {
@@ -42,6 +42,7 @@ function CompanySearch({ setList }) {
         <div className="companyUseDiv">
           <CompanySearchSpan>사용여부</CompanySearchSpan>
           <select onChange={(e) => { changeCompanyUse(e); }}>
+            <option value="all">전체</option>
             <option value="true">사용</option>
             <option value="false">미사용</option>
           </select>
