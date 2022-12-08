@@ -12,6 +12,14 @@ npm install
 npm start
 ```
 
+## Verifying & Request Sequence Diagram
+![seq](https://user-images.githubusercontent.com/110054050/206376493-728d05b1-af20-490c-a970-412259f02ae9.png)
+
+## Project Architecture
+![arc](https://user-images.githubusercontent.com/110054050/206377505-5594df0c-6018-4d38-b28b-df090308bb7f.png)
+
+
+
 ## Features
 
 ### [@김민준](https://github.com/d0uwhs) 메뉴관리 (개발자 A)  
@@ -188,6 +196,7 @@ npm start
 
 ### DevOps
 ![](https://img.shields.io/badge/goorm-000000.svg?style=for-the-badge&logo=iCloud&logoColor=white)
+![](https://img.shields.io/badge/Object_Storage-B63B4B.svg?style=for-the-badge&logo=Amazon-S3&logoColor=white)
 
 ## Contributors
 <a href="https://github.com/nhn-on7/marketgg-client/graphs/contributors">
