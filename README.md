@@ -168,7 +168,7 @@ npm start
 #### Framework
 ![](https://img.shields.io/badge/Spring%20Boot-6DB33F.svg?style=for-the-badge&logo=Spring-Boot&logoColor=white)
 
-### Security
+#### Security
 ![](https://img.shields.io/badge/JSON%20Web%20Tokens-000000.svg?style=for-the-badge&logo=JSON-Web-Tokens&logoColor=white)
 ![](https://img.shields.io/badge/Spring%20Security-6DB33F.svg?style=for-the-badge&logo=Spring-Security&logoColor=white)
 
@@ -188,3 +188,8 @@ npm start
 
 ### DevOps
 ![](https://img.shields.io/badge/goorm-000000.svg?style=for-the-badge&logo=iCloud&logoColor=white)
+
+## Contributors
+<a href="https://github.com/nhn-on7/marketgg-client/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=devaquariums/aquaranth-client" />
+</a>
