@@ -52,7 +52,8 @@ const theme = {
     hoverIcon: "#858891",
     activeIcon: "#FFFFFF",
 
-    activeBlue: "#46A3FB",
+    activeBDBlue: "#46A3FB",
+    activeBGBlue: "#E5F6FF",
   },
 
   typo: {

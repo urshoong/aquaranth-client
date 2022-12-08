@@ -86,7 +86,7 @@ export const PageBtn = styled.li`
       margin: 4px 5px;
     }
     &.pageBtn.page.active{
-      color: ${theme.color.activeBlue};
+      color: ${theme.color.activeBDBlue};
     }
   `}
 `;
@@ -169,7 +169,7 @@ export const GroupCountWrap = styled.div`
       font-weight: bold;
     }
     &>span:nth-of-type(2){
-      color: ${theme.color.activeBlue};
+      color: ${theme.color.activeBDBlue};
     }
   `}
 `;
@@ -239,8 +239,8 @@ export const UserRoleInnerTab = styled.span`
     color: gray;
     box-sizing: border-box;
     &.active{
-      color: ${theme.color.activeBlue};
-      border-bottom: 2px solid ${theme.color.activeBlue};
+      color: ${theme.color.activeBDBlue};
+      border-bottom: 2px solid ${theme.color.activeBDBlue};
     }
   `}
 `;
@@ -265,7 +265,6 @@ export const UserRoleSection = styled.div`
     padding-right: ${(props) => props.paddingRight};
   `}
 `;
-
 
 /**
  * Company Page Styled Components
@@ -349,8 +348,8 @@ export const CompanyListItemDiv = styled.div`
     grid-template-columns: 7fr 3fr;
     grid-template-rows: 1fr 1fr;
     &.active{
-      background-color: #e5f6ff;
-      border: 2px solid ${theme.color.activeBlue};
+      background-color: ${theme.color.activeBGBlue};
+      border: 2px solid ${theme.color.activeBDBlue};
     }
   `}
 `;
@@ -477,4 +476,295 @@ export const CompanyInfoInput = styled.input`
   height: 2em;
   line-height: 2em;
   margin-left: 1em;
+`;
+
+/**
+ * Main Organization Chart Modal Styled Components
+ * */
+
+export const GroupChoose = styled.div`
+  border-bottom: 1px solid black;
+`;
+
+export const GroupChooseBtn = styled.button`
+  ${({ theme }) => css`
+    font-size: 1.5em;
+    color: #6c6c6c;
+    padding: 0.9em 1em;
+    font-weight: bold;
+    &.active{
+      color: ${theme.color.activeBDBlue};
+      border-bottom: 2px solid ${theme.color.activeBDBlue};
+    }
+  `}
+`;
+
+export const GroupChooseSpan = styled.span`
+  ${({ theme }) => css`
+    width: 1px;
+    border-right: 1px solid ${theme.color.gray500}; 
+    padding-top: 3px;
+  `}
+`;
+
+export const Orgatree = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-column-gap: 1em;
+  padding-top: 1em;
+`;
+
+export const OrgatreeItem = styled.div`
+  overflow: ${(prop) => prop.over};
+  min-width: 230px;
+  max-height: 30rem;
+  border: ${(prop) => prop.borderSize};
+  &:not(.list){
+    max-width: 230px;
+  }
+`;
+
+export const MainTreeContainerWrapper = styled.div``;
+
+export const MainTreeOrgaWrapper = styled.div`
+  padding: 5px;
+`;
+
+export const MainTreeOrgaIconImage = styled.img`
+  width: 1.7em;
+  height: 1.7em;
+  padding: 0 0.5em;
+  display: inline-block
+`;
+
+export const MainTreeOrgaSpan = styled(Span)`
+  ${({ theme }) => css`
+    font-size: 1.2em;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: -3px;
+    &.active{
+      background-color: ${theme.color.activeBGBlue};
+      border: 2px solid ${theme.color.activeBDBlue};
+    }
+  `}
+`;
+
+export const MainTreeArrowButton = styled.button`
+  padding-left: ${({ depth }) => `${depth * 15}px`};
+  font-size: 1em;
+`;
+
+export const MainOrgaTreeEmpListDiv = styled.div`
+  ${({ theme }) => css`
+    border-top: 2px solid ${theme.color.gray800};
+    overflow: auto;
+    height: 29.9rem;
+    background-color: ${theme.color.gray50};
+  `}
+`;
+
+export const EmpItemDiv = styled.div`
+  ${({ theme }) => css`
+    position: relative;
+    border: 1px solid ${theme.color.gray500};
+    border-radius: 0.2rem;
+    margin: 0.5em 1em 0.5em 1em;
+    padding: 2em;
+    background-color: ${theme.color.white};
+    &.active{
+      background-color: ${theme.color.activeBGBlue};
+      border: 1px solid ${theme.color.activeBDBlue};
+    }
+  `}
+`;
+
+export const EmpInfo = styled.div`
+  text-align: ${(props) => props.align};
+  padding-top: ${(props) => props.paddingTop}em;
+  padding-bottom: ${(props) => props.paddingBtm}em;
+  font-size: ${(props) => props.fontSize}em;
+  font-weight: ${(props) => props.fontWeight};
+  color: ${(props) => props.color};
+  position: ${({ empNo }) => (empNo ? "absolute" : "")};
+  top: ${({ empNo }) => (empNo ? "15px" : "")};
+  right: ${({ empNo }) => (empNo ? "15px" : "")};
+  cursor: ${({ empNo }) => (empNo ? "pointer" : "")};
+  visibility: ${({ visible }) => visible};
+`;
+
+export const EmpInfoDivideSpan = styled.span`
+  ${({ theme }) => css`
+    width: 1px;
+    height: 0.8em;
+    display: inline-block;
+    border-right: 1px solid ${theme.color.gray500}; 
+  `}
+`;
+
+export const EmpInfoGray = styled.span`
+  ${({ theme }) => css`
+    color: ${theme.color.gray800};
+  `}
+`;
+/// ///
+export const EmpInformationDiv = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 3fr;
+  grid-row-gap: 1rem;
+`;
+
+export const EmpProfil = styled.div`
+  ${({ theme }) => css`
+    text-align: center;
+    border: 1px solid ${theme.color.gray500};
+    border-radius: 0.2rem;
+    background-color: #f2f5fa;
+    height: 15rem;
+    position: relative;
+  `}
+`;
+
+export const EmpProfilVerticalSpan = styled.span`
+  ${({ theme }) => css`
+    display: inline-block;
+    width: 185px;
+    height: 1px;
+    border-bottom: 1px solid ${theme.color.gray500};
+  `}
+`;
+
+export const EmpProfilDetail = styled.p`
+  margin-top: ${({ marginTop }) => marginTop}em;
+  font-size: ${({ fontSize }) => fontSize}em;
+  font-weight: ${({ fontWeight }) => fontWeight};
+`;
+
+export const EmpDetail = styled.div`
+  border-top: 2px solid #6c6c6c;
+`;
+
+export const EmpProfilItem = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+export const EmpProfilImg = styled.div`
+  border-radius: 70%;
+  margin: 1.5em auto 0 auto;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
+  background-image: url(${(props) => props.src});
+  background-size: cover;
+  background-color: ${(props) => props.src || "#46A3FB"};
+`;
+
+export const EmpDetailTitle = styled.div`
+  ${({ theme }) => css`
+    font-size: 12px;
+    background-color: ${theme.color.gray100};
+    text-align: center;
+    height: 3em;
+    line-height: 3em;
+  `}
+`;
+
+export const EmpItemSpan = styled.span`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 3em;
+  line-height: 3em;
+`;
+
+export const EmpDetailItem = styled.div`
+  ${({ theme }) => css`
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    grid-column-gap: 0.5em;
+    border-bottom: 1px solid ${theme.color.gray500};
+    font-size: 12px;
+    font-weight: bold;
+  `}
+`;
+
+export const MygroupBtn = styled.button`
+  width: 2.3em;
+  height: 2.3em;
+  background-image: url("/images/myGroup_icon.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+  &:hover{
+    background-image: url("/images/myGroup_icon_active.png");
+  }
+`;
+
+export const MygroupList = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 13fr;
+`;
+
+export const MygroupListInnerWrapper = styled.div`
+`;
+
+export const MygroupUpperDiv = styled.div`
+  display: flex;
+  line-height: 2em;
+  margin-top: 0.5em;
+`;
+
+export const MygroupItem = styled.div`
+  font-size: 1.3em;
+  margin-left: 0.5em;
+  display: flex;
+`;
+
+export const MyRegisterSpan = styled.span`
+  font-size: 1.2em;
+  font-weight: bold;
+`;
+
+export const MyRegisterBtn = styled.button`
+  border: 1px solid darkgray;
+  padding: 0.3em 0.3em 0.3em 0.3em;
+  margin-left: ${(props) => props.margin};
+  float: ${(props) => props.float};
+`;
+
+export const MygroupInput = styled.input`
+  margin-right: 10px;
+  width: 100px;
+  outline: none;
+  &.active{
+    border: 1px solid darkgray;
+    border-radius: 3px;
+  }
+`;
+
+export const MygroupModalList = styled.div`
+  font-size: 1rem;
+  padding: 0.5em 0.5em;
+`;
+
+export const MyGroupModalInsertBtn = styled.button`
+  border: 1px solid darkgray;
+  padding: 0.3em 0.3em 0.3em 0.3em;
+  margin-left: 0.5em;
+`;
+
+export const MyGroupModalRegisterBtn = styled.button`
+  border: 1px solid darkgray;
+  padding: 0.3em 0.3em 0.3em 0.3em;
+  margin-top: 0.5em;
+  float: right;
+`;
+
+export const MyGroupModalRadioBtn = styled.input`
 `;

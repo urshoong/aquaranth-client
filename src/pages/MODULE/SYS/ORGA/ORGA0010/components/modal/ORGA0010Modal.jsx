@@ -1,13 +1,32 @@
 import React, { useEffect, useRef, useState } from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
-import styled from "styled-components";
 import Swal from "sweetalert2";
+import {
+  GroupChoose,
+  GroupChooseBtn, GroupChooseSpan,
+  MygroupInput,
+  MygroupItem,
+  MygroupList, MygroupListInnerWrapper,
+  MygroupUpperDiv,
+  MyRegisterBtn,
+  MyRegisterSpan,
+  Orgatree,
+  OrgatreeItem,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 import CommonTreeContainer from "../orgatree/CommonTreeContainer";
 import OrgatreeEmpList from "../orgatree/OrgatreeEmpList";
 import OrgatreeEmpDetail from "../orgatree/OrgatreeEmpDetail";
-import { getCompanyNoArr, getMygroupList, getFavoriteEmpList, deleteFavoriteEmp,
-  registerMygroup, removeMygroup, modifyMygroup, getMygroupInformation } from "../../api/mygroup";
+import {
+  deleteFavoriteEmp,
+  getCompanyNoArr,
+  getFavoriteEmpList,
+  getMygroupInformation,
+  getMygroupList,
+  modifyMygroup,
+  registerMygroup,
+  removeMygroup,
+} from "../../api/mygroup";
 
 
 // 마이그룹 수정할 때 사용하는 초기값
@@ -197,17 +216,18 @@ const ORGA0010Modal = () => {
       title="조직도"
     >
       <GroupChoose>
-        <GroupChooseBtn ref={allRef} className="active" value="all" rightBorder="1px solid darkgray" onClick={(e) => { clickGroup(e); }}>전체그룹</GroupChooseBtn>
+        <GroupChooseBtn ref={allRef} className="active" value="all" onClick={(e) => { clickGroup(e); }}>전체그룹</GroupChooseBtn>
+        <GroupChooseSpan />
         <GroupChooseBtn ref={myRef} value="my" onClick={clickGroup}>MY그룹</GroupChooseBtn>
       </GroupChoose>
       {show === "my"
         ? (
           <Orgatree>
             <MygroupList>
-              <div>
+              <MygroupListInnerWrapper>
                 <MyRegisterSpan>ㆍMY그룹 목록</MyRegisterSpan>
                 <MyRegisterBtn float="right" onClick={clickRegisterMygroup}>새그룹</MyRegisterBtn>
-              </div>
+              </MygroupListInnerWrapper>
               <OrgatreeItem over="auto" borderSize="1px solid darkgray">
                 {myList.map(({ mygroupNo, mygroupName, countEmp }, index) => (
                   <MygroupUpperDiv key={mygroupNo}>
@@ -247,6 +267,7 @@ const ORGA0010Modal = () => {
                   key={companyNo}
                   companyNo={companyNo}
                   setEmpList={setMyEmpList}
+                  setEmpInfo={setEmpInfo}
                 />
               ))}
             </OrgatreeItem>
@@ -263,77 +284,4 @@ const ORGA0010Modal = () => {
 };
 
 export default ORGA0010Modal;
-
-const GroupChoose = styled.div`
-  border-bottom: 1px solid black;
-`;
-
-const GroupChooseBtn = styled.button`
-  font-size: 1.3em;
-  color: #6c6c6c;
-  padding: 0.5em 1em;
-  
-  border-right: ${(props) => props.rightBorder};
-  &.active{
-    color: #46a3fb;
-    font-weight: bold;
-    border-bottom: 2px solid #46a3fb;
-  }
-`;
-
-const Orgatree = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-column-gap: 1em;
-  padding-top: 1em;
-`;
-
-const OrgatreeItem = styled.div`
-  overflow: ${(prop) => prop.over};
-  min-width: 230px;
-  max-height: 30rem;
-  border: ${(prop) => prop.borderSize};
-  &:not(.list){
-    max-width: 230px;
-  }
-`;
-
-const MygroupList = styled.div`
-  display: grid;
-  grid-template-rows: 1fr 13fr;
-`;
-
-const MygroupUpperDiv = styled.div`
-  display: flex;
-  line-height: 2em;
-  margin-top: 0.5em;
-`;
-
-const MygroupItem = styled.div`
-  font-size: 1.3em;
-  margin-left: 0.5em;
-  display: flex;
-`;
-
-const MyRegisterSpan = styled.span`
-  font-size: 1.2em;
-  font-weight: bold;
-`;
-
-const MyRegisterBtn = styled.button`
-  border: 1px solid darkgray;
-  padding: 0.3em 0.3em 0.3em 0.3em;
-  margin-left: ${(props) => props.margin};
-  float: ${(props) => props.float};
-`;
-
-const MygroupInput = styled.input`
-  margin-right: 10px;
-  width: 100px;
-  outline: none;
-  &.active{
-    border: 1px solid darkgray;
-    border-radius: 3px;
-  }
-`;
 

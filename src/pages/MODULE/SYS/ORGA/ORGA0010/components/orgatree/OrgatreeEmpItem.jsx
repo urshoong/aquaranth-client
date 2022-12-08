@@ -1,6 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 import { getEmpInformation } from "@pages/MODULE/SYS/ORGA/ORGA0010/api/mygroup";
+import {
+  EmpInfo,
+  EmpInfoDivideSpan,
+  EmpInfoGray,
+  EmpItemDiv,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 
 function OrgatreeEmpItem({ empInfo, setEmpInfo, mygroupNo, clickFavoriteEmp }) {
@@ -8,7 +13,15 @@ function OrgatreeEmpItem({ empInfo, setEmpInfo, mygroupNo, clickFavoriteEmp }) {
   const { empNo, orgaNo, empName, empRank, username, path, empPhone } = empInfo;
 
   // 사원 선택시 해당 사원에 대한 정보를 불러올 handler
-  const clickEmpItem = () => {
+  const clickEmpItem = (e) => {
+    let { target } = e;
+    while (!target.classList.contains("empItemDiv")) {
+      target = target.parentElement;
+    }
+    const empItemDiv = document.querySelectorAll(".empItemDiv");
+    empItemDiv.forEach((el) => el.classList.remove("active"));
+    target.classList.add("active");
+
     console.log(orgaNo);
     getEmpInformation(orgaNo).then((data) => {
       console.log("해당 사원의 정보 : ", data);
@@ -17,9 +30,10 @@ function OrgatreeEmpItem({ empInfo, setEmpInfo, mygroupNo, clickFavoriteEmp }) {
   };
 
   return (
-    <EmpItemDiv onClick={() => { clickEmpItem(); }}>
+    <EmpItemDiv className="empItemDiv" onClick={clickEmpItem}>
       {empNo ? (
         <EmpInfo
+          empNo={empNo}
           align="right"
           fontSize="1.3"
           color="#46a3fb"
@@ -27,26 +41,12 @@ function OrgatreeEmpItem({ empInfo, setEmpInfo, mygroupNo, clickFavoriteEmp }) {
         >✖
         </EmpInfo>
       ) : <div />}
-      <EmpInfo paddingBtm="0.3" fontSize="1.3" fontWeight="bold">{empName} / {empRank} | {username}</EmpInfo>
-      <EmpInfo>{path}</EmpInfo>
-      <EmpInfo paddingTop="1">📞 {empPhone}</EmpInfo>
+      <EmpInfo paddingBtm="0.6" fontSize="1.4" fontWeight="bold">{empName}&nbsp;{empRank} <EmpInfoDivideSpan /> <EmpInfoGray>{username}</EmpInfoGray></EmpInfo>
+      <EmpInfo fontSize="1.2" fontWeight="bold"><EmpInfoGray>{path}</EmpInfoGray></EmpInfo>
+      <EmpInfo paddingTop="0.5" fontSize="1.25" fontWeight="bold" visible={empPhone ? "" : "hidden"}>📞 <EmpInfoGray>{empPhone}</EmpInfoGray></EmpInfo>
     </EmpItemDiv>
   );
 }
 
-const EmpItemDiv = styled.div`
-  border: 1px solid darkgray;
-  margin: 0.5em 1em 0.5em 1em;
-  padding: 1em 1em 1em 1em;
-`;
-
-const EmpInfo = styled.div`
-  text-align: ${(props) => props.align};
-  padding-top: ${(props) => props.paddingTop}em;
-  padding-bottom: ${(props) => props.paddingBtm}em;
-  font-size: ${(props) => props.fontSize}em;
-  font-weight: ${(props) => props.fontWeight};
-  color: ${(props) => props.color};
-`;
 
 export default OrgatreeEmpItem;

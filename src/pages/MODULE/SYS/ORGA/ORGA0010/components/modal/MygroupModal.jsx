@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
-import styled from "styled-components";
 import {
   getMygroupList,
   registerFavorite,
   registerMygroup,
 } from "@pages/MODULE/SYS/ORGA/ORGA0010/api/mygroup";
 import Swal from "sweetalert2";
+import {
+  MyGroupModalInsertBtn,
+  MygroupModalList, MyGroupModalRadioBtn,
+  MyGroupModalRegisterBtn,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 
 const MygroupModal = ({ orgaNo }) => {
@@ -74,37 +78,15 @@ const MygroupModal = ({ orgaNo }) => {
       title="My"
       z-index="9999"
     >
-      <MyRegisterBtn onClick={clickRegisterMygroup}>새그룹</MyRegisterBtn>
+      <MyGroupModalRegisterBtn onClick={clickRegisterMygroup}>새그룹</MyGroupModalRegisterBtn>
       {myList.map(({ mygroupNo, mygroupName, countEmp }) => (
-        <MygroupList key={mygroupNo}>
-          <input type="radio" name="mygroupNo" value={mygroupNo} onChange={(e) => { changeMygroup(e); }} />{ mygroupName }({ countEmp })
-          <InsertBtn type="submit" onClick={clickFavorite}>추가</InsertBtn>
-        </MygroupList>
+        <MygroupModalList key={mygroupNo}>
+          <MyGroupModalRadioBtn type="radio" name="mygroupNo" value={mygroupNo} onChange={(e) => { changeMygroup(e); }} />{ mygroupName }({ countEmp })
+          <MyGroupModalInsertBtn type="submit" onClick={clickFavorite}>추가</MyGroupModalInsertBtn>
+        </MygroupModalList>
       ))}
     </Modal>
   );
 };
-
-// 마이그룹 리스트
-const MygroupList = styled.div`
-  font-size: 1rem;
-  padding: 0.5em 0.5em;
-`;
-
-// 마이그룹에 추가 버튼
-const InsertBtn = styled.button`
-  border: 1px solid darkgray;
-  padding: 0.3em 0.3em 0.3em 0.3em;
-  margin-left: 0.5em;
-`;
-
-// 새 그룹 추가 버튼
-const MyRegisterBtn = styled.button`
-  border: 1px solid darkgray;
-  padding: 0.3em 0.3em 0.3em 0.3em;
-  margin-top: 0.5em;
-  float: right;
-`;
-
 
 export default MygroupModal;
