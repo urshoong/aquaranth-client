@@ -76,6 +76,17 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.(jpg)$/,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              name: "images/[name].[ext]?[hash]",
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [

@@ -17,3 +17,7 @@ export const GET_MENULIST = async (query, keyword) => {
   return request.get(`${queryString}`);
 };
 
+
+export const GET_LOGIN_USER_INFORMATION = async () => {
+  return request.get("/emp/loginlist");
+}
