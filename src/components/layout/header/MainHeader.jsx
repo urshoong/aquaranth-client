@@ -11,6 +11,8 @@ import Logout from "@styles/assets/icon/logout.svg";
 
 import axios from "axios";
 import { GET_LOGIN_USER_INFORMATION } from "@api/commonApi";
+import Swal from "sweetalert2";
+import { getFavoriteEmpList, getMygroupList } from "@pages/MODULE/SYS/ORGA/ORGA0010/api/mygroup";
 
 /**
  * 어플리케이션 메인 아이콘과, 로그인 정보를 표시하는 헤더입니다.
@@ -35,18 +37,32 @@ const MainHeader = () => {
   };
   const history = useHistory();
 
-  const handleLogout = async () => {
-    await axios.get(`${API_URL}/logout`, {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem(ACCESS_TOKEN)}`,
-      },
-    }).then(() => {
-      sessionStorage.clear();
-      removeCookie(REFRESH_TOKEN);
-      history.push("/");
-      location.reload();
+  const handleLogout = () => {
+    Swal.fire({
+      title: "로그아웃",
+      text: "로그아웃 하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "로그아웃",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.get(`${API_URL}/logout`, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem(ACCESS_TOKEN)}`,
+          },
+        }).then(() => {
+          sessionStorage.clear();
+          removeCookie(REFRESH_TOKEN);
+          history.push("/");
+          location.reload();
+        });
+      }
     });
   };
+
 
   useEffect(() => {
     GET_LOGIN_USER_INFORMATION().then((res) => {
@@ -71,7 +87,7 @@ const MainHeader = () => {
           </ProfileInformation>
         </ProfileWrapper>
         <OrgaImage src={Orga} onClick={handleOnOrganizationChartModal} />
-        <LogoutImage src={Logout} onClick={handleOnOrganizationChartModal} />
+        <LogoutImage src={Logout} onClick={handleLogout} />
       </UserInformationWrapper>
     </MainHeaderWrapper>
   );
