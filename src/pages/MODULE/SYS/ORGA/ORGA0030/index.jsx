@@ -4,6 +4,11 @@ import request from "@utils/axiosUtil";
 import EmpInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpInformation";
 import { companyList } from "@pages/MODULE/SYS/ORGA/ORGA0030/pages/Insert";
 import Swal from "sweetalert2";
+import {
+  ModuleInnerMainContentWrapper,
+  ModuleInnerTitle, ModuleInnerTitleWrapper,
+  ModuleInnerWrapper,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 const empList = async () => {
   const { data } = await request.get("/emp/information");
@@ -89,8 +94,8 @@ function Index() {
   const [view, setVeiw] = useState(true);
 
   // 기본 정보, 조직 정보 span 글자 색상 변경 ( style )
-  const [basicColor, setBasicColor] = useState("black");
-  const [orgaColor, setOrgaColor] = useState("black");
+  const [basicColor, setBasicColor] = useState("#46A3FB");
+  const [orgaColor, setOrgaColor] = useState("gray");
 
   const [company, setCompany] = useState([]);
 
@@ -98,12 +103,27 @@ function Index() {
 
   const history = useHistory();
 
+  const setTargetActive = (e) => {
+    let { target } = e;
+    if ((target.tagName !== "SPAN")) {
+      while (!target.classList.contains("employeeListItemDiv")) {
+        target = target.parentElement;
+      }
+      const employeeListItemDivs = document.querySelectorAll(".employeeListItemDiv");
+      employeeListItemDivs.forEach((employeeListItemDiv) => employeeListItemDiv.classList.remove("active"));
+      target.classList.add("active");
+      console.log("Employee target", target);
+    }
+  };
+
   // 사원 정보가 담긴 컴포넌트를 부르기 위한 함수 선언
-  const clickEmp = (empNo) => {
+  const clickEmp = (e, empNo) => {
     setEmpInformation({ ...initState });
-    setBasicColor("blue");
-    setOrgaColor("black");
+    setBasicColor("#46A3FB");
+    setOrgaColor("gray");
     setVeiw(true);
+
+    setTargetActive(e);
 
     empRead(empNo).then((data) => {
       setEmpInformation(data);
@@ -111,9 +131,9 @@ function Index() {
   };
 
   // 조직 정보가 담긴 컴포넌트를 부르기 위한 함수 선언
-  const clickOrga = (empNo) => {
-    setBasicColor("black");
-    setOrgaColor("blue");
+  const clickOrga = (e, empNo) => {
+    setBasicColor("gray");
+    setOrgaColor("#46A3FB");
     setVeiw(false);
 
     empOrgaList(empNo).then((data) => {
@@ -247,32 +267,39 @@ function Index() {
   };
 
   return (
-    <EmpInformation
-      emps={emps}
-      empInformation={empInformation}
-      clickEmpRegister={clickEmpRegister}
-      changeEmpInput={changeEmpInput}
-      clickEmpModify={clickEmpModify}
-      clickEmp={clickEmp}
-      clickOrga={clickOrga}
-      view={view}
-      basicColor={basicColor}
-      orgaColor={orgaColor}
-      orga={orga}
-      handleOnClickOrgaRegister={handleOnClickOrgaRegister}
-      orgaDisplay={orgaDisplay}
-      company={company}
-      handleOnChangeCompany={handleOnChangeCompany}
-      department={department}
-      handleOnClickOrgaRegisterSubmit={handleOnClickOrgaRegisterSubmit}
-      handleOnClickOrgaRegisterReset={handleOnClickOrgaRegisterReset}
-      handleOnChangeOrgaRegisterInput={handleOnChangeOrgaRegisterInput}
-      handleOnClickOrgaModify={handleOnClickOrgaModify}
-      handleOnChangeOrgaInput={handleOnChangeOrgaInput}
-      handleOnClickOrgaModifyDept={handleOnClickOrgaModifyDept}
-      setRefresh={setRefresh}
-      refresh={refresh}
-    />
+    <ModuleInnerWrapper>
+      <ModuleInnerTitleWrapper>
+        <ModuleInnerTitle>사원 관리</ModuleInnerTitle>
+      </ModuleInnerTitleWrapper>
+      <ModuleInnerMainContentWrapper>
+        <EmpInformation
+          emps={emps}
+          empInformation={empInformation}
+          clickEmpRegister={clickEmpRegister}
+          changeEmpInput={changeEmpInput}
+          clickEmpModify={clickEmpModify}
+          clickEmp={clickEmp}
+          clickOrga={clickOrga}
+          view={view}
+          basicColor={basicColor}
+          orgaColor={orgaColor}
+          orga={orga}
+          handleOnClickOrgaRegister={handleOnClickOrgaRegister}
+          orgaDisplay={orgaDisplay}
+          company={company}
+          handleOnChangeCompany={handleOnChangeCompany}
+          department={department}
+          handleOnClickOrgaRegisterSubmit={handleOnClickOrgaRegisterSubmit}
+          handleOnClickOrgaRegisterReset={handleOnClickOrgaRegisterReset}
+          handleOnChangeOrgaRegisterInput={handleOnChangeOrgaRegisterInput}
+          handleOnClickOrgaModify={handleOnClickOrgaModify}
+          handleOnChangeOrgaInput={handleOnChangeOrgaInput}
+          handleOnClickOrgaModifyDept={handleOnClickOrgaModifyDept}
+          setRefresh={setRefresh}
+          refresh={refresh}
+        />
+      </ModuleInnerMainContentWrapper>
+    </ModuleInnerWrapper>
   );
 }
 

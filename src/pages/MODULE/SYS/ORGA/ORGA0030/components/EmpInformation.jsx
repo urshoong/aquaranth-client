@@ -3,6 +3,26 @@ import React from "react";
 import EmpOrgaInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpOrgaInformation";
 import EmpBasicInformation from "@pages/MODULE/SYS/ORGA/ORGA0030/components/EmpBasicInformation";
 import useModal from "@hooks/useModal";
+import {
+  EmpInfoContent,
+  EmpInfoPageWrapper,
+  EmpInfoTab,
+  EmpInfoTabWrapper,
+  EmpListDiv,
+  EmpListItemDetailDiv,
+  EmpListItemDetailInfo,
+  EmpListItemDiv,
+  EmpListItemImg,
+  EmpPageWrapper,
+  EmpUseItemDiv,
+  GroupCountWrap,
+  GroupSection,
+  InnerInformationIcon,
+  InnerInformationInnerSpan,
+  InnerInformationInnerWrapper,
+  InnerInformationWrap,
+  Span,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 function EmpInformation({
   emps,
@@ -32,116 +52,91 @@ function EmpInformation({
   refresh,
 }) {
   const { openModal } = useModal();
-  const data = {
-    menucode: "ORGA0030",
-    menuname: "사원 관리",
-  };
-  const handleOnModal = () => {
-    openModal({
-      type: "ORGA0030",
-      props: data,
-    });
-  };
 
   const handleOnRegisterModal = () => {
     openModal({ type: "ORGA0030Register" });
   };
 
   return (
+    <EmpPageWrapper>
+      <EmpListDiv width="400px" border="2">
+        <GroupSection className="section1" height="50px">
+          <GroupCountWrap>
+            <Span>사용자 : </Span>
+            <Span>{emps.length}</Span>
+            <Span>명</Span>
+          </GroupCountWrap>
+        </GroupSection>
 
-    <div className="pageLine" style={{ height: "600px" }}>
-      {/* <Button type="button" onClick={handleOnModal}>ORGA0030 모달 띄우기</Button> */}
-      <div
-        className="empList"
-        style={{
-          overflow: "auto",
-          height: "600px",
-        }}
-      >
-        <span>사용자 : {emps.length} 명</span>
-        {emps.map(({
-          empNo,
-          username,
-          empName,
-          firstHiredDate,
-          profileUrl,
-          empUse,
-        }) => (
-          <div className="empItem" key={empNo} onClick={() => clickEmp(empNo)} aria-hidden="true">
-            <div className="empItemImg">
-              {profileUrl ? <img src={profileUrl} alt="프로필 이미지" style={{ width: "50px" }} />
-                : <div />}
-            </div>
-            <div className="empIdName">
-              <div>
-                {username}
-              </div>
-              <div>
-                {empName}
-              </div>
-            </div>
-            <div>
-              <div>{firstHiredDate}</div>
-              <div>{empUse === true ? <span>사용</span> : <span>미사용</span>}</div>
-            </div>
-          </div>
-        ))}
-      </div>
+        <GroupSection className="section2" height="calc(100% - 50px)">
+          {emps.map(({
+            empNo,
+            username,
+            empName,
+            firstHiredDate,
+            profileUrl,
+            empUse,
+          }) => (
+            <EmpListItemDiv className="employeeListItemDiv" key={empNo} onClick={(e) => clickEmp(e, empNo)} aria-hidden="true">
+              <EmpListItemImg profileUrl={profileUrl} />
+              <EmpListItemDetailDiv>
+                <EmpListItemDetailInfo>{username}</EmpListItemDetailInfo>
+                <EmpListItemDetailInfo className="empName">{empName}</EmpListItemDetailInfo>
+              </EmpListItemDetailDiv>
+              <EmpListItemDetailDiv>
+                <EmpListItemDetailInfo>{firstHiredDate}</EmpListItemDetailInfo>
+                <EmpListItemDetailInfo>
+                  <EmpUseItemDiv empUse={empUse}>{empUse ? "사용" : "미사용"}</EmpUseItemDiv>
+                </EmpListItemDetailInfo>
+              </EmpListItemDetailDiv>
+            </EmpListItemDiv>
+          ))}
+        </GroupSection>
+      </EmpListDiv>
 
-
-      <div className="infoPage">
-        <span
-          className="basicFont"
-          style={{ color: basicColor }}
-          onClick={() => clickEmp(empInformation.empNo)}
-          aria-hidden="true"
-        >●기본정보
-        </span>
-        <span
-          className="orgaFont"
-          style={{ color: orgaColor }}
-          onClick={() => clickOrga(empInformation.empNo)}
-          aria-hidden="true"
-        >●조직정보
-        </span>
-
-        <div>
-          <span>빨간색은 필수 입력 항목입니다.</span>
-        </div>
-        <div>
-          <span>검정색은 변경 불가 항목입니다.</span>
-        </div>
-
-        {view ? (
-          <EmpBasicInformation
-            clickEmpRegister={clickEmpRegister}
-            clickEmpModify={clickEmpModify}
-            clickEmpRemove={clickEmpRemove}
-            empInformation={empInformation}
-            changeEmpInput={changeEmpInput}
-            handleOnRegisterModal={handleOnRegisterModal}
-            setRefresh={setRefresh}
-            refresh={refresh}
-          />
-        ) : (
-          <EmpOrgaInformation
-            orga={orga}
-            handleOnClickOrgaRegister={handleOnClickOrgaRegister}
-            orgaDisplay={orgaDisplay}
-            company={company}
-            handleOnChangeCompany={handleOnChangeCompany}
-            department={department}
-            handleOnClickOrgaRegisterSubmit={handleOnClickOrgaRegisterSubmit}
-            handleOnClickOrgaRegisterReset={handleOnClickOrgaRegisterReset}
-            handleOnChangeOrgaRegisterInput={handleOnChangeOrgaRegisterInput}
-            handleOnClickOrgaModify={handleOnClickOrgaModify}
-            handleOnChangeOrgaInput={handleOnChangeOrgaInput}
-            handleOnClickOrgaModifyDept={handleOnClickOrgaModifyDept}
-          />
-        )}
-      </div>
-    </div>
-
+      <EmpInfoPageWrapper>
+        <InnerInformationWrap>
+          <InnerInformationIcon>௹</InnerInformationIcon>
+          <InnerInformationInnerWrapper>
+            <InnerInformationInnerSpan className="double">빨간색은 필수 입력 항목입니다.</InnerInformationInnerSpan>
+            <InnerInformationInnerSpan className="double">검정색은 변경 불가 항목입니다.</InnerInformationInnerSpan>
+          </InnerInformationInnerWrapper>
+        </InnerInformationWrap>
+        <EmpInfoTabWrapper>
+          <EmpInfoTab color={basicColor} onClick={(e) => clickEmp(e, empInformation.empNo)} aria-hidden="true">기본정보</EmpInfoTab>
+          <EmpInfoTab color={orgaColor} onClick={(e) => clickOrga(e, empInformation.empNo)} aria-hidden="true">조직정보</EmpInfoTab>
+        </EmpInfoTabWrapper>
+        <EmpInfoContent>
+          {view ? (
+            <EmpBasicInformation
+              clickEmpRegister={clickEmpRegister}
+              clickEmpModify={clickEmpModify}
+              clickEmpRemove={clickEmpRemove}
+              empInformation={empInformation}
+              changeEmpInput={changeEmpInput}
+              handleOnRegisterModal={handleOnRegisterModal}
+              setRefresh={setRefresh}
+              refresh={refresh}
+            />
+          ) : (
+            <EmpOrgaInformation
+              orga={orga}
+              handleOnClickOrgaRegister={handleOnClickOrgaRegister}
+              orgaDisplay={orgaDisplay}
+              company={company}
+              handleOnChangeCompany={handleOnChangeCompany}
+              department={department}
+              handleOnClickOrgaRegisterSubmit={handleOnClickOrgaRegisterSubmit}
+              handleOnClickOrgaRegisterReset={handleOnClickOrgaRegisterReset}
+              handleOnChangeOrgaRegisterInput={handleOnChangeOrgaRegisterInput}
+              handleOnClickOrgaModify={handleOnClickOrgaModify}
+              handleOnChangeOrgaInput={handleOnChangeOrgaInput}
+              handleOnClickOrgaModifyDept={handleOnClickOrgaModifyDept}
+            />
+          )}
+        </EmpInfoContent>
+      </EmpInfoPageWrapper>
+    </EmpPageWrapper>
   );
 }
 

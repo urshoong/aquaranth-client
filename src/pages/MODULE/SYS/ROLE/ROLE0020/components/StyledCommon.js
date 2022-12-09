@@ -134,6 +134,7 @@ export const GroupSection = styled.div`
     }
     &.section2{
       height: ${(props) => props.height};
+      max-height: ${(props) => props.height};
       display: ${(props) => (props.height ? "" : "none")};
       background-color: ${theme.color.gray50};
       //background-color: #fafafa;
@@ -162,7 +163,7 @@ export const GroupCountWrap = styled.div`
   ${({ theme }) => css`
     height: 50px;
     line-height: 50px;
-    width: 100px;
+    width: 150px;
     padding-left: 10px;
     &>span{
       font-size: 1.3em;
@@ -250,6 +251,39 @@ export const UserRoleMainContent = styled.div`
   height: calc(100% - 55px);
   margin-top: 15px;
   display: flex;
+`;
+
+export const InnerInformationWrap = styled.div`
+  display: flex;
+  width: 100%;
+  height: 55px;
+  line-height: 50px;
+  border: 2px solid #dee5ed;
+  background-color: #f3f7fa;
+  font-size: 1.25em;
+  font-weight: bold;
+  padding-left: 20px;
+`;
+
+export const InnerInformationIcon = styled.span`
+  margin-right: 5px;
+  color: gray;
+`;
+
+export const InnerInformationInnerWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+export const InnerInformationInnerSpan = styled.span`
+  position: absolute;
+  color: black;
+  &.double:nth-of-type(1){
+    top: -10px;
+  }
+  &.double:nth-of-type(2){
+    top: 10px
+  }
 `;
 
 /**
@@ -393,7 +427,7 @@ export const CompanyInformationDiv = styled.div`
   //margin-top: 1em;
   width: calc(100% - 400px);
   height: 100%;
-  padding-left: 15px;
+  padding-left: 20px;
 `;
 
 export const CompanyInfoBtnDiv = styled.div`
@@ -650,13 +684,17 @@ export const EmpProfilItem = styled.div`
 `;
 
 export const EmpProfilImg = styled.div`
-  border-radius: 70%;
-  margin: 1.5em auto 0 auto;
-  width: ${(props) => props.size}px;
-  height: ${(props) => props.size}px;
-  background-image: url(${(props) => props.src});
-  background-size: cover;
-  background-color: ${(props) => props.src || "#46A3FB"};
+  ${({ theme }) => css`
+    border-radius: 70%;
+    margin: 1.5em auto 0 auto;
+    width: ${(props) => props.size}px;
+    height: ${(props) => props.size}px;
+    background-image: url(${(props) => props.src});
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: ${(props) => props.src || theme.color.activeBDBlue};
+  `}
 `;
 
 export const EmpDetailTitle = styled.div`
@@ -767,4 +805,158 @@ export const MyGroupModalRegisterBtn = styled.button`
 `;
 
 export const MyGroupModalRadioBtn = styled.input`
+`;
+
+/**
+ * Employee page Styled Components
+ * */
+export const EmpPageWrapper = styled.div`
+  height: 100%;
+  display: flex;
+`;
+
+export const EmpListDiv = styled(UserRoleSection)`
+`;
+
+export const EmpListItemDiv = styled.div`
+  ${({ theme }) => css`
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    height: 100px;
+    border: 2px solid ${theme.color.gray350};
+    background-color: ${theme.color.white};
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 5px;
+    &.active{
+      background-color: ${theme.color.activeBGBlue};
+      border: 2px solid ${theme.color.activeBDBlue};
+    }
+  `}
+`;
+
+/* export const EmpListItemImg = styled.img`
+  ${({ theme }) => css`
+    width: 70px;
+    height: 70px;
+    //background-color: ${({ profileUrl }) => profileUrl ? "" : theme.color.activeBDBlue};
+  `}
+`; */
+export const EmpListItemImg = styled.div`
+  ${({ theme, profileUrl }) => css`
+    width: 70px;
+    height: 70px;
+    background-image: url(${profileUrl});
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: ${profileUrl ? "" : theme.color.activeBDBlue};
+  `}
+`;
+
+export const EmpListItemDetailDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  &:last-of-type{
+    text-align: right;
+    padding-right: 20px;
+  }
+`;
+
+export const EmpListItemDetailInfo = styled.div`
+  ${({ theme }) => css`
+    font-size: 1.3em;
+    font-weight: bold;
+    &:nth-of-type(odd){
+      color: ${theme.color.gray800}
+    }
+    &.empName{
+      font-size: 1.4em;
+    }
+  `}
+`;
+
+export const EmpUseItemDiv = styled(CompanyUseItemDiv)`
+  height: 1.7em;
+  background-color: ${({ empUse }) => (empUse ? "#6bb4ff" : "#4b7dff")};
+`;
+
+export const EmpInfoPageWrapper = styled.div`
+  width: calc(100% - 400px);
+  padding-left: 20px;
+`;
+
+export const EmpInfoTabWrapper = styled(UserRoleInnerTabWrapper)`
+`;
+
+export const EmpInfoTab = styled(UserRoleInnerTab)`
+  ${({ theme }) => css`
+    color: ${({ color }) => color};
+    border-bottom: ${({ color }) => (color === "gray" ? "" : `2px solid ${theme.color.activeBDBlue}`)};
+  `}
+`;
+
+export const EmpInfoContent = styled(UserRoleMainContent)`
+  height: calc(100% - 110px);
+  display: inherit;
+`;
+
+export const EmpInformationWrapper = styled.div`
+  position: relative;
+`;
+
+export const EmpInformationBtnWrapper = styled.div`
+  position: absolute;
+  right: 0;
+  top: -50px;
+`;
+
+export const EmpInformationBtn = styled(Button)`
+  //border-radius: 0.5em;
+  height: 2.5em;
+  width: 4em;
+  margin: 0 5px;
+`;
+
+export const EmpBasicInformationDiv = styled.div`
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  //border: #aaa 2px solid;
+  &>div{
+    //border-right: 2px solid #aaa;
+    //border-bottom: 2px solid #aaa;
+  }
+`;
+
+export const EmpBasicInformation = styled.div`
+`;
+
+export const EmpBasicInformationImg = styled(EmpListItemImg)`
+  ${({ profileUrl }) => css`
+    width: 120px;
+    height: 120px;
+    background-image: url(${profileUrl});
+    display: inline-block;
+  `}
+`;
+
+export const EmpBasicInformationHeader = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    background-color: ${theme.color.gray100};
+    min-height: 40px;
+    padding-right: 10px;
+    border-bottom: 1px solid ${theme.color.gray400};
+  `}
+`;
+
+export const EmpBasicInformationBody = styled.div`
+  ${({ theme }) => css`
+    border-bottom: 1px solid ${theme.color.gray400};
+    display: flex;
+    align-items: center;
+  `}
 `;
