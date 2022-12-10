@@ -9,6 +9,11 @@ import { GET_CONFIG_TREE_MENULIST, PUT_CONFIG_MENU } from "@pages/MODULE/SYS/ROL
 import SelectMenuContext from "@pages/MODULE/SYS/ROLE/ROLE0030/context/SelectMenuContext";
 import MenuTreeComp from "@pages/MODULE/SYS/ROLE/ROLE0030/components/tree/MenuTreeComp";
 import Swal from "sweetalert2";
+import {
+  Button,
+  InnerInformationIcon, InnerInformationInnerSpan,
+  InnerInformationInnerWrapper, InnerInformationWrap
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 const MenuConfigurationComp = () => {
   const { selectedMenu, setMenuList, setSelectedMenu, setQueryMenu, queryMenu } = useContext(SelectMenuContext);
@@ -49,15 +54,23 @@ const MenuConfigurationComp = () => {
     <Layout>
       <MenuTreeLayout>
         <MenuTreeWrapper span="4">
-          <div className="">
-            메뉴 리스트
-          </div>
           <MenuTreeComp />
         </MenuTreeWrapper>
       </MenuTreeLayout>
       <MenuEditLayout>
-        {!selectedMenu ? <Unselected
-          handleOnMenuInsertModal={handleOnMenuInsertModal}/> : (
+        <InnerInformationWrap>
+          <InnerInformationIcon>௹</InnerInformationIcon>
+          <InnerInformationInnerWrapper>
+            <InnerInformationInnerSpan className="double">빨간색은 필수 입력 항목입니다.</InnerInformationInnerSpan>
+            <InnerInformationInnerSpan className="double">검정색은 변경 불가 항목입니다.</InnerInformationInnerSpan>
+          </InnerInformationInnerWrapper>
+        </InnerInformationWrap>
+        <Button type="button" onClick={handleOnMenuInsertModal}>메뉴 추가하기</Button>
+        {!selectedMenu ? (
+          <Unselected
+            handleOnMenuInsertModal={handleOnMenuInsertModal}
+          />
+        ) : (
           <Selected
             handleOnMenuInsertModal={handleOnMenuInsertModal}
             handleOnIconUpdateModal={handleOnIconUpdateModal}
@@ -79,8 +92,9 @@ const Layout = styled.div`
 
 const MenuTreeLayout = styled.div`
   ${() => css`
-      min-width: 250px;
+    min-width: 250px;
     height: 100%;
+    
   `
 }
     ;
