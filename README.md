@@ -83,7 +83,8 @@ npm start
 
 
 ## Verifying & Request Sequence Diagram
-![seq](https://user-images.githubusercontent.com/110054050/206376493-728d05b1-af20-490c-a970-412259f02ae9.png)
+![seq](https://github.com/devaquariums/aquaranth/blob/main/sequence_diagram/sequence_diagram.png?raw=true)
+
 
 ## Tech Stack
 
