@@ -1,5 +1,11 @@
 import React, { useRef, useState } from "react";
 import { getChildNode } from "@pages/MODULE/SYS/ORGA/ORGA0010/api/mygroup";
+import { TreeLi, TreeUl } from "@pages/MODULE/SYS/ROLE/ROLE0020/pages/tree/CommonTreeNode";
+import {
+  MainTreeArrowButton,
+  MainTreeOrgaWrapper,
+  MainTreeOrgaIconImage, MainTreeOrgaSpan,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 
 function CommonTreeNode({ arr, changeTarget }) {
@@ -31,15 +37,17 @@ function CommonTreeNode({ arr, changeTarget }) {
   }
 
   return (
-    <ul>
+    <TreeUl>
       {arr.map((dept) => (
-        <li key={dept.deptNo}>
-          <div style={{ padding: "5px" }}>
-            <button type="button" style={{ paddingLeft: `${dept.depth * 15}px`, fontSize: "1em" }} ref={buttonRef} onClick={() => clickButton(dept.deptNo, dept.depth + 1, dept.companyNo)}>{icon}</button>
-            <span style={{ fontSize: "1em", fontWeight: "bold", paddingRight: "0.5em" }} onClick={() => changeTarget(dept.orgaNo)} aria-hidden="true">
+        <TreeLi key={dept.deptNo}>
+          <MainTreeOrgaWrapper>
+            <MainTreeArrowButton type="button" depth={dept.depth} ref={buttonRef} onClick={() => clickButton(dept.deptNo, dept.depth + 1, dept.companyNo)}>{icon}</MainTreeArrowButton>
+            {dept.depth === 0 && <MainTreeOrgaIconImage src="/images/icon-tree-comp.png" alt="" />}
+            {dept.depth > 0 && <MainTreeOrgaIconImage src={(icon === ">" && dept.lowerDeptCnt > 0) ? "/images/icon-tree-folder-close.png" : "/images/icon-tree-folder-open.png"} alt="" />}
+            <MainTreeOrgaSpan className="mainTreeOrgaSpan" onClick={(e) => changeTarget(e, dept.orgaNo)} aria-hidden="true">
               {/* {dept.depth === 0 ? dept.companyNo : dept.deptNo} */} {dept.deptName}
-            </span>
-          </div>
+            </MainTreeOrgaSpan>
+          </MainTreeOrgaWrapper>
 
           {subArr ? subArr.map((childDept) => (
             <CommonTreeNode
@@ -49,10 +57,10 @@ function CommonTreeNode({ arr, changeTarget }) {
             />
           )) : <div /> }
 
-        </li>
+        </TreeLi>
       ))}
 
-    </ul>
+    </TreeUl>
   );
 }
 

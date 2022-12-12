@@ -13,8 +13,8 @@ import styled from "styled-components";
 import { GET_CONFIG_MENUDETAIL } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menuConfigurationApi";
 
 
-const Selected = ({ handleOnIconUpdateModal, handleOnMenuInsertModal, handleOnMenuDeleteConfirmModal, handleOnUpdateMenu }) => {
-  const { selectedMenu, setSelectedMenu, queryMenu, setQueryMenu } = useContext(SelectMenuContext);
+const Selected = ({ handleOnIconUpdateModal, handleOnMenuDeleteConfirmModal, handleOnUpdateMenu }) => {
+  const { selectedMenu, queryMenu, setQueryMenu } = useContext(SelectMenuContext);
 
   useEffect(() => {
     GET_CONFIG_MENUDETAIL(selectedMenu).then((res) => {
@@ -44,7 +44,6 @@ const Selected = ({ handleOnIconUpdateModal, handleOnMenuInsertModal, handleOnMe
           <Text>
             메뉴 상세
           </Text>
-          <button type="button" onClick={handleOnMenuInsertModal}>메뉴 추가하기</button>
         </TitleWrapper>
         <FormItemWrapper>
           <ColumnName>

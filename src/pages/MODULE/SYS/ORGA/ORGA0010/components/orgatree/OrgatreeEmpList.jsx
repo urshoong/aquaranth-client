@@ -1,11 +1,11 @@
 import React from "react";
-import styled from "styled-components";
+import { MainOrgaTreeEmpListDiv } from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 import OrgatreeEmpItem from "./OrgatreeEmpItem";
 
 
 function OrgatreeEmpList({ empList, setEmpInfo, clickFavoriteEmp }) {
   return (
-    <EmpListDiv>
+    <MainOrgaTreeEmpListDiv>
       {empList.map((empInfo) => (
         <OrgatreeEmpItem
           key={empInfo.orgaNo}
@@ -15,14 +15,8 @@ function OrgatreeEmpList({ empList, setEmpInfo, clickFavoriteEmp }) {
           clickFavoriteEmp={clickFavoriteEmp}
         />
       ))}
-    </EmpListDiv>
+    </MainOrgaTreeEmpListDiv>
   );
 }
-
-const EmpListDiv = styled.div`
-  border-top: 2px solid darkgray;
-  overflow: auto;
-  height: 30rem;
-`;
 
 export default OrgatreeEmpList;

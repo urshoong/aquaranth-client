@@ -1,14 +1,14 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
-import styled, {css} from "styled-components";
-import {PUT_CONFIG_MENUICON} from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menuConfigurationApi";
-import {FileInput, Image, Layout, MenuButton} from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Style";
+import styled, { css } from "styled-components";
+import { PUT_CONFIG_MENUICON } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menuConfigurationApi";
+import { FileInput, Image, Layout, MenuButton } from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Style";
 
-const MenuIconUpdateModal = ({queryMenu}) => {
+const MenuIconUpdateModal = ({ queryMenu }) => {
   const [file, setFile] = useState();
   const [image, setImage] = useState(null);
-  const {closeModal} = useModal();
+  const { closeModal } = useModal();
 
   const handleCloseModal = () => {
     closeModal();
@@ -35,7 +35,7 @@ const MenuIconUpdateModal = ({queryMenu}) => {
     formData.append("multipartFile", file);
     formData.append("key", queryMenu?.menuCode);
     await PUT_CONFIG_MENUICON(formData).then((res) => {
-      handleCloseModal()
+      handleCloseModal();
     });
   };
 
@@ -49,11 +49,11 @@ const MenuIconUpdateModal = ({queryMenu}) => {
         <IconUploadLayout>
           <IconWrapper>
             <div>현재 아이콘</div>
-            <Image src={queryMenu?.iconUrl} alt="이전 메뉴 아이콘"/>
+            <Image src={queryMenu?.iconUrl} alt="이전 메뉴 아이콘" />
           </IconWrapper>
           <IconWrapper>
             <div>수정할 아이콘</div>
-            {image && <Image src={image} alt="수정할 메뉴 아이콘"/>}
+            {image && <Image src={image} alt="수정할 메뉴 아이콘" />}
           </IconWrapper>
         </IconUploadLayout>
         <FileInput
@@ -74,11 +74,11 @@ const IconUploadLayout = styled.div`
   ${({}) => css`
     display: flex;
   `}
-`
+`;
 
 const IconWrapper = styled.div`
   width: 100%;
-`
+`;
 
 
 export default MenuIconUpdateModal;

@@ -1,5 +1,9 @@
 import React from "react";
-import styled from "styled-components";
+import {
+  GroupCountWrap,
+  GroupSection, GroupSortWrap, Option, Select,
+  Span,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 import request from "../../../../../../../utils/axiosUtil";
 
 // 해당 정렬에 맞는 회사 일부정보 리스트 요청
@@ -22,34 +26,23 @@ function CompanyCount({ list, setList }) {
   };
 
   return (
-    <CompanySortDiv>
-      <div>
-        <span>회사</span>
-        <CompanyCountSpan>{list.length}</CompanyCountSpan>
-        <span>건</span>
-      </div>
-      <div>
-        <select onChange={(e) => { changeCompanySort(e); }}>
-          <option>정렬</option>
-          <option value="companyNo">회사번호</option>
-          <option value="companyName">회사명</option>
-          <option value="ownerName">대표자명</option>
-          <option value="companyUse">사용여부</option>
-        </select>
-      </div>
-    </CompanySortDiv>
+    <GroupSection className="section1" height="50px">
+      <GroupCountWrap>
+        <Span>회사 : </Span>
+        <Span>{list.length}</Span>
+        <Span>건</Span>
+      </GroupCountWrap>
+      <GroupSortWrap>
+        <Select onChange={(e) => { changeCompanySort(e); }}>
+          <Option>정렬</Option>
+          <Option value="companyNo">회사번호</Option>
+          <Option value="companyName">회사명</Option>
+          <Option value="ownerName">대표자명</Option>
+          <Option value="companyUse">사용여부</Option>
+        </Select>
+      </GroupSortWrap>
+    </GroupSection>
   );
 }
-
-const CompanySortDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-right: 0.5em;
-`;
-
-const CompanyCountSpan = styled.span`
-  margin-left: 0.5em;
-  color: #46a3fb;
-`;
 
 export default CompanyCount;

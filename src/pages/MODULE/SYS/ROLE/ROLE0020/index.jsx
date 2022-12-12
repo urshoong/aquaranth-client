@@ -6,11 +6,11 @@ import {
   UserRoleInnerTab,
   UserRoleInnerTabWrapper,
   UserRoleMainContent,
-  UserRoleMainContentWrapper,
-  UserRoleTitle,
-  UserRoleTitleWrapper,
-  UserRoleWrapper,
-} from "./components/RoleGroupStyledCommon";
+  ModuleInnerMainContentWrapper,
+  ModuleInnerTitle,
+  ModuleInnerTitleWrapper,
+  ModuleInnerWrapper,
+} from "./components/StyledCommon";
 // import useModal from "@hooks/useModal";
 // import Button from "@components/Button";
 
@@ -32,22 +32,22 @@ function Index() {
   };
 
   return (
-    <UserRoleWrapper>
+    <ModuleInnerWrapper>
       {/* <Button type="button" onClick={handleOnModal}>ROLE0020 모달 띄우기</Button> */}
-      <UserRoleTitleWrapper>
-        <UserRoleTitle>사용자권한설정</UserRoleTitle>
-      </UserRoleTitleWrapper>
-      <UserRoleMainContentWrapper>
+      <ModuleInnerTitleWrapper>
+        <ModuleInnerTitle>사용자권한 설정</ModuleInnerTitle>
+      </ModuleInnerTitleWrapper>
+      <ModuleInnerMainContentWrapper>
         <UserRoleInnerTabWrapper>
-          <UserRoleInnerTab className={`${pageChange?.pageName === "UserRoleRoleGroupBasedPage" ? "active" : ""}`} data-name="UserRoleRoleGroupBasedPage" onClick={userRolePageClickHandler} aria-hidden="true">권한그룹기준</UserRoleInnerTab>
+          <UserRoleInnerTab className={`${pageChange?.pageName === "UserRoleRoleGroupBasedPage" ? "active" : ""}`} data-name="UserRoleRoleGroupBasedPage" onClick={userRolePageClickHandler} aria-hidden="true">권한그룹 기준</UserRoleInnerTab>
           <UserRoleInnerTab className={`${pageChange?.pageName === "UserRoleUserBasedPage" ? "active" : ""}`} data-name="UserRoleUserBasedPage" onClick={userRolePageClickHandler} aria-hidden="true">사용자 기준</UserRoleInnerTab>
         </UserRoleInnerTabWrapper>
         <UserRoleMainContent>
           {pageChange?.pageName === "UserRoleRoleGroupBasedPage" && <UserRoleRoleGroupBasedPage />}
           {pageChange?.pageName === "UserRoleUserBasedPage" && <UserRoleUserBasedPage />}
         </UserRoleMainContent>
-      </UserRoleMainContentWrapper>
-    </UserRoleWrapper>
+      </ModuleInnerMainContentWrapper>
+    </ModuleInnerWrapper>
   );
 }
 

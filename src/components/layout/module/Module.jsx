@@ -1,5 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { useSelector } from "react-redux";
+import { applicationSelector } from "@reducer/applicationSlice";
 
 /**
  * 모듈 레이아웃 입니다.
@@ -22,7 +24,7 @@ const ModuleLayout = styled.div`
       width: 100%;
       height: 100%;
       left: ${theme.ui.lnbSidebar};
-      overflow: scroll;
+      overflow: auto;
     `}
 `;
 

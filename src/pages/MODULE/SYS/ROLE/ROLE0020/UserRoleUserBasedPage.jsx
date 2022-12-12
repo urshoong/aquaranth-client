@@ -3,8 +3,12 @@ import UserListContent2 from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserCon
 import Swal from "sweetalert2";
 import {
   Button,
+  InnerInformationIcon,
+  InnerInformationInnerSpan,
+  InnerInformationInnerWrapper,
+  InnerInformationWrap,
   UserRoleSection,
-} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/RoleGroupStyledCommon";
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 import {
   getCompanyList,
   getGroupListByUser,
@@ -197,13 +201,13 @@ const UserRoleUserBasedPage = () => {
 
   return (
     <div className="innerWrap">
-      <div className="innerInformationWrap">
-        <span>௹</span>
-        <div>
-          <span>선택한 사용자에 권한해제 할 권한그룹을 선택하세요.</span>
-          <span>회사/부서 권한이 부여되어 있는 권한그룹은 권한해제가 불가합니다.</span>
-        </div>
-      </div>
+      <InnerInformationWrap>
+        <InnerInformationIcon>௹</InnerInformationIcon>
+        <InnerInformationInnerWrapper>
+          <InnerInformationInnerSpan className="double">선택한 사용자에 권한해제 할 권한그룹을 선택하세요.</InnerInformationInnerSpan>
+          <InnerInformationInnerSpan className="double">회사/부서 권한이 부여되어 있는 권한그룹은 권한해제가 불가합니다.</InnerInformationInnerSpan>
+        </InnerInformationInnerWrapper>
+      </InnerInformationWrap>
       <div className="innerSearchWrap userList">
         <div className="selectWrap userList">
           <span className="searchLabel">회사</span>

@@ -1,6 +1,12 @@
 import React from "react";
-import styled from "styled-components";
-import { Option, Select } from "./RoleGroupStyledCommon";
+import {
+  Option,
+  PageBtn,
+  PageImage,
+  PageSizeSelect,
+  Pagination,
+  PaginationWrap,
+} from "./StyledCommon";
 
 const PaginationContent = ({ response, pageClickHandler, selectChangeHandler }) => {
   return (
@@ -29,57 +35,3 @@ const PaginationContent = ({ response, pageClickHandler, selectChangeHandler }) 
 
 export default PaginationContent;
 
-export const PaginationWrap = styled.div`
-  width: 100%;
-  height: 50px;
-  padding-top: 10px;
-`;
-
-export const Pagination = styled.ul`
-  position: relative;
-  display: flex;
-  justify-content: center;
-`;
-
-export const PageBtn = styled.li`
-  //&.pageBtn{
-    height: 28px;
-    width: 28px;
-    line-height: 20px;
-    padding: 0 5px;
-    border: 2px solid #e6e6e6;
-    background-color: white;
-    font-size: 1.2em;
-    font-weight: bold;
-    margin: 2px;
-    display: flex;
-    justify-content: center;
-    box-sizing: border-box;
-  //}
-  &.pageBtn.page{
-    border: 0;
-    background-color: transparent;
-    margin: 4px 5px;
-  }
-  &.pageBtn.page.active{
-    color: #46a3fb;
-  }
-`;
-
-export const PageImage = styled.img`
-  padding: 0.5em;
-`;
-
-export const PageSizeSelect = styled(Select)`
-  height: 28px;
-  width: 60px;
-  line-height: 20px;
-  padding: 0 5px;
-  background-color: white;
-  font-weight: bold;
-  margin: 2px;
-  display: flex;
-  justify-content: center;
-  box-sizing: border-box;
-  outline: none;
-`;
