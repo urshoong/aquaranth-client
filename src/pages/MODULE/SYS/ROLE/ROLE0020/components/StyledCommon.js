@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { darken, lighten } from "polished";
 
 /**
  * Based Common Styled Components
@@ -959,4 +960,157 @@ export const EmpBasicInformationBody = styled.div`
     display: flex;
     align-items: center;
   `}
+`;
+
+export const EmpInsertWrapper = styled.div`
+    margin: 10px;
+    align-items: center;
+  `;
+
+export const EmpButtonWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+  `;
+
+export const EmpInsertExplainDiv = styled.div`
+    margin-bottom: 10px;
+  `;
+
+export const EmpInsertHeader = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    background-color: ${theme.color.gray100};
+    min-height: 2em;
+    margin-top: 5px;
+    width:10em;
+  `}
+`;
+
+export const EmpInsertBody = styled.div`
+    display:inline;
+    display: flex;
+    float: center;
+    flex-direction: column;
+    display:inline;
+`;
+
+export const EmpInsertInput = styled.input`
+    border-bottom: 1px solid black;
+`;
+
+
+export const ProfileFullLayout = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;      
+`;
+
+export const ProfileInformationWrapper = styled.div`
+  ${({ theme }) => {
+    return css`
+        ${theme.shadow.shadowLg};
+        border: 1px solid ${theme.color.grayA100};;
+        border-radius: 0.3rem;
+        max-width: 600px;
+        padding: 2rem 1rem;
+        width: 80%;
+      }
+      `;
+  }}
+`;
+
+export const ProfileImg = styled.img`
+    width: 80px;
+    height: 80px; 
+    border-radius: 70%;
+    overflow: hidden;
+    float:left;
+    margin-right: 2em;
+    margin-left: 2em;
+`;
+
+export const ProfileName = styled.div`
+    font-size: 1.5em;
+    font-weight: 900;
+    margin-bottom: 7px;
+    padding-top: 1.2em;
+`;
+
+export const ProfileAccessInformation = styled.div`
+  ${({ theme }) => css`
+    color: ${theme.color.gray600};
+    margin-bottom: 2.2em;
+  `}
+`;
+
+export const ProfileButtonWrapper = styled.div`
+  ${() => {
+    return css`
+    border-radius: 0.3rem;
+    margin: 20px;
+  `;
+  }}
+`;
+
+export const ProfileButton = styled.button`
+  ${({ theme }) => {
+    return css`
+      ${theme.typo.heading2};
+      background-color: ${lighten(0.1, theme.color.douzoneBlue)};
+      border: 1px solid ${darken(0.1, theme.color.douzoneBlue)};;
+      border-radius: 0.3rem;
+      width: 92%;
+      margin-left: 0.8em;
+      padding: 20px;
+      color: ${theme.color.white};
+      }
+      `;
+  }}
+`;
+
+export const ProfileCheckWrapper = styled.div`
+   ${({ theme }) => css`
+      border-top: 1px solid ${theme.color.gray500};
+      margin-top: 1em;
+      margin-left: 3em;
+      padding-top: 1em;
+      width: 40em;
+      position: relative;
+      display: flex;
+  `}
+`;
+
+export const ProfileExplain = styled.div`
+   ${({ theme }) => css`
+      border-top: 1px solid ${theme.color.gray500};
+      font-size: 1.2em;
+      font-weight: 600;
+      margin-left: 2.4em;
+      width: 33.3em;
+      padding-top: 0.5em;
+    `}
+`;
+
+export const ProfileHeader = styled.div`
+    border-top: 1px solid black;
+    float: left;
+    margin: 1em -3em 0em 3em;
+    padding-top: 0.5em;
+    padding-bottom: 1em;
+    width: 20em;
+    text-align: center;
+    background-color: gainsboro;
+`;
+
+export const ProfileBody = styled.div`
+    float: left;
+    text-align: left;
+    margin: 0em 0em 0em 7em;
+    width: 11em;
+`;
+
+export const ProfileBodySelect = styled.select`
+    margin-left: 3em;
 `;

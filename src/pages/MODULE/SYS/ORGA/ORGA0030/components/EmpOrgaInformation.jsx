@@ -4,6 +4,7 @@ import {
   EmpInformationBtnWrapper,
   EmpInformationWrapper,
 } from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
+import useModal from "@hooks/useModal";
 
 function EmpOrgaInformation({
   orga,
@@ -19,56 +20,23 @@ function EmpOrgaInformation({
   handleOnChangeOrgaInput,
   handleOnClickOrgaModifyDept,
 }) {
+
+  const { openModal } = useModal();
+
+  const data = {
+    orga,
+  };
+
+  const handleOnRegisterOrgaModal = () => {
+    openModal({ type: "RegisterOrga", props: data });
+  };
+
   return (
     <EmpInformationWrapper>
       <EmpInformationBtnWrapper>
-        <EmpInformationBtn type="button" onClick={() => { handleOnClickOrgaRegister(); }}>추가</EmpInformationBtn>
+        <EmpInformationBtn type="button" onClick={() => { handleOnRegisterOrgaModal(); }}>추가</EmpInformationBtn>
         <EmpInformationBtn type="button" onClick={() => { handleOnClickOrgaModify(); }}>수정</EmpInformationBtn>
       </EmpInformationBtnWrapper>
-
-      <div style={{ display: orgaDisplay }}>
-        <form>
-          <div>
-            회사 :
-            <select name="companyNo" onChange={(e) => { handleOnChangeCompany(e); }}>
-              <option value="0" key="-">--회사 선택--</option>
-              {company.map((com) => (
-                <option key={com.companyNo} value={com.companyNo}>{com.companyName}</option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            부서 :
-            <select name="deptNo" onChange={(e) => { handleOnChangeOrgaRegisterInput(e); }}>
-              <option value="0" key="-">--부서 선택--</option>
-              {department.map((dept) => (
-                <option key={dept.deptNo} value={dept.deptNo}>{dept.deptName}</option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            직급 :
-            <select name="empRank" onChange={(e) => { handleOnChangeOrgaRegisterInput(e); }}>
-              <option value="-">--직급 선택--</option>
-              <option value="회장" key="회장">회장</option>
-              <option value="사장" key="사장">사장</option>
-              <option value="이사" key="이사">이사</option>
-              <option value="부장" key="부장">부장</option>
-              <option value="과장" key="과장">과장</option>
-              <option value="대리" key="대리">대리</option>
-              <option value="주임" key="주임">주임</option>
-              <option value="사원" key="사원">사원</option>
-              <option value="인턴" key="인턴">인턴</option>
-              <option value="일용직" key="일용직">일용직</option>
-            </select>
-          </div>
-
-          <button type="submit" onClick={() => { handleOnClickOrgaRegisterSubmit(); }}>추가하기</button>
-          <button type="button" onClick={() => { handleOnClickOrgaRegisterReset(); }}>취소하기</button>
-        </form>
-      </div>
 
       {orga?.map((target) => {
         const {
@@ -81,7 +49,6 @@ function EmpOrgaInformation({
           companyAddress,
           orgaNo,
           deptMain,
-          // empRole,
           companyNo,
           deptNo,
         } = target;
@@ -112,11 +79,6 @@ function EmpOrgaInformation({
                 <input className="unchangeable" value={orgaNo} readOnly />
               </div>
 
-              <div>부서구분</div>
-              <div className="unchangeable">
-                <input name={`deptMain${orgaNo}`} type="radio" value="true" checked={deptMain === true} readOnly />주부서
-                <input name={`deptMain${orgaNo}`} type="radio" value="false" checked={deptMain === false} readOnly />부부서
-              </div>
 
               <div>직급</div>
 

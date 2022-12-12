@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
 import { useHistory } from "react-router-dom";
-import request from "../../../../../../../utils/axiosUtil";
+import request from "@utils/axiosUtil";
 
 const empInfo = async () => {
   const { data } = await request.get("/emp/loginlist");
@@ -15,7 +15,7 @@ const registerLoginUser = async (user) => {
 };
 
 const loginRedisValue = async () => {
-  const { data } = await request.get("/emp/loginRedisValue");
+  const { data } = await request.get("/loginRedisValue");
   return data;
 };
 
@@ -85,7 +85,8 @@ const ORGA0030Modal = () => {
     });
 
     registerLoginUser(selectLogin).then(() => {
-      history.replace("/");
+      history.push("/");
+      location.reload();
       closeModal();
     });
   };
@@ -95,10 +96,15 @@ const ORGA0030Modal = () => {
       onClose={handleCloseModal}
       title="접속 회사 변경"
     >
+
       <div>
         {employeeState.map((info) => {
           return (
             <div key={info.empNo}>
+              <div>{info.profileUrl
+                ? <img src={info.profileUrl} alt="프로필 이미지" style={{ width: "100px" }} />
+                : <div /> }
+              </div>
               <div>{info.empName}</div>
               <div>{redisState.hierarchy} / {redisState.loginEmpRank}</div>
               <div>최근 접속 IP : {info.lastLoginIp}</div>

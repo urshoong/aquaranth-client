@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { empInfo, registerLoginUser } from "@pages/auth/Profile/api/profile";
 import Swal from "sweetalert2";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import {
+  ProfileAccessInformation, ProfileBody, ProfileBodySelect,
+  ProfileButton,
+  ProfileButtonWrapper,
+  ProfileCheckWrapper,
+  ProfileExplain,
+  ProfileFullLayout, ProfileHeader,
+  ProfileImg,
+  ProfileInformationWrapper,
+  ProfileName,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
+import { FullLayout } from "@components/Util";
+import { CenterGrid } from "@components/Grid";
 
 const Index = () => {
-
   const history = useHistory();
   const initState = {
     loginCompanyNo: 0,
@@ -14,12 +26,34 @@ const Index = () => {
   const [employeeState, setEmployeeState] = useState([]);
   const [selectLogin, setSelectLogin] = useState(initState);
 
+  // 새로 고침 막기
+  const preventClose = (e) => {
+    e.preventDefault();
+    e.returnValue = ""; // Chrome에서 동작하도록; deprecated
+    Swal.fire("", "회사 선택 후 확인 버튼을 눌러주세요.", "warning").then(
+      () => {
+        history.push("/profile");
+      },
+    );
+  };
+
   // 회사, 부서 set
   useEffect(() => {
     empInfo()
       .then((data) => {
         setEmployeeState(data);
       });
+  }, []);
+
+  useEffect(() => {
+    // 새로 고침 막기
+    (() => {
+      window.addEventListener("beforeunload", preventClose);
+    })();
+
+    return () => {
+      window.removeEventListener("beforeunload", preventClose);
+    };
   }, []);
 
   // 회사 변경 확인 클릭 버튼
@@ -64,49 +98,73 @@ const Index = () => {
   };
 
   return (
-    <div>
-      {employeeState.map((info) => {
-        return (
-          <div key={info.empNo}>
-            {/* <img src={info.profileUrl} alt="프로필 이미지" style={{ width: "200px" }} /> */}
-            <div>{info.empName}</div>
-            <div>최근 접속 IP : {info.lastLoginIp}</div>
-            <div>최근 로그인 시간 : {info.lastLoginTime}</div>
-            <div>현재 접속 IP : {info.loginIp}</div>
-
-            {info.companyList.map((company) => {
-              return (
-                <div key={company.companyNo} className="companyDiv">
-                  <input
-                    name="loginCompanyNo"
-                    type="radio"
-                    value={company.companyNo}
-                    readOnly
-                  />
-                  {company.companyName}
-                  <select name="dept">
-                    {company.deptList.map((dept) => {
-                      return (
-                        <option key={dept.deptNo} value={dept.deptNo} name="loginDeptNo">
-                          {dept.deptName}
-                        </option>
-                      );
-                    })}
-                  </select>
+    <FullLayout>
+      <CenterGrid columns="1">
+        <ProfileInformationWrapper>
+          {employeeState.map((info) => {
+            return (
+              <div key={info.empNo}>
+                <div>{info.profileUrl
+                  ? <ProfileImg src={info.profileUrl} alt="프로필 이미지" style={{ width: "100px" }} />
+                  : <div /> }
                 </div>
-              );
-            })}
-          </div>
-        );
-      })}
-      <button
-        type="submit"
-        onClick={() => {
-          handleOnClickChangeDeptSubmit();
-        }}
-      >확인
-      </button>
-    </div>
+                <ProfileName>{info.empName}</ProfileName>
+                <ProfileAccessInformation>
+                  최근 접속: {info.lastLoginIp} | {info.lastLoginTime} (현재: {info.loginIp})
+                </ProfileAccessInformation>
+
+
+                <ProfileExplain>＊회사를 선택해주세요.</ProfileExplain>
+                <ProfileHeader>
+                  회사명
+                </ProfileHeader>
+                <ProfileHeader>
+                  부서명
+                </ProfileHeader>
+                {info.companyList.map((company) => {
+                  return (
+                    <ProfileCheckWrapper>
+                      <div key={company.companyNo} className="companyDiv">
+                        <ProfileBody>
+                          <input
+                            name="loginCompanyNo"
+                            type="radio"
+                            value={company.companyNo}
+                            readOnly
+                          />
+                          {company.companyName}
+                        </ProfileBody>
+                        <ProfileBody>
+                          <ProfileBodySelect name="dept">
+                            {company.deptList.map((dept) => {
+                              return (
+                                <option key={dept.deptNo} value={dept.deptNo} name="loginDeptNo">
+                                  {dept.deptName}
+                                </option>
+                              );
+                            })}
+                          </ProfileBodySelect>
+                        </ProfileBody>
+                      </div>
+                    </ProfileCheckWrapper>
+                  );
+                })}
+
+              </div>
+            );
+          })}
+          <ProfileButtonWrapper>
+            <ProfileButton
+              type="submit"
+              onClick={() => {
+                handleOnClickChangeDeptSubmit();
+              }}
+            >확인
+            </ProfileButton>
+          </ProfileButtonWrapper>
+        </ProfileInformationWrapper>
+      </CenterGrid>
+    </FullLayout>
   );
 };
 

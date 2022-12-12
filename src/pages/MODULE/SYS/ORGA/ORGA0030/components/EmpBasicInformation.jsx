@@ -98,22 +98,13 @@ function EmpBasicInformation({ clickEmpModify,
           </div>
         </EmpBasicInformationBody>
 
-        <EmpBasicInformationHeader>이름</EmpBasicInformationHeader>
+        <EmpBasicInformationHeader className="essential">이름</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
-          <input type="text" name="empName" className="essential" value={empInformation.empName} onChange={(e) => { changeEmpInput(e); }} />
+          <input type="text" name="empName" value={empInformation.empName} onChange={(e) => { changeEmpInput(e); }} />
         </EmpBasicInformationBody>
 
-        <EmpBasicInformationHeader>ID</EmpBasicInformationHeader>
-        <EmpBasicInformationBody className="unchangeable">{empInformation.username}</EmpBasicInformationBody>
-
-        {/* <div>비밀번호</div>
-        <input
-          type="text"
-          name="password"
-          onChange={(e) => { changeEmpInput(e); }}
-          className="essential"
-          readOnly
-        /> */}
+        <EmpBasicInformationHeader className="unchangeable">ID</EmpBasicInformationHeader>
+        <EmpBasicInformationBody>{empInformation.username}</EmpBasicInformationBody>
 
         <EmpBasicInformationHeader>성별</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
@@ -139,9 +130,9 @@ function EmpBasicInformation({ clickEmpModify,
           <input type="text" name="empAddress" value={empInformation.empAddress} onChange={(e) => { changeEmpInput(e); }} />
         </EmpBasicInformationBody>
 
-        <EmpBasicInformationHeader>최초입사일</EmpBasicInformationHeader>
+        <EmpBasicInformationHeader className="unchangeable">최초입사일</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
-          <input type="date" name="firstHiredDate" value={empInformation.firstHiredDate} readOnly className="unchangeable" />
+          <input type="date" name="firstHiredDate" value={empInformation.firstHiredDate} readOnly />
         </EmpBasicInformationBody>
 
         <EmpBasicInformationHeader>최종퇴사일</EmpBasicInformationHeader>
@@ -149,11 +140,11 @@ function EmpBasicInformation({ clickEmpModify,
           <input type="date" name="lastRetiredDate" value={empInformation.lastRetiredDate === null ? "" : empInformation.lastRetiredDate} onChange={(e) => { changeEmpInput(e); }} />
         </EmpBasicInformationBody>
 
-        <EmpBasicInformationHeader>계정 사용</EmpBasicInformationHeader>
+        <EmpBasicInformationHeader className="unchangeable">계정 사용</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
           <div>
-            <input name="empUse" type="radio" value="true" checked={empInformation.empUse === true} onChange={(e) => { changeEmpInput(e); }} />사용
-            <input name="empUse" type="radio" value="false" checked={empInformation.empUse === false} onChange={(e) => { changeEmpInput(e); }} />미사용
+            <input name="empUse" type="radio" value="true" checked={empInformation.empUse === true} />사용
+            <input name="empUse" type="radio" value="false" checked={empInformation.empUse === false} />미사용
           </div>
         </EmpBasicInformationBody>
       </EmpBasicInformationDiv>
