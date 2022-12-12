@@ -8,8 +8,8 @@ import {
   ProfileButtonWrapper,
   ProfileCheckWrapper,
   ProfileExplain,
-  ProfileFullLayout, ProfileHeader,
-  ProfileImg,
+  ProfileHeader,
+  ProfileImg, ProfileImgColor,
   ProfileInformationWrapper,
   ProfileName,
 } from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
@@ -32,7 +32,7 @@ const Index = () => {
     e.returnValue = ""; // Chrome에서 동작하도록; deprecated
     Swal.fire("", "회사 선택 후 확인 버튼을 눌러주세요.", "warning").then(
       () => {
-        history.push("/profile");
+        history.push("/SYS");
       },
     );
   };
@@ -106,21 +106,21 @@ const Index = () => {
               <div key={info.empNo}>
                 <div>{info.profileUrl
                   ? <ProfileImg src={info.profileUrl} alt="프로필 이미지" style={{ width: "100px" }} />
-                  : <div /> }
+                  : <ProfileImgColor /> }
                 </div>
                 <ProfileName>{info.empName}</ProfileName>
                 <ProfileAccessInformation>
-                  최근 접속: {info.lastLoginIp} | {info.lastLoginTime} (현재: {info.loginIp})
+                  최근 접속: {info.lastLoginTime} | {info.lastLoginIp} (현재: {info.loginIp})
                 </ProfileAccessInformation>
-
 
                 <ProfileExplain>＊회사를 선택해주세요.</ProfileExplain>
                 <ProfileHeader>
                   회사명
                 </ProfileHeader>
-                <ProfileHeader>
+                <ProfileHeader className="division">
                   부서명
                 </ProfileHeader>
+
                 {info.companyList.map((company) => {
                   return (
                     <ProfileCheckWrapper>
