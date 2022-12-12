@@ -112,7 +112,6 @@ function Index() {
       const employeeListItemDivs = document.querySelectorAll(".employeeListItemDiv");
       employeeListItemDivs.forEach((employeeListItemDiv) => employeeListItemDiv.classList.remove("active"));
       target.classList.add("active");
-      console.log("Employee target", target);
     }
   };
 

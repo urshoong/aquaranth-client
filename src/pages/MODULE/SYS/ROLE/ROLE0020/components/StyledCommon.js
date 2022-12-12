@@ -900,11 +900,14 @@ export const EmpInfoTab = styled(UserRoleInnerTab)`
 
 export const EmpInfoContent = styled(UserRoleMainContent)`
   height: calc(100% - 110px);
+  /*max-height: calc(100% - 110px);
+  overflow-y: auto;*/
   display: inherit;
 `;
 
 export const EmpInformationWrapper = styled.div`
   position: relative;
+  height: 100%;
 `;
 
 export const EmpInformationBtnWrapper = styled.div`
@@ -930,15 +933,13 @@ export const EmpBasicInformationDiv = styled.div`
   }
 `;
 
-export const EmpBasicInformation = styled.div`
-`;
-
 export const EmpBasicInformationImg = styled(EmpListItemImg)`
-  ${({ profileUrl }) => css`
+  ${({ theme, profileUrl }) => css`
     width: 120px;
     height: 120px;
     background-image: url(${profileUrl});
     display: inline-block;
+    border: 2px solid ${theme.color.gray500};
   `}
 `;
 
@@ -948,9 +949,15 @@ export const EmpBasicInformationHeader = styled.div`
     align-items: center;
     flex-direction: row-reverse;
     background-color: ${theme.color.gray100};
-    min-height: 40px;
+    min-height: 45px;
     padding-right: 10px;
     border-bottom: 1px solid ${theme.color.gray400};
+    font-size: 1.2em;
+    font-weight: bold;
+    color: ${theme.color.gray800};
+    &:first-of-type{
+      border-top: 1px solid ${theme.color.gray400};
+    }
   `}
 `;
 
@@ -959,7 +966,115 @@ export const EmpBasicInformationBody = styled.div`
     border-bottom: 1px solid ${theme.color.gray400};
     display: flex;
     align-items: center;
+    padding: 7px;
+    height: 49px;
+    font-size: 1.2em;
+    &:nth-of-type(2){
+      border-top: 1px solid ${theme.color.gray400};
+      height: 134px;
+    }
   `}
+`;
+
+export const EmpBasicInformationImgBtnWrapper = styled.div`
+  display: inline-block;
+  padding-left: 10px;
+  width: calc(100% - 120px);
+  &>button{
+    padding: 0 5px;
+    margin: 5px;
+  }
+`;
+
+export const EmpBasicInformationSelect = styled(Select)`
+  ${({ theme }) => css`
+    font-size: 1.2em;
+    border: 1px solid ${theme.color.gray500};
+  `}
+`;
+
+export const EmpBasicInformationInput = styled.input`
+  ${({ theme, type }) => css`
+    width: ${type !== "text" ? "unset" : "100%"};
+    height: 100%;
+    font-size: 1.2em;
+    border: 1px solid ${theme.color.gray500};
+    padding-left: ${type !== "text" ? "unset" : "5px"};
+    &.essential{
+      background-color: #fef2f2;
+    }
+    &.unchangeable{
+      background-color: ${theme.color.gray300};
+    }
+  `}
+`;
+
+export const EmpBasicInformationRadio = styled.input`
+  margin: 0 5px;
+  vertical-align: -2px;
+  &:last-of-type{
+    margin: 0 5px 0 15px;
+  }
+`;
+
+export const EmpBasicInformationRadioWrapper = styled.div`
+  font-size: 1.2em;
+`;
+
+export const EmpOrgaInformationWrapper = styled.div`
+  height: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+`;
+
+export const EmpOrgaInformationDiv = styled.div`
+  display: grid;
+  grid-template-columns: 150px 1fr 150px 1fr;
+  margin-bottom: 15px;
+`;
+
+export const EmpOrgaInformationHeader = styled(EmpBasicInformationHeader)`
+  ${({ theme }) => css`
+    &:first-of-type{
+      border-top: 1px solid ${theme.color.gray600};
+    }
+    &:nth-of-type(15){
+      border-bottom: 1px solid ${theme.color.gray600};
+    }
+  `}
+`;
+
+export const EmpOrgaInformationBody = styled(EmpBasicInformationBody)`
+  ${({ theme, span }) => css`
+    grid-column: span ${span || 3};
+    &:nth-of-type(2){
+      border-top: 1px solid ${theme.color.gray600};
+      height: 49px;
+    }
+    &:nth-of-type(16){
+      border-bottom: 1px solid ${theme.color.gray600};
+    }
+  `}
+`;
+
+export const EmpOrgaInformationInput = styled(EmpBasicInformationInput)`
+  ${({ theme, not }) => css`
+    &:not(:nth-of-type(2)){
+      width: ${not ? "" : "100%"};
+    }
+  `}
+`;
+
+export const EmpOrgaInformationRadioWrapper = styled(EmpBasicInformationRadioWrapper)`
+  //height: 100%;
+`;
+
+export const EmpOrgaInformationRadio = styled(EmpBasicInformationRadio)`
+
+`;
+
+export const EmpOrgaInformationSelect = styled(EmpBasicInformationSelect)`
+  
 `;
 
 export const EmpInsertWrapper = styled.div`

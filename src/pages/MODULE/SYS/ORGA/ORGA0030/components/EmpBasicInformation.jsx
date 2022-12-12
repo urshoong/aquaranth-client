@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import {
+  Button,
   EmpBasicInformationBody,
   EmpBasicInformationDiv,
   EmpBasicInformationHeader,
   EmpBasicInformationImg,
+  EmpBasicInformationImgBtnWrapper,
+  EmpBasicInformationInput, EmpBasicInformationRadio,
+  EmpBasicInformationRadioWrapper, EmpBasicInformationSelect,
   EmpInformationBtn,
   EmpInformationBtnWrapper,
-  EmpInformationWrapper,
+  EmpInformationWrapper, Option,
 } from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 import request from "../../../../../../utils/axiosUtil";
 
@@ -90,62 +94,74 @@ function EmpBasicInformation({ clickEmpModify,
         <EmpBasicInformationHeader>사진</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
           <EmpBasicInformationImg profileUrl={preview || empInformation.profileUrl} />
-          <div style={{ display: "inline-block" }}>
-            <input type="file" onChange={(e) => { onSaveFile(e); }} ref={fileInput} />
-            <button type="button" onClick={() => { onUpload(empInformation.empNo); }}>프로필 등록</button>
-            <button type="button" onClick={() => { onDelete(empInformation.empNo); }}>프로필 삭제</button>
-            <button type="button" onClick={() => { profileReset(); }}>되돌리기</button>
-          </div>
+          <EmpBasicInformationImgBtnWrapper>
+            <EmpBasicInformationInput type="file" onChange={(e) => { onSaveFile(e); }} ref={fileInput} />
+            <Button type="button" onClick={() => { onUpload(empInformation.empNo); }}>프로필 등록</Button>
+            <Button type="button" onClick={() => { onDelete(empInformation.empNo); }}>프로필 삭제</Button>
+            <Button type="button" onClick={() => { profileReset(); }}>되돌리기</Button>
+          </EmpBasicInformationImgBtnWrapper>
         </EmpBasicInformationBody>
 
         <EmpBasicInformationHeader className="essential">이름</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
-          <input type="text" name="empName" value={empInformation.empName} onChange={(e) => { changeEmpInput(e); }} />
+          <EmpBasicInformationInput type="text" name="empName" className="essential" value={empInformation.empName} onChange={(e) => { changeEmpInput(e); }} />
         </EmpBasicInformationBody>
 
-        <EmpBasicInformationHeader className="unchangeable">ID</EmpBasicInformationHeader>
-        <EmpBasicInformationBody>{empInformation.username}</EmpBasicInformationBody>
+        <EmpBasicInformationHeader>ID</EmpBasicInformationHeader>
+        <EmpBasicInformationBody>
+          <EmpBasicInformationInput type="text" className="unchangeable" disabled value={empInformation.username} />
+        </EmpBasicInformationBody>
+
+        {/* <EmpBasicInformationHeader>비밀번호</EmpBasicInformationHeader>
+        <EmpBasicInformationBody>
+          <EmpBasicInformationInput
+            type="text"
+            name="password"
+            onChange={(e) => { changeEmpInput(e); }}
+            className="essential" readOnly
+          />
+        </EmpBasicInformationBody> */}
 
         <EmpBasicInformationHeader>성별</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
-          <select name="gender" value={empInformation.gender} onChange={(e) => { changeEmpInput(e); }}>
-            <option value="-">--성별 선택--</option>
-            <option value="남성">남성</option>
-            <option value="여성">여성</option>
-          </select>
+          <EmpBasicInformationSelect name="gender" value={empInformation.gender} onChange={(e) => { changeEmpInput(e); }}>
+            <Option value="-">--성별 선택--</Option>
+            <Option value="남성">남성</Option>
+            <Option value="여성">여성</Option>
+          </EmpBasicInformationSelect>
         </EmpBasicInformationBody>
 
         <EmpBasicInformationHeader>이메일</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
-          <input type="text" name="email" value={empInformation.email} onChange={(e) => { changeEmpInput(e); }} />
+          <EmpBasicInformationInput type="text" name="email" value={empInformation.email} onChange={(e) => { changeEmpInput(e); }} />
         </EmpBasicInformationBody>
 
         <EmpBasicInformationHeader>휴대전화</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
-          <input type="text" name="empPhone" value={empInformation.empPhone} onChange={(e) => { changeEmpInput(e); }} />
+          <EmpBasicInformationInput type="text" name="empPhone" value={empInformation.empPhone} onChange={(e) => { changeEmpInput(e); }} />
         </EmpBasicInformationBody>
 
         <EmpBasicInformationHeader>주소</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
-          <input type="text" name="empAddress" value={empInformation.empAddress} onChange={(e) => { changeEmpInput(e); }} />
+          <EmpBasicInformationInput type="text" name="empAddress" value={empInformation.empAddress} onChange={(e) => { changeEmpInput(e); }} />
         </EmpBasicInformationBody>
 
-        <EmpBasicInformationHeader className="unchangeable">최초입사일</EmpBasicInformationHeader>
+        <EmpBasicInformationHeader>최초입사일</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
-          <input type="date" name="firstHiredDate" value={empInformation.firstHiredDate} readOnly />
+          <EmpBasicInformationInput type="date" name="firstHiredDate" value={empInformation.firstHiredDate} readOnly className="unchangeable" />
         </EmpBasicInformationBody>
 
         <EmpBasicInformationHeader>최종퇴사일</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
-          <input type="date" name="lastRetiredDate" value={empInformation.lastRetiredDate === null ? "" : empInformation.lastRetiredDate} onChange={(e) => { changeEmpInput(e); }} />
+          <EmpBasicInformationInput type="date" name="lastRetiredDate" value={empInformation.lastRetiredDate === null ? "" : empInformation.lastRetiredDate} onChange={(e) => { changeEmpInput(e); }} />
         </EmpBasicInformationBody>
 
-        <EmpBasicInformationHeader className="unchangeable">계정 사용</EmpBasicInformationHeader>
+        <EmpBasicInformationHeader>계정 사용</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
-          <div>
-            <input name="empUse" type="radio" value="true" checked={empInformation.empUse === true} />사용
-            <input name="empUse" type="radio" value="false" checked={empInformation.empUse === false} />미사용
-          </div>
+          <EmpBasicInformationRadioWrapper>
+            <EmpBasicInformationRadio name="empUse" type="radio" value="true" checked={empInformation.empUse === true} onChange={(e) => { changeEmpInput(e); }} />사용
+            <EmpBasicInformationRadio name="empUse" type="radio" value="false" checked={empInformation.empUse === false} onChange={(e) => { changeEmpInput(e); }} />미사용
+          </EmpBasicInformationRadioWrapper>
         </EmpBasicInformationBody>
       </EmpBasicInformationDiv>
     </EmpInformationWrapper>
