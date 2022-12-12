@@ -13,9 +13,10 @@ import {
   EmpOrgaInformationWrapper, Option,
 } from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
+import useModal from "@hooks/useModal";
+
 function EmpOrgaInformation({
   orga,
-  handleOnClickOrgaRegister,
   orgaDisplay,
   company,
   handleOnChangeCompany,
@@ -27,10 +28,20 @@ function EmpOrgaInformation({
   handleOnChangeOrgaInput,
   handleOnClickOrgaModifyDept,
 }) {
+  const { openModal } = useModal();
+
+  const data = {
+    orga,
+  };
+
+  const handleOnRegisterOrgaModal = () => {
+    openModal({ type: "RegisterOrga", props: data });
+  };
+
   return (
     <EmpInformationWrapper>
       <EmpInformationBtnWrapper>
-        <EmpInformationBtn type="button" onClick={() => { handleOnClickOrgaRegister(); }}>추가</EmpInformationBtn>
+        <EmpInformationBtn type="button" onClick={() => { handleOnRegisterOrgaModal(); }}>추가</EmpInformationBtn>
         <EmpInformationBtn type="button" onClick={() => { handleOnClickOrgaModify(); }}>수정</EmpInformationBtn>
       </EmpInformationBtnWrapper>
 

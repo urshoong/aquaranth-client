@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@components/modal/Modal";
-import { CenterGrid } from "@components/Grid";
 import useModal from "@hooks/useModal";
 import request from "@utils/axiosUtil";
 import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
+import {
+  EmpInsertWrapper,
+  Button,
+  EmpButtonWrapper,
+  EmpInformationBtn,
+  EmpInsertExplainDiv, EmpInsertHeader, EmpInsertBody, EmpInsertInput,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 const empRegister = async (emp) => {
   const { data } = await request.post("/emp/register", emp);
@@ -136,176 +142,205 @@ function Orga0030RegisterModal() {
       onClose={handleCloseModal}
       title="사원 추가"
     >
-      <CenterGrid>
-        <div>
-          <div>
-            회사 :
-            <select
-              name="companyNo"
-              onChange={(e) => {
-                handleOnChangeCompany(e);
-              }}
-            >
-              <option value="0">--회사 선택--</option>
-              {company.map((com) => (
-                <option key={com.companyNo} value={com.companyNo}>
-                  {com.companyName}
-                </option>
-              ))}
-            </select>
-          </div>
+      <EmpInsertWrapper>
+        <EmpInsertExplainDiv>* 은 필수 항목입니다.</EmpInsertExplainDiv>
 
-          <div>
-            부서 :
-            <select
-              name="deptNo"
-              onChange={(e) => {
-                handleOnChangeEmployee(e);
-              }}
-            >
-              <option value="0">--부서 선택--</option>
-              {department.map((dept) => (
-                <option key={dept.deptNo} value={dept.deptNo}>
-                  {dept.deptName}
-                </option>
-              ))}
-            </select>
-          </div>
+        <EmpInsertHeader>
+          회사*
+        </EmpInsertHeader>
+        <EmpInsertBody>
+          <select
+            name="companyNo"
+            onChange={(e) => {
+              handleOnChangeCompany(e);
+            }}
+          >
+            <option value="0">--회사 선택--</option>
+            {company.map((com) => (
+              <option key={com.companyNo} value={com.companyNo}>
+                {com.companyName}
+              </option>
+            ))}
+          </select>
+        </EmpInsertBody>
 
-          <div>
-            직급 :
-            <select
-              name="empRank"
-              onChange={(e) => {
-                handleOnChangeEmployee(e);
-              }}
-            >
-              <option value="-">--직급 선택--</option>
-              <option value="회장">회장</option>
-              <option value="사장">사장</option>
-              <option value="이사">이사</option>
-              <option value="부장">부장</option>
-              <option value="과장">과장</option>
-              <option value="대리">대리</option>
-              <option value="주임">주임</option>
-              <option value="사원">사원</option>
-              <option value="인턴">인턴</option>
-              <option value="일용직">일용직</option>
-            </select>
-          </div>
+        <EmpInsertHeader>
+          부서*
+        </EmpInsertHeader>
+        <EmpInsertBody>
+          <select
+            name="deptNo"
+            onChange={(e) => {
+              handleOnChangeEmployee(e);
+            }}
+          >
+            <option value="0">--부서 선택--</option>
+            {department.map((dept) => (
+              <option key={dept.deptNo} value={dept.deptNo}>
+                {dept.deptName}
+              </option>
+            ))}
+          </select>
+        </EmpInsertBody>
 
-          <div>
-            <span> 이름 </span>
-            <input
-              type="text"
-              name="empName"
-              onChange={(e) => {
-                handleOnChangeEmployee(e);
-              }}
-            />
-          </div>
+        <EmpInsertHeader>
+          직급*
+        </EmpInsertHeader>
+        <EmpInsertBody>
+          <select
+            name="empRank"
+            onChange={(e) => {
+              handleOnChangeEmployee(e);
+            }}
+          >
+            <option value="-">--직급 선택--</option>
+            <option value="회장">회장</option>
+            <option value="사장">사장</option>
+            <option value="이사">이사</option>
+            <option value="부장">부장</option>
+            <option value="과장">과장</option>
+            <option value="대리">대리</option>
+            <option value="주임">주임</option>
+            <option value="사원">사원</option>
+            <option value="인턴">인턴</option>
+            <option value="일용직">일용직</option>
+          </select>
+        </EmpInsertBody>
 
-          <div>
-            <span> ID </span>
-            <input
-              type="text"
-              name="username"
-              placeholder="3글자 이상 소문자, 숫자"
-              onChange={(e) => {
-                handleOnChangeUsername(e);
-              }}
-            />
-            {usernameError && <span>3글자 이상 소문자 또는 숫자만 입력 가능합니다.</span>}
-          </div>
+        <EmpInsertHeader>
+          이름*
+        </EmpInsertHeader>
+        <EmpInsertBody>
+          <EmpInsertInput
+            type="text"
+            name="empName"
+            placeholder="이름을 입력하세요."
+            onChange={(e) => {
+              handleOnChangeEmployee(e);
+            }}
+          />
+        </EmpInsertBody>
 
-          <div>
-            <span> 비밀번호 </span>
-            <input
-              type="password"
-              name="password"
-              onChange={(e) => {
-                handleOnChangeEmployee(e);
-              }}
-            />
-          </div>
+        <EmpInsertHeader>
+          ID*
+        </EmpInsertHeader>
+        <EmpInsertBody>
+          <EmpInsertInput
+            type="text"
+            name="username"
+            placeholder="3글자 이상 소문자, 숫자"
+            onChange={(e) => {
+              handleOnChangeUsername(e);
+            }}
+          />
+          {usernameError && <span>3글자 이상 소문자 또는 숫자만 입력 가능합니다.</span>}
+        </EmpInsertBody>
 
-          <div>
-            <span> 비밀번호 확인 </span>
-            <input
-              type="password"
-              name="passwordCheck"
-              onChange={(e) => {
-                handleOnChangeEmployee(e);
-              }}
-            />
+        <EmpInsertHeader>
+          비밀번호*
+        </EmpInsertHeader>
+        <EmpInsertBody>
+          <EmpInsertInput
+            type="password"
+            name="password"
+            onChange={(e) => {
+              handleOnChangeEmployee(e);
+            }}
+          />
+        </EmpInsertBody>
 
-            <button type="button" onClick={() => { handleOnClickPasswordCheck(); }}>확인</button>
-          </div>
 
-          <div>
-            <span> 성별 </span>
-            <select
-              name="gender"
-              onChange={(e) => {
-                handleOnChangeEmployee(e);
-              }}
-            >
-              <option value="-">--성별 선택--</option>
-              <option value="남성">남성</option>
-              <option value="여성">여성</option>
-            </select>
-          </div>
+        <EmpInsertHeader>
+          비밀번호 확인*
+        </EmpInsertHeader>
+        <EmpInsertBody>
+          <EmpInsertInput
+            type="password"
+            name="passwordCheck"
+            onChange={(e) => {
+              handleOnChangeEmployee(e);
+            }}
+          />
+        </EmpInsertBody>
 
-          <div>
-            <span> 이메일 </span>
-            <input
-              type="email"
-              name="email"
-              onChange={(e) => {
-                handleOnChangeEmployee(e);
-              }}
-            />
-          </div>
+        <Button type="button" onClick={() => { handleOnClickPasswordCheck(); }}>확인</Button>
 
-          <div>
-            <span> 휴대전화 </span>
-            <input
-              type="number"
-              name="empPhone"
-              onChange={(e) => {
-                handleOnChangeEmployee(e);
-              }}
-            />
-          </div>
 
-          <div>
-            <span> 주소 </span>
-            <input
-              type="text"
-              name="empAddress"
-              onChange={(e) => {
-                handleOnChangeEmployee(e);
-              }}
-            />
-          </div>
+        <EmpInsertHeader>
+          성별*
+        </EmpInsertHeader>
+        <EmpInsertBody>
+          <select
+            name="gender"
+            onChange={(e) => {
+              handleOnChangeEmployee(e);
+            }}
+          >
+            <option value="-">--성별 선택--</option>
+            <option value="남성">남성</option>
+            <option value="여성">여성</option>
+          </select>
+        </EmpInsertBody>
 
-          <button
+
+        <EmpInsertHeader>
+          이메일
+        </EmpInsertHeader>
+        <EmpInsertBody>
+          <EmpInsertInput
+            type="email"
+            name="email"
+            onChange={(e) => {
+              handleOnChangeEmployee(e);
+            }}
+          />
+        </EmpInsertBody>
+
+
+        <EmpInsertHeader>
+          휴대전화
+        </EmpInsertHeader>
+        <EmpInsertBody>
+          <EmpInsertInput
+            type="number"
+            name="empPhone"
+            onChange={(e) => {
+              handleOnChangeEmployee(e);
+            }}
+          />
+        </EmpInsertBody>
+
+        <EmpInsertHeader>
+          주소
+        </EmpInsertHeader>
+        <EmpInsertBody>
+          <EmpInsertInput
+            type="text"
+            name="empAddress"
+            onChange={(e) => {
+              handleOnChangeEmployee(e);
+            }}
+          />
+        </EmpInsertBody>
+
+        <EmpButtonWrapper>
+          <EmpInformationBtn
             type="submit"
             onClick={() => {
               clickEmpAdd();
             }}
-          >추가하기
-          </button>
+          >추가
+          </EmpInformationBtn>
 
-          <button
+          <EmpInformationBtn
             type="button"
             onClick={() => {
               handleCloseModal();
             }}
-          >취소/닫기
-          </button>
-        </div>
-      </CenterGrid>
+          >취소
+          </EmpInformationBtn>
+        </EmpButtonWrapper>
+      </EmpInsertWrapper>
     </Modal>
   );
 }

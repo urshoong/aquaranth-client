@@ -102,7 +102,7 @@ function EmpBasicInformation({ clickEmpModify,
           </EmpBasicInformationImgBtnWrapper>
         </EmpBasicInformationBody>
 
-        <EmpBasicInformationHeader>이름</EmpBasicInformationHeader>
+        <EmpBasicInformationHeader className="essential">이름</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
           <EmpBasicInformationInput type="text" name="empName" className="essential" value={empInformation.empName} onChange={(e) => { changeEmpInput(e); }} />
         </EmpBasicInformationBody>
