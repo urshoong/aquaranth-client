@@ -45,19 +45,29 @@ export const modifyDept = async (deptDTO) => {
 };
 
 /**
- * 부서를 삭제합니다.
+ * 부서의 사용여부를 사용에서
+ * 미사용으로 변경합니다.
+ * (삭제 버튼)
  * @param deptNo
  * @returns {Promise<any>}
  */
 export const deleteDept = async (deptNo) => {
-  const { data } = await request.delete(`dept2/${deptNo}`);
+  const { data } = await request.get(`/dept2/remove/${deptNo}`);
   return data;
 };
-
 /**
  * 부서를 등록합니다.
  */
 export const registerDept = async (deptDTO) => {
   const { data } = await request.post("dept2", deptDTO);
+  return data;
+};
+
+/**
+ * 부서를 부서번호, 부서명으로
+ * 검색합니다.
+ */
+export const searchDept = async (deptSearch) => {
+  const { data } = await request.get(`dept2/search?deptSearch=${deptSearch}`);
   return data;
 };

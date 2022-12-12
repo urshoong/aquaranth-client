@@ -3,10 +3,9 @@ import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
 import { CenterGrid } from "@components/Grid";
 import { findCompanyList } from "@pages/MODULE/SYS/ORGA/ORGA0020/api/department";
-import DepartmentTreeComp
-  from "@pages/MODULE/SYS/ORGA/ORGA0020/components/depttree/DepartmentTreeComp";
-import DepartmentRegisterComp
-  from "@pages/MODULE/SYS/ORGA/ORGA0020/components/DepartmentRegisterComp";
+import DeptRegister from "@pages/MODULE/SYS/ORGA/ORGA0020/components/DeptRegister";
+import DeptTreeItem from "@pages/MODULE/SYS/ORGA/ORGA0020/components/DeptTreeItem";
+import styled from "styled-components";
 
 const ORGA0020Modal = () => {
   const { closeModal } = useModal();
@@ -15,23 +14,26 @@ const ORGA0020Modal = () => {
     closeModal();
   };
 
-  const [modalCompany, setModalCompany] = useState([]);
+  /**
+   * 모달창에서 회사 리스트를 상태 관리합니다.
+   */
+  const [modalCompanyList, setModalCompanyList] = useState([]);
 
-  const [companyNo, setCompanyNo] = useState(0);
+  /**
+   * 모달창에서 검색조건에 사용할 회사 선택 사항입니다.
+   */
+  const [modalSelectCompanyNo, setModalSelectCompanyNo] = useState(0);
 
   /**
    * 부서 정보 데이터 상태를 관리합니다.
    */
   const [deptInfo, setDeptInfo] = useState({});
 
-  /**
- * 모달창에서 검색조건에 사용할 회사 선택 사항입니다.
- */
-  const [modalSelectCompany, setModalSelectCompany] = useState(0);
+
 
   /**
- * 모달창에서 트리 구조도를 조회합니다.
- */
+   * 모달창에서 트리 구조도를 조회합니다.
+   */
   const [topDept, setTopDept] = useState([]);
 
   /**
@@ -50,9 +52,12 @@ const ORGA0020Modal = () => {
     });
   };
 
+  /**
+   * 회사 목록을 조회합니다.
+   */
   useEffect(() => {
     findCompanyList().then((result) => {
-      setModalCompany(result);
+      setModalCompanyList(result);
     });
   }, []);
 
@@ -61,30 +66,36 @@ const ORGA0020Modal = () => {
       onClose={handleCloseModal}
       title="부서 등록"
     >
+      <Pass>
+        <span>부서를 등록하는 화면입니다.</span>
+      </Pass>
       <CenterGrid>
-        <select
-          name="company"
-          className="modalSelectCompany"
-          onChange={(e) => {
-            setCompanyNo(e.target.value);
-          }}
-        >
-          <option>회사선택</option>
-          {modalCompany.map((item) => (
-            <option
-              key={item.companyNo}
-              value={item.companyNo}
+        <div>
+          <DeptTreeDiv>
+            <select
+              name="company"
+              className="secondTwoSelect"
+              onChange={(e) => {
+                setModalSelectCompanyNo(e.target.value);
+              }}
             >
-              {item.companyName}
-            </option>
-          ))}
-        </select>
-        <DepartmentTreeComp
-          companyNo={companyNo}
-          setDeptInfo={setDeptInfo}
-          clickDept={clickDept}
-        />
-        <DepartmentRegisterComp deptInfo={deptInfo} />
+              <option>회사선택</option>
+              {modalCompanyList.map((item) => (
+                <option
+                  key={item.companyNo}
+                  value={item.companyNo}
+                >
+                  {item.companyName}
+                </option>
+              ))}
+            </select>
+          </DeptTreeDiv>
+          <DeptTreeItem
+            clickDept={clickDept}
+            selectCompany={modalSelectCompanyNo}
+          />
+        </div>
+        <DeptRegister deptInfo={deptInfo} />
       </CenterGrid>
     </Modal>
 
@@ -92,3 +103,13 @@ const ORGA0020Modal = () => {
 };
 
 export default ORGA0020Modal;
+
+const Pass = styled.div`
+  border-bottom: 1px solid black;
+`;
+
+const DeptTreeDiv = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding-top: 1em;
+`;
