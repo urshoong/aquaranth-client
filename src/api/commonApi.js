@@ -19,5 +19,5 @@ export const GET_MENULIST = async (query, keyword) => {
 
 
 export const GET_LOGIN_USER_INFORMATION = async () => {
-  return request.get("/emp/loginlist");
-}
+  return request.get("/empinfo");
+};

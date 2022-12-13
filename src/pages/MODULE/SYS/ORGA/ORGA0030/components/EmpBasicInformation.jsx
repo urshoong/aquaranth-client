@@ -112,16 +112,6 @@ function EmpBasicInformation({ clickEmpModify,
           <EmpBasicInformationInput type="text" className="unchangeable" disabled value={empInformation.username} />
         </EmpBasicInformationBody>
 
-        {/* <EmpBasicInformationHeader>비밀번호</EmpBasicInformationHeader>
-        <EmpBasicInformationBody>
-          <EmpBasicInformationInput
-            type="text"
-            name="password"
-            onChange={(e) => { changeEmpInput(e); }}
-            className="essential" readOnly
-          />
-        </EmpBasicInformationBody> */}
-
         <EmpBasicInformationHeader>성별</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
           <EmpBasicInformationSelect name="gender" value={empInformation.gender} onChange={(e) => { changeEmpInput(e); }}>

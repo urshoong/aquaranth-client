@@ -3,19 +3,29 @@ import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
 import { useHistory } from "react-router-dom";
 import request from "@utils/axiosUtil";
-
-const empInfo = async () => {
-  const { data } = await request.get("/emp/loginlist");
-  return data;
-};
+import {
+  ProfileAccessInformation,
+  ProfileButton2,
+  ProfileButtonWrapper,
+  ProfileExplain,
+  ProfileFullLayout,
+  ProfileGrid,
+  ProfileGridBody,
+  ProfileGridHeader,
+  ProfileImgSelect,
+  ProfileImgSelectColor,
+  ProfileLoginSpan,
+  ProfileName,
+  ProfileRowGrid,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 const registerLoginUser = async (user) => {
   const { data } = await request.post("/emp/registerLoginUser", user);
   return data;
 };
 
-const loginRedisValue = async () => {
-  const { data } = await request.get("/loginRedisValue");
+const loginEmp = async () => {
+  const { data } = await request.get("/empinfo");
   return data;
 };
 
@@ -35,13 +45,10 @@ const ORGA0030Modal = () => {
 
   // 회사, 부서 set
   useEffect(() => {
-    empInfo().then((data) => {
-      setEmployeeState(data);
-    });
-
-    loginRedisValue().then((data) => {
-      setRedisState(data);
-      setRedisCompany(data.loginCompany);
+    loginEmp().then((data) => {
+      setEmployeeState(data.empList);
+      setRedisState(data.empLoginInfo);
+      setRedisCompany(data.empLoginInfo.loginCompany);
     });
   }, []);
 
@@ -97,55 +104,82 @@ const ORGA0030Modal = () => {
       title="접속 회사 변경"
     >
 
-      <div>
-        {employeeState.map((info) => {
-          return (
-            <div key={info.empNo}>
-              <div>{info.profileUrl
-                ? <img src={info.profileUrl} alt="프로필 이미지" style={{ width: "100px" }} />
-                : <div /> }
-              </div>
-              <div>{info.empName}</div>
-              <div>{redisState.hierarchy} / {redisState.loginEmpRank}</div>
-              <div>최근 접속 IP : {info.lastLoginIp}</div>
-              <div>최근 로그인 시간 : {info.lastLoginTime}</div>
-              <div>현재 접속 IP : {info.loginIp}</div>
+      <ProfileFullLayout>
+        <div>
+          {employeeState.map((info) => {
+            return (
+              <div key={info.empNo}>
+                <div>{info.profileUrl
+                  ? <ProfileImgSelect src={info.profileUrl} alt="프로필 이미지" style={{ width: "100px" }} />
+                  : <ProfileImgSelectColor /> }
+                </div>
+                <ProfileName>{info.empName}</ProfileName>
+                <div>{redisState.hierarchy} / {redisState.loginEmpRank}</div>
+                <ProfileAccessInformation>
+                  최근 접속: {info.lastLoginTime} | {info.lastLoginIp} (현재: {info.loginIp})
+                </ProfileAccessInformation>
 
-              {info.companyList.map((company) => {
-                return (
-                  <div key={company.companyNo} className="companyDiv">
-                    <input
-                      name="loginCompany"
-                      type="radio"
-                      checked={company.companyNo === redisState.loginCompany}
-                      onChange={(e) => { onClickHandlerSelectBtn(e); }}
-                      value={company.companyNo}
-                      readOnly
-                    />
-                    {company.companyName}
-                    <select
-                      name="loginDept"
-                      value={redisState.loginDept}
-                      onChange={(e) => { onClickHandlerSelectBtn(e); }}
-                    >
-                      {company.deptList.map((dept) => {
-                        return (
-                          <option key={dept.deptNo} value={dept.deptNo} name="loginDeptNo">
-                            {dept.deptName}
-                          </option>
-                        );
-                      })}
-                    </select>
-                    {company.companyNo === redisCompany ? <span>접속중</span> : <div /> }
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
-        <button type="submit" onClick={() => { handleOnClickChangeDeptSubmit(); }}>확인</button>
-        <button type="button" onClick={() => { handleCloseModal(); }}>취소</button>
-      </div>
+                <ProfileExplain>＊회사를 선택해주세요.</ProfileExplain>
+                <ProfileGrid>
+                  <ProfileGridHeader>
+                    회사명
+                  </ProfileGridHeader>
+                  <ProfileGridHeader>
+                    부서명
+                  </ProfileGridHeader>
+                  <ProfileGridHeader>
+                    상태
+                  </ProfileGridHeader>
+                </ProfileGrid>
+
+                <ProfileRowGrid>
+                  {info.companyList.map((company) => {
+                    return (
+
+                      <div key={company.companyNo} className="companyDiv">
+                        <ProfileGridBody>
+                          <input
+                            name="loginCompany"
+                            type="radio"
+                            checked={company.companyNo === redisState.loginCompany}
+                            onChange={(e) => { onClickHandlerSelectBtn(e); }}
+                            value={company.companyNo}
+                            readOnly
+                          />
+                          {company.companyName}
+                        </ProfileGridBody>
+                        <ProfileGridBody>
+                          <select
+                            name="loginDept"
+                            value={redisState.loginDept}
+                            onChange={(e) => { onClickHandlerSelectBtn(e); }}
+                          >
+
+                            {company.deptList.map((dept) => {
+                              return (
+                                <option key={dept.deptNo} value={dept.deptNo} name="loginDeptNo">
+                                  {dept.deptName}
+                                </option>
+                              );
+                            })}
+                          </select>
+                        </ProfileGridBody>
+                        <ProfileGridBody>
+                          {company.companyNo === redisCompany
+                            ? <ProfileLoginSpan>✅접속중</ProfileLoginSpan> : <div /> }
+                        </ProfileGridBody>
+                      </div>
+                    );
+                  })}
+                </ProfileRowGrid>
+              </div>
+            );
+          })}
+          <ProfileButtonWrapper>
+            <ProfileButton2 type="submit" onClick={() => { handleOnClickChangeDeptSubmit(); }}>확인</ProfileButton2>
+          </ProfileButtonWrapper>
+        </div>
+      </ProfileFullLayout>
 
     </Modal>
   );
