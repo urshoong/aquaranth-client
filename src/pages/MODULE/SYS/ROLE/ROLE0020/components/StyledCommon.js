@@ -1118,15 +1118,11 @@ export const EmpInsertHeader = styled.div`
     background-color: ${theme.color.gray100};
     min-height: 2em;
     margin-top: 5px;
-    width:10em;
+    width:100%;
   `}
 `;
 
 export const EmpInsertBody = styled.div`
-  display:inline;
-  display: flex;
-  float: center;
-  flex-direction: column;
   display:inline;
 `;
 
@@ -1136,17 +1132,15 @@ export const EmpInsertInput = styled.input`
 
 
 export const ProfileFullLayout = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+    padding: 1em 5em 2em 0em;
+    min-width: 40em;
 `;
 
 export const ProfileInformationWrapper = styled.div`
   ${({ theme }) => {
     return css`
       ${theme.shadow.shadowLg};
-      border: 1px solid ${theme.color.grayA100};;
+      border: 1px solid ${theme.color.grayA100};
       border-radius: 0.3rem;
       max-width: 600px;
       padding: 2rem 1rem;
@@ -1157,13 +1151,48 @@ export const ProfileInformationWrapper = styled.div`
 `;
 
 export const ProfileImg = styled.img`
-  width: 80px;
-  height: 80px;
-  border-radius: 70%;
-  overflow: hidden;
-  float:left;
-  margin-right: 2em;
-  margin-left: 2em;
+    max-width: 70px;
+    border-radius: 70%;
+    overflow: hidden;
+    float:left;
+    margin: 0.5em 1em 0em 4em;
+`;
+
+export const ProfileImgColor = styled.div`
+  ${({ theme }) => {
+    return css`
+      width: 70px;
+      height: 70px;
+      border-radius: 70%;
+      overflow: hidden;
+      float:left;
+      margin: 0.5em 1em 0em 4em;
+      background-color: ${lighten(0.1, theme.color.douzoneBlue)};
+  `;
+  }}
+
+`;
+
+export const ProfileImgSelect = styled.img`
+    max-width: 80px;
+    border-radius: 70%;
+    overflow: hidden;
+    float:left;
+    margin: 0.5em 1em 0em 3.5em;
+`;
+
+export const ProfileImgSelectColor = styled.div`
+  ${({ theme }) => {
+    return css`
+    width: 80px;
+    height: 80px;
+    border-radius: 70%;
+    overflow: hidden;
+    float:left;
+    margin: 0.5em 1em 0em 3.5em;
+    background-color: ${lighten(0.1, theme.color.douzoneBlue)};
+    `;
+  }}
 `;
 
 export const ProfileName = styled.div`
@@ -1229,25 +1258,99 @@ export const ProfileExplain = styled.div`
 `;
 
 export const ProfileHeader = styled.div`
-  border-top: 1px solid black;
-  float: left;
-  margin: 1em -3em 0em 3em;
-  padding-top: 0.5em;
-  padding-bottom: 1em;
-  width: 20em;
-  text-align: center;
-  background-color: gainsboro;
+   ${({ theme }) => css`
+    border-top: 1px solid black;
+    float: left;
+    margin: 1em -3em 0em 3em;
+    padding-top: 0.5em;
+    padding-bottom: 1em;
+    width: 20em;
+    text-align: center;
+    background-color: gainsboro;
+    &:not(.division){
+      border-right: 1px solid ${theme.color.gray500};
+    }
+  `}
 `;
 
 export const ProfileBody = styled.div`
-  float: left;
-  text-align: left;
-  margin: 0em 0em 0em 7em;
-  width: 11em;
+    float: left;
+    text-align: left;
+    margin-left: 1em;
+    width: 11em;
 `;
 
 export const ProfileBodySelect = styled.select`
-  margin-left: 3em;
+    margin-left: 8em;
+    width: 165%;
+`;
+
+export const ProfileGrid = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 40em;
+`;
+
+export const ProfileRowGrid = styled.div`
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    margin-left: 3em;
+`;
+
+export const ProfileGridHeader = styled.div`
+ ${({ theme }) => css`
+    border-top: 1px solid black;
+    margin: 1em -3em 0em 3em;
+    padding-top: 0.5em;
+    padding-bottom: 1em;
+    text-align: center;
+    background-color: gainsboro;
+    &:not(:last-of-type){
+      border-right: 1px solid ${theme.color.gray500};
+    }
+ `}
+`;
+
+export const ProfileGridBody = styled.div`
+    ${({ theme }) => css`
+      float: left;
+      border-top: 1px solid ${theme.color.gray500};
+      padding-top: 1em;
+      padding-left: 1em;
+      // width: 13.3em;
+      width: calc(100% / 3);
+      margin-bottom: 1em;
+      &>select{
+        width: 90%;
+      }
+      &:nth-of-type(3){
+        text-align: center;
+      }
+    `}
+`;
+
+export const ProfileButton2 = styled.button`
+  ${({ theme }) => {
+    return css`
+      ${theme.typo.heading2};
+      background-color: ${lighten(0.1, theme.color.douzoneBlue)};
+      border: 1px solid ${darken(0.1, theme.color.douzoneBlue)};
+      border-radius: 0.3rem;
+      width: 100%;
+      margin-left: 0.8em;
+      padding: 20px;
+      color: ${theme.color.white};
+      }
+      `;
+  }}
+`;
+
+export const ProfileLoginSpan = styled.span`
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-left: -1em;
+    color: #00D26A;
 `;
 
 /**

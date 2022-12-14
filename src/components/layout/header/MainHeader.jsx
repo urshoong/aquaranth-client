@@ -22,7 +22,8 @@ import { getFavoriteEmpList, getMygroupList } from "@pages/MODULE/SYS/ORGA/ORGA0
  */
 const MainHeader = () => {
   const { openModal } = useModal();
-  const [userInformation, setUserInformation] = useState();
+  const [userInformation, setUserInformation] = useState([]);
+  const [redisInformation, setRedisInformation] = useState({});
   const handleOnChangeCompanyModal = () => {
     openModal({
       type: "ORGA0030",
@@ -66,7 +67,8 @@ const MainHeader = () => {
 
   useEffect(() => {
     GET_LOGIN_USER_INFORMATION().then((res) => {
-      setUserInformation(res.data[0]);
+      setUserInformation(res.data.empList[0]);
+      setRedisInformation(res.data.empLoginInfo);
     });
   }, []);
 
@@ -80,10 +82,13 @@ const MainHeader = () => {
       </LogoWrapper>
       <UserInformationWrapper>
         <ProfileWrapper onClick={handleOnChangeCompanyModal}>
-          <ProfileImage src={userInformation?.profileUrl} />
+          {userInformation?.profileUrl
+            ? <ProfileImage src={userInformation?.profileUrl} /> : <ProfileColor />}
           <ProfileInformation>
             <EmpName>{userInformation?.empName}</EmpName>
-            <EmpInfo>{userInformation?.companyList[0].companyName} {userInformation?.companyList[0].deptList[0].deptName}</EmpInfo>
+            <EmpInfo>
+              {redisInformation?.loginCompanyName} {redisInformation?.loginDeptName}
+            </EmpInfo>
           </ProfileInformation>
         </ProfileWrapper>
         <OrgaImage src={Orga} onClick={handleOnOrganizationChartModal} />
@@ -155,6 +160,13 @@ const UserInformationWrapper = styled.div`
 
 const ProfileImage = styled.img`
   border-radius: 100%;
+`;
+
+const ProfileColor = styled.div`
+  border-radius: 100%;
+  width: 2.3rem;
+  height: 2.3rem;
+  background-color: #33BBFF;
 `;
 
 const ProfileWrapper = styled.div`

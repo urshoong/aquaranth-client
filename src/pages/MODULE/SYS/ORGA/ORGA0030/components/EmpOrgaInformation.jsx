@@ -7,8 +7,6 @@ import {
   EmpOrgaInformationDiv,
   EmpOrgaInformationHeader,
   EmpOrgaInformationInput,
-  EmpOrgaInformationRadio,
-  EmpOrgaInformationRadioWrapper,
   EmpOrgaInformationSelect,
   EmpOrgaInformationWrapper, Option,
 } from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
@@ -100,7 +98,7 @@ function EmpOrgaInformation({
             companyTel,
             companyAddress,
             orgaNo,
-            deptMain,
+            // deptMain,
             // empRole,
             companyNo,
             deptNo,
@@ -128,13 +126,15 @@ function EmpOrgaInformation({
                 <EmpOrgaInformationInput className="unchangeable" value={orgaNo} readOnly />
               </EmpOrgaInformationBody>
 
-              <EmpOrgaInformationHeader>부서구분</EmpOrgaInformationHeader>
-              <EmpOrgaInformationBody>
-                <EmpOrgaInformationRadioWrapper className="unchangeable">
-                  <EmpOrgaInformationRadio name={`deptMain${orgaNo}`} type="radio" value="true" checked={deptMain === true} readOnly />주부서
-                  <EmpOrgaInformationRadio name={`deptMain${orgaNo}`} type="radio" value="false" checked={deptMain === false} readOnly />부부서
-                </EmpOrgaInformationRadioWrapper>
-              </EmpOrgaInformationBody>
+              {/* <EmpOrgaInformationHeader>부서구분</EmpOrgaInformationHeader> */}
+              {/* <EmpOrgaInformationBody> */}
+              {/*   <EmpOrgaInformationRadioWrapper className="unchangeable"> */}
+              {/*     <EmpOrgaInformationRadio name={`deptMain${orgaNo}`}
+              type="radio" value="true" checked={deptMain === true} readOnly />주부서 */}
+              {/*     <EmpOrgaInformationRadio name={`deptMain${orgaNo}`}
+              type="radio" value="false" checked={deptMain === false} readOnly />부부서 */}
+              {/*   </EmpOrgaInformationRadioWrapper> */}
+              {/* </EmpOrgaInformationBody> */}
 
               <EmpOrgaInformationHeader>직급</EmpOrgaInformationHeader>
               <EmpOrgaInformationBody>
