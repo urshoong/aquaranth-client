@@ -68,18 +68,18 @@ export const Pagination = styled.ul`
 export const PageBtn = styled.li`
   ${({ theme }) => css`
     //&.pageBtn{
-      height: 28px;
-      width: 28px;
-      line-height: 20px;
-      padding: 0 5px;
-      border: 2px solid ${theme.color.gray350};
-      background-color: white;
-      font-size: 1.2em;
-      font-weight: bold;
-      margin: 2px;
-      display: flex;
-      justify-content: center;
-      box-sizing: border-box;
+    height: 28px;
+    width: 28px;
+    line-height: 20px;
+    padding: 0 5px;
+    border: 2px solid ${theme.color.gray350};
+    background-color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 2px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
     //}
     &.pageBtn.page{
       border: 0;
@@ -216,6 +216,14 @@ export const ModuleInnerTitle = styled.span`
   padding: 0 20px;
   font-size: 2em;
   font-weight: bold;
+`;
+
+export const ModuleInnerTitleBtnDiv = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  bottom: 0;
+  transform: translateY(-50%);
 `;
 
 export const ModuleInnerMainContentWrapper = styled.div`
@@ -448,7 +456,7 @@ export const CompanyInfoSpan = styled.span`
 `;
 
 export const CompanyInfoBtnWrapper = styled.div`
-  
+
 `;
 
 export const CompanyInfoBtn = styled(Button)`
@@ -481,36 +489,48 @@ export const CompanyInfoNameDiv = styled.div`
   ${({ theme }) => css`
     text-align: right;
     // border-right: 1px solid ${theme.color.gray300};
-    line-height: 3em;
+    line-height: 49px;
     background-color: ${theme.color.gray100};
-    font-size: 1.1em;
+    font-size: 1.2em;
     font-weight: bold;
-    height: 40px;
+    height: 49px;
   `}
 `;
 
 export const CompanyInfoNameSpan = styled.span`
   margin-right: 0.5em;
+  height: 49px;
 `;
 
 export const CompanyInfoInputDiv = styled.div`
-  height: 3em;
-  line-height: 3em;
-  width: 20em;
+  display: flex;
+  height: 49px;
+  line-height: 49px;
+  padding: 7px;
+  width: 100%;
 `;
 
 export const CompanyUseInputWrapper = styled.div`
-`;
-
-export const CompanyUseInput = styled.input`
-  margin-left: 1em;
+  width: 100%;
+  height: 100%;
+  line-height: 35px;
 `;
 
 export const CompanyInfoInput = styled.input`
-  width: 20em;
-  height: 2em;
-  line-height: 2em;
-  margin-left: 1em;
+  ${({ theme, type }) => css`
+    width: ${type === "date" ? "20em" : "100%"};
+    height: 100%;
+    padding-left: 5px;
+    border: 1px solid ${theme.color.gray500};
+    &.unchangeable{
+      background-color: ${theme.color.gray300};
+    }
+  `}
+`;
+
+export const CompanyUseInput = styled.input`
+  vertical-align: -2px;
+  margin: 0 5px 0 15px;
 `;
 
 /**
@@ -633,7 +653,7 @@ export const EmpInfoDivideSpan = styled.span`
     width: 1px;
     height: 0.8em;
     display: inline-block;
-    border-right: 1px solid ${theme.color.gray500}; 
+    border-right: 1px solid ${theme.color.gray500};
   `}
 `;
 
@@ -889,6 +909,7 @@ export const EmpInfoPageWrapper = styled.div`
 `;
 
 export const EmpInfoTabWrapper = styled(UserRoleInnerTabWrapper)`
+  position: relative;
 `;
 
 export const EmpInfoTab = styled(UserRoleInnerTab)`
@@ -1058,7 +1079,7 @@ export const EmpOrgaInformationBody = styled(EmpBasicInformationBody)`
 `;
 
 export const EmpOrgaInformationInput = styled(EmpBasicInformationInput)`
-  ${({ theme, not }) => css`
+  ${({ not }) => css`
     &:not(:nth-of-type(2)){
       width: ${not ? "" : "100%"};
     }
@@ -1074,22 +1095,21 @@ export const EmpOrgaInformationRadio = styled(EmpBasicInformationRadio)`
 `;
 
 export const EmpOrgaInformationSelect = styled(EmpBasicInformationSelect)`
-  
 `;
 
 export const EmpInsertWrapper = styled.div`
-    margin: 10px;
-    align-items: center;
-  `;
+  margin: 10px;
+  align-items: center;
+`;
 
 export const EmpButtonWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-  `;
+  display: flex;
+  justify-content: center;
+`;
 
 export const EmpInsertExplainDiv = styled.div`
-    margin-bottom: 10px;
-  `;
+  margin-bottom: 10px;
+`;
 
 export const EmpInsertHeader = styled.div`
   ${({ theme }) => css`
@@ -1103,54 +1123,54 @@ export const EmpInsertHeader = styled.div`
 `;
 
 export const EmpInsertBody = styled.div`
-    display:inline;
-    display: flex;
-    float: center;
-    flex-direction: column;
-    display:inline;
+  display:inline;
+  display: flex;
+  float: center;
+  flex-direction: column;
+  display:inline;
 `;
 
 export const EmpInsertInput = styled.input`
-    border-bottom: 1px solid black;
+  border-bottom: 1px solid black;
 `;
 
 
 export const ProfileFullLayout = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;      
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 `;
 
 export const ProfileInformationWrapper = styled.div`
   ${({ theme }) => {
     return css`
-        ${theme.shadow.shadowLg};
-        border: 1px solid ${theme.color.grayA100};;
-        border-radius: 0.3rem;
-        max-width: 600px;
-        padding: 2rem 1rem;
-        width: 80%;
-      }
-      `;
+      ${theme.shadow.shadowLg};
+      border: 1px solid ${theme.color.grayA100};;
+      border-radius: 0.3rem;
+      max-width: 600px;
+      padding: 2rem 1rem;
+      width: 80%;
+    }
+    `;
   }}
 `;
 
 export const ProfileImg = styled.img`
-    width: 80px;
-    height: 80px; 
-    border-radius: 70%;
-    overflow: hidden;
-    float:left;
-    margin-right: 2em;
-    margin-left: 2em;
+  width: 80px;
+  height: 80px;
+  border-radius: 70%;
+  overflow: hidden;
+  float:left;
+  margin-right: 2em;
+  margin-left: 2em;
 `;
 
 export const ProfileName = styled.div`
-    font-size: 1.5em;
-    font-weight: 900;
-    margin-bottom: 7px;
-    padding-top: 1.2em;
+  font-size: 1.5em;
+  font-weight: 900;
+  margin-bottom: 7px;
+  padding-top: 1.2em;
 `;
 
 export const ProfileAccessInformation = styled.div`
@@ -1163,9 +1183,9 @@ export const ProfileAccessInformation = styled.div`
 export const ProfileButtonWrapper = styled.div`
   ${() => {
     return css`
-    border-radius: 0.3rem;
-    margin: 20px;
-  `;
+      border-radius: 0.3rem;
+      margin: 20px;
+    `;
   }}
 `;
 
@@ -1180,52 +1200,298 @@ export const ProfileButton = styled.button`
       margin-left: 0.8em;
       padding: 20px;
       color: ${theme.color.white};
-      }
-      `;
+    }
+    `;
   }}
 `;
 
 export const ProfileCheckWrapper = styled.div`
-   ${({ theme }) => css`
-      border-top: 1px solid ${theme.color.gray500};
-      margin-top: 1em;
-      margin-left: 3em;
-      padding-top: 1em;
-      width: 40em;
-      position: relative;
-      display: flex;
+  ${({ theme }) => css`
+    border-top: 1px solid ${theme.color.gray500};
+    margin-top: 1em;
+    margin-left: 3em;
+    padding-top: 1em;
+    width: 40em;
+    position: relative;
+    display: flex;
   `}
 `;
 
 export const ProfileExplain = styled.div`
-   ${({ theme }) => css`
-      border-top: 1px solid ${theme.color.gray500};
-      font-size: 1.2em;
-      font-weight: 600;
-      margin-left: 2.4em;
-      width: 33.3em;
-      padding-top: 0.5em;
-    `}
+  ${({ theme }) => css`
+    border-top: 1px solid ${theme.color.gray500};
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-left: 2.4em;
+    width: 33.3em;
+    padding-top: 0.5em;
+  `}
 `;
 
 export const ProfileHeader = styled.div`
-    border-top: 1px solid black;
-    float: left;
-    margin: 1em -3em 0em 3em;
-    padding-top: 0.5em;
-    padding-bottom: 1em;
-    width: 20em;
-    text-align: center;
-    background-color: gainsboro;
+  border-top: 1px solid black;
+  float: left;
+  margin: 1em -3em 0em 3em;
+  padding-top: 0.5em;
+  padding-bottom: 1em;
+  width: 20em;
+  text-align: center;
+  background-color: gainsboro;
 `;
 
 export const ProfileBody = styled.div`
-    float: left;
-    text-align: left;
-    margin: 0em 0em 0em 7em;
-    width: 11em;
+  float: left;
+  text-align: left;
+  margin: 0em 0em 0em 7em;
+  width: 11em;
 `;
 
 export const ProfileBodySelect = styled.select`
-    margin-left: 3em;
+  margin-left: 3em;
+`;
+
+/**
+ * Department page Styled Components
+ * */
+
+export const DeptMainDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  //border: 1px solid black;
+  //display: grid;
+  //grid-template-columns: 1fr 3fr;
+  //grid-column-gap: 3em;
+  display: flex;
+`;
+
+
+export const DeptListDiv = styled(UserRoleSection)`
+`;
+
+export const DeptInfoPageWrapper = styled(EmpInfoPageWrapper)`
+`;
+
+export const DeptInfoChoose = styled(CompanyInfoBtnDiv)`
+  ${({ theme }) => css`
+    border-bottom: 2px solid ${theme.color.gray600};
+  `}
+`;
+
+export const DeptGroupSection = styled(GroupSection)`
+  &.section1{
+    flex-direction: column;
+  }
+  &.section2{
+    padding: 0;
+  }
+`;
+
+export const DeptListTapWrapper = styled(EmpInfoTabWrapper)`
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+export const DeptInfoTabWrapper = styled(EmpInfoTabWrapper)`
+  ${({ theme }) => css`
+    border-bottom: 2px solid ${theme.color.gray600};
+  `}
+`;
+
+export const DeptListTab = styled.button`
+  ${({ theme }) => css`
+    display: inline-block;
+    height: 100%;
+    line-height: 40px;
+    margin: 0 30px 0 0;
+    font-size: 1.6em;
+    font-weight: bold;
+    color: gray;
+    box-sizing: border-box;
+    &.active{
+      color: ${theme.color.activeBDBlue};
+      border-bottom: 2px solid ${theme.color.activeBDBlue};
+    }
+  `}
+`;
+
+export const DeptListInnerDiv = styled.div`
+  height: calc(100% - 40px);
+  max-height: 100%;
+  padding: 10px;
+  overflow-y: auto;
+`;
+
+export const DeptListInnerWrapper = styled.div`
+  height: 100%;
+`;
+
+export const DeptListItemDiv = styled.div`
+  ${({ theme }) => css`
+    display: grid;
+    grid-template-columns: 1fr 5fr 2fr;
+    grid-template-rows: 1.2fr 2fr;
+    border: 2px solid ${theme.color.gray350};
+    background-color: ${theme.color.white};
+    border-radius: 10px;
+    padding: 15px;
+    min-height: 100px;
+    margin-bottom: 5px;
+    &.active{
+      background-color: ${theme.color.activeBGBlue};
+      border: 2px solid ${theme.color.activeBDBlue};
+    }
+  `}
+`;
+
+export const DeptListItemDetailDiv = styled.div`
+  ${({ theme }) => css`
+    font-size: 1.3em;
+    font-weight: bold;
+    &:nth-of-type(2){
+      //color ${theme.color.gray800};
+    }
+    &:nth-of-type(3){
+      
+    }
+    &:last-of-type{
+      color ${theme.color.gray800};
+      grid-column: span 3;
+      line-height: normal;
+    }
+  `}
+`;
+
+export const DeptUseItemDiv = styled(CompanyUseItemDiv)`
+  height: 1.7em;
+  background-color: ${({ mainFlag }) => (mainFlag ? "#6bb4ff" : "#4b7dff")};
+`;
+
+export const DeptBasicInformationWrapper = styled.div`
+  position: relative;
+`;
+
+export const DeptBasicInformationBtnWrapper = styled(EmpInformationBtnWrapper)`
+`;
+
+export const DeptBasicInformationDiv = styled(EmpBasicInformationDiv)`
+  margin-top: 15px;
+`;
+
+export const DeptBasicInformationHeader = styled(EmpBasicInformationHeader)`
+  ${({ theme }) => css`
+    &:first-of-type{
+      border-top: 2px solid ${theme.color.gray800};
+    }
+  `};
+`;
+
+export const DeptBasicInformationBody = styled(EmpBasicInformationBody)`
+  ${({ theme }) => css`
+    &:nth-of-type(2){
+      border-top: 2px solid ${theme.color.gray800};
+      height: 49px;
+    }
+  `};
+`;
+
+export const DeptBasicInformationInput = styled(EmpBasicInformationInput)`
+`;
+
+export const DeptMemberInformationDiv = styled.div`
+  margin-top: 15px;
+`;
+
+export const DeptMemberInformationContentWrapper = styled.div`
+`;
+
+export const DeptMemberInformationContentDiv = styled.div`
+  ${({ theme }) => css`
+    width: 100%;
+    height: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    &.header{
+      background-color: ${theme.color.gray200};
+    }
+  `}
+`;
+
+export const DeptMemberInformationContent = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 0 1px ${theme.color.gray400};
+  `}
+`;
+
+/**
+ * Department Register Modal Styled Components
+ * */
+
+export const DeptRegisterModalWrapper = styled.div`
+  display: flex;
+  width: 700px;
+`;
+
+export const DeptRegisterModalDiv = styled.div`
+  width: 300px;
+  height: 450px;
+`;
+
+export const DeptRegisterModalEmptyDiv = styled.div`
+  width: 100%;
+  height: calc(100% - 35px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+`;
+
+export const DeptRegisterModalTreeDiv = styled.div`
+  overflow: auto;
+  height: calc(100% - 35px);
+`;
+
+export const DeptRegisterModalInfoWrapper = styled.div`
+  width: calc(100% - 300px);
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const DeptRegisterModalInfoHeader = styled(EmpOrgaInformationHeader)`
+  ${({ theme }) => css`
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid ${theme.color.gray400};
+    &:first-of-type{
+      border-top: 1px solid ${theme.color.gray400};
+    }
+  `}
+`;
+
+export const DeptRegisterModalInfoBody = styled(EmpBasicInformationBody)`
+  ${({ theme }) => css`
+    border: 1px solid ${theme.color.gray400};
+    &:nth-of-type(2){
+      border-top: 1px solid ${theme.color.gray400};
+      height: 49px;
+    }
+    &:last-of-type{
+      height: calc(100% - (45px * 4) - (49px * 4));
+      border: none;
+      padding-right: 0;
+      padding-left: 0;
+    }
+  `}
+`;
+
+export const DeptRegisterModalInfoInput = styled(EmpBasicInformationInput)`
+  
+`;
+
+export const DeptRegisterModalInfoBtn = styled(Button)`
+  width: 100%;
+  height: 100%;
 `;

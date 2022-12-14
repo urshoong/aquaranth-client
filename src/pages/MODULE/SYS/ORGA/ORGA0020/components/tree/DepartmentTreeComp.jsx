@@ -6,6 +6,7 @@ function DepartmentTreeComp({
   companyNo,
   depth = 0,
   deptNo = 1,
+  selectDepartment,
   clickDept,
   clickDeptShow,
 }) {
@@ -13,7 +14,6 @@ function DepartmentTreeComp({
    * 회사를 선택하면, 최상단 노드인 회사를 담는 상태입니다.
    */
   const [topDepartment, setTopDepartment] = useState();
-
   /**
    * 하위 1depth 부서를 조회합니다.
    */
@@ -24,13 +24,13 @@ function DepartmentTreeComp({
   }, [deptNo, depth, companyNo]);
 
   return (
-    <>
-      <TreeItemComp
-        topDepartment={topDepartment}
-        clickDept={clickDept}
-        clickDeptShow={clickDeptShow}
-      />
-    </>
+    <TreeItemComp
+      topDepartment={topDepartment}
+      clickDept={clickDept}
+      clickDeptShow={clickDeptShow}
+      selectCompany={companyNo}
+      selectDepartment={selectDepartment}
+    />
   );
 }
 

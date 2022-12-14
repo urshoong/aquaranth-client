@@ -3,7 +3,11 @@ import UserListContent from "@pages/MODULE/SYS/ROLE/ROLE0020/components/UserCont
 import useModal from "@hooks/useModal";
 import Swal from "sweetalert2";
 import {
-  Button, InnerInformationIcon, InnerInformationInnerSpan, InnerInformationWrap,
+  Button,
+  InnerInformationIcon,
+  InnerInformationInnerSpan,
+  InnerInformationInnerWrapper,
+  InnerInformationWrap,
   UserRoleSection,
 } from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 import {
@@ -281,9 +285,11 @@ const UserRoleRoleGroupBasedPage = () => {
             <Button type="button" className="btn orgaBtn" onClick={orgaBtnClickHandler}>👨‍👨‍👦</Button>
           </div>
         </div>
-        <InnerInformationWrap className="innerInformationWrap">
+        <InnerInformationWrap>
           <InnerInformationIcon>௹</InnerInformationIcon>
-          <InnerInformationInnerSpan>선택한 권한을 사용할 사용자를 선택하세요.</InnerInformationInnerSpan>
+          <InnerInformationInnerWrapper>
+            <InnerInformationInnerSpan>선택한 권한을 사용할 사용자를 선택하세요.</InnerInformationInnerSpan>
+          </InnerInformationInnerWrapper>
         </InnerInformationWrap>
         <div className="innerSearchWrap">
           <input type="text" className="innerSearchInput" name="keyword1" onChange={(e) => { changeUserListSearchHandler(e.target.name, e.target.value); }} placeholder="부서 / 직급 / 이름 / ID 를 검색 하세요" />

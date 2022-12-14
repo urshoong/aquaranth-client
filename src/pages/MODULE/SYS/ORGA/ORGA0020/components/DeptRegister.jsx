@@ -3,6 +3,11 @@ import {
   registerDept,
 } from "@pages/MODULE/SYS/ORGA/ORGA0020/api/department";
 import Swal from "sweetalert2";
+import {
+  DeptRegisterModalInfoBody, DeptRegisterModalInfoBtn,
+  DeptRegisterModalInfoHeader, DeptRegisterModalInfoInput,
+  DeptRegisterModalInfoWrapper,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 const initState = {
   deptName: "",
@@ -30,7 +35,7 @@ function DeptRegister({ deptInfo }) {
   /**
    * 등록에서 input의 text타입 데이터를 담당합니다.
    */
-  const regiterChange = (e) => {
+  const registerChange = (e) => {
     const { value, name } = e.target;
     regDept[name] = value;
     setRegDept({ ...regDept });
@@ -43,31 +48,31 @@ function DeptRegister({ deptInfo }) {
   const regClickHandler = () => {
     registerDept(regDept).then((reuslt) => {
       setRegDept(reuslt);
-      console.log("등록되었습니다.");
       Swal.fire("", "부서등록 되었습니다.", "success");
     });
   };
   return (
-    <div>
-      <h1>등록 컴포넌트</h1>
-      <div>
-        <label>회사번호</label>
-        <input type="text" value={regDept.companyNo || ""} onChange={(e) => regiterChange(e)} name="companyNo" readOnly />
-      </div>
-      <div>
-        <label>부서명</label>
-        <input type="text" value={regDept.deptName || ""} onChange={(e) => regiterChange(e)} name="deptName" />
-      </div>
-      <div>
-        <label>부서약칭</label>
-        <input type="text" value={regDept.deptDesc || ""} onChange={(e) => regiterChange(e)} name="deptDesc" />
-      </div>
-      <div>
-        <label>상위부서번호</label>
-        <input type="text" value={regDept.upperDeptNo || ""} onChange={(e) => regiterChange(e)} name="upperDeptNo" readOnly />
-      </div>
-      <button type="button" onClick={regClickHandler}>저장</button>
-    </div>
+    <DeptRegisterModalInfoWrapper>
+      <DeptRegisterModalInfoHeader>회사번호</DeptRegisterModalInfoHeader>
+      <DeptRegisterModalInfoBody>
+        <DeptRegisterModalInfoInput type="text" className="unchangeable" value={regDept.companyNo || ""} onChange={(e) => registerChange(e)} name="companyNo" readOnly />
+      </DeptRegisterModalInfoBody>
+      <DeptRegisterModalInfoHeader>부서명</DeptRegisterModalInfoHeader>
+      <DeptRegisterModalInfoBody>
+        <DeptRegisterModalInfoInput type="text" value={regDept.deptName || ""} onChange={(e) => registerChange(e)} name="deptName" />
+      </DeptRegisterModalInfoBody>
+      <DeptRegisterModalInfoHeader>부서약칭</DeptRegisterModalInfoHeader>
+      <DeptRegisterModalInfoBody>
+        <DeptRegisterModalInfoInput type="text" value={regDept.deptDesc || ""} onChange={(e) => registerChange(e)} name="deptDesc" />
+      </DeptRegisterModalInfoBody>
+      <DeptRegisterModalInfoHeader>상위부서번호</DeptRegisterModalInfoHeader>
+      <DeptRegisterModalInfoBody>
+        <DeptRegisterModalInfoInput type="text" className="unchangeable" value={regDept.upperDeptNo || ""} onChange={(e) => registerChange(e)} name="upperDeptNo" readOnly />
+      </DeptRegisterModalInfoBody>
+      <DeptRegisterModalInfoBody>
+        <DeptRegisterModalInfoBtn type="button" onClick={regClickHandler}>저장</DeptRegisterModalInfoBtn>
+      </DeptRegisterModalInfoBody>
+    </DeptRegisterModalInfoWrapper>
   );
 }
 

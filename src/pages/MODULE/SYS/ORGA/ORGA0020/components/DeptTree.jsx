@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
 import DeptSearch from "@pages/MODULE/SYS/ORGA/ORGA0020/components/DeptSearch";
-import { getCompanyList } from "@pages/MODULE/SYS/ORGA/ORGA0010/api/company";
 import DeptTreeItem from "@pages/MODULE/SYS/ORGA/ORGA0020/components/DeptTreeItem";
 import DeptList from "@pages/MODULE/SYS/ORGA/ORGA0020/components/DeptList";
+import {
+  DeptGroupSection,
+  DeptListDiv, DeptListInnerDiv,
+  DeptListTab,
+  DeptListTapWrapper,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
+import { getCompanyList } from "@pages/MODULE/SYS/ROLE/ROLE0020/api/UserRole";
 
 function DeptTree({
   clickDept,
   selectDepartment,
   setDeptList,
   deptList,
+  setSelectDepartment,
 }) {
-
   /**
    * 회사를 선택하는 상태 관리입니다.
    */
@@ -33,8 +39,13 @@ function DeptTree({
    * 컴포넌트를 바꿔줍니다.
    */
   const clickDeptShow = (e) => {
-    const { value } = e.target;
-    console.log(value);
+    const { target } = e;
+    const { value } = target;
+    const tabs = target.parentElement?.children;
+    Array.prototype.map.call(tabs, (tab) => {
+      tab.classList.remove("active");
+    });
+    target.classList.add("active");
     setDeptShow(value);
   };
 
@@ -48,30 +59,39 @@ function DeptTree({
   }, []);
 
   return (
-    <div>
+    <DeptListDiv width="400px" border="2">
       <DeptSearch
         companyList={companyList}
         setSelectCompany={setSelectCompany}
         setDeptList={setDeptList}
+        setCompanyList={setCompanyList}
+        selectCompany={selectCompany}
       />
-      <div>
-        <button type="button" value="tree" onClick={(e) => { clickDeptShow(e); }}>부서 트리 구조</button>
-        <button type="button" value="list" onClick={(e) => { clickDeptShow(e); }}>부서 목록</button>
-        {deptShow === "tree" ? (
-          <DeptTreeItem
-            selectCompany={selectCompany}
-            clickDept={clickDept}
-            clickDeptShow={clickDeptShow}
-          />
-        )
-          : (
+      <DeptGroupSection className="section2" height="calc(100% - 110px)">
+        <DeptListTapWrapper>
+          <DeptListTab type="button" className="active" value="tree" onClick={(e) => { clickDeptShow(e); }}>부서 트리 구조</DeptListTab>
+          <DeptListTab type="button" value="list" onClick={(e) => { clickDeptShow(e); }}>부서 목록</DeptListTab>
+        </DeptListTapWrapper>
+        <DeptListInnerDiv>
+          {deptShow === "tree" ? (
+            <DeptTreeItem
+              selectCompany={selectCompany}
+              selectDepartment={selectDepartment}
+              clickDept={clickDept}
+              clickDeptShow={clickDeptShow}
+            />
+          ) : (
             <DeptList
               setDeptList={setDeptList}
               deptList={deptList}
+              clickDept={clickDept}
+              selectDepartment={selectDepartment}
+              setSelectDepartment={setSelectDepartment}
             />
           )}
-      </div>
-    </div>
+        </DeptListInnerDiv>
+      </DeptGroupSection>
+    </DeptListDiv>
   );
 }
 
