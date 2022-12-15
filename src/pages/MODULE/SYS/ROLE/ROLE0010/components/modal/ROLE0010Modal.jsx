@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, { useState } from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
 import styled from "styled-components";
 import request from "@utils/axiosUtil";
 import { useDispatch } from "react-redux";
-import { changeRefresh } from "../../../../../../../store/reducer/roleGroupSlice";
-import insert from "../../../../ORGA/ORGA0030/pages/Insert";
 import Swal from "sweetalert2";
+import { changeRefresh } from "../../../../../../../store/reducer/roleGroupSlice";
 
 const initDTO = {
   companyNo: 0,
@@ -26,7 +25,11 @@ const ROLE0010Modal = ({ companyList }) => {
 
   const onClickSaveBtn = async () => {
     if (insertDTO.companyNo === "" || insertDTO.roleGroupName === "") {
-      alert("입력되지 않은 값이 있습니다.");
+      // alert("입력되지 않은 값이 있습니다.");
+      await Swal.fire({
+        title: "입력되지 않은 값이 있습니다.",
+        icon: "error",
+      });
       return;
     }
 

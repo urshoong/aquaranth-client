@@ -7,6 +7,9 @@ import {
   MainTreeOrgaSpan,
   MainTreeOrgaWrapper,
 } from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
+import ICON_TREE_COMP from "@styles/assets/icon/icon-tree-comp.png";
+import ICON_TREE_FOLDER_CLOSE from "@styles/assets/icon/icon-tree-folder-close.png";
+import ICON_TREE_FOLDER_OPEN from "@styles/assets/icon/icon-tree-folder-open.png";
 
 function TreeItemComp({
   topDepartment,
@@ -82,8 +85,8 @@ function TreeItemComp({
               onClick={() => foldingButton(item.companyNo, item.depth + 1, item.deptNo)}
             >{icon}
             </MainTreeArrowButton>
-            {item.depth === 0 && <MainTreeOrgaIconImage src="/images/icon-tree-comp.png" alt="" />}
-            {item.depth > 0 && <MainTreeOrgaIconImage src={(icon === ">" && item.lowerDeptCnt > 0) ? "/images/icon-tree-folder-close.png" : "/images/icon-tree-folder-open.png"} alt="" />}
+            {item.depth === 0 && <MainTreeOrgaIconImage src={ICON_TREE_COMP} alt="" />}
+            {item.depth > 0 && <MainTreeOrgaIconImage src={(icon === ">" && item.lowerDeptCnt > 0) ? ICON_TREE_FOLDER_CLOSE : ICON_TREE_FOLDER_OPEN} alt="" />}
             <MainTreeOrgaSpan
               className={selectDepartment?.deptNo === item.deptNo ? "active" : ""}
               onClick={() => { clickDept(item.companyNo, item.deptNo); }}

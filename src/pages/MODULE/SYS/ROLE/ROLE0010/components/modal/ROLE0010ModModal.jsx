@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import Modal from "@components/modal/Modal";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 import useModal from "../../../../../../../hooks/useModal";
 import request from "../../../../../../../utils/axiosUtil";
 import { changeRefresh } from "../../../../../../../store/reducer/roleGroupSlice";
-import Swal from "sweetalert2";
 
 
 const initDTO = {

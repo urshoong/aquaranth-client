@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { getChildNode } from "../../api/OrgaTree";
+import ICON_TREE_COMP from "@styles/assets/icon/icon-tree-comp.png";
+import ICON_TREE_FOLDER_CLOSE from "@styles/assets/icon/icon-tree-folder-close.png";
+import ICON_TREE_FOLDER_OPEN from "@styles/assets/icon/icon-tree-folder-open.png";
 import { Span } from "../../components/StyledCommon";
+import { getChildNode } from "../../api/OrgaTree";
 
 function CommonTreeNode({ arr, changeTarget }) {
   const [subArr, setSubArr] = useState([]);
@@ -35,8 +38,8 @@ function CommonTreeNode({ arr, changeTarget }) {
         <TreeLi key={dept.deptNo}>
           <TreeInnerWrap>
             <TreeButton type="button" depth={dept.depth} onClick={() => clickButton(dept.deptNo, dept.depth + 1, dept.orgaNo)}>{dept.lowerDeptCnt > 0 ? icon : ""}</TreeButton>
-            {dept.depth === 0 && <TreeImage src="/images/icon-tree-comp.png" alt="" />}
-            {dept.depth > 0 && <TreeImage src={(icon === ">" && dept.lowerDeptCnt > 0) ? "/images/icon-tree-folder-close.png" : "/images/icon-tree-folder-open.png"} alt="" />}
+            {dept.depth === 0 && <TreeImage src={ICON_TREE_COMP} alt="" />}
+            {dept.depth > 0 && <TreeImage src={(icon === ">" && dept.lowerDeptCnt > 0) ? ICON_TREE_FOLDER_CLOSE : ICON_TREE_FOLDER_OPEN} alt="" />}
             <TreeSpan onClick={() => changeTarget(dept.orgaNo)} aria-hidden="true">{dept.deptNo}. {dept.deptName}</TreeSpan>
           </TreeInnerWrap>
           {subArr ? subArr.map((childDept) => (

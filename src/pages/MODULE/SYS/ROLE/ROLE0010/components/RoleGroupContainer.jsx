@@ -24,7 +24,7 @@ const initState = {
   roleGroupName: "",
 };
 
-function RoleGroupContainer({ refresh, companyList, onClickRoleGroupItem }) {
+function RoleGroupContainer({ refresh, companyList, onClickRoleGroupItem, selectedRoleGroup }) {
   const [roleGroupResponse, setRoleGroupResponse] = useState([]);
   const [searchParams, setSearchParams] = useState({ ...initState });
   const { openModal } = useModal();
@@ -38,6 +38,7 @@ function RoleGroupContainer({ refresh, companyList, onClickRoleGroupItem }) {
 
   // 권한그룹 상태가 바뀌면 컴포넌트 리랜더링
   useEffect(() => {
+    console.log("roleGroupResponse", roleGroupResponse);
   }, [roleGroupResponse]);
 
   // 권한그룹 추가버튼 클릭 이벤트
@@ -81,6 +82,7 @@ function RoleGroupContainer({ refresh, companyList, onClickRoleGroupItem }) {
         companyList={companyList}
         roleGroupResponse={roleGroupResponse}
         onClickRoleGroupItem={onClickRoleGroupItem}
+        selectedRoleGroup={selectedRoleGroup}
       />
       <LeftSectionFooter>
         <PaginationWrapper>

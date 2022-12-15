@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { changeRefresh } from "@reducer/roleGroupSlice";
 import {
+  EmptyContentDiv, InnerContentDiv, MenuRoleWrapper,
   Section,
 } from "@pages/MODULE/SYS/ROLE/ROLE0010/uicontainer/rolegroup";
 import Swal from "sweetalert2";
@@ -46,7 +47,7 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
   }, [roleGroupNo]);
 
   if (!roleGroupNo) {
-    return <>메뉴권한을 부여할 권한그룹을 선택해주세요.</>;
+    return <EmptyContentDiv>메뉴권한을 부여할 권한그룹을 선택해주세요.</EmptyContentDiv>;
   }
 
   // 메뉴검색 select box 이벤트
@@ -80,16 +81,17 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
   };
 
   return (
-    <Section className="roleGroup right">
-      {/* TODO: 사용자/담당자 메뉴 구분 안할거면 지우자 */}
-      {/* <InnerTabWrapper> */}
-      {/*   <InnerTabSpan>사용자메뉴</InnerTabSpan> */}
-      {/*   <InnerTabSpan>담당자메뉴</InnerTabSpan> */}
-      {/*   <Button onClick={onClickMenuRoleSaveBtn}>저장버튼</Button> */}
-      {/* </InnerTabWrapper> */}
-      <div>
-        <div>
-          <div>[{roleGroupName}({roleGroupNo})] 권한그룹의 메뉴권한 정보입니다.</div>
+    <InnerContentDiv>
+      <Section className="roleGroup right">
+        {/* TODO: 사용자/담당자 메뉴 구분 안할거면 지우자 */}
+        {/* <InnerTabWrapper> */}
+        {/*   <InnerTabSpan>사용자메뉴</InnerTabSpan> */}
+        {/*   <InnerTabSpan>담당자메뉴</InnerTabSpan> */}
+        {/*   <Button onClick={onClickMenuRoleSaveBtn}>저장버튼</Button> */}
+        {/* </InnerTabWrapper> */}
+        {/* <div> */}
+        <MenuRoleWrapper>
+          {/* <div>[{roleGroupName}({roleGroupNo})] 권한그룹의 메뉴권한 정보입니다.</div> */}
           <MenuRoleSearchBox
             gnbList={gnbList}
             onChangeSelectBox={onChangeSelectBox}
@@ -102,9 +104,10 @@ function MenuRoleContainer({ selectedRoleGroup, setSelectedRoleGroup }) {
             setMenuRoleDTO={setMenuRoleDTO}
             menuRoleDTO={menuRoleDTO}
           />
-        </div>
-      </div>
-    </Section>
+        </MenuRoleWrapper>
+        {/* </div> */}
+      </Section>
+    </InnerContentDiv>
   );
 }
 

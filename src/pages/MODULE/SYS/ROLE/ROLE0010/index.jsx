@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import RoleGroupContainer from "@pages/MODULE/SYS/ROLE/ROLE0010/components/RoleGroupContainer";
 import { useSelector } from "react-redux";
+import { ContentDiv } from "@pages/MODULE/SYS/ROLE/ROLE0010/uicontainer/rolegroup";
 import {
-  ContentDiv,
-  ContentWrapper,
-  IndexPageWrapper, TitleSpan,
-  TitleWrapper,
-} from "@pages/MODULE/SYS/ROLE/ROLE0010/uicontainer/rolegroup";
+  ModuleInnerMainContentWrapper,
+  ModuleInnerTitle,
+  ModuleInnerTitleWrapper,
+  ModuleInnerWrapper,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 import request from "../../../../../utils/axiosUtil";
 import MenuRoleContainer from "./components/MenuRoleContainer";
 
@@ -28,24 +29,25 @@ const Index = () => {
   };
 
   return (
-    <IndexPageWrapper>
-      <TitleWrapper>
-        <TitleSpan>권한그룹설정</TitleSpan>
-      </TitleWrapper>
-      <ContentWrapper>
+    <ModuleInnerWrapper>
+      <ModuleInnerTitleWrapper>
+        <ModuleInnerTitle>권한그룹설정</ModuleInnerTitle>
+      </ModuleInnerTitleWrapper>
+      <ModuleInnerMainContentWrapper>
         <ContentDiv>
           <RoleGroupContainer
             onClickRoleGroupItem={onClickRoleGroupItem}
             refresh={refresh}
             companyList={companyList}
+            selectedRoleGroup={selectedRoleGroup}
           />
           <MenuRoleContainer
             selectedRoleGroup={selectedRoleGroup}
             setSelectedRoleGroup={setSelectedRoleGroup}
           />
         </ContentDiv>
-      </ContentWrapper>
-    </IndexPageWrapper>
+      </ModuleInnerMainContentWrapper>
+    </ModuleInnerWrapper>
   );
 };
 
