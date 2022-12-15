@@ -25,11 +25,13 @@ function EmpOrgaInformation({
   handleOnClickOrgaModify,
   handleOnChangeOrgaInput,
   handleOnClickOrgaModifyDept,
+  clickOrga,
 }) {
   const { openModal } = useModal();
 
   const data = {
     orga,
+    clickOrga,
   };
 
   const handleOnRegisterOrgaModal = () => {

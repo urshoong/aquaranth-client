@@ -25,7 +25,7 @@ const empModify = async (empInfo) => {
   return data;
 };
 
-const deptList = async (companyNo) => { // TODO redux
+const deptList = async (companyNo) => {
   const { data } = await request.get(`/dept2/readName/${companyNo}`);
   return data;
 };
@@ -239,7 +239,7 @@ function Index() {
 
   // 조직 정보 수정 input change 이벤트
   const handleOnChangeOrgaInput = (e, targetOrga) => {
-    const { type, value, name, checked } = e.target;
+    const { type, value, name } = e.target;
 
     const replaceName = name.replace(/[0-9]/g, "");
 
@@ -251,15 +251,11 @@ function Index() {
     }
 
     setOrgaModifyNo(targetOrga.orgaNo);
-
-    console.log(targetOrga);
-    console.log(orga);
     setOrga([...orga]);
   };
 
   // 조직 정보 수정 버튼 클릭
   const handleOnClickOrgaModify = () => {
-    console.log("clickOrga", orga);
     empOrgaModify(orga).then(() => {
       Swal.fire("수정 완료", "조직 정보가 변경되었습니다.", "success").then();
     });

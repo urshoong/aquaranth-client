@@ -1098,8 +1098,10 @@ export const EmpOrgaInformationSelect = styled(EmpBasicInformationSelect)`
 `;
 
 export const EmpInsertWrapper = styled.div`
-  margin: 10px;
-  align-items: center;
+  position: relative;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
 `;
 
 export const EmpButtonWrapper = styled.div`
@@ -1108,7 +1110,9 @@ export const EmpButtonWrapper = styled.div`
 `;
 
 export const EmpInsertExplainDiv = styled.div`
-  margin-bottom: 10px;
+  margin: 5px;
+  font-weight: bold;
+  font-size: 1.2em;
 `;
 
 export const EmpInsertHeader = styled.div`
@@ -1116,18 +1120,58 @@ export const EmpInsertHeader = styled.div`
     display: flex;
     align-items: center;
     background-color: ${theme.color.gray100};
-    min-height: 2em;
-    margin-top: 5px;
-    width:100%;
+    min-height: 45px;
+    padding-right: 10px;
+    border-bottom: 1px solid ${theme.color.gray400};
+    font-size: 1.2em;
+    font-weight: bold;
+    color: ${theme.color.gray800};
+    &:first-of-type{
+      border-top: 1px solid ${theme.color.gray400};
+    }
   `}
 `;
 
 export const EmpInsertBody = styled.div`
-  display:inline;
+  ${({ theme }) => css`
+    border-bottom: 1px solid ${theme.color.gray400};
+    display: flex;
+    align-items: center;
+    padding: 7px;
+    height: 49px;
+    &:nth-of-type(2){
+      border-top: 1px solid ${theme.color.gray400};
+    }
+  `}
 `;
 
 export const EmpInsertInput = styled.input`
-  border-bottom: 1px solid black;
+  ${({ theme, type }) => css`
+    width: 100%;
+    height: 100%;
+    font-size: 1.2em;
+    border: 1px solid ${theme.color.gray500};
+    padding-left: ${type !== "text" ? "unset" : "5px"};
+    &.essential{
+      background-color: #fef2f2;
+    }
+    &.unchangeable{
+      background-color: ${theme.color.gray300};
+    }
+  `}
+`;
+
+export const EmpInsertSelect = styled(Select)`
+  ${({ theme }) => css`
+    font-size: 1.2em;
+    border: 1px solid ${theme.color.gray500};
+  `}
+`;
+
+export const EmpInsertButton = styled(Button)`
+  width: 100%;
+  height: 3rem;
+  
 `;
 
 
