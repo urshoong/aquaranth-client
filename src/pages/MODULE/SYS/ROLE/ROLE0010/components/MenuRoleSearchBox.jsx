@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   SearchBoxDiv,
   SearchBoxSelect,
-  SelectWrapper, Button,
+  SelectWrapper, Button, SearchBoxBtnWrapper,
 } from "@pages/MODULE/SYS/ROLE/ROLE0010/uicontainer/rolegroup";
 
 function MenuRoleSearchBox({ gnbList, onChangeSelectBox, selectValue, setSelectValue, onClickMenuRoleSaveBtn }) {
@@ -13,7 +13,9 @@ function MenuRoleSearchBox({ gnbList, onChangeSelectBox, selectValue, setSelectV
           <option value="default">메뉴선택</option>
           {gnbList.map(({ menuNo, menuName, menuCode }) => <option key={menuNo} value={menuCode}>{menuName}</option>)}
         </SearchBoxSelect>
-        <Button onClick={onClickMenuRoleSaveBtn}>메뉴권한저장</Button>
+        <SearchBoxBtnWrapper>
+          <Button onClick={onClickMenuRoleSaveBtn}>메뉴권한저장</Button>
+        </SearchBoxBtnWrapper>
       </SelectWrapper>
     </SearchBoxDiv>
   );

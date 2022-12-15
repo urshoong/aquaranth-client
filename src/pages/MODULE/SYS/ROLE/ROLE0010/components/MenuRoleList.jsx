@@ -1,8 +1,11 @@
 import React from "react";
 import MenuRoleItem from "@pages/MODULE/SYS/ROLE/ROLE0010/components/MenuRoleItem";
+import {
+  MenuRoleEmptyDiv,
+  MenuRoleListWrapper,
+} from "@pages/MODULE/SYS/ROLE/ROLE0010/uicontainer/rolegroup";
 
 function MenuRoleList({ lnbList, menuRoleDTO, setMenuRoleDTO }) {
-
   // lnb 메뉴 체크박스 클릭 이벤트
   const onChangeCheckBox = (e) => {
     const { value, checked } = e.target;
@@ -22,9 +25,14 @@ function MenuRoleList({ lnbList, menuRoleDTO, setMenuRoleDTO }) {
   };
 
   return (
-    <div>
-      {lnbList.map((menu) => <MenuRoleItem key={menu.menuNo} menu={menu} onChangeCheckBox={onChangeCheckBox} />)}
-    </div>
+    <MenuRoleListWrapper>
+      {
+        lnbList.length > 0
+          ? lnbList.map((menu) =>
+            <MenuRoleItem key={menu.menuNo} menu={menu} onChangeCheckBox={onChangeCheckBox} />)
+          : <MenuRoleEmptyDiv>메뉴를 선택해주세요</MenuRoleEmptyDiv>
+      }
+    </MenuRoleListWrapper>
   );
 }
 

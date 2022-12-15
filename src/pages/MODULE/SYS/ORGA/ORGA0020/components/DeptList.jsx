@@ -1,18 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
+import {
+  DeptListItemDetailDiv,
+  DeptListItemDiv,
+  DeptUseItemDiv,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
+import { handleSelectDepartment } from "@pages/MODULE/SYS/ORGA/ORGA0020/api/department";
 
-function DeptList({ deptList }) {
+function DeptList({ deptList, selectDepartment, setSelectDepartment }) {
+  /**
+   * 부서 리스트에서 클릭하면
+   * 부서 상세정보를 조회합니다
+   * @param deptNo
+   * */
 
-  console.log("DeptList : ", deptList);
+  const clickListDept = (deptNo) => {
+    handleSelectDepartment(deptNo).then((data) => {
+      setSelectDepartment(data);
+    });
+  };
 
   return (
-    <div>
+    <>
       {deptList.map(({ deptNo, deptName, path, mainFlag }) => (
-        <div key={deptNo}>
-          {deptNo}/{deptName}/{ mainFlag ? "사용" : "미사용" }
-          <div>소속 : {path}</div>
-        </div>
+        <DeptListItemDiv key={deptNo} className={selectDepartment.deptNo === deptNo ? "active" : ""} onClick={() => clickListDept(deptNo)}>
+          <DeptListItemDetailDiv>{deptNo}</DeptListItemDetailDiv>
+          <DeptListItemDetailDiv>{deptName}</DeptListItemDetailDiv>
+          <DeptListItemDetailDiv>
+            <DeptUseItemDiv mainFlag>{ mainFlag ? "사용" : "미사용" }</DeptUseItemDiv>
+          </DeptListItemDetailDiv>
+          <DeptListItemDetailDiv>소속 : {path}</DeptListItemDetailDiv>
+        </DeptListItemDiv>
       ))}
-    </div>
+    </>
   );
 }
 

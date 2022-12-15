@@ -64,10 +64,10 @@ export const registerDept = async (deptDTO) => {
 };
 
 /**
- * 부서를 부서번호, 부서명으로
- * 검색합니다.
+ * 부서번호, 부서명으로 해당하는
+ * 회사의 부서를 검색합니다.
  */
-export const searchDept = async (deptSearch) => {
-  const { data } = await request.get(`dept2/search?deptSearch=${deptSearch}`);
+export const searchDept = async (deptSearch, companyNo) => {
+  const { data } = await request.get(`dept2/search?deptSearch=${deptSearch}&companyNo=${companyNo}`);
   return data;
 };

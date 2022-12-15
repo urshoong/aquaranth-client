@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import DeptBasicInfo from "@pages/MODULE/SYS/ORGA/ORGA0020/components/DeptBasicInfo";
 import DeptMemberInfo from "@pages/MODULE/SYS/ORGA/ORGA0020/components/DeptMemberInfo";
+import {
+  CompanyInfoSpan,
+  DeptInfoChoose,
+  DeptInfoPageWrapper,
+  DeptInfoTabWrapper,
+  DeptListTab,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 function DeptInformation({
   selectDepartment,
@@ -17,24 +23,29 @@ function DeptInformation({
   const [show, setShow] = useState("basic");
 
   const clickShowInfo = (e) => {
-    const { value } = e.target;
-    console.log(value);
+    const { target } = e;
+    const { value } = target;
+    const tabs = target.parentElement?.children;
+    Array.prototype.map.call(tabs, (tab) => {
+      tab.classList.remove("active");
+    });
+    target.classList.add("active");
     setShow(value);
   };
 
   if (!clickDept) {
     return (<></>);
-  };
+  }
 
   return (
-    <div>
+    <DeptInfoPageWrapper>
       <DeptInfoChoose>
-        <div>상세정보</div>
-        <div>
-          <button type="button" value="basic" onClick={(e) => { clickShowInfo(e); }}>기본정보</button>
-          <button type="button" value="detail" onClick={(e) => { clickShowInfo(e); }}>부서원정보</button>
-        </div>
+        <CompanyInfoSpan>ㆍ상세정보</CompanyInfoSpan>
       </DeptInfoChoose>
+      <DeptInfoTabWrapper>
+        <DeptListTab type="button" className="active" value="basic" onClick={(e) => { clickShowInfo(e); }}>기본정보</DeptListTab>
+        <DeptListTab type="button" value="detail" onClick={(e) => { clickShowInfo(e); }}>부서원정보</DeptListTab>
+      </DeptInfoTabWrapper>
       {show === "basic" ? (
         <DeptBasicInfo
           selectDepartment={selectDepartment}
@@ -44,16 +55,11 @@ function DeptInformation({
       )
         : (
           <DeptMemberInfo
-            orgaNo={selectDepartment.orgaNo}
+            deptOrgaNo={selectDepartment.orgaNo}
           />
         )}
-    </div>
+    </DeptInfoPageWrapper>
   );
 }
-
-const DeptInfoChoose = styled.div`
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-`;
 
 export default DeptInformation;

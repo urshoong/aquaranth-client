@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const IndexPageWrapper = styled.div`
   width: 100%;
@@ -63,9 +63,12 @@ export const Section = styled.div`
 `;
 
 export const SearchBoxDiv = styled.div`
-  height: 110px;
-  padding: 18px 15px;
-  background-color: #f2f2f2;
+  ${({ theme }) => css`
+    height: 110px;
+    padding: 18px 15px;
+    background-color: #f2f2f2;
+    border-bottom: 2px solid ${theme.color.gray350};
+  `}
 `;
 
 export const SelectWrapper = styled.div`
@@ -77,6 +80,12 @@ export const SearchBoxSelect = styled.select`
   height: 35px;
   border: 2px solid #e6e6e6;
   font-size: 1.3em;
+`;
+
+export const SearchBoxBtnWrapper = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  padding-top: 10px;
 `;
 
 export const SearchWrapper = styled.div`
@@ -98,6 +107,7 @@ export const Button = styled.button`
   height: 35px;
   border: 2px solid #e6e6e6;
   background-color: #f8f8f8;
+  padding: 0 5px;
 
   &.searchBtn {
     width: 12%;
@@ -108,10 +118,19 @@ export const Button = styled.button`
 `;
 
 export const GroupInfoSection = styled.div`
-  height: 50px;
-  background-color: #fafafa;
-  display: flex;
-  justify-content: space-between;
+  ${({ theme }) => css`
+    height: 50px;
+    background-color: #fafafa;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid ${theme.color.gray300};
+  `}
+`;
+
+export const GroupInfoButton = styled(Button)`
+  margin-right: 10px;
+  padding: 0 5px;
 `;
 
 export const GroupCountWrapper = styled.div`
@@ -119,15 +138,16 @@ export const GroupCountWrapper = styled.div`
   line-height: 50px;
   width: 100px;
   padding-left: 10px;
+`;
 
-  & span {
+export const GroupCountSpan = styled.span`
+  ${({ theme }) => css`
     font-size: 1.3em;
     font-weight: bold;
-  }
-
-  & span:nth-of-type(2) {
-    color: #46a3fb;
-  }
+    &:nth-of-type(2) {
+      color: ${theme.color.activeBDBlue};
+    }
+  `}
 `;
 
 export const GroupListSection = styled.div`
@@ -138,43 +158,47 @@ export const GroupListSection = styled.div`
 `;
 
 export const GroupItemWrapper = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 100px;
-  border: 2px solid #e6e6e6;
-  border-radius: 10px;
-  padding: 17px 20px;
-  margin-bottom: 5px;
-
-  &.active {
-    background-color: #e5f6ff;
-    border: 2px solid #46a3fb;
-  }
-
-  & span:nth-of-type(1) {
+  ${({ theme }) => css`
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100px;
+    border: 2px solid ${theme.color.gray350};
+    border-radius: 10px;
+    padding: 17px 20px;
+    margin-bottom: 5px;
+    background-color: ${theme.color.white};
+  
+    &.active {
+      background-color: ${theme.color.activeBGBlue};
+      border: 2px solid ${theme.color.activeBDBlue};
+    }
+  `}
+`;
+
+export const GroupItemSpanWrapper = styled.div`
+`;
+
+export const GroupItemSpan = styled.span`
+    position: relative;
+    font-weight: bold;
+    display: block;
+  &:nth-of-type(1) {
     top: 0;
     font-size: 1.5em;
     color: gray;
-    font-weight: bold;
-    display: block;
   }
-
-  & span:nth-of-type(2) {
-    position: relative;
+  &:nth-of-type(2) {
     top: 25px;
     font-size: 1.8em;
-    font-weight: bold;
-    display: block;
   }
+`;
 
-  & button {
-    border: solid red 1px;
-    position: relative;
-    right: 0;
-  }
+export const GroupItemButton = styled(Button)`
+  position: relative;
+  height: initial;
+  padding: 0 5px;
 `;
 
 export const LeftSectionFooter = styled.div`
@@ -240,6 +264,60 @@ export const PageSizeSelect = styled.select`
 export const ContentDiv = styled.div`
   width: 100%;
   height: calc(100% - 55px);
-  margin-top: 15px;
   display: flex;
+`;
+
+export const EmptyContentDiv = styled.div`
+  ${({ theme }) => css`
+    width: calc(100% - 415px);
+    margin-left: 15px;
+    font-size: 1.75em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid ${theme.color.gray300};
+  `}
+`;
+
+export const InnerContentDiv = styled.div`
+  width: calc(100% - 400px);
+  padding-left: 15px;
+`;
+
+export const MenuRoleWrapper = styled.div`
+  height: 100%;
+`;
+
+export const MenuRoleListWrapper = styled.div`
+  ${({ theme }) => css`
+    width: 100%;
+    height: calc(100% - 110px);
+    padding: 15px;
+    overflow: auto;
+    background-color: ${theme.color.gray50};
+  `}
+`;
+
+export const MenuRoleEmptyDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  font-size: 1.75em;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const MenuRoleItemDiv = styled.div`
+  padding: 2px;
+`;
+
+export const MenuRoleItemInput = styled.input`
+  vertical-align: -2px;
+  margin: 0 5px;
+`;
+
+export const MenuRoleItemSpan = styled.span`
+  font-size: 1.2em;
 `;

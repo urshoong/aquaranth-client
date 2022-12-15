@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import DeptMain from "@pages/MODULE/SYS/ORGA/ORGA0020/components/DeptMain";
 import useModal from "@hooks/useModal";
+import {
+  EmpInformationBtn,
+  ModuleInnerMainContentWrapper,
+  ModuleInnerTitle,
+  ModuleInnerTitleBtnDiv,
+  ModuleInnerTitleWrapper,
+  ModuleInnerWrapper,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
-function Index(props) {
+function Index() {
   const data = { menucode: "ORGA0020", menuname: "부서 관리" };
   const { openModal } = useModal();
 
@@ -12,15 +20,17 @@ function Index(props) {
 
 
   return (
-    <div>
-      <div>
-        <span>부서관리</span>
-      </div>
-      <div>
-        <button type="button" onClick={handleOnModal}>추가</button>
+    <ModuleInnerWrapper>
+      <ModuleInnerTitleWrapper>
+        <ModuleInnerTitle>부서관리</ModuleInnerTitle>
+        <ModuleInnerTitleBtnDiv>
+          <EmpInformationBtn type="button" onClick={handleOnModal}>추가</EmpInformationBtn>
+        </ModuleInnerTitleBtnDiv>
+      </ModuleInnerTitleWrapper>
+      <ModuleInnerMainContentWrapper>
         <DeptMain />
-      </div>
-    </div>
+      </ModuleInnerMainContentWrapper>
+    </ModuleInnerWrapper>
   );
 }
 

@@ -1,8 +1,13 @@
 import React from "react";
-import { GroupItemWrapper } from "@pages/MODULE/SYS/ROLE/ROLE0010/uicontainer/rolegroup";
+import {
+  GroupItemButton,
+  GroupItemSpan,
+  GroupItemSpanWrapper,
+  GroupItemWrapper,
+} from "@pages/MODULE/SYS/ROLE/ROLE0010/uicontainer/rolegroup";
 import useModal from "../../../../../../hooks/useModal";
 
-function RoleGroupItem({ roleGroup, companyList, onClickRoleGroupItem }) {
+function RoleGroupItem({ roleGroup, companyList, onClickRoleGroupItem, selectedRoleGroup }) {
   const { roleGroupName, companyNo, companyName } = roleGroup;
   const { openModal } = useModal();
 
@@ -12,12 +17,15 @@ function RoleGroupItem({ roleGroup, companyList, onClickRoleGroupItem }) {
   };
 
   return (
-    <GroupItemWrapper onClick={() => onClickRoleGroupItem(roleGroup)}>
-      <div>
-        <span>{companyName}</span>
-        <span>{roleGroupName}</span>
-      </div>
-      <button onClick={handleOnRoleGroupMocModal}>수정/삭제</button>
+    <GroupItemWrapper
+      className={selectedRoleGroup?.roleGroupNo === roleGroup.roleGroupNo ? "active" : ""}
+      onClick={() => onClickRoleGroupItem(roleGroup)}
+    >
+      <GroupItemSpanWrapper>
+        <GroupItemSpan>{companyName}</GroupItemSpan>
+        <GroupItemSpan>{roleGroupName}</GroupItemSpan>
+      </GroupItemSpanWrapper>
+      <GroupItemButton onClick={handleOnRoleGroupMocModal}>수정/삭제</GroupItemButton>
     </GroupItemWrapper>
   );
 }

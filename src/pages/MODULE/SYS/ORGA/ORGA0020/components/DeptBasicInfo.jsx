@@ -1,11 +1,19 @@
-import React, { useState } from "react";
-import "../view.css";
+import React from "react";
 import {
   deleteDept,
   handleSelectDepartment,
   modifyDept,
 } from "@pages/MODULE/SYS/ORGA/ORGA0020/api/department";
 import Swal from "sweetalert2";
+import {
+  DeptBasicInformationBody,
+  DeptBasicInformationBtnWrapper,
+  DeptBasicInformationDiv,
+  DeptBasicInformationHeader,
+  DeptBasicInformationInput,
+  DeptBasicInformationWrapper, EmpBasicInformationRadio,
+  EmpInformationBtn,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 function DeptBasicInfo({
   selectDepartment,
@@ -20,8 +28,7 @@ function DeptBasicInfo({
    */
   const modClickHandler = () => {
     modifyDept(selectDepartment).then(() => {
-      console.log("complete");
-      Swal.fire("","수정이 완료되었습니다.", "success");
+      Swal.fire("", "수정이 완료되었습니다.", "success");
     });
   };
 
@@ -45,76 +52,70 @@ function DeptBasicInfo({
   };
 
   return (
-    <div className="deptData">
-      <div className="deptItem">
-        <div>부서번호</div>
-        <div>
-          <input
+    <DeptBasicInformationWrapper>
+      <DeptBasicInformationBtnWrapper>
+        <EmpInformationBtn type="button" onClick={modClickHandler}>수정</EmpInformationBtn>
+        <EmpInformationBtn type="button" onClick={clickRemoveHandler}>삭제</EmpInformationBtn>
+      </DeptBasicInformationBtnWrapper>
+      <DeptBasicInformationDiv>
+        <DeptBasicInformationHeader>부서번호</DeptBasicInformationHeader>
+        <DeptBasicInformationBody>
+          <DeptBasicInformationInput
             type="text"
+            className="unchangeable"
             value={deptNo || ""}
             name="deptNo"
             onChange={(e) => inputChangeHandler(e)}
             readOnly
           />
-        </div>
-      </div>
-      <div className="deptItem">
-        <div>부서명</div>
-        <div>
-          <input
+        </DeptBasicInformationBody>
+        <DeptBasicInformationHeader>부서명</DeptBasicInformationHeader>
+        <DeptBasicInformationBody>
+          <DeptBasicInformationInput
             type="text"
             value={deptName || ""}
             name="deptName"
             onChange={(e) => inputChangeHandler(e)}
           />
-        </div>
-      </div>
-      <div className="deptItem">
-        <div>부서 약칭</div>
-        <div>
-          <input
+        </DeptBasicInformationBody>
+        <DeptBasicInformationHeader>부서 약칭</DeptBasicInformationHeader>
+        <DeptBasicInformationBody>
+          <DeptBasicInformationInput
             type="text"
             value={deptDesc || ""}
             name="deptDesc"
             onChange={(e) => inputChangeHandler(e)}
           />
-        </div>
-      </div>
-      <div className="deptItem">
-        <div>사용 여부</div>
-        <div>
-          <input
+        </DeptBasicInformationBody>
+        <DeptBasicInformationHeader>사용 여부</DeptBasicInformationHeader>
+        <DeptBasicInformationBody>
+          <EmpBasicInformationRadio
             type="radio"
             name="mainFlag"
             value="true"
             checked={mainFlag === true}
             onChange={(e) => inputChangeHandler(e)}
           />사용
-          <input
+          <EmpBasicInformationRadio
             type="radio"
             name="mainFlag"
             value="false"
             checked={mainFlag === false}
             onChange={(e) => inputChangeHandler(e)}
           />미사용
-        </div>
-      </div>
-      <div className="deptItem">
-        <div>등록자명</div>
-        <div>
-          <input
+        </DeptBasicInformationBody>
+        <DeptBasicInformationHeader>등록자명</DeptBasicInformationHeader>
+        <DeptBasicInformationBody>
+          <DeptBasicInformationInput
             type="text"
+            className="unchangeable"
             name="regUser"
             value={regUser || ""}
             readOnly
           />
-        </div>
-      </div>
-      <div>
-        <button type="button" onClick={modClickHandler}>수정</button>
-        <button type="button" onClick={clickRemoveHandler}>삭제</button>
-      </div>
-    </div>
+        </DeptBasicInformationBody>
+      </DeptBasicInformationDiv>
+    </DeptBasicInformationWrapper>
   );
 }
 

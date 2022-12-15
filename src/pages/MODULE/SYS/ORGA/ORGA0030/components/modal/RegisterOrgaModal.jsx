@@ -53,7 +53,7 @@ function RegisterOrgaModal({ orga }) {
     companyList().then((data) => {
       setCompany(data);
     });
-    orgaChange.empNo = orga[0].empNo;
+    orgaChange.empNo = orga[0]?.empNo;
   }, []);
 
   // 선택한 회사의 목록 정보 출력

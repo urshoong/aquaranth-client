@@ -25,7 +25,7 @@ function CompanyInfoItem({ tagName, name, value, changeCompanyInformation }) {
           </CompanyUseInputWrapper>
         )}
         {tagName === "설립일" && <CompanyInfoInput type="date" name={name} value={value || ""} onChange={(e) => { changeCompanyInformation(e); }} />}
-        {tagName === "회사코드" && <CompanyInfoInput type="text" name={name} value={value || ""} readOnly onChange={(e) => { changeCompanyInformation(e); }} />}
+        {tagName === "회사코드" && <CompanyInfoInput className="unchangeable" type="text" name={name} value={value || ""} readOnly onChange={(e) => { changeCompanyInformation(e); }} />}
         {(tagName !== "사용여부" && tagName !== "설립일" && tagName !== "회사코드")
           && <CompanyInfoInput type="text" name={name} value={value || ""} onChange={(e) => { changeCompanyInformation(e); }} />}
       </CompanyInfoInputDiv>

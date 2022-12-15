@@ -6,6 +6,9 @@ import {
   MainTreeOrgaWrapper,
   MainTreeOrgaIconImage, MainTreeOrgaSpan,
 } from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
+import ICON_TREE_COMP from "@styles/assets/icon/icon-tree-comp.png";
+import ICON_TREE_FOLDER_CLOSE from "@styles/assets/icon/icon-tree-folder-close.png";
+import ICON_TREE_FOLDER_OPEN from "@styles/assets/icon/icon-tree-folder-open.png";
 
 
 function CommonTreeNode({ arr, changeTarget }) {
@@ -42,8 +45,8 @@ function CommonTreeNode({ arr, changeTarget }) {
         <TreeLi key={dept.deptNo}>
           <MainTreeOrgaWrapper>
             <MainTreeArrowButton type="button" depth={dept.depth} ref={buttonRef} onClick={() => clickButton(dept.deptNo, dept.depth + 1, dept.companyNo)}>{icon}</MainTreeArrowButton>
-            {dept.depth === 0 && <MainTreeOrgaIconImage src="/images/icon-tree-comp.png" alt="" />}
-            {dept.depth > 0 && <MainTreeOrgaIconImage src={(icon === ">" && dept.lowerDeptCnt > 0) ? "/images/icon-tree-folder-close.png" : "/images/icon-tree-folder-open.png"} alt="" />}
+            {dept.depth === 0 && <MainTreeOrgaIconImage src={ICON_TREE_COMP} alt="" />}
+            {dept.depth > 0 && <MainTreeOrgaIconImage src={(icon === ">" && dept.lowerDeptCnt > 0) ? ICON_TREE_FOLDER_CLOSE : ICON_TREE_FOLDER_OPEN} alt="" />}
             <MainTreeOrgaSpan className="mainTreeOrgaSpan" onClick={(e) => changeTarget(e, dept.orgaNo)} aria-hidden="true">
               {/* {dept.depth === 0 ? dept.companyNo : dept.deptNo} */} {dept.deptName}
             </MainTreeOrgaSpan>
