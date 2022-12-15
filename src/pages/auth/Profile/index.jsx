@@ -123,8 +123,8 @@ const Index = () => {
 
                 {info.companyList.map((company) => {
                   return (
-                    <ProfileCheckWrapper>
-                      <div key={company.companyNo} className="companyDiv">
+                    <ProfileCheckWrapper key={company.companyNo}>
+                      <div className="companyDiv">
                         <ProfileBody>
                           <input
                             name="loginCompanyNo"
