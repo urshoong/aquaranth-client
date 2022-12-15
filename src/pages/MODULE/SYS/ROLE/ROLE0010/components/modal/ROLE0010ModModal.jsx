@@ -3,6 +3,16 @@ import Modal from "@components/modal/Modal";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+import {
+  RoleGroupModalBody,
+  RoleGroupModalBtn,
+  RoleGroupModalContent,
+  RoleGroupModalFooter,
+  RoleGroupModalHeader,
+  RoleGroupModalInput,
+  RoleGroupModalRadio,
+  RoleGroupModalSelect,
+} from "@pages/MODULE/SYS/ROLE/ROLE0010/uicontainer/rolegroup";
 import useModal from "../../../../../../../hooks/useModal";
 import request from "../../../../../../../utils/axiosUtil";
 import { changeRefresh } from "../../../../../../../store/reducer/roleGroupSlice";
@@ -70,54 +80,36 @@ function Role0010ModModal({ roleGroup, companyList }) {
       onClose={handleCloseModal}
       title="권한 그룹 수정"
     >
-      <ModalContent>
-        <div>
+      <RoleGroupModalContent>
+        <RoleGroupModalHeader>
           회사명 :
-          <select onChange={(e) => onChangeSelectBoxEvent(e.target.value)} value={companyNo}>
+        </RoleGroupModalHeader>
+        <RoleGroupModalBody>
+          <RoleGroupModalSelect onChange={(e) => onChangeSelectBoxEvent(e.target.value)} value={companyNo}>
             {companyList.map((company) => <option key={company.companyNo} value={company.companyNo}>{company.companyName}</option>)}
-          </select>
-        </div>
-        <div>
+          </RoleGroupModalSelect>
+        </RoleGroupModalBody>
+        <RoleGroupModalHeader>
           권한그룹명 :
-          <Input name="roleGroupName" value={roleGroupName} type="text" onChange={(e) => roleGroupChangeEvent(e)} />
-        </div>
-        <div>
+        </RoleGroupModalHeader>
+        <RoleGroupModalBody>
+          <RoleGroupModalInput name="roleGroupName" value={roleGroupName} type="text" onChange={(e) => roleGroupChangeEvent(e)} />
+        </RoleGroupModalBody>
+        <RoleGroupModalHeader>
           사용여부 :
-          사용<Input name="roleGroupUse" checked={roleGroupUse} type="radio" onChange={(e) => roleGroupChangeEvent(e)} />
-          미사용<Input name="roleGroupUse" checked={!roleGroupUse} type="radio" onChange={(e) => roleGroupChangeEvent(e)} />
-        </div>
-      </ModalContent>
-      <ModalFooter>
-        <Button onClick={onClickModBtn}>수정</Button>
-        <Button onClick={onClickDelBtn}>삭제</Button>
-        <Button onClick={handleCloseModal}>취소</Button>
-      </ModalFooter>
+        </RoleGroupModalHeader>
+        <RoleGroupModalBody>
+          <RoleGroupModalRadio name="roleGroupUse" checked={roleGroupUse} type="radio" onChange={(e) => roleGroupChangeEvent(e)} />사용
+          <RoleGroupModalRadio name="roleGroupUse" checked={!roleGroupUse} type="radio" onChange={(e) => roleGroupChangeEvent(e)} />미사용
+        </RoleGroupModalBody>
+      </RoleGroupModalContent>
+      <RoleGroupModalFooter>
+        <RoleGroupModalBtn onClick={onClickModBtn}>수정</RoleGroupModalBtn>
+        <RoleGroupModalBtn onClick={onClickDelBtn}>삭제</RoleGroupModalBtn>
+        <RoleGroupModalBtn onClick={handleCloseModal}>취소</RoleGroupModalBtn>
+      </RoleGroupModalFooter>
     </Modal>
   );
 }
 
 export default Role0010ModModal;
-
-const Button = styled.button`
-  border: blue solid 1px;
-  width: 100px;
-  height: 70px;
-`;
-
-
-const Input = styled.input`
-  border: black 1px solid;
-`;
-
-const ModalContent = styled.div`
-  border: red solid 1px;
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-  height: 200px;
-`;
-
-const ModalFooter = styled.div`
-  border: red solid 1px;
-  height: 150px;
-`;

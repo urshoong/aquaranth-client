@@ -321,3 +321,84 @@ export const MenuRoleItemInput = styled.input`
 export const MenuRoleItemSpan = styled.span`
   font-size: 1.2em;
 `;
+
+/**
+ * RoleGroup Modal Styled Components
+ * */
+
+export const RoleGroupModalBtn = styled(Button)`
+  width: 50px;
+  margin: 0 10px;
+`;
+
+export const RoleGroupModalInput = styled.input`
+  ${({ theme }) => css`
+    width: 100%;
+    height: 100%;
+    padding-left: 5px;
+    border: 1px solid ${theme.color.gray500};
+    font-size: 1.2em;
+  `}
+`;
+
+export const RoleGroupModalRadio = styled.input`
+  margin: 0 5px;
+  &:last-of-type{
+    margin-left: 15px;
+  }
+`;
+
+export const RoleGroupModalSelect = styled.select`
+  ${({ theme }) => css`
+    width: 100%;
+    height: 100%;
+    border: 1px solid ${theme.color.gray500};
+    font-size: 1.2em;
+    outline: none;
+  `}
+`;
+
+export const RoleGroupModalContent = styled.div`
+  //display: flex;
+  //flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  //margin: 10px;
+  //height: 90px;
+`;
+
+export const RoleGroupModalHeader = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    background-color: ${theme.color.gray100};
+    border-bottom: 1px solid ${theme.color.gray400};
+    min-height: 49px;
+    padding-right: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    &:first-of-type{
+      border-top: 1px solid ${theme.color.gray400};
+    }
+  `}
+`;
+
+export const RoleGroupModalBody = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    padding: 7px;
+    height: 49px;
+    border-bottom: 1px solid ${theme.color.gray400};
+    &:nth-of-type(2){
+      border-top: 1px solid ${theme.color.gray400};
+    }
+  `}
+`;
+
+export const RoleGroupModalFooter = styled.div`
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+`;
