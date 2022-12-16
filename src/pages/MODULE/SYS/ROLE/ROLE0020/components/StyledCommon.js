@@ -1200,6 +1200,7 @@ export const ProfileInformationWrapper = styled.div`
 
 export const ProfileImg = styled.img`
     max-width: 70px;
+    max-height: 70px;
     border-radius: 70%;
     overflow: hidden;
     float:left;
@@ -1223,6 +1224,7 @@ export const ProfileImgColor = styled.div`
 
 export const ProfileImgSelect = styled.img`
     max-width: 80px;
+    max-height: 80px;
     border-radius: 70%;
     overflow: hidden;
     float:left;
