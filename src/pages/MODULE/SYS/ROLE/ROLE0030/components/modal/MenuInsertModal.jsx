@@ -18,6 +18,10 @@ import Button from "@components/Button";
 import { Input } from "@components/Input";
 import MenuSearchTreeComp from "@pages/MODULE/SYS/ROLE/ROLE0030/components/tree/MenuSearchTreeComp";
 import Swal from "sweetalert2";
+import {
+  InnerInformationIcon, InnerInformationInnerSpan, InnerInformationInnerWrapper,
+  InnerInformationWrap
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 
 const MenuInsertModal = () => {
@@ -108,8 +112,15 @@ const MenuInsertModal = () => {
           setSearchMenu={setSearchMenu}
         />
         <MenuFormWrapper>
+          <InnerInformationWrap>
+            <InnerInformationIcon>௹</InnerInformationIcon>
+            <InnerInformationInnerWrapper>
+              <InnerInformationInnerSpan className="double">상위 메뉴를 등록하려면 좌측에 있는 메뉴를 선택하면 상위메뉴를 선택할 수 있고,</InnerInformationInnerSpan>
+              <InnerInformationInnerSpan className="double">최상위 메뉴로 등록하려면 GNB로 등록하기를 선택하시면 됩니다.</InnerInformationInnerSpan>
+            </InnerInformationInnerWrapper>
+          </InnerInformationWrap>
           <Layout>
-        {<button type="button" onClick={handleOnChangeForUpperMenu}>GNB로 변경하기</button>}
+            {/* <GNBButton type="button" onClick={handleOnChangeForUpperMenu}>GNB로 변경하기</GNBButton> */}
             <FormItemWrapper>
               <ColumnName>
                 <Text>
@@ -123,9 +134,9 @@ const MenuInsertModal = () => {
                   hidden
                 />
                 {upperMenu?.menuName || "GNB"}
-                <Text>
-                </Text>
+                <Text />
               </InputWrapper>
+              <GNBButton type="button" onClick={handleOnChangeForUpperMenu}>GNB로 변경하기</GNBButton>
             </FormItemWrapper>
             <FormItemWrapper>
               <ColumnName>
@@ -217,9 +228,24 @@ const FileInput = styled.input.attrs({
 const Wrapper2 = styled.div`
   ${({}) => {
     return css`
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      width: 800px;
     `;
   }}
+`;
+
+const GNBButton = styled.div`
+  ${({ theme }) => css`
+    position: absolute;
+    height: 35px;
+    line-height: 35px;
+    right: 0;
+    margin: 7px 1em;
+    padding: 0 5px;
+    border: 2px solid ${theme.color.gray350};
+    background-color: ${theme.color.gray200};
+  `}
 `;
 
 export default MenuInsertModal;

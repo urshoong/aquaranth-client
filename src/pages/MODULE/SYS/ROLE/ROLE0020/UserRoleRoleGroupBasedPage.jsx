@@ -93,6 +93,7 @@ const UserRoleRoleGroupBasedPage = () => {
       setRoleRoleGroup(dtoList);
       setRoleRgResponse(data);
       setRoleUserList([]);
+      setRoleUlSearch({ ...initRoleUlSearch });
 
       const roleGroupContainer = refRoleGroupListContainer.current;
       roleGroupContainer.scrollTop = 0;
@@ -274,7 +275,7 @@ const UserRoleRoleGroupBasedPage = () => {
           roleGroupPageClickHandler={roleGroupPageClickHandler}
           roleGroupSizeSelectChangeHandler={roleGroupSizeSelectChangeHandler}
           refRoleGroupListContainer={refRoleGroupListContainer}
-          displayChekcbox="none"
+          displayCheckbox="none"
         />
       </UserRoleSection>
       <UserRoleSection width="calc(100% - 400px)" paddingLeft="20px">

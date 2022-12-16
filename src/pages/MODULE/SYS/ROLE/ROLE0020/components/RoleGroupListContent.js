@@ -27,8 +27,9 @@ const RoleGroupListContent = ({
   roleGroupPageClickHandler,
   roleGroupSizeSelectChangeHandler,
   refRoleGroupListContainer,
-  displayChekcbox,
+  displayCheckbox,
 }) => {
+  console.log("roleGroupList", roleGroupList);
   return (
     <>
       {company && (
@@ -63,17 +64,18 @@ const RoleGroupListContent = ({
       </GroupSection>
       <GroupSection className="section2" height={`calc(100% - ${company ? 220 : 110}px)`} ref={refRoleGroupListContainer}>
         {roleGroupList?.map(({
-          roleGroupNo, roleGroupName, companyName, orgaNo,
+          orgaRoleNo, roleGroupNo, roleGroupName, companyName, orgaNo,
         }) => (
           <RoleGroupContent
             className="groupContent"
-            key={roleGroupNo}
+            key={`${displayCheckbox}${orgaRoleNo}`}
             orgaNo={orgaNo}
             companyName={companyName}
+            orgaRoleNo={orgaRoleNo}
             roleGroupNo={roleGroupNo}
             roleGroupName={roleGroupName}
             roleGroupClickHandler={roleGroupClickHandler}
-            displayChekcbox={displayChekcbox}
+            displayCheckbox={displayCheckbox}
             refRoleGroupListContainer={refRoleGroupListContainer}
           />
         ))}

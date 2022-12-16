@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 import { darken, lighten } from "polished";
+import MYGROUP_ICON from "@styles/assets/icon/myGroup_icon.png";
+import MYGROUP_ICON_ACTIVE from "@styles/assets/icon/myGroup_icon_active.png";
 
 /**
  * Based Common Styled Components
@@ -494,6 +496,7 @@ export const CompanyInfoNameDiv = styled.div`
     font-size: 1.2em;
     font-weight: bold;
     height: 49px;
+    min-width: 120px;
   `}
 `;
 
@@ -522,6 +525,7 @@ export const CompanyInfoInput = styled.input`
     height: 100%;
     padding-left: 5px;
     border: 1px solid ${theme.color.gray500};
+    font-size: 1.2em;
     &.unchangeable{
       background-color: ${theme.color.gray300};
     }
@@ -750,7 +754,7 @@ export const EmpDetailItem = styled.div`
 export const MygroupBtn = styled.button`
   width: 2.3em;
   height: 2.3em;
-  background-image: url("/images/myGroup_icon.png");
+  background-image: url(${MYGROUP_ICON});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -761,7 +765,7 @@ export const MygroupBtn = styled.button`
   right: 0;
   top: 0;
   &:hover{
-    background-image: url("/images/myGroup_icon_active.png");
+    background-image: url(${MYGROUP_ICON_ACTIVE});
   }
 `;
 
@@ -989,7 +993,7 @@ export const EmpBasicInformationBody = styled.div`
     align-items: center;
     padding: 7px;
     height: 49px;
-    font-size: 1.2em;
+    //font-size: 1.2em;
     &:nth-of-type(2){
       border-top: 1px solid ${theme.color.gray400};
       height: 134px;

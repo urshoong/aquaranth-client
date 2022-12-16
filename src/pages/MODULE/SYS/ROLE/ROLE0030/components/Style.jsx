@@ -16,14 +16,18 @@ export const MenuButton = styled.button`
 
 export const Layout = styled.div`
   padding: 1rem;
+  width: 100%;
 `;
 
 export const FormItemWrapper = styled.div`
   ${({ theme }) => {
     return css`
       display: flex;
-      border: 1px solid ${theme.color.grayA100};;
-      
+      border-top: 1px solid ${theme.color.grayA100};
+      min-height: 49px;
+      width: 100%;
+      &:last-of-type{
+        border-bottom: 1px solid ${theme.color.grayA100};
     }
     `;
   }}
@@ -32,7 +36,8 @@ export const FormItemWrapper = styled.div`
 export const ColumnName = styled.div`
   ${({ theme }) => {
     return css`
-      background-color: ${theme.color.grayA100};
+      //background-color: ${theme.color.grayA100};
+      background-color: ${theme.color.gray100};
       display: flex;
       width: 20%;
       max-width: 250px;
@@ -64,23 +69,20 @@ export const Text = styled.div`
 
 
 export const MenuFormWrapper = styled.div`
-  ${({ theme }) => {
-    return css`
-      ${Span}
-      border: 1px solid ${lighten(0.1, theme.color.grayA100)};
-      border-radius: 0.1rem;
-      height: 100%;
-    }
-    `;
-  }}
+  border-radius: 0.1rem;
+  height: 100%;
+  position: relative;
 `;
 
 export const InputWrapper = styled.div`
-  ${({ theme }) => {
-    return css`
-      padding: 0.3rem;
-    `;
-  }}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem;
+  &>input{
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 
