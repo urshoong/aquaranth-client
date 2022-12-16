@@ -70,6 +70,7 @@
     border-radius: 10px;
     padding: 17px 20px;
     margin-bottom: 5px;
+    background-color: white;
 }
 
 .groupContent>input[type="checkbox"]{
