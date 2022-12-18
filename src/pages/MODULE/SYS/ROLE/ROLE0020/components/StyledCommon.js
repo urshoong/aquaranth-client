@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 import { darken, lighten } from "polished";
+import MYGROUP_ICON from "@styles/assets/icon/myGroup_icon.png";
+import MYGROUP_ICON_ACTIVE from "@styles/assets/icon/myGroup_icon_active.png";
 
 /**
  * Based Common Styled Components
@@ -494,6 +496,7 @@ export const CompanyInfoNameDiv = styled.div`
     font-size: 1.2em;
     font-weight: bold;
     height: 49px;
+    min-width: 120px;
   `}
 `;
 
@@ -522,6 +525,7 @@ export const CompanyInfoInput = styled.input`
     height: 100%;
     padding-left: 5px;
     border: 1px solid ${theme.color.gray500};
+    font-size: 1.2em;
     &.unchangeable{
       background-color: ${theme.color.gray300};
     }
@@ -750,7 +754,7 @@ export const EmpDetailItem = styled.div`
 export const MygroupBtn = styled.button`
   width: 2.3em;
   height: 2.3em;
-  background-image: url("/images/myGroup_icon.png");
+  background-image: url(${MYGROUP_ICON});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -761,7 +765,7 @@ export const MygroupBtn = styled.button`
   right: 0;
   top: 0;
   &:hover{
-    background-image: url("/images/myGroup_icon_active.png");
+    background-image: url(${MYGROUP_ICON_ACTIVE});
   }
 `;
 
@@ -989,7 +993,7 @@ export const EmpBasicInformationBody = styled.div`
     align-items: center;
     padding: 7px;
     height: 49px;
-    font-size: 1.2em;
+    //font-size: 1.2em;
     &:nth-of-type(2){
       border-top: 1px solid ${theme.color.gray400};
       height: 134px;
@@ -1098,8 +1102,10 @@ export const EmpOrgaInformationSelect = styled(EmpBasicInformationSelect)`
 `;
 
 export const EmpInsertWrapper = styled.div`
-  margin: 10px;
-  align-items: center;
+  position: relative;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
 `;
 
 export const EmpButtonWrapper = styled.div`
@@ -1108,7 +1114,9 @@ export const EmpButtonWrapper = styled.div`
 `;
 
 export const EmpInsertExplainDiv = styled.div`
-  margin-bottom: 10px;
+  margin: 5px;
+  font-weight: bold;
+  font-size: 1.2em;
 `;
 
 export const EmpInsertHeader = styled.div`
@@ -1116,18 +1124,58 @@ export const EmpInsertHeader = styled.div`
     display: flex;
     align-items: center;
     background-color: ${theme.color.gray100};
-    min-height: 2em;
-    margin-top: 5px;
-    width:100%;
+    min-height: 45px;
+    padding-right: 10px;
+    border-bottom: 1px solid ${theme.color.gray400};
+    font-size: 1.2em;
+    font-weight: bold;
+    color: ${theme.color.gray800};
+    &:first-of-type{
+      border-top: 1px solid ${theme.color.gray400};
+    }
   `}
 `;
 
 export const EmpInsertBody = styled.div`
-  display:inline;
+  ${({ theme }) => css`
+    border-bottom: 1px solid ${theme.color.gray400};
+    display: flex;
+    align-items: center;
+    padding: 7px;
+    height: 49px;
+    &:nth-of-type(2){
+      border-top: 1px solid ${theme.color.gray400};
+    }
+  `}
 `;
 
 export const EmpInsertInput = styled.input`
-  border-bottom: 1px solid black;
+  ${({ theme, type }) => css`
+    width: 100%;
+    height: 100%;
+    font-size: 1.2em;
+    border: 1px solid ${theme.color.gray500};
+    padding-left: ${type !== "text" ? "unset" : "5px"};
+    &.essential{
+      background-color: #fef2f2;
+    }
+    &.unchangeable{
+      background-color: ${theme.color.gray300};
+    }
+  `}
+`;
+
+export const EmpInsertSelect = styled(Select)`
+  ${({ theme }) => css`
+    font-size: 1.2em;
+    border: 1px solid ${theme.color.gray500};
+  `}
+`;
+
+export const EmpInsertButton = styled(Button)`
+  width: 100%;
+  height: 3rem;
+  
 `;
 
 
@@ -1152,6 +1200,7 @@ export const ProfileInformationWrapper = styled.div`
 
 export const ProfileImg = styled.img`
     max-width: 70px;
+    max-height: 70px;
     border-radius: 70%;
     overflow: hidden;
     float:left;
@@ -1175,6 +1224,7 @@ export const ProfileImgColor = styled.div`
 
 export const ProfileImgSelect = styled.img`
     max-width: 80px;
+    max-height: 80px;
     border-radius: 70%;
     overflow: hidden;
     float:left;

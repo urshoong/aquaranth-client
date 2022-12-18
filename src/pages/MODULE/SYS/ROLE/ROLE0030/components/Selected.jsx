@@ -3,14 +3,20 @@ import Button from "@components/Button";
 import SelectMenuContext from "@pages/MODULE/SYS/ROLE/ROLE0030/context/SelectMenuContext";
 import {
   ColumnName,
-  FormItemWrapper, Image, InputWrapper,
-  Layout, MenuButton,
+  FormItemWrapper,
+  Image,
+  InputWrapper,
+  Layout,
+  MenuButton,
   MenuFormWrapper,
-  Text,
-  TitleWrapper,
+  Text, TitleWrapper,
 } from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Style.jsx";
 import styled from "styled-components";
 import { GET_CONFIG_MENUDETAIL } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menuConfigurationApi";
+import {
+  CompanyInfoBtnDiv,
+  CompanyInfoSpan,
+} from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 
 const Selected = ({ handleOnIconUpdateModal, handleOnMenuDeleteConfirmModal, handleOnUpdateMenu }) => {
@@ -39,21 +45,24 @@ const Selected = ({ handleOnIconUpdateModal, handleOnMenuDeleteConfirmModal, han
 
   return (
     <MenuFormWrapper>
+      <CompanyInfoBtnDiv>
+        <CompanyInfoSpan>
+          ㆍ메뉴 상세
+        </CompanyInfoSpan>
+      </CompanyInfoBtnDiv>
       <Layout>
-        <TitleWrapper>
+        {/* <TitleWrapper>
           <Text>
             메뉴 상세
           </Text>
-        </TitleWrapper>
+        </TitleWrapper> */}
         <FormItemWrapper>
           <ColumnName>
             <Text>
               상위메뉴
             </Text>
           </ColumnName>
-          <InputWrapper>
-            <div className="">{queryMenu?.upperMenuName || "GNB"}</div>
-          </InputWrapper>
+          <InputWrapper>{queryMenu?.upperMenuName || "GNB"}</InputWrapper>
         </FormItemWrapper>
         <FormItemWrapper>
           <ColumnName>

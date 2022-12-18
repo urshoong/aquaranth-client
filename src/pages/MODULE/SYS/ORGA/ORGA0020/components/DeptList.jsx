@@ -26,7 +26,7 @@ function DeptList({ deptList, selectDepartment, setSelectDepartment }) {
           <DeptListItemDetailDiv>{deptNo}</DeptListItemDetailDiv>
           <DeptListItemDetailDiv>{deptName}</DeptListItemDetailDiv>
           <DeptListItemDetailDiv>
-            <DeptUseItemDiv mainFlag>{ mainFlag ? "사용" : "미사용" }</DeptUseItemDiv>
+            <DeptUseItemDiv mainFlag={mainFlag}>{ mainFlag ? "사용" : "미사용" }</DeptUseItemDiv>
           </DeptListItemDetailDiv>
           <DeptListItemDetailDiv>소속 : {path}</DeptListItemDetailDiv>
         </DeptListItemDiv>

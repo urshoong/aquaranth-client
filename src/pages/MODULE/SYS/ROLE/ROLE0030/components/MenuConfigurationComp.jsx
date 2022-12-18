@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 import {
   Button,
   InnerInformationIcon, InnerInformationInnerSpan,
-  InnerInformationInnerWrapper, InnerInformationWrap
+  InnerInformationInnerWrapper, InnerInformationWrap,
 } from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 const MenuConfigurationComp = () => {
@@ -53,19 +53,13 @@ const MenuConfigurationComp = () => {
   return (
     <Layout>
       <MenuTreeLayout>
-        <MenuTreeWrapper span="4">
+        <MenuTreeWrapper>
           <MenuTreeComp />
         </MenuTreeWrapper>
+        <MenuTreeRegisterBtn type="button" onClick={handleOnMenuInsertModal}>메뉴 추가하기</MenuTreeRegisterBtn>
       </MenuTreeLayout>
       <MenuEditLayout>
-        <InnerInformationWrap>
-          <InnerInformationIcon>௹</InnerInformationIcon>
-          <InnerInformationInnerWrapper>
-            <InnerInformationInnerSpan className="double">빨간색은 필수 입력 항목입니다.</InnerInformationInnerSpan>
-            <InnerInformationInnerSpan className="double">검정색은 변경 불가 항목입니다.</InnerInformationInnerSpan>
-          </InnerInformationInnerWrapper>
-        </InnerInformationWrap>
-        <Button type="button" onClick={handleOnMenuInsertModal}>메뉴 추가하기</Button>
+        {/* <Button type="button" onClick={handleOnMenuInsertModal}>메뉴 추가하기</Button> */}
         {!selectedMenu ? (
           <Unselected
             handleOnMenuInsertModal={handleOnMenuInsertModal}
@@ -89,12 +83,10 @@ const Layout = styled.div`
   display: flex;
 `;
 
-
 const MenuTreeLayout = styled.div`
   ${() => css`
-    min-width: 250px;
+    width: 400px;
     height: 100%;
-    
   `
 }
     ;
@@ -103,8 +95,8 @@ const MenuTreeLayout = styled.div`
 
 const MenuEditLayout = styled.div`
   ${() => css`
-      width: 100%;
-      `
+    width: calc(100% - 400px);
+  `
 }
 ;
 `;
@@ -112,14 +104,21 @@ const MenuEditLayout = styled.div`
 const MenuTreeWrapper = styled.div`
   ${({ theme }) => {
     return css`
-      ${Span}
-      border: 1px solid ${lighten(0.1, theme.color.grayA100)};
+      position: relative;
+      //border: 1px solid ${lighten(0.1, theme.color.grayA100)};
+      border: 2px solid ${theme.color.gray350};
       border-radius: 0.1rem;
       padding: 1rem;
-      height: 100%;
+      height: calc(100% - 60px);
+      overflow: auto;
     }
     `;
   }}
+`;
+
+const MenuTreeRegisterBtn = styled(Button)`
+  width: 100%;
+  height: 60px;
 `;
 
 

@@ -131,6 +131,7 @@ function EmpInformation({
               handleOnClickOrgaModify={handleOnClickOrgaModify}
               handleOnChangeOrgaInput={handleOnChangeOrgaInput}
               handleOnClickOrgaModifyDept={handleOnClickOrgaModifyDept}
+              clickOrga={clickOrga}
             />
           )}
         </EmpInfoContent>

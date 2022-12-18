@@ -149,8 +149,8 @@ function EmpBasicInformation({ clickEmpModify,
         <EmpBasicInformationHeader>계정 사용</EmpBasicInformationHeader>
         <EmpBasicInformationBody>
           <EmpBasicInformationRadioWrapper>
-            <EmpBasicInformationRadio name="empUse" type="radio" value="true" checked={empInformation.empUse === true} onChange={(e) => { changeEmpInput(e); }} />사용
-            <EmpBasicInformationRadio name="empUse" type="radio" value="false" checked={empInformation.empUse === false} onChange={(e) => { changeEmpInput(e); }} />미사용
+            <EmpBasicInformationRadio name="empUse" type="radio" value="true" checked={empInformation.empUse === true} />사용
+            <EmpBasicInformationRadio name="empUse" type="radio" value="false" checked={empInformation.empUse === false} />미사용
           </EmpBasicInformationRadioWrapper>
         </EmpBasicInformationBody>
       </EmpBasicInformationDiv>

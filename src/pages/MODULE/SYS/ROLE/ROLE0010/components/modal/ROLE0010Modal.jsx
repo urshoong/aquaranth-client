@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import Modal from "@components/modal/Modal";
 import useModal from "@hooks/useModal";
-import styled from "styled-components";
 import request from "@utils/axiosUtil";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+import {
+  RoleGroupModalBody,
+  RoleGroupModalBtn,
+  RoleGroupModalContent,
+  RoleGroupModalFooter,
+  RoleGroupModalHeader,
+  RoleGroupModalInput,
+  RoleGroupModalSelect,
+} from "@pages/MODULE/SYS/ROLE/ROLE0010/uicontainer/rolegroup";
 import { changeRefresh } from "../../../../../../../store/reducer/roleGroupSlice";
 
 const initDTO = {
@@ -61,48 +69,28 @@ const ROLE0010Modal = ({ companyList }) => {
       onClose={handleCloseModal}
       title="권한 그룹 추가"
     >
-      <ModalContent>
-        <div>
+      <RoleGroupModalContent>
+        <RoleGroupModalHeader>
           회사명 :
-          <select onChange={(e) => onChangeSelectBoxEvent(e.target.value)} value={companyNo}>
+        </RoleGroupModalHeader>
+        <RoleGroupModalBody>
+          <RoleGroupModalSelect onChange={(e) => onChangeSelectBoxEvent(e.target.value)} value={companyNo}>
             {companyList.map((company) => <option key={company.companyNo} value={company.companyNo}>{company.companyName}</option>)}
-          </select>
-        </div>
-        <div>
+          </RoleGroupModalSelect>
+        </RoleGroupModalBody>
+        <RoleGroupModalHeader>
           권한그룹명 :
-          <Input name="roleGroupName" type="text" onChange={(e) => roleGroupChangeEvent(e)} />
-        </div>
-      </ModalContent>
-      <ModalFooter>
-        <Button onClick={onClickSaveBtn}>저장</Button>
-        <Button onClick={handleCloseModal}>취소</Button>
-      </ModalFooter>
+        </RoleGroupModalHeader>
+        <RoleGroupModalBody>
+          <RoleGroupModalInput name="roleGroupName" type="text" onChange={(e) => roleGroupChangeEvent(e)} />
+        </RoleGroupModalBody>
+      </RoleGroupModalContent>
+      <RoleGroupModalFooter>
+        <RoleGroupModalBtn onClick={onClickSaveBtn}>저장</RoleGroupModalBtn>
+        <RoleGroupModalBtn onClick={handleCloseModal}>취소</RoleGroupModalBtn>
+      </RoleGroupModalFooter>
     </Modal>
   );
 };
 
 export default ROLE0010Modal;
-
-const Button = styled.button`
-  border: blue solid 1px;
-  width: 100px;
-  height: 70px;
-`;
-
-
-const Input = styled.input`
-  border: black 1px solid;
-`;
-
-const ModalContent = styled.div`
-  border: red solid 1px;
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-  height: 200px;
-`;
-
-const ModalFooter = styled.div`
-  border: red solid 1px;
-  height: 150px;
-`;

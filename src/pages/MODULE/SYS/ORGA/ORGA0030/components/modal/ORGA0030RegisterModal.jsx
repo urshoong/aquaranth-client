@@ -8,8 +8,9 @@ import {
   EmpInsertWrapper,
   Button,
   EmpButtonWrapper,
-  EmpInformationBtn,
   EmpInsertExplainDiv, EmpInsertHeader, EmpInsertBody, EmpInsertInput,
+  EmpInsertButton,
+  EmpInsertSelect,
 } from "@pages/MODULE/SYS/ROLE/ROLE0020/components/StyledCommon";
 
 const empRegister = async (emp) => {
@@ -114,8 +115,8 @@ function Orga0030RegisterModal() {
     if (employee.password === employee.passwordCheck) {
       Swal.fire("비밀번호 확인", "동일한 비밀번호입니다.", "success").then();
     }
-    if (employee.password !== employee.passwordCheck) {
-      Swal.fire("비밀번호 불일치", "비밀번호를 확인해주세요.", "warning").then();
+    if (employee.password !== employee.passwordCheck || employee.password === "") {
+      Swal.fire("", "비밀번호와 비밀번호 확인 값을 확인해주세요.", "warning").then();
     }
   };
 
@@ -142,14 +143,13 @@ function Orga0030RegisterModal() {
       onClose={handleCloseModal}
       title="사원 추가"
     >
+      <EmpInsertExplainDiv>* 은 필수 항목입니다.</EmpInsertExplainDiv>
       <EmpInsertWrapper>
-        <EmpInsertExplainDiv>* 은 필수 항목입니다.</EmpInsertExplainDiv>
-
         <EmpInsertHeader>
           회사*
         </EmpInsertHeader>
         <EmpInsertBody>
-          <select
+          <EmpInsertSelect
             name="companyNo"
             onChange={(e) => {
               handleOnChangeCompany(e);
@@ -161,14 +161,14 @@ function Orga0030RegisterModal() {
                 {com.companyName}
               </option>
             ))}
-          </select>
+          </EmpInsertSelect>
         </EmpInsertBody>
 
         <EmpInsertHeader>
           부서*
         </EmpInsertHeader>
         <EmpInsertBody>
-          <select
+          <EmpInsertSelect
             name="deptNo"
             onChange={(e) => {
               handleOnChangeEmployee(e);
@@ -180,14 +180,14 @@ function Orga0030RegisterModal() {
                 {dept.deptName}
               </option>
             ))}
-          </select>
+          </EmpInsertSelect>
         </EmpInsertBody>
 
         <EmpInsertHeader>
           직급*
         </EmpInsertHeader>
         <EmpInsertBody>
-          <select
+          <EmpInsertSelect
             name="empRank"
             onChange={(e) => {
               handleOnChangeEmployee(e);
@@ -204,7 +204,7 @@ function Orga0030RegisterModal() {
             <option value="사원">사원</option>
             <option value="인턴">인턴</option>
             <option value="일용직">일용직</option>
-          </select>
+          </EmpInsertSelect>
         </EmpInsertBody>
 
         <EmpInsertHeader>
@@ -228,7 +228,7 @@ function Orga0030RegisterModal() {
           <EmpInsertInput
             type="text"
             name="username"
-            placeholder="3글자 이상 소문자, 숫자"
+            placeholder="3글자 이상 소문자, 숫자를 입력하세요."
             onChange={(e) => {
               handleOnChangeUsername(e);
             }}
@@ -261,16 +261,15 @@ function Orga0030RegisterModal() {
               handleOnChangeEmployee(e);
             }}
           />
+          <Button type="button" onClick={() => { handleOnClickPasswordCheck(); }}>확인</Button>
         </EmpInsertBody>
-
-        <Button type="button" onClick={() => { handleOnClickPasswordCheck(); }}>확인</Button>
 
 
         <EmpInsertHeader>
           성별*
         </EmpInsertHeader>
         <EmpInsertBody>
-          <select
+          <EmpInsertSelect
             name="gender"
             onChange={(e) => {
               handleOnChangeEmployee(e);
@@ -279,7 +278,7 @@ function Orga0030RegisterModal() {
             <option value="-">--성별 선택--</option>
             <option value="남성">남성</option>
             <option value="여성">여성</option>
-          </select>
+          </EmpInsertSelect>
         </EmpInsertBody>
 
 
@@ -288,7 +287,7 @@ function Orga0030RegisterModal() {
         </EmpInsertHeader>
         <EmpInsertBody>
           <EmpInsertInput
-            type="email"
+            type="text"
             name="email"
             onChange={(e) => {
               handleOnChangeEmployee(e);
@@ -322,25 +321,17 @@ function Orga0030RegisterModal() {
             }}
           />
         </EmpInsertBody>
-
-        <EmpButtonWrapper>
-          <EmpInformationBtn
-            type="submit"
-            onClick={() => {
-              clickEmpAdd();
-            }}
-          >추가
-          </EmpInformationBtn>
-
-          <EmpInformationBtn
-            type="button"
-            onClick={() => {
-              handleCloseModal();
-            }}
-          >취소
-          </EmpInformationBtn>
-        </EmpButtonWrapper>
       </EmpInsertWrapper>
+
+      <EmpButtonWrapper>
+        <EmpInsertButton
+          type="submit"
+          onClick={() => {
+            clickEmpAdd();
+          }}
+        >추가
+        </EmpInsertButton>
+      </EmpButtonWrapper>
     </Modal>
   );
 }
