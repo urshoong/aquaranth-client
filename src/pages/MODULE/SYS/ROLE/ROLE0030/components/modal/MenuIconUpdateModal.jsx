@@ -4,6 +4,7 @@ import useModal from "@hooks/useModal";
 import styled, { css } from "styled-components";
 import { PUT_CONFIG_MENUICON } from "@pages/MODULE/SYS/ROLE/ROLE0030/api/menuConfigurationApi";
 import { FileInput, Image, Layout, MenuButton } from "@pages/MODULE/SYS/ROLE/ROLE0030/components/Style";
+import Swal from "sweetalert2";
 
 const MenuIconUpdateModal = ({ queryMenu }) => {
   const [file, setFile] = useState();
@@ -35,6 +36,12 @@ const MenuIconUpdateModal = ({ queryMenu }) => {
     formData.append("multipartFile", file);
     formData.append("key", queryMenu?.menuCode);
     await PUT_CONFIG_MENUICON(formData).then((res) => {
+      Swal.fire({
+        title: "아이콘 업데이트",
+        html: "아이콘이 업데이트 되었습니다.",
+        icon: "success",
+      });
+      handleCloseModal();
       handleCloseModal();
     });
   };
