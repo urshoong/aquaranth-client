@@ -56,7 +56,7 @@ export const Image = styled.img`
       height: 50px;
       padding: 5px;
       border: 1px solid ${theme.color.gray500};
-      background-color: ${theme.color.grayA100};
+      background-color: ${theme.color.gray500};
     `;
   }}
 `;
