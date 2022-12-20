@@ -310,7 +310,10 @@ export const MenuRoleEmptyDiv = styled.div`
 `;
 
 export const MenuRoleItemDiv = styled.div`
-  padding: 2px;
+  ${({ depth }) => css`
+    padding: 2px;
+    padding-left: ${(depth - 1) * 20}px;
+  `}
 `;
 
 export const MenuRoleItemInput = styled.input`

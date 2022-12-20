@@ -63,5 +63,5 @@
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.11.0"
   },
-  "proxy": "https://dq-back.run.goorm.io"
+  "proxy": "https://dq-front.run.goorm.io"
 }

@@ -6,10 +6,9 @@ import {
 } from "@pages/MODULE/SYS/ROLE/ROLE0010/uicontainer/rolegroup";
 
 function MenuRoleItem({ menu, onChangeCheckBox }) {
-  const { menuName, checked, menuNo } = menu;
-  console.log("menu :: ", menu);
+  const { menuName, checked, menuNo, depth, upperMenuNo } = menu;
   return (
-    <MenuRoleItemDiv>
+    <MenuRoleItemDiv depth={depth}>
       <MenuRoleItemInput type="checkbox" value={menuNo} onChange={(e) => onChangeCheckBox(e)} checked={checked} />
       <MenuRoleItemSpan>{menuName}</MenuRoleItemSpan>
     </MenuRoleItemDiv>
