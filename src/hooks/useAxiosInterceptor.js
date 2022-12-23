@@ -35,11 +35,11 @@ const UseAxiosInterceptor = () => {
       const { detailErrorCode, message } = error.response.data?.body ? error.response.data.body : error.response.data;
 
       if (detailErrorCode === FOREIGN_KEY_ERROR.detailErrorCode) {
-        Swal.fire(message, message, "error");
+        Swal.fire("ERROR", message, "error");
       }
 
       if (detailErrorCode === UNAUTHORIZED_MEMBER.detailErrorCode) {
-        Swal.fire(message, message, "error");
+        Swal.fire("ERROR", message, "error");
         history.push("/");
       }
 
