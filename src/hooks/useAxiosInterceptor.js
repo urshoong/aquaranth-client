@@ -1,9 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import request, {
-  requestHandler,
-  successHandler,
-  tokenRefreshHandler,
-} from "@utils/axiosUtil";
+import React, { useEffect } from "react";
+
+import request, { requestHandler, successHandler, tokenRefreshHandler } from "@utils/axiosUtil";
 import { useHistory } from "react-router-dom";
 import {
   ACCESS_TOKEN_EXPIRED,
@@ -24,13 +21,12 @@ import Swal from "sweetalert2";
  * @constructor
  * @author 김민준
  */
-const UseAxiosInterceptor = () => {
+const useAxiosInterceptor = () => {
   const history = useHistory();
 
   const responseInterceptor = request.interceptors.response.use(
     (response) => successHandler(response),
     (error) => {
-
       // FIXME
       const { detailErrorCode, message } = error.response.data?.body ? error.response.data.body : error.response.data;
 
@@ -73,4 +69,4 @@ const UseAxiosInterceptor = () => {
   }, [requestInterceptor, responseInterceptor]);
 };
 
-export default UseAxiosInterceptor;
+export default useAxiosInterceptor;
